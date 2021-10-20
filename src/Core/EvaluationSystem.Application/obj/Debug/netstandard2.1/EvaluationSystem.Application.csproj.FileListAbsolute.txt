@@ -1,0 +1,13 @@
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\bin\Debug\netstandard2.1\EvaluationSystem.Application.deps.json
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\bin\Debug\netstandard2.1\EvaluationSystem.Application.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\bin\Debug\netstandard2.1\EvaluationSystem.Application.pdb
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\bin\Debug\netstandard2.1\EvaluationSystem.Domain.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\bin\Debug\netstandard2.1\EvaluationSystem.Domain.pdb
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\netstandard2.1\EvaluationSystem.Application.csproj.AssemblyReference.cache
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\netstandard2.1\EvaluationSystem.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\netstandard2.1\EvaluationSystem.Application.AssemblyInfoInputs.cache
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\netstandard2.1\EvaluationSystem.Application.AssemblyInfo.cs
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\netstandard2.1\EvaluationSystem.Application.csproj.CoreCompileInputs.cache
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\netstandard2.1\EvaluationSystem.Application.csproj.CopyComplete
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\netstandard2.1\EvaluationSystem.Application.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\netstandard2.1\EvaluationSystem.Application.pdb
