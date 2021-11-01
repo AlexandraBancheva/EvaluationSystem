@@ -1,0 +1,15 @@
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\bin\Debug\netstandard2.1\EvaluationSystem.Infrastructure.deps.json
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\bin\Debug\netstandard2.1\EvaluationSystem.Infrastructure.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\bin\Debug\netstandard2.1\EvaluationSystem.Infrastructure.pdb
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\bin\Debug\netstandard2.1\EvaluationSystem.Application.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\bin\Debug\netstandard2.1\EvaluationSystem.Domain.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\bin\Debug\netstandard2.1\EvaluationSystem.Application.pdb
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\bin\Debug\netstandard2.1\EvaluationSystem.Domain.pdb
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\obj\Debug\netstandard2.1\EvaluationSystem.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\obj\Debug\netstandard2.1\EvaluationSystem.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\obj\Debug\netstandard2.1\EvaluationSystem.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\obj\Debug\netstandard2.1\EvaluationSystem.Infrastructure.AssemblyInfo.cs
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\obj\Debug\netstandard2.1\EvaluationSystem.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\obj\Debug\netstandard2.1\EvaluationSystem.Infrastructure.csproj.CopyComplete
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\obj\Debug\netstandard2.1\EvaluationSystem.Infrastructure.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Infrastructure\obj\Debug\netstandard2.1\EvaluationSystem.Infrastructure.pdb

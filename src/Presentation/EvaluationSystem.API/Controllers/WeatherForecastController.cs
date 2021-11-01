@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace EvaluationSystem.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+   // [Route("api/weather/{weatherId}/forecast/{id}")]
+   [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

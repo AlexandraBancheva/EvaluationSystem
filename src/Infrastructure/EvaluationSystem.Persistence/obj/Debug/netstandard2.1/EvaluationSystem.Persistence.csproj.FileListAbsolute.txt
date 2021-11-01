@@ -1,0 +1,15 @@
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\bin\Debug\netstandard2.1\EvaluationSystem.Persistence.deps.json
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\bin\Debug\netstandard2.1\EvaluationSystem.Persistence.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\bin\Debug\netstandard2.1\EvaluationSystem.Persistence.pdb
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\bin\Debug\netstandard2.1\EvaluationSystem.Application.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\bin\Debug\netstandard2.1\EvaluationSystem.Domain.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\bin\Debug\netstandard2.1\EvaluationSystem.Application.pdb
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\bin\Debug\netstandard2.1\EvaluationSystem.Domain.pdb
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\obj\Debug\netstandard2.1\EvaluationSystem.Persistence.csproj.AssemblyReference.cache
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\obj\Debug\netstandard2.1\EvaluationSystem.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\obj\Debug\netstandard2.1\EvaluationSystem.Persistence.AssemblyInfoInputs.cache
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\obj\Debug\netstandard2.1\EvaluationSystem.Persistence.AssemblyInfo.cs
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\obj\Debug\netstandard2.1\EvaluationSystem.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\obj\Debug\netstandard2.1\EvaluationSystem.Persistence.csproj.CopyComplete
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\obj\Debug\netstandard2.1\EvaluationSystem.Persistence.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\obj\Debug\netstandard2.1\EvaluationSystem.Persistence.pdb

@@ -1,0 +1,11 @@
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\bin\Debug\net5.0\EvaluationSystem.Domain.deps.json
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\bin\Debug\net5.0\EvaluationSystem.Domain.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\bin\Debug\net5.0\ref\EvaluationSystem.Domain.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\bin\Debug\net5.0\EvaluationSystem.Domain.pdb
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\net5.0\EvaluationSystem.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\net5.0\EvaluationSystem.Domain.AssemblyInfoInputs.cache
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\net5.0\EvaluationSystem.Domain.AssemblyInfo.cs
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\net5.0\EvaluationSystem.Domain.csproj.CoreCompileInputs.cache
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\net5.0\EvaluationSystem.Domain.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\net5.0\ref\EvaluationSystem.Domain.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\net5.0\EvaluationSystem.Domain.pdb
