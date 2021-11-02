@@ -32,8 +32,8 @@ namespace EvaluationSystem.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
         [Route("api/questions/{id}")]
+        [HttpPut]
         public IActionResult UpdateCurrentQuestion(int id, [FromBody] UpdateQuestionDto model)
         {
             return Ok(questionsServices.UpdateCurrentQuestion(id, model));
