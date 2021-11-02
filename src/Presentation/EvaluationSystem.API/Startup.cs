@@ -2,6 +2,7 @@ using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Profiles.QuestionProfile;
 using EvaluationSystem.Application.Services;
 using EvaluationSystem.Application.Validations.QuestionValidations;
+using EvaluationSystem.Persistence.QuestionDatabase;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +36,8 @@ namespace EvaluationSystem.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EvaluationSystem.API", Version = "v1" });
             });
 
+            services.AddSingleton<FakeDatabase>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IQuestionsServices, QuestionsServices>();
         }
 

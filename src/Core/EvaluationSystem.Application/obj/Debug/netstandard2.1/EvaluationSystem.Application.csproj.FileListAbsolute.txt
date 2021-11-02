@@ -10,4 +10,3 @@ C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Appli
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\netstandard2.1\EvaluationSystem.Application.csproj.CoreCompileInputs.cache
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\netstandard2.1\EvaluationSystem.Application.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\netstandard2.1\EvaluationSystem.Application.pdb
-C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\netstandard2.1\EvaluationSystem.Application.csproj.CopyComplete

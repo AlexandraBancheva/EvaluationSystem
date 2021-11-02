@@ -9,5 +9,7 @@ namespace EvaluationSystem.Application.Interfaces
         QuestionDetailDto CreateNewQuestion(CreateQuestionDto model);
 
         IEnumerable<ListQuestionsDto> GetAll();
+
+        QuestionDetailDto UpdateCurrentQuestion(int questionId, UpdateQuestionDto model);
     }
 }

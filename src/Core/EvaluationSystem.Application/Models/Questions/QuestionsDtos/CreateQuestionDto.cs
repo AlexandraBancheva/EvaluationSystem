@@ -1,9 +1,11 @@
-﻿namespace EvaluationSystem.Application.Questions.QuestionsDtos
+﻿using EvaluationSystem.Domain.Enums;
+
+namespace EvaluationSystem.Application.Questions.QuestionsDtos
 {
     public class CreateQuestionDto
     {
         public string QuestionName { get; set; }
 
-        public string Type { get; set; }
+        public QuestionType Type { get; set; }
     }
 }

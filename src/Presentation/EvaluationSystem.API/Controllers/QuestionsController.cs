@@ -18,15 +18,25 @@ namespace EvaluationSystem.API.Controllers
         }
 
         [HttpPost]
-        public QuestionDetailDto CreateNewQuestion([FromBody] CreateQuestionDto model)
+        public IActionResult CreateNewQuestion([FromBody] CreateQuestionDto model)
         {
-            return null;
+            var result = questionsServices.CreateNewQuestion(model);
+            return Ok(result);
         }
 
         [HttpGet]
-        public IEnumerable<ListQuestionsDto> GetAllQuestions()
+        public IActionResult GetAllQuestions()
         {
-            return this.questionsServices.GetAll();
+            var result = this.questionsServices.GetAll();
+
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("api/questions/{id}")]
+        public IActionResult UpdateCurrentQuestion(int id, [FromBody] UpdateQuestionDto model)
+        {
+            return Ok(questionsServices.UpdateCurrentQuestion(id, model));
         }
     }
 }

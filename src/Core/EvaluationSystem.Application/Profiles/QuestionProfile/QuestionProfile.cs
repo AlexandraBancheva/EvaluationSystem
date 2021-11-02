@@ -15,6 +15,11 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
 
             CreateMap<Question, ListQuestionsDto>()
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(qn => qn.Name));
+
+            CreateMap<Question, QuestionDetailDto>()
+                .ForMember(q => q.QuestionName, opts => opts.MapFrom(qn => qn.Name));
+
+            CreateMap<Question, UpdateQuestionDto>();
         }
     }
 }

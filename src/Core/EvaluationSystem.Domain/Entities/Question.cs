@@ -8,8 +8,22 @@ namespace EvaluationSystem.Domain.Entities
     {
         public Question()
         {
+
+        }
+
+        public Question(int id, string name, DateTime dateOfCreation, QuestionType type)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.DateOfCreation = dateOfCreation;
+            this.Type = type;
             this.Answers = new HashSet<Answer>();
         }
+
+        //public Question()
+        //{
+        //    this.Answers = new HashSet<Answer>();
+        //}
 
         public int Id { get; set; }
 
