@@ -39,4 +39,3 @@ C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSyst
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\FluentValidation.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll
-C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\obj\Debug\net5.0\EvaluationSystem.API.csproj.CopyComplete

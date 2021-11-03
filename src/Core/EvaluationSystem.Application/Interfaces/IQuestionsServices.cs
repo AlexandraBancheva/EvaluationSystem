@@ -6,10 +6,15 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IQuestionsServices
     {
-        QuestionDetailDto CreateNewQuestion(CreateQuestionDto model);
 
         IEnumerable<ListQuestionsDto> GetAll();
 
+        QuestionDetailDto GetQuestionById(int questionId);
+
+        QuestionDetailDto CreateNewQuestion(CreateQuestionDto model);
+
         QuestionDetailDto UpdateCurrentQuestion(int questionId, UpdateQuestionDto model);
+
+        void DeleteQuestion(int questionId);
     }
 }

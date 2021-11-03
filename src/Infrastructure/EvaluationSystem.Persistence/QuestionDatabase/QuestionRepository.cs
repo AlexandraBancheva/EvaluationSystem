@@ -26,6 +26,12 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             _fakeDatabase.Questions.Add(model); 
         }
 
+        public void DeleteQuestion(int questionId)
+        {
+            var entity = _fakeDatabase.Questions.FirstOrDefault(q => q.Id == questionId);
+            _fakeDatabase.Questions.Remove(entity);
+        }
+
         public Question GetQuestionById(int questionId)
         {
             return  _fakeDatabase.Questions.FirstOrDefault(i => i.Id == questionId);

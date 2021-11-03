@@ -13,5 +13,7 @@ namespace EvaluationSystem.Application.Interfaces
         Question UpdateCurrentQuestion(Question model);
 
         Question GetQuestionById(int questionId);
+
+        void DeleteQuestion(int questionId);
     }
 }

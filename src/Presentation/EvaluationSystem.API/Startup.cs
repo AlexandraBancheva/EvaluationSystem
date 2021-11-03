@@ -1,6 +1,8 @@
 using EvaluationSystem.Application.Interfaces;
+using EvaluationSystem.Application.Profiles.AnswerProfile;
 using EvaluationSystem.Application.Profiles.QuestionProfile;
 using EvaluationSystem.Application.Services;
+using EvaluationSystem.Application.Validations.AnswerValidations;
 using EvaluationSystem.Application.Validations.QuestionValidations;
 using EvaluationSystem.Persistence.QuestionDatabase;
 using FluentValidation.AspNetCore;
@@ -28,8 +30,10 @@ namespace EvaluationSystem.API
         {
             services.AddControllers().AddFluentValidation(fv =>
                         fv.RegisterValidatorsFromAssemblyContaining<CreateQuestionValidation>());
+            services.AddControllers().AddFluentValidation(fv =>
+                        fv.RegisterValidatorsFromAssemblyContaining<CreateAnswerValidaton>());
 
-            services.AddAutoMapper(typeof(QuestionProfile));
+            services.AddAutoMapper(typeof(QuestionProfile), typeof(AnswerProfile));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -37,8 +41,12 @@ namespace EvaluationSystem.API
             });
 
             services.AddSingleton<FakeDatabase>();
+
             services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<IAnswerRepository, AnswerRepository>();
+
             services.AddScoped<IQuestionsServices, QuestionsServices>();
+            services.AddScoped<IAnswersServices, AnswersServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

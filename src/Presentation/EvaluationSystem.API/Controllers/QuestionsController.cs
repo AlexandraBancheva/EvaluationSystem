@@ -17,13 +17,6 @@ namespace EvaluationSystem.API.Controllers
             this.questionsServices = questionsServices;
         }
 
-        [HttpPost]
-        public IActionResult CreateNewQuestion([FromBody] CreateQuestionDto model)
-        {
-            var result = questionsServices.CreateNewQuestion(model);
-            return Ok(result);
-        }
-
         [HttpGet]
         public IActionResult GetAllQuestions()
         {
@@ -32,11 +25,32 @@ namespace EvaluationSystem.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("id")]
+        public IActionResult GetQuestionById(int id)
+        {
+            return Ok(questionsServices.GetQuestionById(id));
+        }
+
+        [HttpPost]
+        public IActionResult CreateNewQuestion([FromBody] CreateQuestionDto model)
+        {
+            var result = questionsServices.CreateNewQuestion(model);
+            return Ok(result);
+        }
+
         [Route("api/questions/{id}")]
         [HttpPut]
         public IActionResult UpdateCurrentQuestion(int id, [FromBody] UpdateQuestionDto model)
         {
             return Ok(questionsServices.UpdateCurrentQuestion(id, model));
+        }
+
+        [Route("api/questions/{id}")]
+        [HttpDelete]
+        public IActionResult DeleteQuestion(int id)
+        {
+            questionsServices.DeleteQuestion(id);
+            return NoContent();
         }
     }
 }
