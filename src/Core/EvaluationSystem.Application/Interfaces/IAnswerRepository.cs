@@ -7,10 +7,10 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IAnswerRepository
     {
-        void AddNewAnswer(Answer model);
+        void AddNewAnswer(int questionId, Answer model);
 
         IEnumerable<Answer> GetAllAnswersByQuestionId(int questionId);
 
-        void DeleteAnAnswer(int questionId, int answerId);
+        void DeleteAnAnswer(int answerId);
     }
 }

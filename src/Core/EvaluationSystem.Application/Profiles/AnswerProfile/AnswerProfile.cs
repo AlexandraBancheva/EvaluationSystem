@@ -10,11 +10,13 @@ namespace EvaluationSystem.Application.Profiles.AnswerProfile
         {
             CreateMap<AddNewAnswerDto, Answer>();
             CreateMap<Answer, AnswerDetailDto>()
-                .ForMember(a => a.AnswerName, opts => opts.MapFrom(an => an.Name));
+                .ForMember(a => a.AnswerName, opts => opts.MapFrom(an => an.AnswerText));
 
             CreateMap<AddNewAnswerDto, Answer>();
             CreateMap<Answer, ListAnswersByQuestionId>()
-                .ForMember(a => a.AnswerName, opts => opts.MapFrom(an => an.Name));
+                .ForMember(a => a.AnswerName, opts => opts.MapFrom(an => an.AnswerText));
+
+            CreateMap<Answer, QuestionByIdWithAnswersListDto>();
         }
     }
 }

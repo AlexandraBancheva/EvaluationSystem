@@ -20,6 +20,7 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(qn => qn.Name));
 
             CreateMap<Question, UpdateQuestionDto>();
+
             CreateMap<UpdateQuestionDto, Question>();
         }
     }

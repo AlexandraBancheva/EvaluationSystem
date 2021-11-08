@@ -7,9 +7,9 @@ namespace EvaluationSystem.Application.Validations.AnswerValidations
     {
         public CreateAnswerValidaton()
         {
-            RuleFor(a => a.Name)
+            RuleFor(a => a.AnswerText)
                 .NotEmpty().WithMessage("{PropertyName} must not be empty!")
-                .Length(3, 100).WithMessage("Length of {PropertyName} must be between 3 and 100 characters!");
+                .Length(1, 100).WithMessage("Length of {PropertyName} must be between 3 and 100 characters!");
         }
     }
 }

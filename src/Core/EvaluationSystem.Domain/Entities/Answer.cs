@@ -7,22 +7,23 @@
 
         }
 
-        public Answer(int id, string name, int questionId, string questionName)
+        public Answer(int id, string answerText, bool isDefault, int position, int questionId)
         {
             this.Id = id;
-            this.Name = name;
+            this.AnswerText = answerText;
+            this.IsDefault = isDefault;
+            this.Position = position;
             this.QuestionId = questionId;
-            this.QuestionName = questionName;
         }
 
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string AnswerText { get; set; }
 
-        // ForeignKey from Table Question
+        public bool IsDefault { get; set; }
+
+        public int Position { get; set; }
+
         public int QuestionId { get; set; }
-
-        // [ForeignKey(nameof(Question))]
-        public string QuestionName { get; set; }
     }
 }

@@ -7,7 +7,5 @@ namespace EvaluationSystem.Application.Models.Answers.AnswersDtos
     public class AnswerDetailDto
     {
         public string AnswerName { get; set; }
-
-        public int QuestionId { get; set; }
     }
 }

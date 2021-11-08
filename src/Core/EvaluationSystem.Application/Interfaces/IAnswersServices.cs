@@ -9,7 +9,7 @@ namespace EvaluationSystem.Application.Interfaces
     {
         AnswerDetailDto AddNewAnswer(int questionId, AddNewAnswerDto model);
 
-        IEnumerable<ListAnswersByQuestionId> GetAnswersByQuestionId(int questionId);
+        IEnumerable<QuestionByIdWithAnswersListDto> GetAnswersByQuestionId(int questionId);
 
         void DeleteAnAnswer(int questionId, int answerId);
     }

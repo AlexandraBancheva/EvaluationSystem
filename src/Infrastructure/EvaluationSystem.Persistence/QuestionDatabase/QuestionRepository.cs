@@ -1,46 +1,126 @@
-﻿using EvaluationSystem.Application.Interfaces;
+﻿using Dapper;
+using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Domain.Entities;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
     public class QuestionRepository : IQuestionRepository
     {
-        private FakeDatabase _fakeDatabase;
+        private readonly IConfiguration _configuration;
 
-        public QuestionRepository(FakeDatabase fakeDatabase)
+        public QuestionRepository(IConfiguration configuration)
         {
-            _fakeDatabase = fakeDatabase;
+            _configuration = configuration;
+        }
+
+        public IDbConnection Connection
+        {
+            get
+            {
+                return new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+            }
+        }
+        
+        public void CreateNewQuestion(Question model)
+        { 
+            try
+            {
+                using (IDbConnection dbConnection = Connection)
+                {
+                    dbConnection.Open();
+                    var query = @"INSERT INTO QuestionTemplate VALUES (@Name, @Date, @Type, @IsReusable)";
+                    dbConnection.Execute(query, new { model.Name, Date = DateTime.UtcNow, model.Type, model.IsReusable});
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public IEnumerable<Question> AllQuestions()
         {
-            return _fakeDatabase.Questions;
-        }
+            try
+            {
+                using (IDbConnection dbConnection = Connection)
+                {
+                    dbConnection.Open();
+                    var query = @"SELECT * FROM QuestionTemplate";
+                    return dbConnection.Query<Question>(query);
+                }
+            }
+            catch (Exception ex)
+            {
 
-        public void CreateNewQuestion(Question model)
-        {
-            _fakeDatabase.Questions.Add(model); 
-        }
-
-        public void DeleteQuestion(int questionId)
-        {
-            var entity = _fakeDatabase.Questions.FirstOrDefault(q => q.Id == questionId);
-            _fakeDatabase.Questions.Remove(entity);
+                throw ex;
+            }
         }
 
         public Question GetQuestionById(int questionId)
         {
-            return  _fakeDatabase.Questions.FirstOrDefault(i => i.Id == questionId);
+            try
+            {
+                using (IDbConnection dbConnection = Connection)
+                {
+                    dbConnection.Open();
+                    var query = @"SELECT * FROM QuestionTemplate
+                                    WHERE Id = 1";
+                    return dbConnection.QueryFirstOrDefault<Question>(query);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
-        public Question UpdateCurrentQuestion(Question model)
+        public void DeleteQuestion(int questionId)
         {
-            _fakeDatabase.Questions.Add(model);
-            return model;
+            try
+            {
+                using (IDbConnection dbConnection = Connection)
+                {
+                    dbConnection.Open();
+                    var query = @"DELETE FROM QuestionTemplate
+                                  WHERE Id = @Id";
+                    dbConnection.Execute(query, new { Id = questionId });
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+
+        public void UpdateCurrentQuestion(int id, Question model)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                try
+                {
+                    dbConnection.Open();
+                    var query = @"UPDATE QuestionTemplate
+                                SET [Name] = @Name, [Type] = @Type, IsReusable = @ReusableValue
+                                WHERE Id = @Id";
+                   dbConnection.Execute(query, new { model.Name, model.Type, @ReusableValue = model.IsReusable, id });
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+            }
         }
     }
 }

@@ -18,8 +18,8 @@ namespace EvaluationSystem.API.Controllers
         [HttpPost]
         public IActionResult AddNewAnswer(int questionId, [FromBody] AddNewAnswerDto model)
         {
-            var result = answersServices.AddNewAnswer(questionId, model);
-            return Ok(result);
+            answersServices.AddNewAnswer(questionId, model);
+            return Ok();
         }
 
         [HttpGet("questionId")]
@@ -29,7 +29,7 @@ namespace EvaluationSystem.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete]
+        [HttpDelete()]
         public IActionResult DeleteAnAnswerById(int questionId, int id)
         {
             answersServices.DeleteAnAnswer(questionId, id);

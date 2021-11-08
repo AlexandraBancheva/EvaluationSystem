@@ -49,16 +49,17 @@ namespace EvaluationSystem.Application.Services
 
         public QuestionDetailDto UpdateCurrentQuestion(int questionId, UpdateQuestionDto model)
         {
-            var currentEntity = _questionRepository.GetQuestionById(questionId);
-            if (currentEntity == null)
+            var isExist = _questionRepository.GetQuestionById(questionId);
+
+            if (isExist == null)
             {
                 return null;
             }
 
-            var updatedModel = _mapper.Map<Question>(model);
-            var result = _questionRepository.UpdateCurrentQuestion(updatedModel);
+            var current = _mapper.Map<Question>(model);
+            _questionRepository.UpdateCurrentQuestion(questionId, current);
 
-            return _mapper.Map<QuestionDetailDto>(result);
+            return _mapper.Map<QuestionDetailDto>(current);
         }
 
         public void DeleteQuestion(int questionId)
@@ -68,6 +69,7 @@ namespace EvaluationSystem.Application.Services
             {
                 throw new InvalidOperationException($"Question with {questionId} don't exist!");
             }
+
             _questionRepository.DeleteQuestion(questionId);
         }
     }

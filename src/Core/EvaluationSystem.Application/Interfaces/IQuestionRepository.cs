@@ -10,10 +10,10 @@ namespace EvaluationSystem.Application.Interfaces
 
         IEnumerable<Question> AllQuestions();
 
-        Question UpdateCurrentQuestion(Question model);
-
         Question GetQuestionById(int questionId);
 
         void DeleteQuestion(int questionId);
+
+        void UpdateCurrentQuestion(int id, Question model);
     }
 }

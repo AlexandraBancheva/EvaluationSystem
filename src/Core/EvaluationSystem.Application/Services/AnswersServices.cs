@@ -22,28 +22,27 @@ namespace EvaluationSystem.Application.Services
 
         public AnswerDetailDto AddNewAnswer(int questionId, AddNewAnswerDto model)
         {
-            var existedQuestion = _questionRepository.GetQuestionById(questionId);
-            if (existedQuestion == null)
+            var isExist = _questionRepository.GetQuestionById(questionId);
+            if (isExist == null)
             {
                 return null;
             }
-            var currentAnswer = _mapper.Map<Answer>(model);
-            _answerRepository.AddNewAnswer(currentAnswer);
-
-            return _mapper.Map<AnswerDetailDto>(currentAnswer);
+            var current = _mapper.Map<Answer>(model);
+            _answerRepository.AddNewAnswer(questionId, current);
+            
+            return _mapper.Map<AnswerDetailDto>(current);
         }
 
         public void DeleteAnAnswer(int questionId, int answerId)
         {
-            var existedQuestion = _questionRepository.GetQuestionById(questionId);
-            if (existedQuestion == null)
+            var isExistQuestion = _questionRepository.GetQuestionById(questionId);
+            if (isExistQuestion != null)
             {
-                throw new InvalidOperationException($"Question with {questionId} don't exist!");
+                _answerRepository.DeleteAnAnswer(answerId);
             }
-            _answerRepository.DeleteAnAnswer(questionId, answerId);
         }
 
-        public IEnumerable<ListAnswersByQuestionId> GetAnswersByQuestionId(int questionId)
+        public IEnumerable<QuestionByIdWithAnswersListDto> GetAnswersByQuestionId(int questionId)
         {
             var existedQuestion = _questionRepository.GetQuestionById(questionId);
             if (existedQuestion == null)
@@ -51,7 +50,7 @@ namespace EvaluationSystem.Application.Services
                 return null;
             }
             var results = _answerRepository.GetAllAnswersByQuestionId(questionId);
-            return _mapper.Map<IEnumerable<ListAnswersByQuestionId>>(results);
+            return null;//_mapper.Map<IEnumerable<QuestionByIdWithAnswersListDto>(results);
         }
     }
 }
