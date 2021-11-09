@@ -1,4 +1,5 @@
-﻿using EvaluationSystem.Domain.Entities;
+﻿using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
+using EvaluationSystem.Domain.Entities;
 using System.Collections.Generic;
 
 namespace EvaluationSystem.Application.Interfaces
@@ -13,6 +14,6 @@ namespace EvaluationSystem.Application.Interfaces
 
         void UpdateCurrentQuestion(int id, Question model);
 
-        IEnumerable<Question> GetAllQuestionsWithAnswers();
+        IEnumerable<ListQuestionsDto> GetAllQuestionsWithAnswers();
     }
 }

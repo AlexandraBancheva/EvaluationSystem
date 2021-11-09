@@ -1,11 +1,13 @@
 ﻿using Dapper;
 using EvaluationSystem.Application.Interfaces;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -102,21 +104,43 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             }
         }
 
-        public IEnumerable<Question> GetAllQuestionsWithAnswers()
+        public IEnumerable<ListQuestionsDto> GetAllQuestionsWithAnswers()
         {
             using (IDbConnection dbConnection = Connection)
             {
                 try
                 {
                     dbConnection.Open();
+                    // SELECT qt.[Name], [at].AnswerText
+                    // FROM AnswerTemplate AS[at]
+                    // RIGHT JOIN QuestionTemplate AS qt ON qt.[Id] = [at].QuestionId
+                    // GROUP BY qt.[Name], [at].[AnswerText]
+                    // ORDER BY qt.[Name] ASC
 
-                    var query = @"SELECT qt.[Name], [at].AnswerText
-                                    FROM AnswerTemplate AS [at]
-                                    RIGHT JOIN QuestionTemplate AS qt ON qt.[Id] = [at].QuestionId
-                                    GROUP BY qt.[Name], [at].[AnswerText]
-                                    ORDER BY qt.[Name] ASC";
-                    var results = dbConnection.Query<Question>(query);
+                    var query = @"SELECT qt.Id AS IdQuestion, qt.[Name], [at].Id AS IdAnswer, [at].AnswerText
+                                    FROM QuestionTemplate AS qt
+                                    LEFT JOIN AnswerTemplate AS [at] ON qt.Id = [at].QuestionId";
+                    var results = dbConnection.Query<ListQuestionsDto>(query);
                     return results;
+                                        //var lookup = new Dictionary<int, Question>();
+                                        //dbConnection.Query<Question, Answer, Question>(query, (q, a) =>
+                                        //{
+                                        //    Question question;
+                                        //    if (!lookup.TryGetValue(q.Id, out question))
+                                        //    {
+                                        //        lookup.Add(q.Id, question = q);
+                                        //    }
+
+                                        //    if (question.Answers == null)
+                                        //    {
+                                        //        question.Answers = new List<Answer>();
+                                        //    }
+                                        //    question.Answers.Add(a);
+                                        //    return question;
+                                        //}).AsQueryable();
+
+                                        //var res = lookup.Values;
+                                        //return res;
                 }
                 catch (Exception ex)
                 {

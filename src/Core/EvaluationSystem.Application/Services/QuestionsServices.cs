@@ -69,15 +69,26 @@ namespace EvaluationSystem.Application.Services
         public IEnumerable<ListQuestionsAnswersDto> GetAllQuestionsWithTheirAnswers()
         {
             var questions = _questionRepository.GetAllQuestionsWithAnswers();
-            var allQuestions = _mapper.Map<IEnumerable<ListQuestionsDto>>(questions);
+            //var allQuestions = _mapper.Map<IEnumerable<ListQuestionsDto>>(questions);
 
-            var results = allQuestions.GroupBy(i => i.QuestionName)
+            //var results = allQuestions.GroupBy(i => i.QuestionName)
+            //    .Select(q => new ListQuestionsAnswersDto
+            //    {
+            //        QuestionName = q.Key,
+            //        Answers = questions.Where(a => a.QuestionName == q.Key).Select(y => y.AnswerText).ToList()
+            //    })
+            //    .ToList();
+
+            var results = questions
                 .Select(q => new ListQuestionsAnswersDto
                 {
-                    QuestionName = q.Key,
-                    Answers = questions.Where(a => a.Name == q.Key).Select(y => y.AnswerText).ToList()
-                })
-                .ToList();
+                    IdQuestion = q.IdQuestion,
+                    QuestionName = q.Name,
+                    Answers = questions
+                                .Where(i => i.IdQuestion == q.IdQuestion ) //&& i.IdAnswer == q.IdAnswer)
+                                .Select(y => y.AnswerText)
+                                .ToList()
+                });
 
             return results;
         }
