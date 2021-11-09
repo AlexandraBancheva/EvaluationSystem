@@ -6,21 +6,7 @@ namespace EvaluationSystem.Domain.Entities
 {
     public class Question
     {
-        public Question()
-        {
-
-        }
-
-        public Question(int id, string name, DateTime dateOfCreation, QuestionType type, bool isReusable)
-        {
-            this.Id = id;
-            this.Name = name;
-            this.DateOfCreation = dateOfCreation;
-            this.Type = type;
-            this.IsReusable = isReusable;
-            this.Answers = new HashSet<Answer>();
-        }
-
+      
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -31,6 +17,7 @@ namespace EvaluationSystem.Domain.Entities
 
         public bool IsReusable { get; set; }
 
-        public virtual ICollection<Answer> Answers { get; set; }
+       // public virtual ICollection<Answer> Answers { get; set; } ??????????
+       public string AnswerText { get; set; }
     }
 }

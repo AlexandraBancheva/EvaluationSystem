@@ -5,6 +5,7 @@ using EvaluationSystem.Application.Questions.QuestionsDtos;
 using EvaluationSystem.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -17,14 +18,6 @@ namespace EvaluationSystem.Application.Services
         {
             _questionRepository = questionRepository;
             _mapper = mapper;
-        }
-
-        public IEnumerable<ListQuestionsDto> GetAll()
-        {
-            var allQuestions = _questionRepository.AllQuestions();
-            var result = _mapper.Map<IEnumerable<ListQuestionsDto>>(allQuestions);
-
-            return result;
         }
 
         public QuestionDetailDto GetQuestionById(int questionId)
@@ -71,6 +64,22 @@ namespace EvaluationSystem.Application.Services
             }
 
             _questionRepository.DeleteQuestion(questionId);
+        }
+
+        public IEnumerable<ListQuestionsAnswersDto> GetAllQuestionsWithTheirAnswers()
+        {
+            var questions = _questionRepository.GetAllQuestionsWithAnswers();
+            var allQuestions = _mapper.Map<IEnumerable<ListQuestionsDto>>(questions);
+
+            var results = allQuestions.GroupBy(i => i.QuestionName)
+                .Select(q => new ListQuestionsAnswersDto
+                {
+                    QuestionName = q.Key,
+                    Answers = questions.Where(a => a.Name == q.Key).Select(y => y.AnswerText).ToList()
+                })
+                .ToList();
+
+            return results;
         }
     }
 }

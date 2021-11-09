@@ -2,19 +2,6 @@
 {
     public class Answer
     {
-        public Answer()
-        {
-
-        }
-
-        public Answer(int id, string answerText, bool isDefault, int position, int questionId)
-        {
-            this.Id = id;
-            this.AnswerText = answerText;
-            this.IsDefault = isDefault;
-            this.Position = position;
-            this.QuestionId = questionId;
-        }
 
         public int Id { get; set; }
 

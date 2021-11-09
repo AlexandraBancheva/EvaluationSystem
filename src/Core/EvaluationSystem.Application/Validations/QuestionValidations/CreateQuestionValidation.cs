@@ -10,7 +10,7 @@ namespace EvaluationSystem.Application.Validations.QuestionValidations
         {
             RuleFor(q => q.QuestionName)
                 .NotEmpty().WithMessage("{PropertyName} cannot be empty!")
-                .Length(3, 100).WithMessage("Length of {PropertyName} must be between 3 and 100 characters!")
+                .Length(1, 100).WithMessage("Length of {PropertyName} must be between 1 and 100 characters!")
                 .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters!");
 
             // Validation for enums??

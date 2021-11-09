@@ -16,7 +16,7 @@ namespace EvaluationSystem.Application.Profiles.AnswerProfile
             CreateMap<Answer, ListAnswersByQuestionId>()
                 .ForMember(a => a.AnswerName, opts => opts.MapFrom(an => an.AnswerText));
 
-            CreateMap<Answer, QuestionByIdWithAnswersListDto>();
+           // CreateMap<Answer, QuestionByIdWithAnswersListDto>();
         }
     }
 }

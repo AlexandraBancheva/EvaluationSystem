@@ -40,8 +40,6 @@ namespace EvaluationSystem.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EvaluationSystem.API", Version = "v1" });
             });
 
-            services.AddSingleton<FakeDatabase>();
-
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
 

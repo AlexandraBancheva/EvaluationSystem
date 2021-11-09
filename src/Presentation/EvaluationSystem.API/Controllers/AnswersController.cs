@@ -22,13 +22,6 @@ namespace EvaluationSystem.API.Controllers
             return Ok();
         }
 
-        [HttpGet("questionId")]
-        public IActionResult GetAllAnswersByQuestionId(int questionId)
-        {
-            var result = answersServices.GetAnswersByQuestionId(questionId);
-            return Ok(result);
-        }
-
         [HttpDelete()]
         public IActionResult DeleteAnAnswerById(int questionId, int id)
         {

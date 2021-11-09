@@ -4,10 +4,10 @@ using System.Text;
 
 namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 {
-    public class ListQuestionsDto
+    public class ListQuestionsAnswersDto
     {
         public string QuestionName { get; set; }
 
-        public string AnswerText { get; set; }
+        public ICollection<string> Answers { get; set; }
     }
 }

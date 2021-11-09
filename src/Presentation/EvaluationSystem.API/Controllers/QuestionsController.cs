@@ -2,7 +2,6 @@
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace EvaluationSystem.API.Controllers
 {
@@ -18,11 +17,10 @@ namespace EvaluationSystem.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllQuestions()
+        public IActionResult GetQuestionByIdWithAnswers()
         {
-            var result = this.questionsServices.GetAll();
-
-            return Ok(result);
+            var res = questionsServices.GetAllQuestionsWithTheirAnswers();
+            return Ok(res);
         }
 
         [HttpGet("id")]
@@ -52,5 +50,6 @@ namespace EvaluationSystem.API.Controllers
             questionsServices.DeleteQuestion(id);
             return NoContent();
         }
+
     }
 }

@@ -30,9 +30,7 @@ C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSyst
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\obj\Debug\net5.0\ref\EvaluationSystem.API.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\obj\Debug\net5.0\EvaluationSystem.API.pdb
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\obj\Debug\net5.0\EvaluationSystem.API.genruntimeconfig.cache
-C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\EvaluationSystem.Infrastructure.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\EvaluationSystem.Persistence.dll
-C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\EvaluationSystem.Infrastructure.pdb
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\EvaluationSystem.Persistence.pdb
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\AutoMapper.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
@@ -50,4 +48,3 @@ C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSyst
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\obj\Debug\net5.0\EvaluationSystem.API.csproj.CopyComplete

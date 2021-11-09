@@ -1,13 +1,11 @@
 ﻿using Dapper;
 using EvaluationSystem.Application.Interfaces;
-using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -37,24 +35,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                     dbConnection.Open();
                     var query = @"INSERT INTO QuestionTemplate VALUES (@Name, @Date, @Type, @IsReusable)";
                     dbConnection.Execute(query, new { model.Name, Date = DateTime.UtcNow, model.Type, model.IsReusable});
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public IEnumerable<Question> AllQuestions()
-        {
-            try
-            {
-                using (IDbConnection dbConnection = Connection)
-                {
-                    dbConnection.Open();
-                    var query = @"SELECT * FROM QuestionTemplate";
-                    return dbConnection.Query<Question>(query);
                 }
             }
             catch (Exception ex)
@@ -102,7 +82,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             }
         }
 
-
         public void UpdateCurrentQuestion(int id, Question model)
         {
             using (IDbConnection dbConnection = Connection)
@@ -118,6 +97,29 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                 catch (Exception ex)
                 {
 
+                    throw ex;
+                }
+            }
+        }
+
+        public IEnumerable<Question> GetAllQuestionsWithAnswers()
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                try
+                {
+                    dbConnection.Open();
+
+                    var query = @"SELECT qt.[Name], [at].AnswerText
+                                    FROM AnswerTemplate AS [at]
+                                    RIGHT JOIN QuestionTemplate AS qt ON qt.[Id] = [at].QuestionId
+                                    GROUP BY qt.[Name], [at].[AnswerText]
+                                    ORDER BY qt.[Name] ASC";
+                    var results = dbConnection.Query<Question>(query);
+                    return results;
+                }
+                catch (Exception ex)
+                {
                     throw ex;
                 }
             }

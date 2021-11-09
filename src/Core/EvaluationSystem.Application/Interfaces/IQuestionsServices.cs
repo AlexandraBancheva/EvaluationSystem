@@ -8,13 +8,13 @@ namespace EvaluationSystem.Application.Interfaces
     {
         QuestionDetailDto CreateNewQuestion(CreateQuestionDto model);
 
-        IEnumerable<ListQuestionsDto> GetAll();
-
         QuestionDetailDto GetQuestionById(int questionId);
 
 
         QuestionDetailDto UpdateCurrentQuestion(int questionId, UpdateQuestionDto model);
 
         void DeleteQuestion(int questionId);
+
+        IEnumerable<ListQuestionsAnswersDto> GetAllQuestionsWithTheirAnswers();
     }
 }

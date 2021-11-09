@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\EvaluationSystem.Infrastructure\EvaluationSystem.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\EvaluationSystem.Persistence\EvaluationSystem.Persistence.csproj" />
   </ItemGroup>
 

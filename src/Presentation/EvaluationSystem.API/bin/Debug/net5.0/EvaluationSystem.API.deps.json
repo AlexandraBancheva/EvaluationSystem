@@ -33,7 +33,6 @@
     ".NETCoreApp,Version=v5.0": {
       "EvaluationSystem.API/1.0.0": {
         "dependencies": {
-          "EvaluationSystem.Infrastructure": "1.0.0",
           "EvaluationSystem.Persistence": "1.0.0",
           "FluentValidation.AspNetCore": "10.3.4",
           "Swashbuckle.AspNetCore": "5.6.3",
@@ -627,17 +626,6 @@
         },
         "compile": {
           "EvaluationSystem.Domain.dll": {}
-        }
-      },
-      "EvaluationSystem.Infrastructure/1.0.0": {
-        "dependencies": {
-          "EvaluationSystem.Application": "1.0.0"
-        },
-        "runtime": {
-          "EvaluationSystem.Infrastructure.dll": {}
-        },
-        "compile": {
-          "EvaluationSystem.Infrastructure.dll": {}
         }
       },
       "EvaluationSystem.Persistence/1.0.0": {
@@ -2545,11 +2533,6 @@
       "sha512": ""
     },
     "EvaluationSystem.Domain/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "EvaluationSystem.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

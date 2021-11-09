@@ -2,8 +2,6 @@
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 using EvaluationSystem.Domain.Entities;
-using System;
-using System.Collections.Generic;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -40,17 +38,6 @@ namespace EvaluationSystem.Application.Services
             {
                 _answerRepository.DeleteAnAnswer(answerId);
             }
-        }
-
-        public IEnumerable<QuestionByIdWithAnswersListDto> GetAnswersByQuestionId(int questionId)
-        {
-            var existedQuestion = _questionRepository.GetQuestionById(questionId);
-            if (existedQuestion == null)
-            {
-                return null;
-            }
-            var results = _answerRepository.GetAllAnswersByQuestionId(questionId);
-            return null;//_mapper.Map<IEnumerable<QuestionByIdWithAnswersListDto>(results);
         }
     }
 }
