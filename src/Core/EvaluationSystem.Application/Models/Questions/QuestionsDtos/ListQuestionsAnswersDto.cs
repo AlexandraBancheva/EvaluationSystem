@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 {
-    public class ListQuestionsAnswersDto
+    public class ListQuestionsAnswersDto 
     {
         public int IdQuestion { get; set; } //
 
@@ -12,6 +12,6 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 
        // public int IdAnswer { get; set; }  //
 
-        public ICollection<string> Answers { get; set; }
+        public ICollection<AnswerListDto1> Answers { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EvaluationSystem.Application.Interfaces;
+using EvaluationSystem.Application.Models.Questions;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
 using EvaluationSystem.Domain.Entities;
@@ -79,18 +80,38 @@ namespace EvaluationSystem.Application.Services
             //    })
             //    .ToList();
 
+
             var results = questions
                 .Select(q => new ListQuestionsAnswersDto
                 {
                     IdQuestion = q.IdQuestion,
                     QuestionName = q.Name,
                     Answers = questions
-                                .Where(i => i.IdQuestion == q.IdQuestion ) //&& i.IdAnswer == q.IdAnswer)
-                                .Select(y => y.AnswerText)
+                                .Where(i => i.IdQuestion == q.IdQuestion)                                                      //&& i.IdAnswer == q.IdAnswer)
+                                                                                                                                 //.Select(y => y.AnswerText)
+                                .Select(a => new AnswerListDto1
+                                { 
+                                    IdAnswer = a.IdAnswer,
+                                    AnswerText = a.AnswerText
+                                })
                                 .ToList()
-                });
+                })
+                .ToList();
 
             return results;
         }
+
+        //private bool IsReaped(string questionName)
+        //{
+        //    var list = new List<string>();
+
+        //    if (list.Contains(questionName))
+        //    {
+        //        return false;
+        //    }
+        //    list.Add(questionName);
+
+        //    return true;
+        //}
     }
 }
