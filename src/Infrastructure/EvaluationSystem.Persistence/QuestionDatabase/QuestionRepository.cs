@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -32,12 +31,10 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         { 
             try
             {
-                using (IDbConnection dbConnection = Connection)
-                {
-                    dbConnection.Open();
-                    var query = @"INSERT INTO QuestionTemplate VALUES (@Name, @Date, @Type, @IsReusable)";
-                    dbConnection.Execute(query, new { model.Name, Date = DateTime.UtcNow, model.Type, model.IsReusable});
-                }
+                IDbConnection dbConnection = Connection;
+                var query = @"INSERT INTO QuestionTemplate 
+                                VALUES (@Name, @Date, @Type, @IsReusable)";
+                dbConnection.Execute(query, new { model.Name, Date = DateTime.UtcNow, model.Type, model.IsReusable});
             }
             catch (Exception ex)
             {
@@ -50,13 +47,11 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
             try
             {
-                using (IDbConnection dbConnection = Connection)
-                {
-                    dbConnection.Open();
-                    var query = @"SELECT * FROM QuestionTemplate
-                                    WHERE Id = 1";
-                    return dbConnection.QueryFirstOrDefault<Question>(query);
-                }
+                IDbConnection dbConnection = Connection;
+                var query = @"SELECT * FROM QuestionTemplate
+                                WHERE Id = @Id";
+                return dbConnection.QueryFirstOrDefault<Question>(query, new { Id = questionId });
+                
             }
             catch (Exception ex)
             {
@@ -69,13 +64,11 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
             try
             {
-                using (IDbConnection dbConnection = Connection)
-                {
-                    dbConnection.Open();
-                    var query = @"DELETE FROM QuestionTemplate
-                                  WHERE Id = @Id";
-                    dbConnection.Execute(query, new { Id = questionId });
-                }
+                IDbConnection dbConnection = Connection;
+                var query = @"DELETE FROM AnswerTemplate
+                                WHERE IdQuestion = 1
+                                DELETE FROM QuestionTemplate";
+                dbConnection.Execute(query, new { Id = questionId });
             }
             catch (Exception ex)
             {
@@ -86,42 +79,40 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public void UpdateCurrentQuestion(int id, Question model)
         {
-            using (IDbConnection dbConnection = Connection)
+            try
             {
-                try
-                {
-                    dbConnection.Open();
-                    var query = @"UPDATE QuestionTemplate
+                IDbConnection dbConnection = Connection;
+                var query = @"UPDATE QuestionTemplate
                                 SET [Name] = @Name, [Type] = @Type, IsReusable = @ReusableValue
                                 WHERE Id = @Id";
-                   dbConnection.Execute(query, new { model.Name, model.Type, @ReusableValue = model.IsReusable, id });
-                }
-                catch (Exception ex)
-                {
-
-                    throw ex;
-                }
+                dbConnection.Execute(query, new { model.Name, model.Type, @ReusableValue = model.IsReusable, id });
+            }
+            catch (Exception ex)
+            {
+               throw ex;
             }
         }
 
         public IEnumerable<ListQuestionsDto> GetAllQuestionsWithAnswers()
         {
-            using (IDbConnection dbConnection = Connection)
+            try
             {
-                try
-                {
-                    dbConnection.Open();
+                IDbConnection dbConnection = Connection; ;
                     // SELECT qt.[Name], [at].AnswerText
                     // FROM AnswerTemplate AS[at]
                     // RIGHT JOIN QuestionTemplate AS qt ON qt.[Id] = [at].QuestionId
                     // GROUP BY qt.[Name], [at].[AnswerText]
                     // ORDER BY qt.[Name] ASC
 
-                    var query = @"SELECT qt.Id AS IdQuestion, qt.[Name], [at].Id AS IdAnswer, [at].AnswerText
-                                    FROM QuestionTemplate AS qt
-                                    LEFT JOIN AnswerTemplate AS [at] ON qt.Id = [at].QuestionId";
-                    var results = dbConnection.Query<ListQuestionsDto>(query);
-                    return results;
+                    //var query = @"SELECT qt.Id AS IdQuestion, qt.[Name], [at].Id AS IdAnswer, [at].AnswerText
+                    //                FROM QuestionTemplate AS qt
+                    //                LEFT JOIN AnswerTemplate AS [at] ON qt.Id = [at].QuestionId";
+
+                 var query = @"SELECT q.Id AS IdQuestion, q.[Name], a.Id AS IdAnswer, a.AnswerText
+                                 FROM QuestionTemplate AS q
+                                 LEFT JOIN AnswerTemplate AS a ON q.Id = a.IdQuestion";
+                 var results = dbConnection.Query<ListQuestionsDto>(query);
+                 return results;
                                         //var lookup = new Dictionary<int, Question>();
                                         //dbConnection.Query<Question, Answer, Question>(query, (q, a) =>
                                         //{
@@ -141,11 +132,10 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                                         //var res = lookup.Values;
                                         //return res;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }

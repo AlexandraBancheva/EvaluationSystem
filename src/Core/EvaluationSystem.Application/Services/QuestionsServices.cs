@@ -80,7 +80,6 @@ namespace EvaluationSystem.Application.Services
             //    })
             //    .ToList();
 
-
             var results = questions
                 .Select(q => new ListQuestionsAnswersDto
                 {
