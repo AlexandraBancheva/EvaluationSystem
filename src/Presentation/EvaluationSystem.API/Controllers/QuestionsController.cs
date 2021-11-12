@@ -23,7 +23,7 @@ namespace EvaluationSystem.API.Controllers
             return Ok(res);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public IActionResult GetQuestionById(int id)
         {
             return Ok(questionsServices.GetQuestionById(id));

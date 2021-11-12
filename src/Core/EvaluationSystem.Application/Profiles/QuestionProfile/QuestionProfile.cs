@@ -12,20 +12,20 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
     {
         public QuestionProfile()
         {
-            CreateMap<CreateQuestionDto, Question>()
+            CreateMap<CreateQuestionDto, QuestionTemplate>()
                 .ForMember(q => q.Name, opts => opts.MapFrom(qd => qd.QuestionName))
                 .ForMember(q => q.Type, opts => opts.MapFrom(t => t.Type));
 
-            CreateMap<Question, ListQuestionsDto>()
+            CreateMap<QuestionTemplate, ListQuestionsDto>()
                 .ForMember(q => q.Name, opts => opts.MapFrom(qn => qn.Name))
                 .ForMember(q => q.IdQuestion, opts => opts.MapFrom(u => u.Id));
 
-            CreateMap<Question, QuestionDetailDto>()
+            CreateMap<QuestionTemplate, QuestionDetailDto>()
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(qn => qn.Name));
 
-            CreateMap<Question, UpdateQuestionDto>();
+            CreateMap<QuestionTemplate, UpdateQuestionDto>();
 
-            CreateMap<UpdateQuestionDto, Question>();
+            CreateMap<UpdateQuestionDto, QuestionTemplate>();
 
             //CreateMap<ListQuestionsDto, ListQuestionsAnswersDto>()
             //    .ForMember(q => q.QuestionName, opts => opts.MapFrom(i => i.Name))
@@ -34,9 +34,9 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
 
             CreateMap<ListQuestionsDto, QuestionNamesDto>();
 
-            CreateMap<Question, ListQuestionsAnswersDto>();
+            CreateMap<QuestionTemplate, ListQuestionsAnswersDto>();
 
-            CreateMap<Answer, AnswerListDto1>();
+            CreateMap<AnswerTemplate, AnswerListDto1>();
                 //.ForMember(q => q.IdQuestion, opts => opts.MapFrom(r => r.Id))
                 //.ForMember(w => w.QuestionName, opts => opts.MapFrom(t => t.Id))
                 //.ForMember(y => y.IdAnswer, opts => opts.MapFrom(l => l.Answers))

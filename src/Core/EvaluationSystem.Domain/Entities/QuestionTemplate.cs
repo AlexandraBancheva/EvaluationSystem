@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace EvaluationSystem.Domain.Entities
 {
-    public class Question
+    public class QuestionTemplate
     {
-        public Question()
+        public QuestionTemplate()
         {
-            this.Answers = new HashSet<Answer>();
+            this.Answers = new HashSet<AnswerTemplate>();
         }
       
         public int Id { get; set; }
@@ -21,7 +21,7 @@ namespace EvaluationSystem.Domain.Entities
 
         public bool IsReusable { get; set; }
 
-        public virtual ICollection<Answer> Answers { get; set; } 
+        public virtual ICollection<AnswerTemplate> Answers { get; set; } 
        // public string AnswerText { get; set; }
     }
 }

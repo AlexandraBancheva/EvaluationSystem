@@ -25,7 +25,7 @@ namespace EvaluationSystem.Application.Services
             {
                 return null;
             }
-            var current = _mapper.Map<Answer>(model);
+            var current = _mapper.Map<AnswerTemplate>(model);
             _answerRepository.AddNewAnswer(questionId, current);
             
             return _mapper.Map<AnswerDetailDto>(current);

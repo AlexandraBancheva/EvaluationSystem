@@ -35,7 +35,7 @@ namespace EvaluationSystem.Application.Services
 
         public QuestionDetailDto CreateNewQuestion(CreateQuestionDto model)
         {
-            var currentEntity = _mapper.Map<Question>(model);
+            var currentEntity = _mapper.Map<QuestionTemplate>(model);
             _questionRepository.Create(currentEntity);
 
             return _mapper.Map<QuestionDetailDto>(currentEntity);
@@ -50,7 +50,7 @@ namespace EvaluationSystem.Application.Services
                 return null;
             }
 
-            var current = _mapper.Map<Question>(model);
+            var current = _mapper.Map<QuestionTemplate>(model);
             _questionRepository.UpdateCurrentQuestion(questionId, current);
 
             return _mapper.Map<QuestionDetailDto>(current);
@@ -107,15 +107,13 @@ namespace EvaluationSystem.Application.Services
                                 IdQuestion = q.Id,
                                 QuestionName = q.Name,
                                 Answers = q.Answers.Where(a => q.Id == a.QuestionId)
-                                                    .Select(y => new AnswerListDto1  // null exception
+                                                    .Select(y => new AnswerListDto1  // null exception ??:
                                                     {
                                                         IdAnswer = y.Id,
                                                         AnswerText = y.AnswerText
                                                     }).ToList()
                             })
                             .ToList();
-
-            //  var results = _mapper.Map<ListQuestionsAnswersDto>(questions);
 
             return results;
         }

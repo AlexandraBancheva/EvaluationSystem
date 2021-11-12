@@ -8,12 +8,12 @@ namespace EvaluationSystem.Application.Profiles.AnswerProfile
     {
         public AnswerProfile()
         {
-            CreateMap<AddNewAnswerDto, Answer>();
-            CreateMap<Answer, AnswerDetailDto>()
+            CreateMap<AddNewAnswerDto, AnswerTemplate>();
+            CreateMap<AnswerTemplate, AnswerDetailDto>()
                 .ForMember(a => a.AnswerName, opts => opts.MapFrom(an => an.AnswerText));
 
-            CreateMap<AddNewAnswerDto, Answer>();
-            CreateMap<Answer, ListAnswersByQuestionId>()
+            CreateMap<AddNewAnswerDto, AnswerTemplate>();
+            CreateMap<AnswerTemplate, ListAnswersByQuestionId>()
                 .ForMember(a => a.AnswerName, opts => opts.MapFrom(an => an.AnswerText));
 
            // CreateMap<Answer, QuestionByIdWithAnswersListDto>();

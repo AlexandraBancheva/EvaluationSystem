@@ -1,7 +1,5 @@
 ﻿using Dapper;
 using EvaluationSystem.Application.Interfaces;
-using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
-using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -9,11 +7,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
-    public class QuestionRepository : IQuestionRepository, IGenericRepository<Question>
+    public class QuestionRepository : IQuestionRepository
     {
         private readonly IConfiguration _configuration;
 
@@ -29,31 +26,31 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                 return new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
             }
         }
-        
-        //public void CreateNewQuestion(Question model)
-        //{ 
-        //    try
-        //    {
-        //        IDbConnection dbConnection = Connection;
-        //        var query = @"INSERT INTO QuestionTemplate 
-        //                        VALUES (@Name, @Date, @Type, @IsReusable)";
-        //        dbConnection.Execute(query, new { model.Name, Date = DateTime.UtcNow, model.Type, model.IsReusable});
-        //    }
-        //    catch (Exception ex)
-        //    {
 
-        //        throw ex;
-        //    }
-        //}
-
-        public Question GetQuestionById(int questionId)
+        public void CreateNewQuestion(QuestionTemplate model)
         {
             try
             {
-                IDbConnection dbConnection = Connection;
+                using IDbConnection dbConnection = Connection;
+                var query = @"INSERT INTO QuestionTemplate 
+                                VALUES (@Name, @Date, @Type, @IsReusable)";
+                dbConnection.Execute(query, new { model.Name, Date = DateTime.UtcNow, model.Type, model.IsReusable });
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public QuestionTemplate GetQuestionById(int questionId)
+        {
+            try
+            {
+                using IDbConnection dbConnection = Connection;
                 var query = @"SELECT * FROM QuestionTemplate
                                 WHERE Id = @Id";
-                return dbConnection.QueryFirstOrDefault<Question>(query, new { Id = questionId });
+                return dbConnection.QueryFirstOrDefault<QuestionTemplate>(query, new { Id = questionId });
                 
             }
             catch (Exception ex)
@@ -67,7 +64,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
             try
             {
-                IDbConnection dbConnection = Connection;
+                using IDbConnection dbConnection = Connection;
                 var query = @"DELETE FROM AnswerTemplate
                                 WHERE IdQuestion = 1
                                 DELETE FROM QuestionTemplate";
@@ -80,11 +77,11 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             }
         }
 
-        public void UpdateCurrentQuestion(int id, Question model)
+        public void UpdateCurrentQuestion(int id, QuestionTemplate model)
         {
             try
             {
-                IDbConnection dbConnection = Connection;
+                using IDbConnection dbConnection = Connection;
                 var query = @"UPDATE QuestionTemplate
                                 SET [Name] = @Name, [Type] = @Type, IsReusable = @ReusableValue
                                 WHERE Id = @Id";
@@ -96,11 +93,11 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             }
         }
 
-        public List<Question> GetAllQuestionsWithAnswers()  // Return  ListQuestionsDto
+        public List<QuestionTemplate> GetAllQuestionsWithAnswers()  // Return  ListQuestionsDto
         {
             try
             {
-                IDbConnection dbConnection = Connection; ;
+                using IDbConnection dbConnection = Connection; ;
                 // SELECT qt.[Name], [at].AnswerText
                 // FROM AnswerTemplate AS[at]
                 // RIGHT JOIN QuestionTemplate AS qt ON qt.[Id] = [at].QuestionId
@@ -125,8 +122,8 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
 
 
-                var questionDictionary = new Dictionary<int, Question>();
-                var questions = dbConnection.Query<Question, Answer, Question>(query, (question, answer) =>
+                var questionDictionary = new Dictionary<int, QuestionTemplate>();
+                var questions = dbConnection.Query<QuestionTemplate, AnswerTemplate, QuestionTemplate>(query, (question, answer) =>
                 {
                     if (!questionDictionary.TryGetValue(question.Id, out var currentQuestion))
                     {
@@ -149,27 +146,27 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             }
         }
 
-
-        public void Create(Question model)
-        {
-            try
-            {
-                IDbConnection dbConnection = Connection;
-                var query = @"INSERT INTO QuestionTemplate 
-                                        VALUES (@Name, @Date, @Type, @IsReusable)";
-                dbConnection.Execute(query, new { model.Name, Date = DateTime.UtcNow, model.Type, model.IsReusable });
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public void CreateNewQuestion(Question model)
+        public void Create(QuestionTemplate currentEntity)
         {
             throw new NotImplementedException();
         }
+
+
+        //public void Create(QuestionTemplate model)
+        //{
+        //    try
+        //    {
+        //        IDbConnection dbConnection = Connection;
+        //        var query = @"INSERT INTO QuestionTemplate 
+        //                                VALUES (@Name, @Date, @Type, @IsReusable)";
+        //        dbConnection.Execute(query, new { model.Name, Date = DateTime.UtcNow, model.Type, model.IsReusable });
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw ex;
+        //    }
+        //}
 
     }
 }

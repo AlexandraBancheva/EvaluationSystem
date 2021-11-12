@@ -74,6 +74,19 @@
           "lib/net5.0/Dapper.dll": {}
         }
       },
+      "Dapper.SimpleCRUD/2.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Dapper": "2.0.78",
+          "Microsoft.CSharp": "4.4.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Dapper.SimpleCRUD.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Dapper.SimpleCRUD.dll": {}
+        }
+      },
       "FluentMigrator/3.3.1": {
         "type": "package",
         "dependencies": {
@@ -1155,6 +1168,7 @@
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "Dapper": "2.0.123",
+          "Dapper.SimpleCRUD": "2.3.0",
           "EvaluationSystem.Application": "1.0.0",
           "FluentMigrator": "3.3.1",
           "FluentMigrator.Runner": "3.3.1",
@@ -1253,6 +1267,22 @@
         "lib/net5.0/Dapper.xml",
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml"
+      ]
+    },
+    "Dapper.SimpleCRUD/2.3.0": {
+      "sha512": "9wj9b3IYADmNea3hwlkS0qKRCcbTYcJ4uYCdZdE9O34nTvl0mJv1Hy6sSFA5t/UN8zKscWiDFWT8B+4tOnoQvA==",
+      "type": "package",
+      "path": "dapper.simplecrud/2.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.txt",
+        "dapper.simplecrud.2.3.0.nupkg.sha512",
+        "dapper.simplecrud.nuspec",
+        "images/SimpleCRUD-200x200.png",
+        "lib/netstandard2.0/Dapper.SimpleCRUD.dll",
+        "lib/netstandard2.0/Dapper.SimpleCRUD.pdb",
+        "lib/netstandard2.0/Dapper.SimpleCRUD.xml"
       ]
     },
     "FluentMigrator/3.3.1": {

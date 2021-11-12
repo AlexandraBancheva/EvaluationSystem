@@ -26,7 +26,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             }
         }
 
-        public void AddNewAnswer(int questionId, Answer model)
+        public void AddNewAnswer(int questionId, AnswerTemplate model)
         {
             try
             {

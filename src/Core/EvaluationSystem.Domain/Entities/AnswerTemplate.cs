@@ -1,6 +1,6 @@
 ﻿namespace EvaluationSystem.Domain.Entities
 {
-    public class Answer
+    public class AnswerTemplate
     {
 
         public int Id { get; set; }

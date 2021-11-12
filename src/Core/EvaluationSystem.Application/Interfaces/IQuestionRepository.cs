@@ -1,4 +1,5 @@
 ﻿using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
+using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
 using System.Collections.Generic;
 
@@ -6,16 +7,16 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IQuestionRepository
     {
-        void CreateNewQuestion(Question model);
+        void CreateNewQuestion(QuestionTemplate model);
 
-        Question GetQuestionById(int questionId);
+        QuestionTemplate GetQuestionById(int questionId);
 
         void DeleteQuestion(int questionId);
 
-        void UpdateCurrentQuestion(int id, Question model);
+        void UpdateCurrentQuestion(int id, QuestionTemplate model);
 
-        List<Question> GetAllQuestionsWithAnswers();
+        List<QuestionTemplate> GetAllQuestionsWithAnswers();
 
-        void Create(Question currentEntity);
+        void Create(QuestionTemplate currentEntity);
     }
 }
