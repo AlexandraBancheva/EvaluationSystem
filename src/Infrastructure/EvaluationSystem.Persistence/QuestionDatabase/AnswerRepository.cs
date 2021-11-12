@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using EvaluationSystem.Application.Interfaces;
+using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using System;

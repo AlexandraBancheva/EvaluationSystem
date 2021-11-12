@@ -6,6 +6,10 @@ namespace EvaluationSystem.Domain.Entities
 {
     public class Question
     {
+        public Question()
+        {
+            this.Answers = new HashSet<Answer>();
+        }
       
         public int Id { get; set; }
 
@@ -17,7 +21,7 @@ namespace EvaluationSystem.Domain.Entities
 
         public bool IsReusable { get; set; }
 
-       // public virtual ICollection<Answer> Answers { get; set; } 
-        public string AnswerText { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; } 
+       // public string AnswerText { get; set; }
     }
 }

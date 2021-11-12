@@ -36,7 +36,7 @@ namespace EvaluationSystem.Application.Services
         public QuestionDetailDto CreateNewQuestion(CreateQuestionDto model)
         {
             var currentEntity = _mapper.Map<Question>(model);
-            _questionRepository.CreateNewQuestion(currentEntity);
+            _questionRepository.Create(currentEntity);
 
             return _mapper.Map<QuestionDetailDto>(currentEntity);
         }
@@ -67,6 +67,7 @@ namespace EvaluationSystem.Application.Services
             _questionRepository.DeleteQuestion(questionId);
         }
 
+
         public IEnumerable<ListQuestionsAnswersDto> GetAllQuestionsWithTheirAnswers()
         {
             var questions = _questionRepository.GetAllQuestionsWithAnswers();
@@ -80,37 +81,43 @@ namespace EvaluationSystem.Application.Services
             //    })
             //    .ToList();
 
+            //var results = questions
+            //    .Select(q => new ListQuestionsAnswersDto
+            //    {
+            //        IdQuestion = q.Id,
+            //        QuestionName = q.Name,
+            //        Answers = questions
+            //                  //  .Where(i => i.IdQuestion == q.IdQuestion)                                                      //&& i.IdAnswer == q.IdAnswer)
+            //                                                                                                                   //.Select(y => y.AnswerText)
+            //                    .Select(a => new AnswerListDto1
+            //                    //{
+            //                    //    IdAnswer = a.Answers.Select(y => y.Id),
+            //                    //    AnswerText = a.AnswerText
+            //                    //})
+            //                    .ToList()
+            //    })
+            //    .ToList();
+
+            // // Correct so so
+
+
             var results = questions
-                .Select(q => new ListQuestionsAnswersDto
-                {
-                    IdQuestion = q.IdQuestion,
-                    QuestionName = q.Name,
-                    Answers = questions
-                                .Where(i => i.IdQuestion == q.IdQuestion)                                                      //&& i.IdAnswer == q.IdAnswer)
-                                                                                                                                 //.Select(y => y.AnswerText)
-                                .Select(a => new AnswerListDto1
-                                { 
-                                    IdAnswer = a.IdAnswer,
-                                    AnswerText = a.AnswerText
-                                })
-                                .ToList()
-                })
-                .ToList();
+                            .Select(q => new ListQuestionsAnswersDto
+                            {
+                                IdQuestion = q.Id,
+                                QuestionName = q.Name,
+                                Answers = q.Answers.Where(a => q.Id == a.QuestionId)
+                                                    .Select(y => new AnswerListDto1  // null exception
+                                                    {
+                                                        IdAnswer = y.Id,
+                                                        AnswerText = y.AnswerText
+                                                    }).ToList()
+                            })
+                            .ToList();
+
+            //  var results = _mapper.Map<ListQuestionsAnswersDto>(questions);
 
             return results;
         }
-
-        //private bool IsReaped(string questionName)
-        //{
-        //    var list = new List<string>();
-
-        //    if (list.Contains(questionName))
-        //    {
-        //        return false;
-        //    }
-        //    list.Add(questionName);
-
-        //    return true;
-        //}
     }
 }

@@ -12,3 +12,4 @@ C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSy
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\obj\Debug\netstandard2.1\EvaluationSystem.Persistence.csproj.CoreCompileInputs.cache
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\obj\Debug\netstandard2.1\EvaluationSystem.Persistence.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\obj\Debug\netstandard2.1\EvaluationSystem.Persistence.pdb
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\obj\Debug\netstandard2.1\EvaluationSystem.Persistence.csproj.CopyComplete

@@ -14,6 +14,8 @@ namespace EvaluationSystem.Application.Interfaces
 
         void UpdateCurrentQuestion(int id, Question model);
 
-        IEnumerable<ListQuestionsDto> GetAllQuestionsWithAnswers();
+        List<Question> GetAllQuestionsWithAnswers();
+
+        void Create(Question currentEntity);
     }
 }

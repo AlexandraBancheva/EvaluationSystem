@@ -27,12 +27,20 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
 
             CreateMap<UpdateQuestionDto, Question>();
 
-            CreateMap<ListQuestionsDto, ListQuestionsAnswersDto>()
-                .ForMember(q => q.QuestionName, opts => opts.MapFrom(i => i.Name))
-                .ForMember(a => a.IdQuestion, opts => opts.MapFrom(r => r.IdQuestion))
-                .ForMember(p => p.Answers, opts => opts.MapFrom(y => y.AnswerText));
+            //CreateMap<ListQuestionsDto, ListQuestionsAnswersDto>()
+            //    .ForMember(q => q.QuestionName, opts => opts.MapFrom(i => i.Name))
+            //    .ForMember(a => a.IdQuestion, opts => opts.MapFrom(r => r.IdQuestion))
+            //    .ForMember(p => p.Answers, opts => opts.MapFrom(y => y.AnswerText));
 
             CreateMap<ListQuestionsDto, QuestionNamesDto>();
+
+            CreateMap<Question, ListQuestionsAnswersDto>();
+
+            CreateMap<Answer, AnswerListDto1>();
+                //.ForMember(q => q.IdQuestion, opts => opts.MapFrom(r => r.Id))
+                //.ForMember(w => w.QuestionName, opts => opts.MapFrom(t => t.Id))
+                //.ForMember(y => y.IdAnswer, opts => opts.MapFrom(l => l.Answers))
+                //.ForMember(m => m.AnswerText, opts => opts.MapFrom(g => g.Answers));
 
             //CreateMap<ListQuestionsDto, AnswerListDto1>()
             //    .ForMember(c => c.IdAnswer, opts => opts.MapFrom(w => w.IdAnswer))
