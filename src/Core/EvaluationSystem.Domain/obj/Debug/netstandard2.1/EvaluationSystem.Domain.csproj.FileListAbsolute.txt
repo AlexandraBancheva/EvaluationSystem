@@ -8,3 +8,13 @@ C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domai
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\netstandard2.1\EvaluationSystem.Domain.csproj.CoreCompileInputs.cache
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\netstandard2.1\EvaluationSystem.Domain.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\netstandard2.1\EvaluationSystem.Domain.pdb
+C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Core\EvaluationSystem.Domain\bin\Debug\netstandard2.1\EvaluationSystem.Domain.deps.json
+C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Core\EvaluationSystem.Domain\bin\Debug\netstandard2.1\EvaluationSystem.Domain.dll
+C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Core\EvaluationSystem.Domain\bin\Debug\netstandard2.1\EvaluationSystem.Domain.pdb
+C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\netstandard2.1\EvaluationSystem.Domain.csproj.AssemblyReference.cache
+C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\netstandard2.1\EvaluationSystem.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\netstandard2.1\EvaluationSystem.Domain.AssemblyInfoInputs.cache
+C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\netstandard2.1\EvaluationSystem.Domain.AssemblyInfo.cs
+C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\netstandard2.1\EvaluationSystem.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\netstandard2.1\EvaluationSystem.Domain.dll
+C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\netstandard2.1\EvaluationSystem.Domain.pdb

@@ -20,7 +20,7 @@ namespace EvaluationSystem.Application.Services
 
         public AnswerDetailDto AddNewAnswer(int questionId, AddNewAnswerDto model)
         {
-            var isExist = _questionRepository.GetQuestionById(questionId);
+            var isExist = _questionRepository.GetById(questionId);
             if (isExist == null)
             {
                 return null;
@@ -33,7 +33,7 @@ namespace EvaluationSystem.Application.Services
 
         public void DeleteAnAnswer(int questionId, int answerId)
         {
-            var isExistQuestion = _questionRepository.GetQuestionById(questionId);
+            var isExistQuestion = _questionRepository.GetById(questionId);
             if (isExistQuestion != null)
             {
                 _answerRepository.DeleteAnAnswer(answerId);

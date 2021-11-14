@@ -6,9 +6,9 @@ namespace EvaluationSystem.Application.Repositories
     {
         List<T> GetAll();
 
-        T Get(int id);
+        T GetById(int id);
 
-        void Create(T entity);
+        int Insert(T entity);
 
         void Update(T entity);
 

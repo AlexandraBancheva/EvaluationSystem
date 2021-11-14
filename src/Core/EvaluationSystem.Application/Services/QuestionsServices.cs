@@ -23,7 +23,7 @@ namespace EvaluationSystem.Application.Services
 
         public QuestionDetailDto GetQuestionById(int questionId)
         {
-            var currentEntity =  _questionRepository.GetQuestionById(questionId);
+            var currentEntity =  _questionRepository.GetById(questionId);
 
             if (currentEntity == null)
             {
@@ -36,14 +36,16 @@ namespace EvaluationSystem.Application.Services
         public QuestionDetailDto CreateNewQuestion(CreateQuestionDto model)
         {
             var currentEntity = _mapper.Map<QuestionTemplate>(model);
-            _questionRepository.Create(currentEntity);
+            //  _questionRepository.Create(currentEntity);
+            currentEntity.DateOfCreation = DateTime.UtcNow;
+            _questionRepository.Insert(currentEntity);
 
             return _mapper.Map<QuestionDetailDto>(currentEntity);
         }
 
         public QuestionDetailDto UpdateCurrentQuestion(int questionId, UpdateQuestionDto model)
         {
-            var isExist = _questionRepository.GetQuestionById(questionId);
+            var isExist = _questionRepository.GetById(questionId);
 
             if (isExist == null)
             {
@@ -51,21 +53,21 @@ namespace EvaluationSystem.Application.Services
             }
 
             var current = _mapper.Map<QuestionTemplate>(model);
-            _questionRepository.UpdateCurrentQuestion(questionId, current);
+            _questionRepository.Update(current);
 
             return _mapper.Map<QuestionDetailDto>(current);
         }
 
-        public void DeleteQuestion(int questionId)
-        {
-            var entity = _questionRepository.GetQuestionById(questionId);
-            if (entity == null)
-            {
-                throw new InvalidOperationException($"Question with {questionId} don't exist!");
-            }
+        //public void DeleteQuestion(int questionId)
+        //{
+        //    var entity = _questionRepository.GetQuestionById(questionId);
+        //    if (entity == null)
+        //    {
+        //        throw new InvalidOperationException($"Question with {questionId} don't exist!");
+        //    }
 
-            _questionRepository.DeleteQuestion(questionId);
-        }
+        //    _questionRepository.DeleteQuestion(questionId);
+        //}
 
 
         public IEnumerable<ListQuestionsAnswersDto> GetAllQuestionsWithTheirAnswers()
@@ -116,6 +118,11 @@ namespace EvaluationSystem.Application.Services
                             .ToList();
 
             return results;
+        }
+
+        public void DeleteQuestion(int questionId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

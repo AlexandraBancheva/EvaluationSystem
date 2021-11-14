@@ -5,18 +5,22 @@ using System.Collections.Generic;
 
 namespace EvaluationSystem.Application.Interfaces
 {
-    public interface IQuestionRepository
+    public interface IQuestionRepository : IRepository<QuestionTemplate>
     {
-        void CreateNewQuestion(QuestionTemplate model);
+      //  int CreateNewQuestion(QuestionTemplate model);
 
-        QuestionTemplate GetQuestionById(int questionId);
+      //  QuestionTemplate GetQuestionById(int questionId);
 
-        void DeleteQuestion(int questionId);
-
-        void UpdateCurrentQuestion(int id, QuestionTemplate model);
+     //   void UpdateCurrentQuestion(int id, QuestionTemplate model);
 
         List<QuestionTemplate> GetAllQuestionsWithAnswers();
 
-        void Create(QuestionTemplate currentEntity);
+      //  QuestionTemplate GetQuestionById(int id);
+
+      //  void DeleteQuestion(int questionId);
+
+       
+
+      //  void Create(QuestionTemplate currentEntity);
     }
 }
