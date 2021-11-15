@@ -1,10 +1,10 @@
-﻿using Dapper;
-using EvaluationSystem.Application.Repositories;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Collections.Generic;
+using Dapper;
+using Microsoft.Extensions.Configuration;
+using EvaluationSystem.Application.Repositories;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -26,10 +26,10 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             }
         }
 
-        public void Delete(int id)
+        public void Delete(T entity)
         {
             using var dbConnection = Connection;
-            dbConnection.Delete(id);
+            dbConnection.Delete(entity);
         }
 
         public List<T> GetAll()
@@ -52,7 +52,8 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            using var dbConnection = Connection;
+            dbConnection.Update(entity);
         }
     }
 }

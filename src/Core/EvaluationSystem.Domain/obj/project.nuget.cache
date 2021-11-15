@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6eg9dXeFCSpbpuCkc/DALHS6DVPTNZ6TcHmvcbg0AkS3+RahCVT60AeHVp/DE2en8OZCBKxE5cFdYXO6MxpPiQ==",
+  "dgSpecHash": "78V+415aJ/f+dye3YAYcqjLSSp1UYx8A1/4etuW19Nq0kif6j5vSNGn/oKDPJHO48iVjvxcKzEUaiWXTLnbHdA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Alex\\Desktop\\EvaluationSystem\\EvaluationSystem\\src\\Core\\EvaluationSystem.Domain\\EvaluationSystem.Domain.csproj",
+  "projectFilePath": "C:\\Users\\alexandra\\source\\repos\\EvaluationSystem\\src\\Core\\EvaluationSystem.Domain\\EvaluationSystem.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -12,6 +12,6 @@ namespace EvaluationSystem.Application.Repositories
 
         void Update(T entity);
 
-        void Delete(int id);
+        void Delete(T entity);
     }
 }

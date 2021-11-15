@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using EvaluationSystem.Application.Models.Answers.AnswersDtos;
+using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Models.Questions;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
-using EvaluationSystem.Domain.Entities;
-using System.Collections.Generic;
 
 namespace EvaluationSystem.Application.Profiles.QuestionProfile
 {
@@ -23,7 +21,8 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
             CreateMap<QuestionTemplate, QuestionDetailDto>()
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(qn => qn.Name));
 
-            CreateMap<QuestionTemplate, UpdateQuestionDto>();
+            CreateMap<QuestionTemplate, UpdateQuestionDto>()
+                .ForAllMembers(opts => opts.Condition((src, destination, srcMembers) => srcMembers != null));
 
             CreateMap<UpdateQuestionDto, QuestionTemplate>();
 

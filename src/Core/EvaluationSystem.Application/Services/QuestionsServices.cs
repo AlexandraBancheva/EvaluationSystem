@@ -1,12 +1,12 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using AutoMapper;
+using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Questions;
-using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
-using EvaluationSystem.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -36,7 +36,6 @@ namespace EvaluationSystem.Application.Services
         public QuestionDetailDto CreateNewQuestion(CreateQuestionDto model)
         {
             var currentEntity = _mapper.Map<QuestionTemplate>(model);
-            //  _questionRepository.Create(currentEntity);
             currentEntity.DateOfCreation = DateTime.UtcNow;
             _questionRepository.Insert(currentEntity);
 
@@ -53,22 +52,18 @@ namespace EvaluationSystem.Application.Services
             }
 
             var current = _mapper.Map<QuestionTemplate>(model);
+            current.Id = questionId;
+            current.DateOfCreation = DateTime.UtcNow;
             _questionRepository.Update(current);
 
             return _mapper.Map<QuestionDetailDto>(current);
         }
 
-        //public void DeleteQuestion(int questionId)
-        //{
-        //    var entity = _questionRepository.GetQuestionById(questionId);
-        //    if (entity == null)
-        //    {
-        //        throw new InvalidOperationException($"Question with {questionId} don't exist!");
-        //    }
-
-        //    _questionRepository.DeleteQuestion(questionId);
-        //}
-
+        public void DeleteQuestion(int questionId)
+        {
+            var entity = _questionRepository.GetById(questionId);
+            _questionRepository.Delete(entity);
+        }
 
         public IEnumerable<ListQuestionsAnswersDto> GetAllQuestionsWithTheirAnswers()
         {
@@ -118,11 +113,6 @@ namespace EvaluationSystem.Application.Services
                             .ToList();
 
             return results;
-        }
-
-        public void DeleteQuestion(int questionId)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -36,20 +36,17 @@ namespace EvaluationSystem.API.Controllers
             return Ok(result);
         }
 
-        [Route("api/questions/{id}")]
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult UpdateCurrentQuestion(int id, [FromBody] UpdateQuestionDto model)
         {
             return Ok(questionsServices.UpdateCurrentQuestion(id, model));
         }
 
-        [Route("api/questions/{id}")]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteQuestion(int id)
         {
             questionsServices.DeleteQuestion(id);
             return NoContent();
         }
-
     }
 }

@@ -8405,24 +8405,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Alex\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\alexandra\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Alex\\Desktop\\EvaluationSystem\\EvaluationSystem\\src\\Infrastructure\\EvaluationSystem.Persistence\\EvaluationSystem.Persistence.csproj",
+      "projectUniqueName": "C:\\Users\\alexandra\\source\\repos\\EvaluationSystem\\src\\Infrastructure\\EvaluationSystem.Persistence\\EvaluationSystem.Persistence.csproj",
       "projectName": "EvaluationSystem.Persistence",
-      "projectPath": "C:\\Users\\Alex\\Desktop\\EvaluationSystem\\EvaluationSystem\\src\\Infrastructure\\EvaluationSystem.Persistence\\EvaluationSystem.Persistence.csproj",
-      "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Alex\\Desktop\\EvaluationSystem\\EvaluationSystem\\src\\Infrastructure\\EvaluationSystem.Persistence\\obj\\",
+      "projectPath": "C:\\Users\\alexandra\\source\\repos\\EvaluationSystem\\src\\Infrastructure\\EvaluationSystem.Persistence\\EvaluationSystem.Persistence.csproj",
+      "packagesPath": "C:\\Users\\alexandra\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\alexandra\\source\\repos\\EvaluationSystem\\src\\Infrastructure\\EvaluationSystem.Persistence\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\alexandra\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8436,8 +8431,8 @@
         "netstandard2.1": {
           "targetAlias": "netstandard2.1",
           "projectReferences": {
-            "C:\\Users\\Alex\\Desktop\\EvaluationSystem\\EvaluationSystem\\src\\Core\\EvaluationSystem.Application\\EvaluationSystem.Application.csproj": {
-              "projectPath": "C:\\Users\\Alex\\Desktop\\EvaluationSystem\\EvaluationSystem\\src\\Core\\EvaluationSystem.Application\\EvaluationSystem.Application.csproj"
+            "C:\\Users\\alexandra\\source\\repos\\EvaluationSystem\\src\\Core\\EvaluationSystem.Application\\EvaluationSystem.Application.csproj": {
+              "projectPath": "C:\\Users\\alexandra\\source\\repos\\EvaluationSystem\\src\\Core\\EvaluationSystem.Application\\EvaluationSystem.Application.csproj"
             }
           }
         }
@@ -8504,7 +8499,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

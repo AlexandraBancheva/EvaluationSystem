@@ -1,33 +1,21 @@
-﻿using Dapper;
+﻿using System;
+using System.Data;
+using System.Linq;
+using System.Collections.Generic;
+using Dapper;
 using EvaluationSystem.Application.Interfaces;
-using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
     public class QuestionRepository : BaseRepository<QuestionTemplate>, IQuestionRepository
     {
-       // private readonly IConfiguration _configuration;
 
         public QuestionRepository(IConfiguration configuration)
             : base(configuration)
         {
-          //  _configuration = configuration;
         }
-
-        //public IDbConnection Connection
-        //{
-        //    get
-        //    {
-        //        return new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-        //    }
-        //}
 
         public List<QuestionTemplate> GetAllQuestionsWithAnswers()  // Return  ListQuestionsDto
         {
@@ -81,75 +69,5 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                 throw ex;
             }
         }
-
-        /// Generic Repository!
-
-        //public void CreateNewQuestion(QuestionTemplate model)
-        //{
-        //    try
-        //    {
-        //        using IDbConnection dbConnection = Connection;
-        //        var query = @"INSERT INTO QuestionTemplate 
-        //                        VALUES (@Name, @Date, @Type, @IsReusable)";
-        //        dbConnection.Execute(query, new { model.Name, Date = DateTime.UtcNow, model.Type, model.IsReusable });
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public QuestionTemplate GetQuestionById(int questionId)
-        //{
-        //    try
-        //    {
-        //        using IDbConnection dbConnection = Connection;
-        //        var query = @"SELECT * FROM QuestionTemplate
-        //                        WHERE Id = @Id";
-        //        return dbConnection.QueryFirstOrDefault<QuestionTemplate>(query, new { Id = questionId });
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public void DeleteQuestion(int questionId)
-        //{
-        //    try
-        //    {
-        //        using IDbConnection dbConnection = Connection;
-        //        var query = @"DELETE FROM AnswerTemplate
-        //                        WHERE IdQuestion = 1
-        //                        DELETE FROM QuestionTemplate";
-        //        dbConnection.Execute(query, new { Id = questionId });
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public void UpdateCurrentQuestion(int id, QuestionTemplate model)
-        //{
-        //    try
-        //    {
-        //        using IDbConnection dbConnection = Connection;
-        //        var query = @"UPDATE QuestionTemplate
-        //                        SET [Name] = @Name, [Type] = @Type, IsReusable = @ReusableValue
-        //                        WHERE Id = @Id";
-        //        dbConnection.Execute(query, new { model.Name, model.Type, @ReusableValue = model.IsReusable, id });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //       throw ex;
-        //    }
-        //}
-
-
     }
 }
