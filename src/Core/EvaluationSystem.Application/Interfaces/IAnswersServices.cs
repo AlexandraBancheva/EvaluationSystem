@@ -6,6 +6,8 @@ namespace EvaluationSystem.Application.Interfaces
     {
         AnswerDetailDto AddNewAnswer(int questionId, AddNewAnswerDto model);
 
-        void DeleteAnAnswer(int questionId, int answerId);
+        void DeleteAnAnswer(int answerId);
+
+        AnswerDetailDto UpdateAnswer(int questionId, int answerId, UpdateAnswerDto model);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Repositories;
 
 namespace EvaluationSystem.Application.Interfaces
 {

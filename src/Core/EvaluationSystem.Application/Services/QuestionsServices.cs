@@ -98,21 +98,29 @@ namespace EvaluationSystem.Application.Services
             // // Correct so so
 
 
-            var results = questions
+            var resultsQuesrions = questions
                             .Select(q => new ListQuestionsAnswersDto
                             {
                                 IdQuestion = q.Id,
                                 QuestionName = q.Name,
-                                Answers = q.Answers.Where(a => q.Id == a.QuestionId)
-                                                    .Select(y => new AnswerListDto1  // null exception ??:
-                                                    {
-                                                        IdAnswer = y.Id,
-                                                        AnswerText = y.AnswerText
-                                                    }).ToList()
-                            })
-                            .ToList();
+                                Answers = new List<AnswerListDto1>() //q.Answers.Where(a => q.Id == a.QuestionId)  //.DefaultIfEmpty() // null exception ??:
+                                                                     // .Select(y => new AnswerListDto1  
+                                                                     //{
+                                                                     //  IdAnswer = y.Id,
+                                                                     // AnswerText = y.AnswerText
+                                                                     //}).ToList()
+                            });
+            //.ToList();
 
-            return results;
+            //foreach (var question in questions)
+            //{
+            //    question.Answers.Add(new AnswerListDto1(
+            //        {
+            //            IdAnswer = 
+            //        }))
+            //}
+
+            return null;
         }
     }
 }

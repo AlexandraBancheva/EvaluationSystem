@@ -22,9 +22,10 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(qn => qn.Name));
 
             CreateMap<QuestionTemplate, UpdateQuestionDto>()
-                .ForAllMembers(opts => opts.Condition((src, destination, srcMembers) => srcMembers != null));
+                .ForAllMembers(opts => opts.Condition((src, destination, srcMembers) => srcMembers != null));    // Do not work
 
-            CreateMap<UpdateQuestionDto, QuestionTemplate>();
+            CreateMap<UpdateQuestionDto, QuestionTemplate>()
+                .ForAllMembers(opts => opts.Condition((src, destination, srcMembers) => srcMembers != null)); ;  // Do not work
 
             //CreateMap<ListQuestionsDto, ListQuestionsAnswersDto>()
             //    .ForMember(q => q.QuestionName, opts => opts.MapFrom(i => i.Name))

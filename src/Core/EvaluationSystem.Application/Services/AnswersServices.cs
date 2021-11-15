@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Answers.AnswersDtos;
-using EvaluationSystem.Domain.Entities;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -26,18 +26,27 @@ namespace EvaluationSystem.Application.Services
                 return null;
             }
             var current = _mapper.Map<AnswerTemplate>(model);
-            _answerRepository.AddNewAnswer(questionId, current);
+            current.IdQuestion = questionId;
+            var id = _answerRepository.Insert(current);
+            current.Id = id;
             
             return _mapper.Map<AnswerDetailDto>(current);
         }
 
-        public void DeleteAnAnswer(int questionId, int answerId)
+        public void DeleteAnAnswer(int answerId)
         {
-            var isExistQuestion = _questionRepository.GetById(questionId);
-            if (isExistQuestion != null)
-            {
-                _answerRepository.DeleteAnAnswer(answerId);
-            }
+            var entity = _answerRepository.GetById(answerId);
+            _answerRepository.Delete(entity);
+        }
+
+        public AnswerDetailDto UpdateAnswer(int questionId, int answerId, UpdateAnswerDto model)
+        {
+            var entity = _mapper.Map<AnswerTemplate>(model);
+            entity.Id = answerId;
+            entity.IdQuestion = questionId;
+            _answerRepository.Update(entity);
+
+            return _mapper.Map<AnswerDetailDto>(entity);
         }
     }
 }

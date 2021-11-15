@@ -22,11 +22,18 @@ namespace EvaluationSystem.API.Controllers
             return Ok();
         }
 
-        [HttpDelete()]
-        public IActionResult DeleteAnAnswerById(int questionId, int id)
+        [HttpDelete("{answerId}")]
+        public IActionResult DeleteAnAnswerById(int answerId)
         {
-            answersServices.DeleteAnAnswer(questionId, id);
+            answersServices.DeleteAnAnswer(answerId);
             return NoContent();
+        }
+
+        [HttpPut]
+        public IActionResult UpdateAnswer(int questionId, int answerId, [FromBody] UpdateAnswerDto model)
+        {
+            var res = answersServices.UpdateAnswer(questionId, answerId, model);
+            return Ok(res);
         }
     }
 }

@@ -9,6 +9,9 @@ namespace EvaluationSystem.Application.Profiles.AnswerProfile
         public AnswerProfile()
         {
             CreateMap<AddNewAnswerDto, AnswerTemplate>();
+                //.ForMember(a => a.QuestionId, opts => opts.MapFrom(b => b.));
+
+
             CreateMap<AnswerTemplate, AnswerDetailDto>()
                 .ForMember(a => a.AnswerName, opts => opts.MapFrom(an => an.AnswerText));
 
@@ -16,7 +19,7 @@ namespace EvaluationSystem.Application.Profiles.AnswerProfile
             CreateMap<AnswerTemplate, ListAnswersByQuestionId>()
                 .ForMember(a => a.AnswerName, opts => opts.MapFrom(an => an.AnswerText));
 
-           // CreateMap<Answer, QuestionByIdWithAnswersListDto>();
+            CreateMap<UpdateAnswerDto, AnswerTemplate>();
         }
     }
 }

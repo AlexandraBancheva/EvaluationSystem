@@ -11,6 +11,6 @@
 
         public int Position { get; set; }
 
-        public int QuestionId { get; set; }
+        public int IdQuestion { get; set; }
     }
 }
