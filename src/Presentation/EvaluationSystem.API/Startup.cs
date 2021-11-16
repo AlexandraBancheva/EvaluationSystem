@@ -1,4 +1,5 @@
 using EvaluationSystem.Application.ConfigurationServices;
+using EvaluationSystem.Application.Middlewares;
 using EvaluationSystem.Application.Profiles.AnswerProfile;
 using EvaluationSystem.Application.Profiles.QuestionProfile;
 using EvaluationSystem.Application.Validations.AnswerValidations;
@@ -63,6 +64,8 @@ namespace EvaluationSystem.API
             app.UseAuthorization();
 
             app.UpdateDatabase();
+
+            app.UseMiddleware<ErrorHandleMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

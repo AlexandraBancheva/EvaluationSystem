@@ -95,32 +95,37 @@ namespace EvaluationSystem.Application.Services
             //    })
             //    .ToList();
 
-            // // Correct so so
+
+            // // Correct so so!!! // //
+            //var questionsAll = questions
+            //                .Select(q => new ListQuestionsAnswersDto
+            //                {
+            //                    IdQuestion = q.Id,
+            //                    QuestionName = q.Name,
+            //                    Answers = q.Answers.Where(a => q.Id == a.IdQuestion)   // Null exception
+            //                                                          .Select(y => new AnswerListDto1
+            //                                                          {
+            //                                                              IdAnswer = y.Id,
+            //                                                              AnswerText = y.AnswerText
+            //                                                          }).ToList() //?? new List<AnswerListDto1>()
+            //                }).ToList();
+
+            var questionsAll = questions
+                .Select(q => new ListQuestionsAnswersDto
+                {
+                    IdQuestion = q.Id,
+                    QuestionName = q.Name,
+                    Answers = /* q.Answers.Where(a => q.Id == a.Id).Select(y => new AnswerListDto1 { IdAnswer = y.Id, AnswerText = y.AnswerText}).ToList() ?? */ new List<AnswerListDto1>()
+                }); ;
+
+            foreach (var item in questions)
+            {
+                var itemId = item.Id;
+    //            item.Answers.Add(new AnswerListDto1(quest));
+            }
 
 
-            var resultsQuesrions = questions
-                            .Select(q => new ListQuestionsAnswersDto
-                            {
-                                IdQuestion = q.Id,
-                                QuestionName = q.Name,
-                                Answers = new List<AnswerListDto1>() //q.Answers.Where(a => q.Id == a.QuestionId)  //.DefaultIfEmpty() // null exception ??:
-                                                                     // .Select(y => new AnswerListDto1  
-                                                                     //{
-                                                                     //  IdAnswer = y.Id,
-                                                                     // AnswerText = y.AnswerText
-                                                                     //}).ToList()
-                            });
-            //.ToList();
-
-            //foreach (var question in questions)
-            //{
-            //    question.Answers.Add(new AnswerListDto1(
-            //        {
-            //            IdAnswer = 
-            //        }))
-            //}
-
-            return null;
+            return questionsAll;
         }
     }
 }
