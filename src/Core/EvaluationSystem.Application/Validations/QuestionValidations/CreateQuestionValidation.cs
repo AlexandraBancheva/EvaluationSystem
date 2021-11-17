@@ -14,8 +14,8 @@ namespace EvaluationSystem.Application.Validations.QuestionValidations
                 .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters!");
 
             // Validation for enums??
-            //RuleFor(e => e.Type)
-            //    .IsInEnum();
+            RuleFor(e => e.Type)
+                .IsInEnum();
         }
 
         public bool BeAValidName(string name)

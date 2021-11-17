@@ -22,6 +22,5 @@ namespace EvaluationSystem.Domain.Entities
         public bool IsReusable { get; set; }
 
         public virtual ICollection<AnswerTemplate> Answers { get; set; } 
-       // public string AnswerText { get; set; }
     }
 }

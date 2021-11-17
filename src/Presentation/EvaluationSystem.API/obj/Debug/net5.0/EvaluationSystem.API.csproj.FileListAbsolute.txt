@@ -189,7 +189,7 @@ C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Presentation\Evaluat
 C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Presentation\EvaluationSystem.API\obj\Debug\net5.0\EvaluationSystem.API.csproj.CopyComplete
 C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Presentation\EvaluationSystem.API\obj\Debug\net5.0\EvaluationSystem.API.genruntimeconfig.cache
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\Dapper.SimpleCRUD.dll
-C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\obj\Debug\net5.0\EvaluationSystem.API.csproj.CopyComplete
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\System.Text.Encodings.Web.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\System.Text.Json.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\obj\Debug\net5.0\EvaluationSystem.API.csproj.CopyComplete

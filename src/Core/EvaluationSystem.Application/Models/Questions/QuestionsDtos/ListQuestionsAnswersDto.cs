@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using EvaluationSystem.Domain.Enums;
 
 namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 {
@@ -8,17 +8,19 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
     {
         public ListQuestionsAnswersDto()
         {
-            this.Answers = new List<AnswerListDto1>();
+            this.Answers = new List<AnswerListDto>();
         }
 
-        public int IdQuestion { get; set; } //
+        public int IdQuestion { get; set; }
 
         public string QuestionName { get; set; }
 
-        // public int IdAnswer { get; set; }  //
+        public DateTime DateOfCreation { get; set; }
 
-        // public string AnswerText { get; set; }
+        public QuestionType Type { get; set; }
 
-        public ICollection<AnswerListDto1> Answers { get; set; }
+        public bool IsReusable { get; set; }
+
+        public ICollection<AnswerListDto> Answers { get; set; }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 using EvaluationSystem.Application.Exceptions;
 using EvaluationSystem.Application.Models.Errors;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace EvaluationSystem.Application.Middlewares
 {

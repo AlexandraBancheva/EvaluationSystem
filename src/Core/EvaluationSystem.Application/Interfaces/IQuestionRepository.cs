@@ -6,6 +6,6 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IQuestionRepository : IRepository<QuestionTemplate>
     {
-        List<QuestionTemplate> GetAllQuestionsWithAnswers();
+        ICollection<QuestionTemplate> GetAllQuestionsWithAnswers();
     }
 }
