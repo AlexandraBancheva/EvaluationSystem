@@ -30,8 +30,11 @@ namespace EvaluationSystem.API
         {
             services.AddControllers().AddFluentValidation(fv =>
                         fv.RegisterValidatorsFromAssemblyContaining<CreateQuestionValidation>());
+            services.AddControllers().AddFluentValidation(fv => 
+                        fv.RegisterValidatorsFromAssemblyContaining<UpdateQuestionValidation>());
             services.AddControllers().AddFluentValidation(fv =>
                         fv.RegisterValidatorsFromAssemblyContaining<CreateAnswerValidaton>());
+            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UpdateAnswerValidation>());
 
 
             services.AddAutoMapper(typeof(QuestionProfile), typeof(AnswerProfile));
