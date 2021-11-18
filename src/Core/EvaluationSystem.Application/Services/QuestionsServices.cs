@@ -25,7 +25,8 @@ namespace EvaluationSystem.Application.Services
 
             if (currentEntity == null)
             {
-                return null;
+                throw new ArgumentNullException(); 
+                //return null;
             }
 
             return _mapper.Map<QuestionDetailDto>(currentEntity);

@@ -192,3 +192,9 @@ C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSyst
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\System.Text.Encodings.Web.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\System.Text.Json.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\NLog.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\nlog.config
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\obj\Debug\net5.0\EvaluationSystem.API.csproj.CopyComplete
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\bin\Debug\net5.0\Microsoft.Extensions.Logging.Abstractions.dll

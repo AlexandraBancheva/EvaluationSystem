@@ -1,18 +1,18 @@
-using EvaluationSystem.Application.ConfigurationServices;
-using EvaluationSystem.Application.Middlewares;
-using EvaluationSystem.Application.Profiles.AnswerProfile;
-using EvaluationSystem.Application.Profiles.QuestionProfile;
-using EvaluationSystem.Application.Validations.AnswerValidations;
-using EvaluationSystem.Application.Validations.QuestionValidations;
-using EvaluationSystem.Persistence.Configurations;
-using EvaluationSystem.Persistence.Migrations;
-using FluentValidation.AspNetCore;
+using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
+using FluentValidation.AspNetCore;
+using EvaluationSystem.Persistence.Migrations;
+using EvaluationSystem.Application.Middlewares;
+using EvaluationSystem.Persistence.Configurations;
+using EvaluationSystem.Application.ConfigurationServices;
+using EvaluationSystem.Application.Profiles.AnswerProfile;
+using EvaluationSystem.Application.Profiles.QuestionProfile;
+using EvaluationSystem.Application.Validations.AnswerValidations;
+using EvaluationSystem.Application.Validations.QuestionValidations;
 
 namespace EvaluationSystem.API
 {
@@ -36,6 +36,8 @@ namespace EvaluationSystem.API
                         fv.RegisterValidatorsFromAssemblyContaining<CreateAnswerValidaton>());
             services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UpdateAnswerValidation>());
 
+            // Memory cache
+            services.AddMemoryCache();
 
             services.AddAutoMapper(typeof(QuestionProfile), typeof(AnswerProfile));
             services.AddControllers();

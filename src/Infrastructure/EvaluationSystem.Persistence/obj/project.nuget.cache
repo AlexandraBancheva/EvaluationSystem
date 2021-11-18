@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ikscVZP3U8YMNnH9ivat6VgeALiVH158+Y5rHdbVDBfgsU+sSjzgOOleidi1rphq6T2I95q/YCNY9bGznyyFzQ==",
+  "dgSpecHash": "5ILqmuI2785209TCH0bl1hTwDr782wI8Mc0IpH+SYhHUVtfhhBrnjfMqCIXVvSxmvuo+AqSD0RN9/EFFJmiiaQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\alexandra\\source\\repos\\EvaluationSystem\\src\\Infrastructure\\EvaluationSystem.Persistence\\EvaluationSystem.Persistence.csproj",
   "expectedPackageFiles": [
@@ -41,7 +41,7 @@
     "C:\\Users\\alexandra\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\2.0.0\\microsoft.extensions.dependencyinjection.2.0.0.nupkg.sha512",
     "C:\\Users\\alexandra\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.0.0\\microsoft.extensions.dependencyinjection.abstractions.3.0.0.nupkg.sha512",
     "C:\\Users\\alexandra\\.nuget\\packages\\microsoft.extensions.logging\\2.0.1\\microsoft.extensions.logging.2.0.1.nupkg.sha512",
-    "C:\\Users\\alexandra\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\2.0.1\\microsoft.extensions.logging.abstractions.2.0.1.nupkg.sha512",
+    "C:\\Users\\alexandra\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\alexandra\\.nuget\\packages\\microsoft.extensions.options\\3.0.0\\microsoft.extensions.options.3.0.0.nupkg.sha512",
     "C:\\Users\\alexandra\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\alexandra\\.nuget\\packages\\microsoft.identity.client\\4.22.0\\microsoft.identity.client.4.22.0.nupkg.sha512",

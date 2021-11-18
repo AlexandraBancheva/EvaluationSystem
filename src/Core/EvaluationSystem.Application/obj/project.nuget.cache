@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6hsjDre8Qr9pWlRVqsXeuwDAzUxxaRE/qmkM8ekDznGsNqUET/T2L5R6NQSf3fAWimHIdO6K7vhu0v5OiAwmFQ==",
+  "dgSpecHash": "3PtCLehTilEQjTHfwcuOsMKa8zPYc3QqV1KwpZ5AtZpv4raui05nqfZVfeG7nRxfA5kBBCkbNY0n+Rnnuffhxw==",
   "success": true,
   "projectFilePath": "C:\\Users\\alexandra\\source\\repos\\EvaluationSystem\\src\\Core\\EvaluationSystem.Application\\EvaluationSystem.Application.csproj",
   "expectedPackageFiles": [
@@ -12,6 +12,7 @@
     "C:\\Users\\alexandra\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\alexandra\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\alexandra\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.0.0\\microsoft.extensions.dependencyinjection.abstractions.3.0.0.nupkg.sha512",
+    "C:\\Users\\alexandra\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\alexandra\\.nuget\\packages\\microsoft.extensions.options\\3.0.0\\microsoft.extensions.options.3.0.0.nupkg.sha512",
     "C:\\Users\\alexandra\\.nuget\\packages\\microsoft.extensions.primitives\\3.0.0\\microsoft.extensions.primitives.3.0.0.nupkg.sha512",
     "C:\\Users\\alexandra\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
