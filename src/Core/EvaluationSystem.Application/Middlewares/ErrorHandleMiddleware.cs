@@ -28,7 +28,7 @@ namespace EvaluationSystem.Application.Middlewares
             }
             catch (Exception e)
             {
-                _logger.LogInformation(e.ToString());
+                _logger.LogError(e.ToString());
                 await HandleException(e, context);
             }
            

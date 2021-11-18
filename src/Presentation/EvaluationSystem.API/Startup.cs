@@ -13,6 +13,8 @@ using EvaluationSystem.Application.Profiles.AnswerProfile;
 using EvaluationSystem.Application.Profiles.QuestionProfile;
 using EvaluationSystem.Application.Validations.AnswerValidations;
 using EvaluationSystem.Application.Validations.QuestionValidations;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace EvaluationSystem.API
 {
@@ -36,8 +38,22 @@ namespace EvaluationSystem.API
                         fv.RegisterValidatorsFromAssemblyContaining<CreateAnswerValidaton>());
             services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UpdateAnswerValidation>());
 
+            //?
+            //services.Configure<ApiBehaviorOptions>(options =>
+            //{
+            //    options.InvalidModelStateResponseFactory = actionContext =>
+            //    {
+            //        return new BadRequestObjectResult(new
+            //        {
+            //            Code = 400,
+            //            ErrorMessage = actionContext.ModelState.Values.SelectMany(x => x.Errors)
+            //        .Select(e => e.ErrorMessage)
+            //        });
+            //    };
+            //});
+
             // Memory cache
-            services.AddMemoryCache();
+           //services.AddMemoryCache();
 
             services.AddAutoMapper(typeof(QuestionProfile), typeof(AnswerProfile));
             services.AddControllers();

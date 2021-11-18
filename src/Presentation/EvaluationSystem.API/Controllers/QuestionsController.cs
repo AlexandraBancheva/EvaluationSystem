@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Caching.Memory;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
-using System;
 
 namespace EvaluationSystem.API.Controllers
 {
@@ -13,13 +11,11 @@ namespace EvaluationSystem.API.Controllers
     public class QuestionsController : ControllerBase
     {
         private readonly IQuestionsServices questionsServices;
-        private readonly IMemoryCache _memoryCache;
         private readonly ILogger<QuestionsController> _logger;
 
-        public QuestionsController(IQuestionsServices questionsServices, IMemoryCache memoryCache, ILogger<QuestionsController> logger)
+        public QuestionsController(IQuestionsServices questionsServices, ILogger<QuestionsController> logger)
         {
             this.questionsServices = questionsServices;
-            _memoryCache = memoryCache;
             this._logger = logger;
         }
 
@@ -30,7 +26,6 @@ namespace EvaluationSystem.API.Controllers
             return Ok(res);
         }
 
-       // [ResponseCache(Duration = 30)]
         [HttpGet("{id}")]
         public IActionResult GetQuestionById(int id)
         {

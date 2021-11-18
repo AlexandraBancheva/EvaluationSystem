@@ -25,7 +25,7 @@ namespace EvaluationSystem.Application.Services
 
             if (currentEntity == null)
             {
-                throw new ArgumentNullException(); 
+                throw new InvalidOperationException(); 
                 //return null;
             }
 
