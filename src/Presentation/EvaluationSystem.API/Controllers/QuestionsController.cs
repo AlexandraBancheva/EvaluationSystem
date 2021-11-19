@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
@@ -11,12 +10,10 @@ namespace EvaluationSystem.API.Controllers
     public class QuestionsController : ControllerBase
     {
         private readonly IQuestionsServices questionsServices;
-        private readonly ILogger<QuestionsController> _logger;
 
-        public QuestionsController(IQuestionsServices questionsServices, ILogger<QuestionsController> logger)
+        public QuestionsController(IQuestionsServices questionsServices)
         {
             this.questionsServices = questionsServices;
-            this._logger = logger;
         }
 
         [HttpGet]

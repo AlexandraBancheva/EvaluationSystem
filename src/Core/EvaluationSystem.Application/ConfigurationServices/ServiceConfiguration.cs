@@ -13,6 +13,7 @@ namespace EvaluationSystem.Application.ConfigurationServices
         {
             services.AddScoped<IQuestionsServices, QuestionsServices>();
             services.AddScoped<IAnswersServices, AnswersServices>();
+            services.AddScoped<IModulesServices, ModulesServices>();
         }
     }
 }

@@ -13,9 +13,9 @@ namespace EvaluationSystem.Persistence.Migrations
         public override void Up()
         {
             Create.Table("FormModule")
-                .WithColumn("IdFormModule").AsInt32().PrimaryKey().Identity()
-                .WithColumn("IdForm").AsInt32().NotNullable().ForeignKey("FormTemplate", "IdForm")
-                .WithColumn("IdModule").AsInt32().NotNullable().ForeignKey("ModuleTemplate", "IdModule")
+                .WithColumn("Id").AsInt32().PrimaryKey().Identity()
+                .WithColumn("IdForm").AsInt32().NotNullable().ForeignKey("FormTemplate", "Id")
+                .WithColumn("IdModule").AsInt32().NotNullable().ForeignKey("ModuleTemplate", "Id")
                 .WithColumn("Position").AsInt32();
         }
     }

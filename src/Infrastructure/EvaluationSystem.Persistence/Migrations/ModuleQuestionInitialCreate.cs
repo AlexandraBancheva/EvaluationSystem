@@ -14,7 +14,7 @@ namespace EvaluationSystem.Persistence.Migrations
         {
             Create.Table("ModuleQuestion")
                 .WithColumn("IdModuleQuestion").AsInt32().PrimaryKey().Identity()
-                .WithColumn("IdModule").AsInt32().NotNullable().ForeignKey("ModuleTemplate", "IdModule")
+                .WithColumn("IdModule").AsInt32().NotNullable().ForeignKey("ModuleTemplate", "Id")
                 .WithColumn("IdQuestion").AsInt32().NotNullable().ForeignKey("QuestionTemplate", "Id")
                 .WithColumn("Position").AsInt32();
         }

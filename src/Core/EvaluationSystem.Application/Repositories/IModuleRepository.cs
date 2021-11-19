@@ -1,6 +1,8 @@
-﻿namespace EvaluationSystem.Application.Repositories
+﻿using EvaluationSystem.Domain.Entities;
+
+namespace EvaluationSystem.Application.Repositories
 {
-    public interface IModuleRepository : IRepository<IModuleRepository>
+    public interface IModuleRepository : IRepository<ModuleTemplate>
     {
     }
 }

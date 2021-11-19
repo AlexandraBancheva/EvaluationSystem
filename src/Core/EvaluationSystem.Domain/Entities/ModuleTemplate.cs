@@ -9,10 +9,11 @@ namespace EvaluationSystem.Domain.Entities
             this.Questions = new HashSet<QuestionTemplate>();
         }
 
-        public int IdModule { get; set; }
+        // public int IdModule { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public ICollection<QuestionTemplate> Questions { get; set; }
+        public virtual ICollection<QuestionTemplate> Questions { get; set; }
     }
 }

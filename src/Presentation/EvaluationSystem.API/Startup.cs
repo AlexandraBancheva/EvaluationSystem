@@ -1,20 +1,21 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using FluentValidation.AspNetCore;
 using EvaluationSystem.Persistence.Migrations;
 using EvaluationSystem.Application.Middlewares;
+using EvaluationSystem.Application.Validations;
 using EvaluationSystem.Persistence.Configurations;
 using EvaluationSystem.Application.ConfigurationServices;
+using EvaluationSystem.Application.Profiles.ModuleProfile;
 using EvaluationSystem.Application.Profiles.AnswerProfile;
 using EvaluationSystem.Application.Profiles.QuestionProfile;
 using EvaluationSystem.Application.Validations.AnswerValidations;
 using EvaluationSystem.Application.Validations.QuestionValidations;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
+using EvaluationSystem.Application.Validations.ModuleValidations;
 
 namespace EvaluationSystem.API
 {
@@ -36,26 +37,17 @@ namespace EvaluationSystem.API
                         fv.RegisterValidatorsFromAssemblyContaining<UpdateQuestionValidation>());
             services.AddControllers().AddFluentValidation(fv =>
                         fv.RegisterValidatorsFromAssemblyContaining<CreateAnswerValidaton>());
-            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UpdateAnswerValidation>());
-
-            //?
-            //services.Configure<ApiBehaviorOptions>(options =>
-            //{
-            //    options.InvalidModelStateResponseFactory = actionContext =>
-            //    {
-            //        return new BadRequestObjectResult(new
-            //        {
-            //            Code = 400,
-            //            ErrorMessage = actionContext.ModelState.Values.SelectMany(x => x.Errors)
-            //        .Select(e => e.ErrorMessage)
-            //        });
-            //    };
-            //});
+            services.AddControllers().AddFluentValidation(fv => 
+                        fv.RegisterValidatorsFromAssemblyContaining<UpdateAnswerValidation>());
+            services.AddControllers().AddFluentValidation(fv =>
+                        fv.RegisterValidatorsFromAssemblyContaining<CreateModuleValidation>());
+            services.AddControllers().AddFluentValidation(fv => 
+                        fv.RegisterValidatorsFromAssemblyContaining<UpdateModuleValidation>());
 
             // Memory cache
            //services.AddMemoryCache();
 
-            services.AddAutoMapper(typeof(QuestionProfile), typeof(AnswerProfile));
+            services.AddAutoMapper(typeof(QuestionProfile), typeof(AnswerProfile), typeof(ModuleProfile));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -1,4 +1,5 @@
 ﻿using EvaluationSystem.Application.Interfaces;
+using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Persistence.QuestionDatabase;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,7 @@ namespace EvaluationSystem.Persistence.Configurations
         {
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
+            services.AddScoped<IModuleRepository, ModuleRepository>();
         }
     }
 }
