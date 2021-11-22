@@ -10,10 +10,12 @@ namespace EvaluationSystem.API.Controllers
     public class ModulesController : ControllerBase
     {
         private readonly IModulesServices _modulesServices;
+        private readonly IModuleQuestionsServices _moduleQuestionsServices;
 
-        public ModulesController(IModulesServices moduleServices)
+        public ModulesController(IModulesServices moduleServices, IModuleQuestionsServices moduleQuestionsServices)
         {
             _modulesServices = moduleServices;
+            _moduleQuestionsServices = moduleQuestionsServices;
         }
 
         [HttpPost]
@@ -42,6 +44,13 @@ namespace EvaluationSystem.API.Controllers
         {
             _modulesServices.DeleteCurrentModule(id);
             return NoContent();
+        }
+
+        [HttpGet]
+        public IActionResult GetAllModulesWithAllQuestions()
+        {
+            var results = _moduleQuestionsServices.GetAllModulesWithAllQuestions();
+            return Ok(results);
         }
     }
 }

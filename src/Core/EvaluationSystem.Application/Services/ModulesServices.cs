@@ -28,8 +28,7 @@ namespace EvaluationSystem.Application.Services
 
         public void DeleteCurrentModule(int moduleId)
         {
-            var entity = _moduleRepository.GetById(moduleId);
-            _moduleRepository.Delete(entity);
+            _moduleRepository.DeleteModule(moduleId);
         }
 
         public ModuleDetailDto GetModuleById(int moduleId)

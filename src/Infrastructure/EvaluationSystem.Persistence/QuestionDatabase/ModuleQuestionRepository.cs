@@ -3,6 +3,7 @@ using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -31,9 +32,29 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             dbConnection.Execute(query, new { ModuleId = moduleId, QuestionId = questionId});
         }
 
-        public ICollection<ModuleTemplate> GetModuleWithAllQuestions(int moduleId, int questionId)
+        public ICollection<ModuleTemplate> GetModuleWithAllQuestions()
         {
-            throw new System.NotImplementedException();
+            using var dbConnection = Connection;
+            var query = @"SELECT * FROM ModuleTemplate AS mt
+                            JOIN ModuleQuestion AS mq ON mt.Id = mq.IdModule
+                            JOIN QuestionTemplate AS qt ON mq.IdQuestion = qt.Id";
+
+            var moduleDictionary = new Dictionary<int, ModuleTemplate>();
+            var modules = dbConnection.Query<ModuleTemplate, QuestionTemplate, ModuleTemplate>(query, (module, question) =>
+            {
+                if (!moduleDictionary.TryGetValue(module.Id, out var currentModule))
+                {
+                    currentModule = module;
+                    moduleDictionary.Add(currentModule.Id, currentModule);
+                }
+
+                currentModule.Questions.Add(question);
+                return currentModule;
+            }, splitOn: "Id")
+                .Distinct()
+                .ToList();
+
+            return modules;
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace EvaluationSystem.Application.Interfaces
+﻿using EvaluationSystem.Application.Models.ModuleQuestions;
+using System.Collections.Generic;
+
+namespace EvaluationSystem.Application.Interfaces
 {
     public interface IModuleQuestionsServices
     {
@@ -6,6 +9,6 @@
 
         void DeleteQuestionFromModule(int moduleId, int questionId);
 
-        // GetAllModulesWithAllQuestions();
+        IEnumerable<ListModulesQuestionsDto> GetAllModulesWithAllQuestions();
     }
 }

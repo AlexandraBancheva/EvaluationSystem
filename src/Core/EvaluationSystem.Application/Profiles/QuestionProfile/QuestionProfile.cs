@@ -2,6 +2,7 @@
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
+using EvaluationSystem.Application.Models.ModuleQuestions;
 
 namespace EvaluationSystem.Application.Profiles.QuestionProfile
 {
@@ -30,6 +31,10 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
 
             CreateMap<UpdateQuestionDto, QuestionTemplate>()
                 .ForAllMembers(opts => opts.Condition((src, destination, srcMembers) => srcMembers != null)); ;  // Do not work
+
+            CreateMap<QuestionTemplate, QuestionListDto>()
+                .ForMember(v => v.IdQuestion, opts => opts.MapFrom(b => b.Id))
+                .ForMember(r => r.QuestionName, opts => opts.MapFrom(c => c.Name));
         }
     }
 }

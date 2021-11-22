@@ -9,6 +9,6 @@ namespace EvaluationSystem.Application.Repositories
 
         void DeleteQuestionFromModule(int moduleId, int questionId);
 
-        ICollection<ModuleTemplate> GetModuleWithAllQuestions(int moduleId, int questionId);
+        ICollection<ModuleTemplate> GetModuleWithAllQuestions();
     }
 }
