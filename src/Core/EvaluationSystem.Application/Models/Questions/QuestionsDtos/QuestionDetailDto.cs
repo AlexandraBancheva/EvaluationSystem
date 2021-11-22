@@ -4,6 +4,8 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 {
     public class QuestionDetailDto
     {
+        public int Id { get; set; }
+
         public string QuestionName { get; set; }
 
         public string Type { get; set; }
