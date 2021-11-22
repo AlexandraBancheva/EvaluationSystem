@@ -12,6 +12,7 @@ namespace EvaluationSystem.Persistence.Configurations
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
             services.AddScoped<IModuleRepository, ModuleRepository>();
+            services.AddScoped<IModuleQuestionRepository, ModuleQuestionRepository>();
         }
     }
 }
