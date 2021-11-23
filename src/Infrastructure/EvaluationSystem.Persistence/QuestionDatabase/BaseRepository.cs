@@ -11,25 +11,38 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
     public abstract class BaseRepository<T> : IRepository<T>
         where T : class
     {
-        private readonly IConfiguration _configuration;
+        //private readonly IConfiguration _configuration;
+        
 
-        public BaseRepository(IConfiguration configuration)
+        private readonly IUnitOfWork _unitOfWork;
+
+        //public BaseRepository(IConfiguration configuration)
+        //{
+        //    _configuration = configuration;
+        //}
+
+        public BaseRepository(IUnitOfWork unitOfWork)
         {
-            _configuration = configuration;
+            _unitOfWork = unitOfWork;
         }
 
-        public IDbConnection Connection
-        {
-            get
-            {
-                return new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-            }
-        }
+        public IDbTransaction _transaction => _unitOfWork.Transaction;
+
+        public IDbConnection _connection => _unitOfWork.Connection;
+
+        //public IDbConnection Connection
+        //{
+        //    get
+        //    {
+        //        return new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+        //    }
+        //}
 
         public void Delete(T entity)
         {
-            using var dbConnection = Connection;
-            dbConnection.Delete(entity);
+            // using var dbConnection = Connection;
+            // dbConnection.Delete(entity, _transaction.Connection);
+            _connection.Delete(entity, _transaction);
         }
 
         public List<T> GetAll()
@@ -39,21 +52,21 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public T GetById(int id)
         {
-            using var dbConnection = Connection;
-            return dbConnection.Get<T>(id);
+           // using var dbConnection = Connection;
+            return _connection.Get<T>(id);
         }
 
         public int Insert(T entity)
         {
-            using var dbConnection = Connection;
-            var id = dbConnection.Insert<T>(entity);
+           // using var dbConnection = Connection;
+            var id = _connection.Insert<T>(entity);
             return (int)id;
         }
 
         public void Update(T entity)
         {
-            using var dbConnection = Connection;
-            dbConnection.Update(entity);
+            // using var dbConnection = Connection;
+            _connection.Update(entity);
         }
     }
 }

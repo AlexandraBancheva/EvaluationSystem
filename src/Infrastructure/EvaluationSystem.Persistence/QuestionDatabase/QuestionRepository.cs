@@ -6,39 +6,45 @@ using Dapper;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Domain.Entities;
 using Microsoft.Extensions.Configuration;
+using EvaluationSystem.Application.Repositories;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
     public class QuestionRepository : BaseRepository<QuestionTemplate>, IQuestionRepository
     {
 
-        public QuestionRepository(IConfiguration configuration)
-            : base(configuration)
+        //public QuestionRepository(IConfiguration configuration)
+        //    : base(configuration)
+        //{
+        //}
+
+        public QuestionRepository(IUnitOfWork unitOfWork) 
+            : base(unitOfWork)
         {
         }
 
         public void DeleteQuestion(int questionId)
         {
-            using var dbConnection = Connection;
+            //using var dbConnection = Connection;
             var query = @"DELETE FROM AnswerTemplate
                             WHERE IdQuestion = @QuestionId
                             DELETE FROM ModuleQuestion
                             WHERE IdQuestion = @QuestionId
                             DELETE FROM QuestionTemplate
                             WHERE Id = @QuestionId";
-            dbConnection.Execute(query, new { QuestionId = questionId});
+            _connection.Execute(query, new { QuestionId = questionId}, _transaction);
         }
         
         public ICollection<QuestionTemplate> GetAllQuestionsWithAnswers()
         {
             try
             {
-                using IDbConnection dbConnection = Connection;
+               // using IDbConnection dbConnection = Connection;
                 var query = @"SELECT *
                                 FROM QuestionTemplate AS q
                                 LEFT JOIN AnswerTemplate AS a ON q.Id = a.IdQuestion";
                 var questionDictionary = new Dictionary<int, QuestionTemplate>();
-                var questions = dbConnection.Query<QuestionTemplate, AnswerTemplate, QuestionTemplate>(query, (question, answer) =>
+                var questions = _connection.Query<QuestionTemplate, AnswerTemplate, QuestionTemplate>(query, (question, answer) =>
                 {
                     if (!questionDictionary.TryGetValue(question.Id, out var currentQuestion))
                     {

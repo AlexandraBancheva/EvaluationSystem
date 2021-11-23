@@ -9,6 +9,7 @@ namespace EvaluationSystem.Persistence.Configurations
     {
         public static void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
             services.AddScoped<IModuleRepository, ModuleRepository>();

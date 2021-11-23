@@ -27,4 +27,3 @@ C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Infrastructure\Evalu
 C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\bin\Debug\netstandard2.1\EvaluationSystem.Application.pdb
 C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\bin\Debug\netstandard2.1\EvaluationSystem.Domain.pdb
 C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\obj\Debug\netstandard2.1\EvaluationSystem.Persistence.csproj.CopyComplete
-C:\Users\alexandra\source\repos\EvaluationSystem\src\Infrastructure\EvaluationSystem.Persistence\obj\Debug\netstandard2.1\EvaluationSystem.Persistence.csproj.CopyComplete

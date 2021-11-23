@@ -60,7 +60,6 @@ namespace EvaluationSystem.Application.Services
 
         public void DeleteQuestion(int questionId)
         {
-            //var entity = _questionRepository.GetById(questionId);
             _questionRepository.DeleteQuestion(questionId);
         }
 
