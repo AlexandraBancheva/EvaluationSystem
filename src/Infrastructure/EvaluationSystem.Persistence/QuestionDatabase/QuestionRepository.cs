@@ -17,6 +17,18 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
         }
 
+        public void DeleteQuestion(int questionId)
+        {
+            using var dbConnection = Connection;
+            var query = @"DELETE FROM AnswerTemplate
+                            WHERE IdQuestion = @QuestionId
+                            DELETE FROM ModuleQuestion
+                            WHERE IdQuestion = @QuestionId
+                            DELETE FROM QuestionTemplate
+                            WHERE Id = @QuestionId";
+            dbConnection.Execute(query, new { QuestionId = questionId});
+        }
+        
         public ICollection<QuestionTemplate> GetAllQuestionsWithAnswers()
         {
             try

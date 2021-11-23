@@ -7,5 +7,7 @@ namespace EvaluationSystem.Application.Interfaces
     public interface IQuestionRepository : IRepository<QuestionTemplate>
     {
         ICollection<QuestionTemplate> GetAllQuestionsWithAnswers();
+
+        void DeleteQuestion(int questionId);
     }
 }

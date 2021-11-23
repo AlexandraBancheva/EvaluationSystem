@@ -60,8 +60,8 @@ namespace EvaluationSystem.Application.Services
 
         public void DeleteQuestion(int questionId)
         {
-            var entity = _questionRepository.GetById(questionId);
-            _questionRepository.Delete(entity);
+            //var entity = _questionRepository.GetById(questionId);
+            _questionRepository.DeleteQuestion(questionId);
         }
 
         public IEnumerable<ListQuestionsAnswersDto> GetAllQuestionsWithTheirAnswers()
