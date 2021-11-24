@@ -19,6 +19,8 @@ using EvaluationSystem.Application.Validations.ModuleValidations;
 using EvaluationSystem.Application.Profiles.ModuleQuestionProfile;
 using EvaluationSystem.Application.Profiles.FormProfile;
 using EvaluationSystem.Application.Profiles.FormModuleProfile;
+using EvaluationSystem.Application.Validations.FormValidations;
+using EvaluationSystem.Persistence;
 
 namespace EvaluationSystem.API
 {
@@ -46,6 +48,10 @@ namespace EvaluationSystem.API
                         fv.RegisterValidatorsFromAssemblyContaining<CreateModuleValidation>());
             services.AddControllers().AddFluentValidation(fv => 
                         fv.RegisterValidatorsFromAssemblyContaining<UpdateModuleValidation>());
+            services.AddControllers().AddFluentValidation(fv =>
+                        fv.RegisterValidatorsFromAssemblyContaining<CreateModuleValidation>());
+            services.AddControllers().AddFluentValidation(fv => 
+                        fv.RegisterValidatorsFromAssemblyContaining<UpdateFormValidation>());
 
             // Memory cache
            //services.AddMemoryCache();
@@ -69,9 +75,12 @@ namespace EvaluationSystem.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EvaluationSystem.API v1"));
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "EvaluationSystem.API v1"));
+
+            CreateDatabase.EnsureDatabase(Configuration);
 
             app.UseHttpsRedirection();
 

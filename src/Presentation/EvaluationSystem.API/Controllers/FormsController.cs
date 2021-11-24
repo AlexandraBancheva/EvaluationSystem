@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EvaluationSystem.API.Controllers
 {
     [ApiController]
-    [Route("api/forms/")]
+    [Route("api/forms")]
     public class FormsController : ControllerBase
     {
         private readonly IFormsServices _formsServices;

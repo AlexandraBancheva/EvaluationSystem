@@ -28,13 +28,11 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         
         public ICollection<QuestionTemplate> GetAllQuestionsWithAnswers()
         {
-            try
-            {
-                var query = @"SELECT *
-                                FROM QuestionTemplate AS q
-                                LEFT JOIN AnswerTemplate AS a ON q.Id = a.IdQuestion";
-                var questionDictionary = new Dictionary<int, QuestionTemplate>();
-                var questions = _connection.Query<QuestionTemplate, AnswerTemplate, QuestionTemplate>(query, (question, answer) =>
+            var query = @"SELECT *
+                            FROM QuestionTemplate AS q
+                            LEFT JOIN AnswerTemplate AS a ON q.Id = a.IdQuestion";
+            var questionDictionary = new Dictionary<int, QuestionTemplate>();
+            var questions = _connection.Query<QuestionTemplate, AnswerTemplate, QuestionTemplate>(query, (question, answer) =>
                 {
                     if (!questionDictionary.TryGetValue(question.Id, out var currentQuestion))
                     {
@@ -44,17 +42,12 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                     currentQuestion.Answers.Add(answer);
                     return currentQuestion;
-                }, _transaction,
-                splitOn: "Id")
-                    .Distinct()
-                    .ToList();
+            }, _transaction,
+               splitOn: "Id")
+            .Distinct()
+            .ToList();
 
-                return questions;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return questions;
         }
     }
 }

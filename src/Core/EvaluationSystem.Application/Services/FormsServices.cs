@@ -35,6 +35,7 @@ namespace EvaluationSystem.Application.Services
         public FormDetailDto GetFormById(int formId)
         {
            var res = _formRepository.GetById(formId);
+
            return _mapper.Map<FormDetailDto>(res);
         }
 
@@ -50,7 +51,6 @@ namespace EvaluationSystem.Application.Services
         public IEnumerable<ListFormsModulesDto> GetAllForsWithAllModules()
         {
             var forms = _formRepository.FormsWithModules();
-
             var formsModules = _mapper.Map<IEnumerable<ListFormsModulesDto>>(forms);
 
             return formsModules;

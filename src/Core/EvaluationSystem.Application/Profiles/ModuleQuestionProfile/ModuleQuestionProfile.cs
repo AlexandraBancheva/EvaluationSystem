@@ -13,6 +13,9 @@ namespace EvaluationSystem.Application.Profiles.ModuleQuestionProfile
                 .ForMember(o => o.ModuleName, opts => opts.MapFrom(p => p.Name))
               //  .ForMember(p => p.Position, opts => opts.MapFrom(t => t.Position))
                 .ForMember(w => w.Questions, opts => opts.MapFrom(q => q.Questions));
+
+            //CreateMap<ModuleQuestion, PositionDto>()
+            //    .ForMember(p => p.Position, opts => opts.MapFrom(t => t.Position));
         }
     }
 }

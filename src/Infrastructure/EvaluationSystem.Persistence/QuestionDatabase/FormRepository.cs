@@ -1,8 +1,8 @@
-﻿using EvaluationSystem.Domain.Entities;
-using EvaluationSystem.Application.Repositories;
-using Dapper;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Linq;
+using Dapper;
+using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Repositories;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
