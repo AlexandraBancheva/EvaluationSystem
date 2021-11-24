@@ -21,9 +21,9 @@ namespace EvaluationSystem.Application.Services
         public ModuleDetailDto CreateModule(CreateModuleDto model)
         {
             var currentEntity = _mapper.Map<ModuleTemplate>(model);
-            _moduleRepository.Insert(currentEntity);
+            var newEntityId = _moduleRepository.Insert(currentEntity);
 
-            return _mapper.Map<ModuleDetailDto>(currentEntity);
+            return GetModuleById(newEntityId);
         }
 
         public void DeleteCurrentModule(int moduleId)

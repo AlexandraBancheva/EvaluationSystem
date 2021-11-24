@@ -1,6 +1,6 @@
-﻿using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
+﻿using System.Collections.Generic;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
-using System.Collections.Generic;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Interfaces
 {

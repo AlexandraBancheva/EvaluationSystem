@@ -25,8 +25,7 @@ namespace EvaluationSystem.Application.Services
 
             if (currentEntity == null)
             {
-                throw new InvalidOperationException(); 
-                //return null;
+                return null;
             }
 
             return _mapper.Map<QuestionDetailDto>(currentEntity);
@@ -36,9 +35,9 @@ namespace EvaluationSystem.Application.Services
         {
             var currentEntity = _mapper.Map<QuestionTemplate>(model);
             currentEntity.DateOfCreation = DateTime.UtcNow;
-            _questionRepository.Insert(currentEntity);
+           var newEntityId = _questionRepository.Insert(currentEntity);
 
-            return _mapper.Map<QuestionDetailDto>(currentEntity);
+            return GetQuestionById(newEntityId);
         }
 
         public QuestionDetailDto UpdateCurrentQuestion(int questionId, UpdateQuestionDto model)

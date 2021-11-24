@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Collections.Generic;
 using Dapper;
-using Microsoft.Extensions.Configuration;
 using EvaluationSystem.Application.Repositories;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
@@ -11,15 +9,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
     public abstract class BaseRepository<T> : IRepository<T>
         where T : class
     {
-        //private readonly IConfiguration _configuration;
-        
-
         private readonly IUnitOfWork _unitOfWork;
-
-        //public BaseRepository(IConfiguration configuration)
-        //{
-        //    _configuration = configuration;
-        //}
 
         public BaseRepository(IUnitOfWork unitOfWork)
         {
@@ -30,18 +20,8 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public IDbConnection _connection => _unitOfWork.Connection;
 
-        //public IDbConnection Connection
-        //{
-        //    get
-        //    {
-        //        return new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-        //    }
-        //}
-
         public void Delete(T entity)
         {
-            // using var dbConnection = Connection;
-            // dbConnection.Delete(entity, _transaction.Connection);
             _connection.Delete(entity, _transaction);
         }
 
@@ -52,21 +32,18 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public T GetById(int id)
         {
-           // using var dbConnection = Connection;
-            return _connection.Get<T>(id);
+            return _connection.Get<T>(id, _transaction);
         }
 
         public int Insert(T entity)
         {
-           // using var dbConnection = Connection;
-            var id = _connection.Insert<T>(entity);
+            var id = _connection.Insert<T>(entity, _transaction);
             return (int)id;
         }
 
         public void Update(T entity)
         {
-            // using var dbConnection = Connection;
-            _connection.Update(entity);
+            _connection.Update(entity, _transaction);
         }
     }
 }

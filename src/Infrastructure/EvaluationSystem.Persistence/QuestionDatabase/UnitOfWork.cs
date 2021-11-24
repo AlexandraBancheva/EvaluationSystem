@@ -1,7 +1,7 @@
-﻿using EvaluationSystem.Application.Repositories;
-using Microsoft.Extensions.Configuration;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using EvaluationSystem.Application.Repositories;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -39,16 +39,22 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         public void Commit()
         {
             _transaction.Commit();
+            Dispose();
         }
 
         public void Dispose()
         {
-            _transaction.Dispose();
+            if (_transaction != null)
+            {
+                _transaction.Dispose();
+                _transaction = null;
+            }
         }
 
         public void Rollback()
         {
             _transaction.Rollback();
+            Dispose();
         }
     }
 }

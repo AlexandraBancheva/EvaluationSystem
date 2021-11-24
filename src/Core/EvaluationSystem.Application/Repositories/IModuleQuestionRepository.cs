@@ -1,5 +1,5 @@
-﻿using EvaluationSystem.Domain.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using EvaluationSystem.Domain.Entities;
 
 namespace EvaluationSystem.Application.Repositories
 {

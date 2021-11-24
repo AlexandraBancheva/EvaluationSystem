@@ -1,16 +1,11 @@
 ﻿using Dapper;
-using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
-using Microsoft.Extensions.Configuration;
+using EvaluationSystem.Application.Repositories;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
     public class ModuleRepository : BaseRepository<ModuleTemplate>, IModuleRepository
     {
-        //public ModuleRepository(IConfiguration configuration)
-        //    :base(configuration)
-        //{
-        //}
         public ModuleRepository(IUnitOfWork unitOfWork)
            : base(unitOfWork)
         {
@@ -18,7 +13,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public void DeleteModule(int moduleId)
         {
-           // using var dbConnection = Connection;
             var query = @"DELETE ModuleQuestion
                             WHERE IdModule = @ModuleId
                             DELETE ModuleTemplate

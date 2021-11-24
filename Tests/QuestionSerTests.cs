@@ -41,10 +41,10 @@ namespace Tests
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            _questionService = new QuestionsServices(new QuestionRepository(config), new MapperConfiguration((mc) =>
-            {
-                mc.AddMaps(typeof(QuestionProfile).Assembly);
-            }).CreateMapper());
+            //_questionService = new QuestionsServices(new QuestionRepository(config), new MapperConfiguration((mc) =>
+            //{
+            //    mc.AddMaps(typeof(QuestionProfile).Assembly);
+            //}).CreateMapper());
         }
 
         [Test]

@@ -12,6 +12,8 @@ namespace EvaluationSystem.Application.ConfigurationServices
             services.AddScoped<IAnswersServices, AnswersServices>();
             services.AddScoped<IModulesServices, ModulesServices>();
             services.AddScoped<IModuleQuestionsServices, ModuleQuestionsServices>();
+            services.AddScoped<IFormsServices, FormsServices>();
+            services.AddScoped<IFormModulesServices, FormModulesServices>();
         }
     }
 }

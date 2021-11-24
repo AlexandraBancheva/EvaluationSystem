@@ -16,6 +16,9 @@ using EvaluationSystem.Application.Profiles.QuestionProfile;
 using EvaluationSystem.Application.Validations.AnswerValidations;
 using EvaluationSystem.Application.Validations.QuestionValidations;
 using EvaluationSystem.Application.Validations.ModuleValidations;
+using EvaluationSystem.Application.Profiles.ModuleQuestionProfile;
+using EvaluationSystem.Application.Profiles.FormProfile;
+using EvaluationSystem.Application.Profiles.FormModuleProfile;
 
 namespace EvaluationSystem.API
 {
@@ -47,7 +50,7 @@ namespace EvaluationSystem.API
             // Memory cache
            //services.AddMemoryCache();
 
-            services.AddAutoMapper(typeof(QuestionProfile), typeof(AnswerProfile), typeof(ModuleProfile));
+            services.AddAutoMapper(typeof(QuestionProfile), typeof(AnswerProfile), typeof(ModuleProfile), typeof(ModuleQuestionProfile), typeof(FormProfile), typeof(FormModuleProfile));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

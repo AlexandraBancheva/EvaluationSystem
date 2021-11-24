@@ -1,23 +1,15 @@
 ﻿using System;
-using System.Data;
 using System.Linq;
 using System.Collections.Generic;
 using Dapper;
-using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Domain.Entities;
-using Microsoft.Extensions.Configuration;
+using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Repositories;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
     public class QuestionRepository : BaseRepository<QuestionTemplate>, IQuestionRepository
     {
-
-        //public QuestionRepository(IConfiguration configuration)
-        //    : base(configuration)
-        //{
-        //}
-
         public QuestionRepository(IUnitOfWork unitOfWork) 
             : base(unitOfWork)
         {
@@ -25,7 +17,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public void DeleteQuestion(int questionId)
         {
-            //using var dbConnection = Connection;
             var query = @"DELETE FROM AnswerTemplate
                             WHERE IdQuestion = @QuestionId
                             DELETE FROM ModuleQuestion
@@ -39,7 +30,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
             try
             {
-               // using IDbConnection dbConnection = Connection;
                 var query = @"SELECT *
                                 FROM QuestionTemplate AS q
                                 LEFT JOIN AnswerTemplate AS a ON q.Id = a.IdQuestion";
@@ -54,7 +44,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                     currentQuestion.Answers.Add(answer);
                     return currentQuestion;
-                },
+                }, _transaction,
                 splitOn: "Id")
                     .Distinct()
                     .ToList();

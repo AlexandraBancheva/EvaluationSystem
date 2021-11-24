@@ -1,5 +1,5 @@
-﻿using EvaluationSystem.Application.Repositories;
-using EvaluationSystem.Domain.Entities;
+﻿using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Repositories;
 
 namespace EvaluationSystem.Application.Interfaces
 {

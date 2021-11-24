@@ -14,26 +14,24 @@ namespace EvaluationSystem.Application.Middlewares
     {
         private readonly RequestDelegate _next;
         private ILogger<ErrorHandleMiddleware> _logger;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public ErrorHandleMiddleware(RequestDelegate next, ILogger<ErrorHandleMiddleware> logger, IUnitOfWork unitOfWork)
+        public ErrorHandleMiddleware(RequestDelegate next, ILogger<ErrorHandleMiddleware> logger)
         {
             _next = next;
             _logger = logger;
-            _unitOfWork = unitOfWork;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, IUnitOfWork unitOfWork)
         {
             try
             {
-                _unitOfWork.Begin();
+                unitOfWork.Begin();
                 await _next.Invoke(context);
-                _unitOfWork.Commit();
+                unitOfWork.Commit();
             }
             catch (Exception e)
             {
-                _unitOfWork.Rollback();
+                unitOfWork.Rollback();
                 _logger.LogError(e.ToString());
                 await HandleException(e, context);
             }
