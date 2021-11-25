@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Dapper;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Repositories;
+using EvaluationSystem.Application.Models.Forms;
+using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -22,14 +24,14 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             _connection.Execute(query, new { FormId = id }, _transaction);
         }
 
-        public IEnumerable<FormTemplate> FormsWithModules()
+        public IEnumerable<FormTemplateDto> FormsWithModules()
         {
             var query = @"SELECT * FROM FormTemplate AS ft
                             JOIN FormModule AS fm ON fm.IdForm = ft.Id
                             JOIN ModuleTemplate AS mt ON mt.Id = fm.IdModule";
 
-            var formDictionary = new Dictionary<int, FormTemplate>();
-            var forms = _connection.Query<FormTemplate, ModuleTemplate, FormTemplate>(query, (form, module) =>
+            var formDictionary = new Dictionary<int, FormTemplateDto>();
+            var forms = _connection.Query<FormTemplateDto, ModuleTemplateDto, FormTemplateDto>(query, (form, module) =>
             {
                 if (!formDictionary.TryGetValue(form.Id, out var currentForm))
                 {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EvaluationSystem.Application.Models.ModuleQuestions;
-using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Models.Modules.ModulesDtos;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Profiles.ModuleQuestionProfile
 {
@@ -8,14 +9,15 @@ namespace EvaluationSystem.Application.Profiles.ModuleQuestionProfile
     {
         public ModuleQuestionProfile()
         {
-            CreateMap<ModuleTemplate, ListModulesQuestionsDto>()
+            CreateMap<ModuleTemplateDto, ListModulesQuestionsDto>()
                 .ForMember(m => m.IdModule, opts => opts.MapFrom(n => n.Id))
                 .ForMember(o => o.ModuleName, opts => opts.MapFrom(p => p.Name))
-              //  .ForMember(p => p.Position, opts => opts.MapFrom(t => t.Position))
                 .ForMember(w => w.Questions, opts => opts.MapFrom(q => q.Questions));
 
-            //CreateMap<ModuleQuestion, PositionDto>()
-            //    .ForMember(p => p.Position, opts => opts.MapFrom(t => t.Position));
+            CreateMap<QuestionTemplateDto, QuestionListDto>()
+                .ForMember(p => p.IdQuestion, opts => opts.MapFrom(o => o.Id))
+                .ForMember(y => y.QuestionName, opts => opts.MapFrom(v => v.Name))
+                .ForMember(p => p.Position, opts => opts.MapFrom(o => o.Position));
         }
     }
 }

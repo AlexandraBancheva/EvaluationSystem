@@ -32,8 +32,8 @@ namespace EvaluationSystem.API.Controllers
         [HttpPut]
         public IActionResult UpdateAnswer(int questionId, int answerId, [FromBody] UpdateAnswerDto model)
         {
-            var res = answersServices.UpdateAnswer(questionId, answerId, model);
-            return Ok(res);
+            answersServices.UpdateAnswer(questionId, answerId, model);
+            return Ok();
         }
     }
 }

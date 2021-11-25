@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Dapper;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Models.Modules.ModulesDtos;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -28,14 +30,14 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             _connection.Execute(query, new { ModuleId = moduleId, QuestionId = questionId}, _transaction);
         }
 
-        public ICollection<ModuleTemplate> GetModuleWithAllQuestions()
+        public ICollection<ModuleTemplateDto> GetModuleWithAllQuestions()
         {
             var query = @"SELECT * FROM ModuleTemplate AS mt
                             JOIN ModuleQuestion AS mq ON mt.Id = mq.IdModule
                             JOIN QuestionTemplate AS qt ON mq.IdQuestion = qt.Id";
 
-            var moduleDictionary = new Dictionary<int, ModuleTemplate>();
-            var modules = _connection.Query<ModuleTemplate, QuestionTemplate, ModuleTemplate>(query, (module, question) =>
+            var moduleDictionary = new Dictionary<int, ModuleTemplateDto>();
+            var modules = _connection.Query<ModuleTemplateDto, QuestionTemplateDto, ModuleTemplateDto>(query, (module, question) =>
             {
                 if (!moduleDictionary.TryGetValue(module.Id, out var currentModule))
                 {

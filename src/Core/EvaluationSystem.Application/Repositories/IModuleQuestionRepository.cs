@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 
 namespace EvaluationSystem.Application.Repositories
 {
@@ -9,6 +10,6 @@ namespace EvaluationSystem.Application.Repositories
 
         void DeleteQuestionFromModule(int moduleId, int questionId);
 
-        ICollection<ModuleTemplate> GetModuleWithAllQuestions();
+        ICollection<ModuleTemplateDto> GetModuleWithAllQuestions();
     }
 }

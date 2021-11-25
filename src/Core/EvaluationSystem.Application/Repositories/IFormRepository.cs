@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using EvaluationSystem.Application.Models.Forms;
 using EvaluationSystem.Domain.Entities;
 
 namespace EvaluationSystem.Application.Repositories
@@ -7,6 +8,6 @@ namespace EvaluationSystem.Application.Repositories
     {
         void DeleteForm(int id);
 
-        IEnumerable<FormTemplate> FormsWithModules();
+        IEnumerable<FormTemplateDto> FormsWithModules();
     }
 }

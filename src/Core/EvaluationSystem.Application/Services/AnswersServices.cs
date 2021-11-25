@@ -2,6 +2,7 @@
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Answers.AnswersDtos;
+using System;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -18,19 +19,17 @@ namespace EvaluationSystem.Application.Services
             _mapper = mapper;
         }
 
-        public AnswerDetailDto AddNewAnswer(int questionId, AddNewAnswerDto model)
+        public void AddNewAnswer(int questionId, AddNewAnswerDto model)
         {
             var isExist = _questionRepository.GetById(questionId);
             if (isExist == null)
             {
-                return null;
+                throw new InvalidOperationException($"Question with this id {questionId} do not exist!");
             }
             var current = _mapper.Map<AnswerTemplate>(model);
             current.IdQuestion = questionId;
             var id = _answerRepository.Insert(current);
             current.Id = id;
-            
-            return _mapper.Map<AnswerDetailDto>(current);
         }
 
         public void DeleteAnAnswer(int answerId)
@@ -39,14 +38,20 @@ namespace EvaluationSystem.Application.Services
             _answerRepository.Delete(entity);
         }
 
-        public AnswerDetailDto UpdateAnswer(int questionId, int answerId, UpdateAnswerDto model)
+        public void UpdateAnswer(int questionId, int answerId, UpdateAnswerDto model)
         {
+            var isExist = _questionRepository.GetById(questionId);
+            if (isExist == null)
+            {
+                throw new InvalidOperationException($"Question with this id {questionId} do not exist!");
+            }
+
             var entity = _mapper.Map<AnswerTemplate>(model);
             entity.Id = answerId;
             entity.IdQuestion = questionId;
             _answerRepository.Update(entity);
 
-            return _mapper.Map<AnswerDetailDto>(entity);
+         //   return _mapper.Map<AnswerDetailDto>(entity);
         }
     }
 }

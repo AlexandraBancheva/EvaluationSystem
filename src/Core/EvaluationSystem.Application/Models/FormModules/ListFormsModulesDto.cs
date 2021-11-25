@@ -13,7 +13,7 @@ namespace EvaluationSystem.Application.Models.FormModules
 
         public string FormName { get; set; }
 
-        // public int Postion { get; set; }
+        public int Postion { get; set; }
 
         public ICollection<ListModulesDto> Modules { get; set; }
     }
