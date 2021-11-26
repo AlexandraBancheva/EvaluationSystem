@@ -23,7 +23,7 @@ namespace EvaluationSystem.Application.Validations.QuestionValidations
             name = name.Replace(" ", "");
             name = name.Replace("-", "");
 
-            return name.All(char.IsLetter);
+            return name.All(char.IsLetterOrDigit);
         }
     }
 }

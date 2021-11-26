@@ -19,7 +19,7 @@ namespace EvaluationSystem.Application.Validations
             name = name.Replace(" ", "");
             name = name.Replace("-", "");
 
-            return name.All(char.IsLetter);
+            return name.All(char.IsLetterOrDigit);
         }
     }
 }

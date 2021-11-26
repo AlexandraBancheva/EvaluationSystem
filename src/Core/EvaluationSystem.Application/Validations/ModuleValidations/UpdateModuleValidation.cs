@@ -18,7 +18,7 @@ namespace EvaluationSystem.Application.Validations.ModuleValidations
             name = name.Replace(" ", "");
             name = name.Replace("-", "");
 
-            return name.All(char.IsLetter);
+            return name.All(char.IsLetterOrDigit);
         }
     }
 }
