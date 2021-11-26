@@ -18,9 +18,10 @@ namespace EvaluationSystem.API.Controllers
         [HttpPost]
         public IActionResult CreateNewForm([FromBody] CreateFormDto form)
         {
-            var result = _formsServices.CreateNewForm(form);
+           // var result =
+           _formsServices.CreateNewForm(form);
 
-            return Ok(result);
+            return Ok();
         }
 
         [HttpDelete("{formId}")]

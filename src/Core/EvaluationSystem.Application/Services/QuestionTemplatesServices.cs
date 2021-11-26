@@ -8,12 +8,12 @@ using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Services
 {
-    public class QuestionsServices : IQuestionsServices
+    public class QuestionTemplatesServices : IQuestionsServices
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IMapper _mapper;
 
-        public QuestionsServices(IQuestionRepository questionRepository, IMapper mapper)
+        public QuestionTemplatesServices(IQuestionRepository questionRepository, IMapper mapper)
         {
             _questionRepository = questionRepository;
             _mapper = mapper;
@@ -35,7 +35,8 @@ namespace EvaluationSystem.Application.Services
         {
             var currentEntity = _mapper.Map<QuestionTemplate>(model);
             currentEntity.DateOfCreation = DateTime.UtcNow;
-           var newEntityId = _questionRepository.Insert(currentEntity);
+            currentEntity.IsReusable = true;
+            var newEntityId = _questionRepository.Insert(currentEntity);
 
             return GetQuestionById(newEntityId);
         }

@@ -8,7 +8,7 @@ namespace EvaluationSystem.Application.ConfigurationServices
     {
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IQuestionsServices, QuestionsServices>();
+            services.AddScoped<IQuestionsServices, QuestionTemplatesServices>();
             services.AddScoped<IAnswersServices, AnswersServices>();
             services.AddScoped<IModulesServices, ModulesServices>();
             services.AddScoped<IModuleQuestionsServices, ModuleQuestionsServices>();

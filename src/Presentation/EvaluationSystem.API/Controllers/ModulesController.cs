@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EvaluationSystem.API.Controllers
 {
     [ApiController]
-    [Route("api/modules")]
+    [Route("api/forms/{formId}/modules")]
     public class ModulesController : ControllerBase
     {
         private readonly IModulesServices _modulesServices;
@@ -18,31 +18,31 @@ namespace EvaluationSystem.API.Controllers
             _moduleQuestionsServices = moduleQuestionsServices;
         }
 
-        [HttpPost]
-        public IActionResult CreateNewModule([FromBody] CreateModuleDto model)
+        [HttpPost] // Need a change
+        public IActionResult CreateNewModule(int formId, [FromBody] CreateModuleDto model)
         {
             var res = _modulesServices.CreateModule(model);
             return Ok(res);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateModule(int id, [FromBody] UpdateModuleDto model)
+        [HttpPut("{moduleId}")]
+        public IActionResult UpdateModule(int formId, int moduleId, [FromBody] UpdateModuleDto model)
         {
-            var res = _modulesServices.UpdateCurrentModule(id, model);
+            var res = _modulesServices.UpdateCurrentModule(formId, moduleId, model);
             return Ok(res);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetModuleById(int id)
+        [HttpGet("{moduleId}")]
+        public IActionResult GetModuleById(int formId, int moduleId)
         {
-            var res = _modulesServices.GetModuleById(id);
+            var res = _modulesServices.GetCurrentModuleById(formId, moduleId);
             return Ok(res);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteModule(int id)
+        [HttpDelete("{moduleId}")]
+        public IActionResult DeleteModule(int moduleId)
         {
-            _modulesServices.DeleteCurrentModule(id);
+            _modulesServices.DeleteCurrentModule(moduleId);
             return NoContent();
         }
 

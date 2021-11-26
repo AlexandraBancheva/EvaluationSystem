@@ -61,14 +61,14 @@ namespace Tests
             {
                 QuestionName = "Test",
                 Type = QuestionType.CheckBoxes,
-                IsReusable = true,
+                //IsReusable = true,
             };
 
             var insert = _questionService.CreateNewQuestion(new CreateQuestionDto()
             { 
                 QuestionName = "Test",
                 Type = QuestionType.CheckBoxes,
-                IsReusable = true,
+              //  IsReusable = true,
             });
 
            // var result = _questionService.GetQuestionById(insert.Id);
@@ -84,7 +84,7 @@ namespace Tests
             {
                 Name = name,
                 Type = QuestionType.CheckBoxes,
-                IsReusable = true,
+                //IsReusable = true,
             };
 
             var updateDto = _questionService.UpdateCurrentQuestion(Id, dto);

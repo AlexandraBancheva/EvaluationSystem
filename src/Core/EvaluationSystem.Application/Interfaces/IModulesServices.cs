@@ -9,8 +9,8 @@ namespace EvaluationSystem.Application.Interfaces
 
         void DeleteCurrentModule(int moduleId);
 
-        ModuleDetailDto UpdateCurrentModule(int moduleId, UpdateModuleDto model);
+        ModuleDetailDto UpdateCurrentModule(int formId, int moduleId, UpdateModuleDto model);
 
-        ModuleDetailDto GetModuleById(int moduleId);
+        ModuleDetailDto GetCurrentModuleById(int formId, int moduleId);
     }
 }

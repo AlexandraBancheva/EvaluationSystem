@@ -23,7 +23,7 @@ namespace EvaluationSystem.Application.Services
             var currentEntity = _mapper.Map<ModuleTemplate>(model);
             var newEntityId = _moduleRepository.Insert(currentEntity);
 
-            return GetModuleById(newEntityId);
+            return GetCurrentModuleById(1, newEntityId);
         }
 
         public void DeleteCurrentModule(int moduleId)
@@ -31,20 +31,20 @@ namespace EvaluationSystem.Application.Services
             _moduleRepository.DeleteModule(moduleId);
         }
 
-        public ModuleDetailDto GetModuleById(int moduleId)
+        public ModuleDetailDto GetCurrentModuleById(int formId, int moduleId)
         {
-            var entity = _moduleRepository.GetById(moduleId);
+            var entity = _moduleRepository.GetModuleById(formId, moduleId);
 
             return _mapper.Map<ModuleDetailDto>(entity);
         }
 
-        public ModuleDetailDto UpdateCurrentModule(int moduleId, UpdateModuleDto model)
+        public ModuleDetailDto UpdateCurrentModule(int formId, int moduleId, UpdateModuleDto model)
         {
             var entity = _mapper.Map<ModuleTemplate>(model);
             entity.Id = moduleId;
-            _moduleRepository.Update(entity);
+            _moduleRepository.UpdateModule(formId, moduleId, entity);
 
-            return _mapper.Map<ModuleDetailDto>(entity);
+            return GetCurrentModuleById(formId, moduleId);
         }
     }
 }

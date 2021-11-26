@@ -10,7 +10,7 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 
         public QuestionType? Type { get; set; }
 
-        public bool? IsReusable { get; set; }
+      //  public bool? IsReusable { get; set; }
 
     }
 }

@@ -7,11 +7,11 @@ namespace EvaluationSystem.API.Controllers
 {
     [ApiController]
     [Route("api/questions")]
-    public class QuestionsController : ControllerBase
+    public class QuestionTemplatesController : ControllerBase
     {
         private readonly IQuestionsServices questionsServices;
 
-        public QuestionsController(IQuestionsServices questionsServices)
+        public QuestionTemplatesController(IQuestionsServices questionsServices)
         {
             this.questionsServices = questionsServices;
         }

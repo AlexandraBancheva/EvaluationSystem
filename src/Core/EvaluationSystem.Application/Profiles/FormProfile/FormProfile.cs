@@ -16,6 +16,9 @@ namespace EvaluationSystem.Application.Profiles.FormProfile
 
             CreateMap<UpdateFormDto, FormTemplate>()
                 .ForMember(f => f.Name, opts => opts.MapFrom(b => b.FormName));
+
+            CreateMap<CreateFormDto, FormTemplate>()
+            .ForMember(f => f.Name, opts => opts.MapFrom(m => m.FormName));
         }
     }
 }
