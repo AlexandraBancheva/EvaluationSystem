@@ -1,7 +1,7 @@
-﻿using EvaluationSystem.Application.Models.Modules;
-using EvaluationSystem.Application.Questions.QuestionsDtos;
+﻿using System.Collections.Generic;
 using EvaluationSystem.Application.Models.Answers.AnswersDtos;
-using System.Collections.Generic;
+using EvaluationSystem.Application.Models.Modules.ModulesDtos;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Models.Forms
 {
@@ -9,10 +9,14 @@ namespace EvaluationSystem.Application.Models.Forms
     {
         public string FormName { get; set; }
 
-        public ICollection<CreateModuleDto> Module { get; set; }
+        public int ModulePosition { get; set; }
 
-        public ICollection<CreateQuestionDto> Question { get; set; }
+        public ICollection<CreateFormModuleDto> Module { get; set; }
 
-        public ICollection<AddNewAnswerDto> Answer { get; set; }
+        public int QuestionPosition { get; set; }
+
+        public ICollection<CreateFormModuleQuestionDto> Question { get; set; }
+
+        public ICollection<CreateFormModuleQuestionAnswerDto> Answer { get; set; }
     }
 }

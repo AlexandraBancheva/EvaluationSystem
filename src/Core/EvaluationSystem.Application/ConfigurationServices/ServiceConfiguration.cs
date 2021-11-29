@@ -9,6 +9,7 @@ namespace EvaluationSystem.Application.ConfigurationServices
         public static void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IQuestionsServices, QuestionTemplatesServices>();
+            services.AddScoped<ICustomQuestionsServices, CustomQuestionsServices>();
             services.AddScoped<IAnswersServices, AnswersServices>();
             services.AddScoped<IModulesServices, ModulesServices>();
             services.AddScoped<IModuleQuestionsServices, ModuleQuestionsServices>();

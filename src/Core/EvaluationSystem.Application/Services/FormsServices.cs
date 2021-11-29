@@ -6,60 +6,71 @@ using EvaluationSystem.Application.Models.Forms;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Application.Models.FormModules;
 using System;
+using EvaluationSystem.Application.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Services
 {
     public class FormsServices : IFormsServices
     {
         private readonly IFormRepository _formRepository;
+        private readonly IFormModuleRepository _formModuleRepository;
         private readonly IModuleRepository _moduleRepository;
+        private readonly IModuleQuestionRepository _moduleQuestionRepository;
+        private readonly ICustomQuestionsServices _questionCustomServices;
         private readonly IQuestionRepository _questionRepository;
         private readonly IAnswerRepository _answerRepository;
         private readonly IMapper _mapper;
 
-        public FormsServices(IFormRepository formRepository, IMapper mapper, IModuleRepository moduleRepository, IQuestionRepository questionRepository, IAnswerRepository answerRepository)
+        public FormsServices(IMapper mapper, 
+            IFormRepository formRepository,
+            IFormModuleRepository formModuleRepository, 
+            IModuleRepository moduleRepository, 
+            IModuleQuestionRepository moduleQuestionRepository,
+            ICustomQuestionsServices questionCustomServices,
+            IQuestionRepository questionRepository,
+            IAnswerRepository answerRepository)
         {
             _formRepository = formRepository;
+            _formModuleRepository = formModuleRepository;
             _moduleRepository = moduleRepository;
+            _moduleQuestionRepository = moduleQuestionRepository;
+            _questionCustomServices = questionCustomServices;
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _mapper = mapper;
         }
 
         // Maybe foreach in foreach????
-        public FormDetailDto CreateNewForm(CreateFormDto form) // FormDetailDto
+        // Problem with position
+        public FormDetailDto CreateNewForm(CreateFormDto form)
         {
             var currrentForm = _mapper.Map<FormTemplate>(form);
+
+            // var currentFormModule = _mapper.Map<FormModule>(form);  //????
+            var currentFormModule = form.ModulePosition;
             var currentModules = _mapper.Map<ICollection<ModuleTemplate>>(form.Module);
+
+            // var currentModuleQuestion = _mapper.Map<ModuleQuestion>(form.Question); // ????
+
+            var currentModuleQuestion = form.QuestionPosition;
             var currentQuestions = _mapper.Map<ICollection<QuestionTemplate>>(form.Question);
             var currentAnswers = _mapper.Map<ICollection<AnswerTemplate>>(form.Answer);
 
             var formId =_formRepository.Insert(currrentForm);
-            foreach (var module in currentModules) // Check the insert, must give the formId
+            foreach (var module in currentModules)
             {
-                _moduleRepository.Insert(module);
-            }
-
-            //var listQuestions = new HashSet<int>();
-            //foreach (var question in currentQuestions)
-            //{
-            //   var id = _questionRepository.Insert(question);
-            //    listQuestions.Add(id);
-            //}
-
-            //foreach (var answer in currentAnswers)
-            //{
-            //    _answerRepository.Insert(answer);
-            //}
-
-            foreach (var question in currentQuestions)
-            {
-                question.DateOfCreation = DateTime.UtcNow;
-                foreach (var answer in currentAnswers)
+               var moduleId = _moduleRepository.Insert(module);
+               _formModuleRepository.AddNewModuleInForm(formId, moduleId, currentFormModule);
+                foreach (var question in currentQuestions)
                 {
-                    var questionId = _questionRepository.Insert(question);
-                    answer.IdQuestion = questionId;
-                    _answerRepository.Insert(answer);
+                    foreach (var answer in currentAnswers)
+                    {
+                        question.IsReusable = false;
+                        var questionId = _questionCustomServices.CreateNewQuestion(_mapper.Map<CreateQuestionDto>(question));
+                        answer.IdQuestion = questionId;
+                        _answerRepository.Insert(answer);
+                        _moduleQuestionRepository.AddNewQuestionToModule(moduleId, questionId, currentModuleQuestion);
+                    }
                 }
             }
 

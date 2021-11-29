@@ -1,8 +1,9 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
+using EvaluationSystem.Domain.Enums;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Answers.AnswersDtos;
-using System;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -26,8 +27,19 @@ namespace EvaluationSystem.Application.Services
             {
                 throw new InvalidOperationException($"Question with this id {questionId} do not exist!");
             }
+
             var current = _mapper.Map<AnswerTemplate>(model);
             current.IdQuestion = questionId;
+
+            if (isExist.Type == QuestionType.NumericalOptions)
+            {
+                var isNumeric = int.TryParse(current.AnswerText, out var answerNum);
+                if (!isNumeric)
+                {
+                    throw new InvalidOperationException("Answer type must be numeric!");
+                }
+            }
+
             var id = _answerRepository.Insert(current);
             current.Id = id;
         }

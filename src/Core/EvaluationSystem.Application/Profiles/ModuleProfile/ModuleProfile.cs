@@ -23,6 +23,9 @@ namespace EvaluationSystem.Application.Profiles.ModuleProfile
             CreateMap<CreateFormDto, ModuleTemplate>();
             CreateMap<ModuleTemplate, ModuleDetailDto>()
                 .ForMember(m => m.ModuleName, opts => opts.MapFrom(y => y.Name));
+
+            CreateMap<CreateFormModuleDto, ModuleTemplate>()
+                .ForMember(a => a.Name, opts => opts.MapFrom(p => p.ModuleName));
         }
     }
 }

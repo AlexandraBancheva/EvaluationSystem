@@ -13,7 +13,7 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
         {
             CreateMap<CreateQuestionDto, QuestionTemplate>()
                 .ForMember(q => q.Name, opts => opts.MapFrom(qd => qd.QuestionName))
-                .ForMember(q => q.Type, opts => opts.MapFrom(t => t.Type));
+                .ForMember(q => q.Type, opts => opts.MapFrom(t => t.Type)).ReverseMap();
 
             CreateMap<QuestionTemplate, ListQuestionsDto>()
                 .ForMember(q => q.Name, opts => opts.MapFrom(qn => qn.Name))
@@ -40,6 +40,9 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
             CreateMap<CreateFormDto, QuestionTemplate>();
             CreateMap<QuestionTemplate, QuestionDetailDto>()
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(r => r.Name));
+
+            CreateMap<CreateFormModuleQuestionDto, QuestionTemplate>()
+                .ForMember(q => q.Name, opts => opts.MapFrom(a => a.QuestionName));
         }
     }
 }
