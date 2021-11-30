@@ -30,6 +30,16 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             _connection.Execute(query, new { ModuleId = moduleId, QuestionId = questionId}, _transaction);
         }
 
+        public ICollection<ModuleQuestion> GetAllQuestionsByModuleId(int moduleId)
+        {
+            var query = @"SELECT * FROM ModuleQuestion
+                            WHERE IdModule = @ModuleId";
+
+            var moduleWishQuestions = _connection.Query<ModuleQuestion>(query, new { moduleId });
+
+            return (ICollection<ModuleQuestion>)moduleWishQuestions;
+        }
+
         public ICollection<ModuleTemplateDto> GetModuleWithAllQuestions()
         {
             var query = @"SELECT * FROM ModuleTemplate AS mt

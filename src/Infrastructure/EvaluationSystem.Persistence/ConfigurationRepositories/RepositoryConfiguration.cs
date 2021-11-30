@@ -12,6 +12,7 @@ namespace EvaluationSystem.Persistence.Configurations
             // services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<ICustomQuestionsRepository, CustomQuestionsRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
             services.AddScoped<IModuleRepository, ModuleRepository>();
             services.AddScoped<IModuleQuestionRepository, ModuleQuestionRepository>();

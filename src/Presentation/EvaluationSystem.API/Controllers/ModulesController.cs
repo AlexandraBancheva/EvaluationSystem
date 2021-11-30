@@ -19,9 +19,9 @@ namespace EvaluationSystem.API.Controllers
         }
 
         [HttpPost] // Need a change
-        public IActionResult CreateNewModule(int formId, [FromBody] CreateModuleDto model)
+        public IActionResult CreateNewModule(int formId, int position, [FromBody] CreateModuleDto model)
         {
-            var res = _modulesServices.CreateModule(model);
+            var res = _modulesServices.CreateModule(formId, position, model);
             return Ok(res);
         }
 

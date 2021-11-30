@@ -6,8 +6,10 @@ namespace EvaluationSystem.Application.Repositories
 {
     public interface IFormRepository : IRepository<FormTemplate>
     {
-        void DeleteForm(int id);
+        void DeleteForm(int formId);
 
         IEnumerable<FormTemplateDto> FormsWithModules();
+
+        IEnumerable<FormWithAllDto> GetAllWithFormId(int formId);
     }
 }

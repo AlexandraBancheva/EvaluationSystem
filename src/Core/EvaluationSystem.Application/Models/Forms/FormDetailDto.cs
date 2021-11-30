@@ -11,10 +11,10 @@ namespace EvaluationSystem.Application.Models.Forms
 
         public string Name { get; set; }
 
-        public ICollection<ModuleDetailDto> Modules { get; set; }
+        public virtual ICollection<ModuleDetailDto> Modules { get; set; }
 
-        public ICollection<QuestionDetailDto> Questions { get; set; }
+        public virtual ICollection<QuestionDetailDto> Questions { get; set; }
 
-        public ICollection<AnswerDetailDto> Answers { get; set; }
+        public virtual ICollection<AnswerDetailDto> Answers { get; set; }
     }
 }

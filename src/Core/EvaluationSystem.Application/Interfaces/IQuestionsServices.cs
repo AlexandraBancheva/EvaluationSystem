@@ -10,7 +10,6 @@ namespace EvaluationSystem.Application.Interfaces
 
         QuestionDetailDto GetQuestionById(int questionId);
 
-
         QuestionDetailDto UpdateCurrentQuestion(int questionId, UpdateQuestionDto model);
 
         void DeleteQuestion(int questionId);

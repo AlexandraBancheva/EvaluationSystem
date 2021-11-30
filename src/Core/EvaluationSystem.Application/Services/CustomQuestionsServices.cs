@@ -10,20 +10,23 @@ namespace EvaluationSystem.Application.Services
     public class CustomQuestionsServices : ICustomQuestionsServices
     {
         private readonly IQuestionRepository _questionRepository;
+        private readonly IModuleQuestionsServices _moduleQuestionsServices;
         private readonly IMapper _mapper;
 
-        public CustomQuestionsServices(IQuestionRepository questionRepository, IMapper mapper)
+        public CustomQuestionsServices(IQuestionRepository questionRepository, IModuleQuestionsServices  moduleQuestionsServices, IMapper mapper)
         {
             _questionRepository = questionRepository;
+            _moduleQuestionsServices = moduleQuestionsServices;
             _mapper = mapper;
         }
 
-        public int CreateNewQuestion(CreateQuestionDto model)
+        public int CreateNewQuestion(int moduleId, int position, CreateQuestionDto model)
         {
             var currentQuestion = _mapper.Map<QuestionTemplate>(model);
             currentQuestion.DateOfCreation = DateTime.UtcNow;
             currentQuestion.IsReusable = false;
             var questionId = _questionRepository.Insert(currentQuestion);
+            _moduleQuestionsServices.AddQuestionToModule(moduleId, questionId, position);
 
             return questionId; //GetQuestionById(questionId);
         }

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Models.Forms;
 using EvaluationSystem.Application.Models.Modules;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
-using EvaluationSystem.Domain.Entities;
 
 namespace EvaluationSystem.Application.Profiles.ModuleProfile
 {
@@ -26,6 +26,9 @@ namespace EvaluationSystem.Application.Profiles.ModuleProfile
 
             CreateMap<CreateFormModuleDto, ModuleTemplate>()
                 .ForMember(a => a.Name, opts => opts.MapFrom(p => p.ModuleName));
+
+            CreateMap<ModuleTemplate, ModuleDetailDto>()
+                .ForMember(m => m.ModuleName, opts => opts.MapFrom(k => k.Name));
         }
     }
 }

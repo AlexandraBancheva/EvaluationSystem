@@ -22,8 +22,8 @@ namespace EvaluationSystem.API.Controllers
             return Ok();
         }
 
-        [HttpDelete("{answerId}")]
-        public IActionResult DeleteAnAnswerById(int answerId)
+        [HttpDelete()]
+        public IActionResult DeleteAnAnswerById(int questionId, int answerId)
         {
             answersServices.DeleteAnAnswer(answerId);
             return NoContent();

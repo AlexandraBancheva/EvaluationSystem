@@ -10,20 +10,24 @@ namespace EvaluationSystem.Application.Services
     public class ModulesServices : IModulesServices
     {
         private readonly IModuleRepository _moduleRepository;
+        private readonly IFormModulesServices _formModulesServices;
         private readonly IMapper _mapper;
 
-        public ModulesServices(IModuleRepository moduleRepository, IMapper mapper)
+        public ModulesServices(IModuleRepository moduleRepository, IFormModulesServices formModulesServices, IMapper mapper)
         {
             _moduleRepository = moduleRepository;
+            _formModulesServices = formModulesServices;
             _mapper = mapper;
         }
 
-        public ModuleDetailDto CreateModule(CreateModuleDto model)
+        public ModuleDetailDto CreateModule(int formId, int position, CreateModuleDto model)
         {
             var currentEntity = _mapper.Map<ModuleTemplate>(model);
             var newEntityId = _moduleRepository.Insert(currentEntity);
+           _formModulesServices.AddModulesInForm(formId, newEntityId, position);
 
-            return GetCurrentModuleById(1, newEntityId);
+
+            return GetCurrentModuleById(formId, newEntityId);
         }
 
         public void DeleteCurrentModule(int moduleId)

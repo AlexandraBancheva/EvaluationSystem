@@ -26,7 +26,11 @@ namespace EvaluationSystem.Application.Profiles.AnswerProfile
             CreateMap<CreateFormDto, AnswerTemplate>();
             CreateMap<AnswerTemplate, AnswerDetailDto>()
                 .ForMember(a => a.AnswerName, opts => opts.MapFrom(o => o.AnswerText));
+
             CreateMap<CreateFormModuleQuestionAnswerDto, AnswerTemplate>();
+
+            CreateMap<AnswerTemplate, AnswerDetailDto>()
+                .ForMember(a => a.AnswerName, opts => opts.MapFrom(b => b.AnswerText));
         }
     }
 }

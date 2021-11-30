@@ -1,4 +1,5 @@
 ﻿using EvaluationSystem.Domain.Entities;
+using System.Collections.Generic;
 
 namespace EvaluationSystem.Application.Repositories
 {
@@ -7,5 +8,7 @@ namespace EvaluationSystem.Application.Repositories
         void AddNewModuleInForm(int formId, int moduleId, int position);
 
         void DeleteModuleFromForm(int formId, int moduleId);
+
+        ICollection<FormModule> GetAllModulesByFormId(int formId);
     }
 }
