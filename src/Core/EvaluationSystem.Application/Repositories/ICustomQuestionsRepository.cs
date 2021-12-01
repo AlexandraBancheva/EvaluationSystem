@@ -4,6 +4,8 @@ namespace EvaluationSystem.Application.Repositories
 {
     public interface ICustomQuestionsRepository : IRepository<QuestionTemplate>
     {
-        void DeleteQuestion(int questionId);
+        void RemovedQuestion(int questionId);
+
+        void DeleteCustomQuestion(int questionId);
     }
 }

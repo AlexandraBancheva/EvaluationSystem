@@ -8,7 +8,7 @@ using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Services
 {
-    public class QuestionTemplatesServices : IQuestionsServices
+    public class QuestionTemplatesServices : IQuestionTemplatesServices
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IMapper _mapper;
@@ -60,7 +60,7 @@ namespace EvaluationSystem.Application.Services
 
         public void DeleteQuestion(int questionId)
         {
-            _questionRepository.DeleteQuestion(questionId);
+            _questionRepository.DeleteTemplateQuestion(questionId);
         }
 
         public IEnumerable<ListQuestionsAnswersDto> GetAllQuestionsWithTheirAnswers()

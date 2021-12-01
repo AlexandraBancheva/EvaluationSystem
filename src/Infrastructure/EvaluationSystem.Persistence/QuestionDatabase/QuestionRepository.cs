@@ -14,7 +14,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
         }
 
-        public void DeleteQuestion(int questionId)
+        public void DeleteTemplateQuestion(int questionId)
         {
             var query = @"DELETE FROM AnswerTemplate
                             WHERE IdQuestion = @QuestionId

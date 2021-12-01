@@ -11,16 +11,23 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
         }
 
-        public void DeleteQuestion(int questionId)
+        public void RemovedQuestion(int questionId)
         {
-            var query = @"DELETE FROM AnswerTemplate
-                        WHERE IdQuestion = @QuestionId
-                        DELETE FROM ModuleQuestion
-                        WHERE IdQuestion = @QuestionId
-                        DELETE FROM QuestionTemplate
-                        WHERE Id = @QuestionId AND IsReusable = 'false'";
+            var query = @"DELETE FROM ModuleQuestion
+                        WHERE IdQuestion = @QuestionId";
 
             _connection.Execute(query, new { QuestionId = questionId });
+        }
+
+        public void DeleteCustomQuestion(int questionId) //
+        {
+            var query = @"DELETE FROM AnswerTemplate
+                            WHERE IdQuestion = @QuestionId
+                            DELETE FROM ModuleQuestion
+                            WHERE IdQuestion = @QuestionId
+                            DELETE FROM QuestionTemplate
+                            WHERE Id = @QuestionId";
+            _connection.Execute(query, new { QuestionId = questionId }, _transaction);
         }
     }
 }

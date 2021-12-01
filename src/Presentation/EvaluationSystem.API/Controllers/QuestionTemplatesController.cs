@@ -9,9 +9,9 @@ namespace EvaluationSystem.API.Controllers
     [Route("api/questions")]
     public class QuestionTemplatesController : ControllerBase
     {
-        private readonly IQuestionsServices questionsServices;
+        private readonly IQuestionTemplatesServices questionsServices;
 
-        public QuestionTemplatesController(IQuestionsServices questionsServices)
+        public QuestionTemplatesController(IQuestionTemplatesServices questionsServices)
         {
             this.questionsServices = questionsServices;
         }

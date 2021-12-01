@@ -21,7 +21,7 @@ namespace Tests
     {
         private const int QuestionId = 1;
         private int Id;
-        private IQuestionsServices _questionService;
+        private IQuestionTemplatesServices _questionService;
         private QuestionDetailDto questionDetailDto;
 
 

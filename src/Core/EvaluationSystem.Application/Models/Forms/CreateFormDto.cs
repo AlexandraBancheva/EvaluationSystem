@@ -7,6 +7,13 @@ namespace EvaluationSystem.Application.Models.Forms
 {
     public class CreateFormDto
     {
+        public CreateFormDto()
+        {
+            this.Module = new HashSet<CreateFormModuleDto>();
+            this.Question = new HashSet<CreateFormModuleQuestionDto>();
+            this.Answer = new HashSet<CreateFormModuleQuestionAnswerDto>();
+        }
+
         public string FormName { get; set; }
 
         public int ModulePosition { get; set; }

@@ -8,6 +8,6 @@ namespace EvaluationSystem.Application.Interfaces
     {
         ICollection<QuestionTemplate> GetAllQuestionsWithAnswers();
 
-        void DeleteQuestion(int questionId);
+        void DeleteTemplateQuestion(int questionId);
     }
 }

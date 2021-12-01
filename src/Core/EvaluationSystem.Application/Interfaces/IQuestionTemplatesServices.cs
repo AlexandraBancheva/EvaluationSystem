@@ -4,7 +4,7 @@ using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Interfaces
 {
-    public interface IQuestionsServices
+    public interface IQuestionTemplatesServices
     {
         QuestionDetailDto CreateNewQuestion(CreateQuestionDto model);
 

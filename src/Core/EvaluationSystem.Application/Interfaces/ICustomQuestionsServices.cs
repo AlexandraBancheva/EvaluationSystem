@@ -8,5 +8,7 @@ namespace EvaluationSystem.Application.Interfaces
         int CreateNewQuestion(int moduleId, int position, CreateQuestionDto model);
 
         QuestionDetailDto GetQuestionById(int questionId);
+
+        void DeleteCustomQuestion(int questionId);
     }
 }

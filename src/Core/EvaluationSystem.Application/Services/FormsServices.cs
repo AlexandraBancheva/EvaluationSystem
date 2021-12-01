@@ -89,9 +89,8 @@ namespace EvaluationSystem.Application.Services
 
                 foreach (var question in moduleQuestions)
                 {
-                    _customQuestionsRepository.DeleteQuestion(question.IdQuestion);
+                    _questionCustomServices.DeleteCustomQuestion(question.IdQuestion);
                     _moduleQuestionRepository.DeleteQuestionFromModule(module.IdModule, question.IdQuestion);
-                   
                 }
 
                 _formModuleRepository.DeleteModuleFromForm(formId, module.IdModule);

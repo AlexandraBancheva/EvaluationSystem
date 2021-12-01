@@ -1,21 +1,24 @@
 ﻿using System;
 using AutoMapper;
+using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
-using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Repositories;
 
 namespace EvaluationSystem.Application.Services
 {
     public class CustomQuestionsServices : ICustomQuestionsServices
     {
         private readonly IQuestionRepository _questionRepository;
+        private readonly ICustomQuestionsRepository _customQuestionsRepository;
         private readonly IModuleQuestionsServices _moduleQuestionsServices;
         private readonly IMapper _mapper;
 
-        public CustomQuestionsServices(IQuestionRepository questionRepository, IModuleQuestionsServices  moduleQuestionsServices, IMapper mapper)
+        public CustomQuestionsServices(IQuestionRepository questionRepository, IModuleQuestionsServices  moduleQuestionsServices, ICustomQuestionsRepository customQuestionsRepository, IMapper mapper)
         {
             _questionRepository = questionRepository;
+            _customQuestionsRepository = customQuestionsRepository;
             _moduleQuestionsServices = moduleQuestionsServices;
             _mapper = mapper;
         }
@@ -29,6 +32,19 @@ namespace EvaluationSystem.Application.Services
             _moduleQuestionsServices.AddQuestionToModule(moduleId, questionId, position);
 
             return questionId; //GetQuestionById(questionId);
+        }
+
+        public void DeleteCustomQuestion(int questionId)
+        {
+            var entity = GetQuestionById(questionId);
+            if (entity.IsReusable == true)
+            {
+                _customQuestionsRepository.RemovedQuestion(questionId);
+            }
+            else
+            {
+                _questionRepository.DeleteTemplateQuestion(questionId);
+            }
         }
 
         public QuestionDetailDto GetQuestionById(int questionId)

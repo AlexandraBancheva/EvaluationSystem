@@ -17,3 +17,4 @@ C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Core\EvaluationSyste
 C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\netstandard2.1\EvaluationSystem.Domain.csproj.CoreCompileInputs.cache
 C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\netstandard2.1\EvaluationSystem.Domain.dll
 C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\netstandard2.1\EvaluationSystem.Domain.pdb
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\netstandard2.1\EvaluationSystem.Domain.csproj.AssemblyReference.cache
