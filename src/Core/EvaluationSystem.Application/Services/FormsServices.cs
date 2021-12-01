@@ -103,7 +103,7 @@ namespace EvaluationSystem.Application.Services
         // Problem with form with all structure
         public FormDetailDto GetFormById(int formId)
         {
-           var res = _formRepository.GetById(formId);
+           var res = _formRepository.GetAllWithFormId(formId);
 
            return _mapper.Map<FormDetailDto>(res);
         }

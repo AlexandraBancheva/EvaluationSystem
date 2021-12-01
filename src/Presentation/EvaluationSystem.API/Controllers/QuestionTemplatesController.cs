@@ -23,8 +23,8 @@ namespace EvaluationSystem.API.Controllers
             return Ok(res);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetQuestionById(int id)
+        [HttpGet("{questionId}")]
+        public IActionResult GetQuestionById(int questionId)
         {
             // Example for cache!!!
             //if (!_memoryCache.TryGetValue("Question", out var question))
@@ -37,7 +37,7 @@ namespace EvaluationSystem.API.Controllers
             //    _memoryCache.Set("Question", question, cacheOptions);
             //}
 
-            return Ok(questionsServices.GetQuestionById(id));
+            return Ok(questionsServices.GetQuestionById(questionId));
         }
 
         [HttpPost]
@@ -47,16 +47,16 @@ namespace EvaluationSystem.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateCurrentQuestion(int id, [FromBody] UpdateQuestionDto model)
+        [HttpPut("{questionId}")]
+        public IActionResult UpdateCurrentQuestion(int questionId, [FromBody] UpdateQuestionDto model)
         {
-            return Ok(questionsServices.UpdateCurrentQuestion(id, model));
+            return Ok(questionsServices.UpdateCurrentQuestion(questionId, model));
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteQuestion(int id)
+        [HttpDelete("{questionId}")]
+        public IActionResult DeleteQuestion(int questionId)
         {
-            questionsServices.DeleteQuestion(id);
+            questionsServices.DeleteQuestion(questionId);
             return NoContent();
         }
     }

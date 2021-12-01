@@ -10,6 +10,6 @@ namespace EvaluationSystem.Application.Repositories
 
         IEnumerable<FormTemplateDto> FormsWithModules();
 
-        IEnumerable<FormWithAllDto> GetAllWithFormId(int formId);
+        FormWithAllDto GetAllWithFormId(int formId);
     }
 }

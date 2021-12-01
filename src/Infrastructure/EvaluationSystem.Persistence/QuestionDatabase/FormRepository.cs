@@ -49,27 +49,21 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         }
 
         // Repository in repository ???
-        public IEnumerable<FormWithAllDto> GetAllWithFormId(int formId)
+        public FormWithAllDto GetAllWithFormId(int formId)
         {
-           // var query = @"SELECT * FROM FormTemplate AS ft
-           //                 JOIN FormModule AS fm ON fm.IdForm = ft.Id
-           //                 JOIN ModuleTemplate AS mt ON mt.Id = fm.IdModule
-           //                 JOIN ModuleQuestion AS mq ON mq.IdModule = mt.Id
-           //                 JOIN QuestionTemplate AS qt ON qt.Id = mq.IdQuestion
-           //                 JOIN AnswerTemplate AS [at] ON [at].IdQuestion = qt.Id
-           //                 WHERE ft.Id = 29";
+            var query = @"SELECT * FROM FormTemplate AS ft
+                             JOIN FormModule as fm ON fm.IdForm = ft.Id
+                             JOIN ModuleTemplate AS mt ON mt.Id = fm.IdModule
+                             JOIN ModuleQuestion AS mq ON mq.IdModule = mt.Id
+                             JOIN QuestionTemplate AS qt ON qt.Id = mq.IdQuestion
+                             JOIN AnswerTemplate AS [at] ON [at].IdQuestion = qt.Id
+                             WHERE ft.Id = @FormId";
 
-           // var formDictionary = new Dictionary<int, FormWithAllDto>();
-           //// var moduleDictionary = new Dictionary<int, ModuleTemplate>();
-           // var forms = _connection.Query<FormWithAllDto, ModuleInFormDto, FormWithAllDto>(query, (form, module) =>
-           // { 
-           //     if (!formDictionary.TryGetValue(form.FormId, out var currentForm))
-           //     {
-           //         currentForm = form;
-           //         formDictionary.Add(currentForm.FormId, currentForm);
-           //     }
 
-           // });
+            var form = _connection.QueryFirstOrDefault<FormWithAllDto>(query, new { FormId = formId});
+
+
+
             /*
              var lookup = new Dictionary<int, OrderDetail>();
             var lookup2 = new Dictionary<int, OrderLine>();
@@ -97,7 +91,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
             var resultList = lookup.Values.ToList();
              */
-            return null;
+            return form;
         }
     }
 }
