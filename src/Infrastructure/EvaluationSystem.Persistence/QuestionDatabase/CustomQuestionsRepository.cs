@@ -19,7 +19,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             _connection.Execute(query, new { QuestionId = questionId });
         }
 
-        public void DeleteCustomQuestion(int questionId) //
+        public void DeleteCustomQuestion(int questionId)
         {
             var query = @"DELETE FROM AnswerTemplate
                             WHERE IdQuestion = @QuestionId

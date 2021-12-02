@@ -2,6 +2,7 @@
 using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 using EvaluationSystem.Application.Models.Forms;
 using EvaluationSystem.Application.Models.Questions;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Domain.Entities;
 
 namespace EvaluationSystem.Application.Profiles.AnswerProfile
@@ -13,7 +14,8 @@ namespace EvaluationSystem.Application.Profiles.AnswerProfile
             CreateMap<AddNewAnswerDto, AnswerTemplate>();
 
             CreateMap<AnswerTemplate, AnswerDetailDto>()
-                .ForMember(a => a.AnswerName, opts => opts.MapFrom(an => an.AnswerText));
+                .ForMember(a => a.AnswerName, opts => opts.MapFrom(an => an.AnswerText))
+                .ForMember(a => a.IdAnswer, opts => opts.MapFrom(b => b.Id));
 
             CreateMap<AddNewAnswerDto, AnswerTemplate>();
 
@@ -31,6 +33,8 @@ namespace EvaluationSystem.Application.Profiles.AnswerProfile
 
             CreateMap<AnswerTemplate, AnswerDetailDto>()
                 .ForMember(a => a.AnswerName, opts => opts.MapFrom(b => b.AnswerText));
+            //CreateMap<AnswerTemplate, AnswersByQuestionsIdDto>()
+            //    .ForMember(a => a.AnswerText, opts => opts.MapFrom(n => n.AnswerText));
         }
     }
 }

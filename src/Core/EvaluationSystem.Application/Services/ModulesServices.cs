@@ -11,12 +11,14 @@ namespace EvaluationSystem.Application.Services
     {
         private readonly IModuleRepository _moduleRepository;
         private readonly IFormModulesServices _formModulesServices;
+        private readonly IModuleQuestionsServices _moduleQuestionsServices;
         private readonly IMapper _mapper;
 
-        public ModulesServices(IModuleRepository moduleRepository, IFormModulesServices formModulesServices, IMapper mapper)
+        public ModulesServices(IModuleRepository moduleRepository, IFormModulesServices formModulesServices,IModuleQuestionsServices moduleQuestionsServices, IMapper mapper)
         {
             _moduleRepository = moduleRepository;
             _formModulesServices = formModulesServices;
+            _moduleQuestionsServices = moduleQuestionsServices;
             _mapper = mapper;
         }
 

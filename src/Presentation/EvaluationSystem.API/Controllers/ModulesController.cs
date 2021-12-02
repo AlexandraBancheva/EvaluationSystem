@@ -18,7 +18,7 @@ namespace EvaluationSystem.API.Controllers
             _moduleQuestionsServices = moduleQuestionsServices;
         }
 
-        [HttpPost] // Need a change
+        [HttpPost]
         public IActionResult CreateNewModule(int formId, int position, [FromBody] CreateModuleDto model)
         {
             var res = _modulesServices.CreateModule(formId, position, model);

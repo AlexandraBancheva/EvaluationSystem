@@ -8,6 +8,13 @@ namespace EvaluationSystem.Application.Models.Forms
 {
     public class FormWithAllDto
     {
+        public FormWithAllDto()
+        {
+            this.Modules = new HashSet<ModuleInFormDto>();
+            this.Questions = new HashSet<QuestionInModuleDto>();
+            this.Answers = new HashSet<AnswerDetailDto>();
+        }
+
         public int FormId { get; set; }
 
         public string FormName { get; set; }
@@ -37,7 +44,7 @@ namespace EvaluationSystem.Application.Models.Forms
 
         public int QuestionPosition { get; set; }
 
-        public ICollection<QuestionDetailDto> Questions { get; set; }
+        public ICollection<QuestionInModuleDto> Questions { get; set; }
 
         public ICollection<AnswerDetailDto> Answers { get; set; }
     }

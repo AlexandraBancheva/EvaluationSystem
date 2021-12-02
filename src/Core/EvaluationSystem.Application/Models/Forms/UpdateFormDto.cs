@@ -12,14 +12,14 @@ namespace EvaluationSystem.Application.Models.Forms
 
         public string FormName { get; set; }
 
-        public int ModulePosition { get; set; }
+        //public int ModulePosition { get; set; }
 
-        public ICollection<UpdateModuleDto> Module { get; set; }
+        //public ICollection<UpdateModuleDto> Module { get; set; }
 
-        public int QuestionPosition { get; set; }
+        //public int QuestionPosition { get; set; }
 
-        public ICollection<UpdateQuestionDto> Question { get; set; }
+        //public ICollection<UpdateQuestionDto> Question { get; set; }
 
-        public ICollection<UpdateAnswerDto> Answer { get; set; }
+        //public ICollection<UpdateAnswerDto> Answer { get; set; }
     }
 }

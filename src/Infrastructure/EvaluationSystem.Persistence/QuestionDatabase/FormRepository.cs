@@ -5,6 +5,7 @@ using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Application.Models.Forms;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -49,49 +50,12 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         }
 
         // Repository in repository ???
-        public FormWithAllDto GetAllWithFormId(int formId)
+        public IEnumerable<FormWithAllDto> GetAllWithFormId(int formId)
         {
-            var query = @"SELECT * FROM FormTemplate AS ft
-                             JOIN FormModule as fm ON fm.IdForm = ft.Id
-                             JOIN ModuleTemplate AS mt ON mt.Id = fm.IdModule
-                             JOIN ModuleQuestion AS mq ON mq.IdModule = mt.Id
-                             JOIN QuestionTemplate AS qt ON qt.Id = mq.IdQuestion
-                             JOIN AnswerTemplate AS [at] ON [at].IdQuestion = qt.Id
-                             WHERE ft.Id = @FormId";
-
-
-            var form = _connection.QueryFirstOrDefault<FormWithAllDto>(query, new { FormId = formId});
 
 
 
-            /*
-             var lookup = new Dictionary<int, OrderDetail>();
-            var lookup2 = new Dictionary<int, OrderLine>();
-            connection.Query<OrderDetail, OrderLine, OrderLineSize, OrderDetail>(@"
-                    SELECT o.*, ol.*, ols.*
-                    FROM orders_mstr o
-                    INNER JOIN order_lines ol ON o.id = ol.order_id
-                    INNER JOIN order_line_size_relations ols ON ol.id = ols.order_line_id           
-                    ", (o, ol, ols) =>
-            {
-                OrderDetail orderDetail;
-                if (!lookup.TryGetValue(o.id, out orderDetail))
-                {
-                    lookup.Add(o.id, orderDetail = o);
-                }
-                OrderLine orderLine;
-                if (!lookup2.TryGetValue(ol.id, out orderLine))
-                {
-                    lookup2.Add(ol.id, orderLine = ol);
-                    orderDetail.OrderLines.Add(orderLine);
-                }
-                orderLine.OrderLineSizes.Add(ols);
-                return orderDetail;
-            }).AsQueryable();
-
-            var resultList = lookup.Values.ToList();
-             */
-            return form;
+            return null;
         }
     }
 }

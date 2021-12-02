@@ -4,6 +4,7 @@ using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Models.ModuleQuestions;
 using EvaluationSystem.Application.Models.Forms;
+using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 
 namespace EvaluationSystem.Application.Profiles.QuestionProfile
 {
@@ -20,7 +21,8 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
                 .ForMember(q => q.IdQuestion, opts => opts.MapFrom(u => u.Id));
 
             CreateMap<QuestionTemplate, QuestionDetailDto>()
-                .ForMember(q => q.QuestionName, opts => opts.MapFrom(qn => qn.Name));
+                .ForMember(q => q.QuestionName, opts => opts.MapFrom(qn => qn.Name))
+                .ForMember(q => q.Type, opts => opts.MapFrom(a => a.Type));
 
             CreateMap<QuestionTemplate, ListQuestionsAnswersDto>()
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(y => y.Name))
@@ -38,14 +40,13 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
                 .ForMember(r => r.QuestionName, opts => opts.MapFrom(c => c.Name));
 
             CreateMap<CreateFormDto, QuestionTemplate>();
-            CreateMap<QuestionTemplate, QuestionDetailDto>()
-                .ForMember(q => q.QuestionName, opts => opts.MapFrom(r => r.Name));
 
             CreateMap<CreateFormModuleQuestionDto, QuestionTemplate>()
                 .ForMember(q => q.Name, opts => opts.MapFrom(a => a.QuestionName));
 
-            CreateMap<QuestionTemplate, QuestionDetailDto>()
-                .ForMember(q => q.QuestionName, opts => opts.MapFrom(a => a.Name));
+            //CreateMap<QuestionTemplate, QuestionByIdDto>()
+            //    .ForMember(a => a.QuestionName, opts => opts.MapFrom(b => b.Name))
+            //    .ForMember(a => a.Answers, opts => opts.MapFrom(b => b.Answers));
         }
     }
 }

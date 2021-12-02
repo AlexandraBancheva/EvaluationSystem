@@ -9,5 +9,7 @@ namespace EvaluationSystem.Application.Interfaces
         ICollection<QuestionTemplate> GetAllQuestionsWithAnswers();
 
         void DeleteTemplateQuestion(int questionId);
+
+       // ICollection<QuestionTemplate> GetAllById(int questionId);
     }
 }
