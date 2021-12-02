@@ -37,7 +37,8 @@ namespace EvaluationSystem.API.Controllers
             //    _memoryCache.Set("Question", question, cacheOptions);
             //}
 
-            return Ok(questionsServices.GetQuestionById(questionId));
+            // return Ok(questionsServices.GetQuestionById(questionId));
+            return Ok(questionsServices.GetAllAnswersByQuestionId(questionId));
         }
 
         [HttpPost]

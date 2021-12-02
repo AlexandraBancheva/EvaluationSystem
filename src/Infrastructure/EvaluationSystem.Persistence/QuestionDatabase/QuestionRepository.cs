@@ -24,7 +24,35 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             WHERE Id = @QuestionId";
             _connection.Execute(query, new { QuestionId = questionId}, _transaction);
         }
-        
+
+        public ICollection<QuestionTemplate> GetAllById(int questionId)
+        {
+            var query = @"SELECT *
+                            FROM QuestionTemplate AS q
+                            LEFT JOIN AnswerTemplate AS a ON q.Id = a.IdQuestion
+                            WHERE q.Id = @QuestionId";
+
+            var queryParameter = new { QuestionId = questionId };
+
+            var questionDictionary = new Dictionary<int, QuestionTemplate>();
+            var questions = _connection.Query<QuestionTemplate, AnswerTemplate, QuestionTemplate>(query, (question, answer) =>
+            {
+                if (!questionDictionary.TryGetValue(question.Id, out var currentQuestion))
+                {
+                    currentQuestion = question;
+                    questionDictionary.Add(currentQuestion.Id, currentQuestion);
+                }
+
+                currentQuestion.Answers.Add(answer);
+                return currentQuestion;
+            }, queryParameter, _transaction,
+               splitOn: "Id")
+            .Distinct()
+            .ToList();
+
+            return questions;
+        }
+
         public ICollection<QuestionTemplate> GetAllQuestionsWithAnswers()
         {
             var query = @"SELECT *

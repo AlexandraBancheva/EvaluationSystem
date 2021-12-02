@@ -21,7 +21,7 @@ namespace EvaluationSystem.Application.Services
 
         public QuestionDetailDto GetQuestionById(int questionId)
         {
-           var currentEntity =  _questionRepository.GetById(questionId);
+            var currentEntity = _questionRepository.GetById(questionId);
 
             if (currentEntity == null)
             {
@@ -71,11 +71,11 @@ namespace EvaluationSystem.Application.Services
             return questionsAll;
         }
 
-        //public QuestionByIdDto GetAllByQuestionId(int questionId)
-        //{
-        //    var entity = _questionRepository.GetAllById(questionId);
+        public IEnumerable<ListQuestionsAnswersDto> GetAllAnswersByQuestionId(int questionId)
+        {
+            var questions = _questionRepository.GetAllById(questionId);
 
-        //    return _mapper.Map<QuestionByIdDto>(entity);
-        //}
+            return _mapper.Map<IEnumerable<ListQuestionsAnswersDto>>(questions);
+        }
     }
 }

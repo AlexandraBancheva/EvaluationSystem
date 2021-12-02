@@ -15,5 +15,7 @@ namespace EvaluationSystem.Application.Interfaces
         void DeleteQuestion(int questionId);
 
         IEnumerable<ListQuestionsAnswersDto> GetAllQuestionsWithTheirAnswers();
+
+        IEnumerable<ListQuestionsAnswersDto> GetAllAnswersByQuestionId(int questionId);
     }
 }

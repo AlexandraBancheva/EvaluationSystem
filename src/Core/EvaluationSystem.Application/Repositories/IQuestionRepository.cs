@@ -10,6 +10,6 @@ namespace EvaluationSystem.Application.Interfaces
 
         void DeleteTemplateQuestion(int questionId);
 
-       // ICollection<QuestionTemplate> GetAllById(int questionId);
+       ICollection<QuestionTemplate> GetAllById(int questionId);
     }
 }
