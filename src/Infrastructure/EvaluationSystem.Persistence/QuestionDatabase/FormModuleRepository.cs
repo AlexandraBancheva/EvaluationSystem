@@ -1,7 +1,8 @@
-﻿using Dapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Dapper;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
-using System.Collections.Generic;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -36,6 +37,17 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var formWithModules = _connection.Query<FormModule>(query, new { FormId = formId });
 
             return (ICollection<FormModule>)formWithModules;
+        }
+
+        public ICollection<ModuleTemplate> GetModulesByFormId(int formId)
+        {
+            var query = @"SELECT * FROM FormModule AS fm
+                                JOIN ModuleTemplate AS mt ON mt.Id = fm.IdModule
+                                WHERE fm.IdForm = @IdForm";
+
+            var modules = _connection.Query<ModuleTemplate>(query, new { IdForm = formId});
+
+            return (ICollection<ModuleTemplate>)modules;
         }
     }
 }

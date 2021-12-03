@@ -1,5 +1,5 @@
-﻿using EvaluationSystem.Domain.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using EvaluationSystem.Domain.Entities;
 
 namespace EvaluationSystem.Application.Repositories
 {
@@ -10,5 +10,7 @@ namespace EvaluationSystem.Application.Repositories
         void DeleteModuleFromForm(int formId, int moduleId);
 
         ICollection<FormModule> GetAllModulesByFormId(int formId);
+
+        ICollection<ModuleTemplate> GetModulesByFormId(int formId);
     }
 }

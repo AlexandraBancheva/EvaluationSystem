@@ -14,21 +14,16 @@ namespace EvaluationSystem.Application.Profiles.ModuleProfile
                 .ForMember(m => m.Name, opts => opts.MapFrom(p => p.ModuleName));
 
             CreateMap<ModuleTemplate, ModuleDetailDto>()
+                .ForMember(m => m.IdModule, opts => opts.MapFrom(v => v.Id))
                 .ForMember(m => m.ModuleName, opts => opts.MapFrom(n => n.Name));
 
             CreateMap<UpdateModuleDto, ModuleTemplate>()
                 .ForMember(m => m.Name, opts => opts.MapFrom(p => p.ModuleName));
-            //  .ForMember(m => m.Id, opts => opts.MapFrom(y => y.IdModule));
 
             CreateMap<CreateFormDto, ModuleTemplate>();
-            CreateMap<ModuleTemplate, ModuleDetailDto>()
-                .ForMember(m => m.ModuleName, opts => opts.MapFrom(y => y.Name));
 
             CreateMap<CreateFormModuleDto, ModuleTemplate>()
                 .ForMember(a => a.Name, opts => opts.MapFrom(p => p.ModuleName));
-
-            CreateMap<ModuleTemplate, ModuleDetailDto>()
-                .ForMember(m => m.ModuleName, opts => opts.MapFrom(k => k.Name));
         }
     }
 }

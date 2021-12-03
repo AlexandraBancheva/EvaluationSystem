@@ -1,4 +1,5 @@
-﻿using EvaluationSystem.Application.Models.Modules;
+﻿using System.Collections.Generic;
+using EvaluationSystem.Application.Models.Modules;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 
 namespace EvaluationSystem.Application.Interfaces
@@ -12,5 +13,7 @@ namespace EvaluationSystem.Application.Interfaces
         ModuleDetailDto UpdateCurrentModule(int formId, int moduleId, UpdateModuleDto model);
 
         ModuleDetailDto GetCurrentModuleById(int formId, int moduleId);
+
+       ICollection<ModuleDetailDto> GetAllModulesByFormId(int formId);
     }
 }

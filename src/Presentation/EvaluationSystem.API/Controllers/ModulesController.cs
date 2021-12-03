@@ -47,10 +47,10 @@ namespace EvaluationSystem.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllModulesWithAllQuestions()
+        public IActionResult GetAllModulesByFormId(int formId)
         {
-            var results = _moduleQuestionsServices.GetAllModulesWithAllQuestions();
-            return Ok(results);
+            var res = _modulesServices.GetAllModulesByFormId(formId);
+            return Ok(res);
         }
     }
 }

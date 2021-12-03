@@ -4,19 +4,26 @@ using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Application.Models.Modules;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
+using System.Collections.Generic;
 
 namespace EvaluationSystem.Application.Services
 {
     public class ModulesServices : IModulesServices
     {
         private readonly IModuleRepository _moduleRepository;
+        private readonly IFormModuleRepository _formModuleRepository;
         private readonly IFormModulesServices _formModulesServices;
         private readonly IModuleQuestionsServices _moduleQuestionsServices;
         private readonly IMapper _mapper;
 
-        public ModulesServices(IModuleRepository moduleRepository, IFormModulesServices formModulesServices,IModuleQuestionsServices moduleQuestionsServices, IMapper mapper)
+        public ModulesServices(IModuleRepository moduleRepository, 
+                                IFormModuleRepository formModuleRepository,
+                                IFormModulesServices formModulesServices,
+                                IModuleQuestionsServices moduleQuestionsServices, 
+                                IMapper mapper)
         {
             _moduleRepository = moduleRepository;
+            _formModuleRepository = formModuleRepository;
             _formModulesServices = formModulesServices;
             _moduleQuestionsServices = moduleQuestionsServices;
             _mapper = mapper;
@@ -51,6 +58,14 @@ namespace EvaluationSystem.Application.Services
             _moduleRepository.UpdateModule(formId, moduleId, entity);
 
             return GetCurrentModuleById(formId, moduleId);
+        }
+
+
+        public ICollection<ModuleDetailDto> GetAllModulesByFormId(int formId)
+        {
+            var allModules = _formModuleRepository.GetModulesByFormId(formId);
+           
+            return _mapper.Map<ICollection<ModuleDetailDto>>(allModules);
         }
     }
 }
