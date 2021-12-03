@@ -15,7 +15,9 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public void DeleteModule(int moduleId)
         {
-            var query = @"DELETE ModuleQuestion
+            var query = @"DELETE FormModule
+                            WHERE IdModule = @ModuleId
+                            DELETE ModuleQuestion
                             WHERE IdModule = @ModuleId
                             DELETE ModuleTemplate
                             WHERE Id = @ModuleId";

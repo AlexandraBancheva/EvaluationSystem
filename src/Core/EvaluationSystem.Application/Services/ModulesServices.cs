@@ -41,6 +41,7 @@ namespace EvaluationSystem.Application.Services
 
         public void DeleteCurrentModule(int moduleId)
         {
+            //_formModuleRepository.DeleteModuleFromForm(moduleId);
             _moduleRepository.DeleteModule(moduleId);
         }
 

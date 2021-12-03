@@ -60,3 +60,9 @@ The statement has been terminated.
    at NLog.Targets.DatabaseTarget.WriteLogEventToDatabase(LogEventInfo logEvent, String connectionString)
 ClientConnectionId:d3064bd5-a9d7-483b-8449-11bf288c82d0
 Error Number:2628,State:1,Class:16
+2021-12-03 16:34:22.1457 Error Error parsing layout appsettings will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'appsettings'
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2021-12-03 16:39:16.1818 Error Error parsing layout appsettings will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'appsettings'
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)

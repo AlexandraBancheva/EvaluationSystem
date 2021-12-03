@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 using NLog.Web;
 
 namespace EvaluationSystem.API
@@ -22,6 +23,7 @@ namespace EvaluationSystem.API
             {
                 logging.ClearProviders();
                 logging.SetMinimumLevel(LogLevel.Error);
+                logging.AddNLog();
             })
             .UseNLog();
     }
