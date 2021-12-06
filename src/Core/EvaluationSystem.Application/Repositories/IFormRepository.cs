@@ -8,7 +8,7 @@ namespace EvaluationSystem.Application.Repositories
     {
         void DeleteForm(int formId);
 
-        IEnumerable<FormTemplateDto> FormsWithModules();
+        IEnumerable<FormWithAllDto> AllForms();
 
         IEnumerable<FormWithAllDto> GetAllWithFormId(int formId);
     }

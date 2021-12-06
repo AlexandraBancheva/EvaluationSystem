@@ -49,6 +49,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                 _transaction.Dispose();
                 _transaction = null;
             }
+            _connection.Dispose();
         }
 
         public void Rollback()

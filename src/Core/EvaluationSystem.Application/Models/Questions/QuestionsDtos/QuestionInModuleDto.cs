@@ -7,9 +7,14 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 {
     public class QuestionInModuleDto
     {
+        public QuestionInModuleDto()
+        {
+            this.Answers = new HashSet<AnswersInQuestionDto>();
+        }
+
         public int Id { get; set; }
 
-        public int QuestionName { get; set; }
+        public string Name { get; set; }
 
         public QuestionType Type { get; set; }
 

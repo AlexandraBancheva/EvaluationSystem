@@ -6,14 +6,14 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IFormsServices
     {
-        FormDetailDto CreateNewForm(CreateFormDto form);
+        IEnumerable<FormDetailDto> CreateNewForm(CreateFormDto form);
 
         void DeleteFormById(int formId);
 
-        FormDetailDto GetFormById(int formId);
+        IEnumerable<FormDetailDto> GetFormById(int formId);
 
-        FormDetailDto UpdateCurrentForm(int formId, UpdateFormDto form);
+        UpdatedFormDto UpdateCurrentForm(int formId, UpdateFormDto form);
    
-        IEnumerable<ListFormsModulesDto> GetAllForsWithAllModules();
+        IEnumerable<FormDetailDto> GetAllForsWithAllModules();
     }
 }

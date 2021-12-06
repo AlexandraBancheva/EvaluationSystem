@@ -12,7 +12,6 @@ namespace EvaluationSystem.Application.Profiles.FormProfile
                 .ForMember(f => f.Name, opts => opts.MapFrom(b => b.FormName));
 
             CreateMap<FormTemplate, FormDetailDto>();
-            // .ForMember(f => f.Name, opts => opts.MapFrom(b => b.Name));
 
             CreateMap<UpdateFormDto, FormTemplate>()
                 .ForMember(f => f.Name, opts => opts.MapFrom(b => b.FormName));
@@ -21,6 +20,19 @@ namespace EvaluationSystem.Application.Profiles.FormProfile
             .ForMember(f => f.Name, opts => opts.MapFrom(m => m.FormName));
 
             CreateMap<FormTemplate, FormDetailDto>();
+
+            CreateMap<FormWithAllDto, FormDetailDto>()
+                .ForMember(t => t.Id, opts => opts.MapFrom(o => o.Id))
+                .ForMember(f => f.Name, opts => opts.MapFrom(v => v.Name))
+                .ForMember(b => b.Modules, opts => opts.MapFrom(m => m.Modules));
+
+            CreateMap<FormWithAllDto, FormDetailDto>()
+                .ForMember(v => v.Id, opts => opts.MapFrom(a => a.Id))
+                .ForMember(b => b.Name, opts => opts.MapFrom(m => m.Name))
+                .ForMember(m => m.Modules, opts => opts.MapFrom(i => i.Modules));
+
+            CreateMap<FormTemplate, UpdatedFormDto>()
+                .ForMember(f => f.FormName, opts => opts.MapFrom(m => m.Name));
         }
     }
 }

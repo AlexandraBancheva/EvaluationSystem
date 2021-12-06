@@ -41,7 +41,6 @@ namespace EvaluationSystem.Application.Services
 
         public void DeleteCurrentModule(int moduleId)
         {
-            //_formModuleRepository.DeleteModuleFromForm(moduleId);
             _moduleRepository.DeleteModule(moduleId);
         }
 
@@ -62,11 +61,11 @@ namespace EvaluationSystem.Application.Services
         }
 
 
-        public ICollection<ModuleDetailDto> GetAllModulesByFormId(int formId)
+        public ICollection<ModuleDetail> GetAllModulesByFormId(int formId)
         {
             var allModules = _formModuleRepository.GetModulesByFormId(formId);
            
-            return _mapper.Map<ICollection<ModuleDetailDto>>(allModules);
+            return _mapper.Map<ICollection<ModuleDetail>>(allModules);
         }
     }
 }

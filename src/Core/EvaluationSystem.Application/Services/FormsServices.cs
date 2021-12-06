@@ -44,7 +44,7 @@ namespace EvaluationSystem.Application.Services
         }
 
         // Problem with mapper
-        public FormDetailDto CreateNewForm(CreateFormDto form)
+        public IEnumerable<FormDetailDto> CreateNewForm(CreateFormDto form)
         {
             var currrentForm = _mapper.Map<FormTemplate>(form);
 
@@ -101,31 +101,38 @@ namespace EvaluationSystem.Application.Services
             _formRepository.DeleteForm(formId);
         }
 
-        // Problem with form with all structure
-        public FormDetailDto GetFormById(int formId)
+        public IEnumerable<FormDetailDto> GetFormById(int formId)
         {
-           var res = _formRepository.GetById(formId);
+            var res = _formRepository.GetAllWithFormId(formId);
+            var results = _mapper.Map<IEnumerable<FormDetailDto>>(res);
 
-           return _mapper.Map<FormDetailDto>(res);
+            return results;
         }
 
-
-        public FormDetailDto UpdateCurrentForm(int formId, UpdateFormDto form)
+        public UpdatedFormDto UpdateCurrentForm(int formId, UpdateFormDto form)
         {
             var entity = _mapper.Map<FormTemplate>(form);
             entity.Id = formId;
             _formRepository.Update(entity);
 
-            return GetFormById(formId);
+            return _mapper.Map<UpdatedFormDto>(_formRepository.GetById(formId));
         }
 
         // Don't work!
-        public IEnumerable<ListFormsModulesDto> GetAllForsWithAllModules()
-        {
-            var forms = _formRepository.FormsWithModules();
-            var formsModules = _mapper.Map<IEnumerable<ListFormsModulesDto>>(forms);
+        //public IEnumerable<ListFormsModulesDto> GetAllFormWithAllInformation()
+        //{
+        //    var forms = _formRepository.AllForms();
+        //    var formsModules = _mapper.Map<IEnumerable<ListFormsModulesDto>>(forms);
 
-            return formsModules;
+        //    return formsModules;
+        //}
+
+        //
+        public IEnumerable<FormDetailDto> GetAllForsWithAllModules()
+        {
+            var results = _formRepository.AllForms();
+
+            return _mapper.Map<IEnumerable<FormDetailDto>>(results);
         }
     }
 }

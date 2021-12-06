@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using EvaluationSystem.Application.Models.Answers.AnswersDtos;
+﻿using System.Collections.Generic;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
-using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Models.Forms
 {
@@ -11,41 +8,14 @@ namespace EvaluationSystem.Application.Models.Forms
         public FormWithAllDto()
         {
             this.Modules = new HashSet<ModuleInFormDto>();
-            this.Questions = new HashSet<QuestionInModuleDto>();
-            this.Answers = new HashSet<AnswerDetailDto>();
         }
 
-        public int FormId { get; set; }
+        public int Id { get; set; }
 
-        public string FormName { get; set; }
+        public string Name { get; set; }
 
-        public int ModulePosition { get; set; }
-
-        //public int IdModule { get; set; }
-
-        //public string ModuleForm { get; set; }
-
-
-        //public int IdQuestion { get; set; }
-
-        //public int QuestionName { get; set; }
-
-        //public QuestionType Type { get; set; }
-
-        //public DateTime DateOfCreation { get; set; }
-
-        //public int IdAnswer { get; set; }
-
-        //public string AnswerText { get; set; }
-
-        //public int Position { get; set; }
+        public int Position { get; set; }
 
         public ICollection<ModuleInFormDto> Modules { get; set; }
-
-        public int QuestionPosition { get; set; }
-
-        public ICollection<QuestionInModuleDto> Questions { get; set; }
-
-        public ICollection<AnswerDetailDto> Answers { get; set; }
     }
 }
