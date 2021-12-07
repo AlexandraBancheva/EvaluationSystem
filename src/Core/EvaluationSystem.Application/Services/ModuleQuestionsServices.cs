@@ -34,5 +34,13 @@ namespace EvaluationSystem.Application.Services
 
             return allModules;
         }
+
+        public IEnumerable<ListModulesQuestionsDto> GetModuleWithAllQuestions(int moduleId)
+        {
+            var moduleQuestions = _moduleQuestionRepository.GetAllQuestionsByModuleId(moduleId);
+            var res = _mapper.Map<IEnumerable<ListModulesQuestionsDto>>(moduleQuestions);
+
+            return res;
+        }
     }
 }

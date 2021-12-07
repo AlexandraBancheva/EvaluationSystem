@@ -4,9 +4,7 @@ using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Forms;
 using EvaluationSystem.Application.Repositories;
-using EvaluationSystem.Application.Models.FormModules;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
-using System;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -43,41 +41,41 @@ namespace EvaluationSystem.Application.Services
             _mapper = mapper;
         }
 
-        // Problem with mapper
+        
         public IEnumerable<FormDetailDto> CreateNewForm(CreateFormDto form)
         {
-            var currrentForm = _mapper.Map<FormTemplate>(form);
-
-            // var currentFormModule = _mapper.Map<FormModule>(form);  //????
-
-            var currentFormModule = form.ModulePosition;
+            var currentForm = _mapper.Map<FormTemplate>(form);
+            var formId = _formRepository.Insert(currentForm);
             var currentModules = _mapper.Map<ICollection<ModuleTemplate>>(form.Module);
 
-            // var currentModuleQuestion = _mapper.Map<ModuleQuestion>(form.Question); // ????
-
-            var currentModuleQuestion = form.QuestionPosition;
-            var currentQuestions = _mapper.Map<ICollection<QuestionTemplate>>(form.Question);
-            var currentAnswers = _mapper.Map<ICollection<AnswerTemplate>>(form.Answer);
-
-            var formId =_formRepository.Insert(currrentForm);
             foreach (var module in currentModules)
             {
-               var moduleId = _moduleRepository.Insert(module);
-               _formModuleRepository.AddNewModuleInForm(formId, moduleId, currentFormModule);
+                var modulePosition = form.ModulePosition;
+                var moduleId = _moduleRepository.Insert(module);
+                var currentQuestions = _mapper.Map<ICollection<QuestionTemplate>>(module.Questions);
+                _formModuleRepository.AddNewModuleInForm(formId, moduleId, modulePosition);
 
                 foreach (var question in currentQuestions)
                 {
-                    foreach (var answer in currentAnswers)
+
+                    foreach (var position in form.Module)
                     {
-                        question.IsReusable = false;
-                        var questionId = _questionCustomServices.CreateNewQuestion(moduleId, currentModuleQuestion, _mapper.Map<CreateQuestionDto>(question));
-                        answer.IdQuestion = questionId;
-                        _answerRepository.Insert(answer);
+                        var questionPosition = position.QuestionPosition;
+                        var currentAnswers = _mapper.Map<ICollection<AnswerTemplate>>(question.Answers);
+
+                        foreach (var answer in currentAnswers)
+                        {
+                            question.IsReusable = false;
+
+                            var questionId = _questionCustomServices.CreateNewQuestion(moduleId, questionPosition, _mapper.Map<CreateQuestionDto>(question));
+                            answer.IdQuestion = questionId;
+                            _answerRepository.Insert(answer);
+                        }
                     }
                 }
             }
 
-           return GetFormById(formId);
+            return null;
         }
 
         public void DeleteFormById(int formId)
@@ -90,14 +88,14 @@ namespace EvaluationSystem.Application.Services
 
                 foreach (var question in moduleQuestions)
                 {
-                    _questionCustomServices.DeleteCustomQuestion(question.IdQuestion);
-                    _moduleQuestionRepository.DeleteQuestionFromModule(module.IdModule, question.IdQuestion);
+                    _questionCustomServices.DeleteCustomQuestion(question.Id);
+                    _moduleQuestionRepository.DeleteQuestionFromModule(module.IdModule, question.Id);
                 }
 
                 _formModuleRepository.DeleteModuleFromForm(formId, module.IdModule);
                 _moduleRepository.DeleteModule(module.IdModule);
             }
-            
+
             _formRepository.DeleteForm(formId);
         }
 
@@ -117,15 +115,6 @@ namespace EvaluationSystem.Application.Services
 
             return _mapper.Map<UpdatedFormDto>(_formRepository.GetById(formId));
         }
-
-        // Don't work!
-        //public IEnumerable<ListFormsModulesDto> GetAllFormWithAllInformation()
-        //{
-        //    var forms = _formRepository.AllForms();
-        //    var formsModules = _mapper.Map<IEnumerable<ListFormsModulesDto>>(forms);
-
-        //    return formsModules;
-        //}
 
         //
         public IEnumerable<FormDetailDto> GetAllForsWithAllModules()

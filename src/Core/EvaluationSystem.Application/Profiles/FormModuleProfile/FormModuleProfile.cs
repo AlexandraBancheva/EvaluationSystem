@@ -20,7 +20,11 @@ namespace EvaluationSystem.Application.Profiles.FormModuleProfile
             CreateMap<CreateFormDto, FormModule>()
                 .ForMember(y => y.Position, opts => opts.MapFrom(p => p.ModulePosition));
 
-           // CreateMap<FormWithAllDto, Form>()
+            //CreateMap<ModuleTemplate, ListFormIdWithAllModulesDto>()
+            //    .ForMember(m => m.FormId, )
+
+            CreateMap<FormModelDto, ListFormIdWithAllModulesDto>()
+                .ForMember(f => f.FormId, opts => opts.MapFrom(m => m.IdForm));
         }
     }
 }

@@ -5,6 +5,7 @@ using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Application.Models.Modules;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 using System.Collections.Generic;
+using EvaluationSystem.Application.Models.FormModules;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -60,12 +61,11 @@ namespace EvaluationSystem.Application.Services
             return GetCurrentModuleById(formId, moduleId);
         }
 
-
-        public ICollection<ModuleDetail> GetAllModulesByFormId(int formId)
+        public ICollection<ListFormIdWithAllModulesDto> GetAllModulesByFormId(int formId)
         {
             var allModules = _formModuleRepository.GetModulesByFormId(formId);
            
-            return _mapper.Map<ICollection<ModuleDetail>>(allModules);
+            return _mapper.Map<ICollection<ListFormIdWithAllModulesDto>>(allModules);
         }
     }
 }

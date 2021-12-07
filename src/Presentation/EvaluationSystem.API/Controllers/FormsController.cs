@@ -19,7 +19,6 @@ namespace EvaluationSystem.API.Controllers
         public IActionResult CreateNewForm([FromBody] CreateFormDto form)
         {
             var result = _formsServices.CreateNewForm(form);
-
             return Ok(result);
         }
 
@@ -27,7 +26,6 @@ namespace EvaluationSystem.API.Controllers
         public IActionResult DeleteCurrentForm(int formId)
         {
             _formsServices.DeleteFormById(formId);
-
             return NoContent();
         }
 
@@ -42,7 +40,6 @@ namespace EvaluationSystem.API.Controllers
         public IActionResult UpdateCurrentForm(int formId, [FromBody] UpdateFormDto form)
         {
             var result = _formsServices.UpdateCurrentForm(formId, form);
-
             return Ok(result);
         }
 

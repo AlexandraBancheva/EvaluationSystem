@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using EvaluationSystem.Application.Models.FormModules;
 using EvaluationSystem.Domain.Entities;
 
 namespace EvaluationSystem.Application.Repositories
@@ -11,6 +12,6 @@ namespace EvaluationSystem.Application.Repositories
 
         ICollection<FormModule> GetAllModulesByFormId(int formId);
 
-        ICollection<ModuleTemplate> GetModulesByFormId(int formId);
+        ICollection<FormModelDto> GetModulesByFormId(int formId);
     }
 }

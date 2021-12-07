@@ -27,5 +27,12 @@ namespace EvaluationSystem.API.Controllers
             _moduleQuestionsServices.DeleteQuestionFromModule(moduleId, questionId);
             return NoContent();
         }
+
+        [HttpGet]
+        public IActionResult GetAllQuestionsByModuleId(int moduleId)
+        {
+           var res = _moduleQuestionsServices.GetModuleWithAllQuestions(moduleId);
+            return Ok(res);
+        }
     }
 }

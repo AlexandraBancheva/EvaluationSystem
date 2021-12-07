@@ -1,13 +1,23 @@
-﻿using EvaluationSystem.Domain.Enums;
+﻿using System.Collections.Generic;
+using EvaluationSystem.Domain.Enums;
+using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 
 namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 {
     public class CreateFormModuleQuestionDto
     {
+        public CreateFormModuleQuestionDto()
+        {
+            this.Answers = new HashSet<CreateFormModuleQuestionAnswerDto>();
+        }
+
+       // public int Position { get; set; }
+
         public string QuestionName { get; set; }
 
         public QuestionType Type { get; set; }
 
-       // public int Position { get; set; }
+        public virtual ICollection<CreateFormModuleQuestionAnswerDto> Answers { get; set; }
+
     }
 }

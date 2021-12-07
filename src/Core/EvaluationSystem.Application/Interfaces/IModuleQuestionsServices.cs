@@ -10,5 +10,7 @@ namespace EvaluationSystem.Application.Interfaces
         void DeleteQuestionFromModule(int moduleId, int questionId);
 
         IEnumerable<ListModulesQuestionsDto> GetAllModulesWithAllQuestions();
+
+        IEnumerable<ListModulesQuestionsDto> GetModuleWithAllQuestions(int moduleId);
     }
 }

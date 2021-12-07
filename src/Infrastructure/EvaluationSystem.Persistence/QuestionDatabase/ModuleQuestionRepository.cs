@@ -30,14 +30,33 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             _connection.Execute(query, new { ModuleId = moduleId, QuestionId = questionId}, _transaction);
         }
 
-        public ICollection<ModuleQuestion> GetAllQuestionsByModuleId(int moduleId)
+
+        public ICollection<ModuleTemplateDto> GetAllQuestionsByModuleId(int moduleId)
         {
-            var query = @"SELECT * FROM ModuleQuestion
-                            WHERE IdModule = @ModuleId";
+            var query = @"SELECT * FROM ModuleTemplate AS mt
+                            LEFT JOIN ModuleQuestion AS mq ON mq.IdModule = mt.Id
+                            LEFT JOIN QuestionTemplate AS qt ON mq.IdQuestion = qt.Id
+                            WHERE mt.Id = @ModuleId";
 
-            var moduleWishQuestions = _connection.Query<ModuleQuestion>(query, new { moduleId });
+            var queryParameter = new { ModuleId = moduleId };
 
-            return (ICollection<ModuleQuestion>)moduleWishQuestions;
+            var moduleDictionary = new Dictionary<int, ModuleTemplateDto>();
+            var moduleWishQuestions = _connection.Query<ModuleTemplateDto, QuestionTemplateDto, ModuleTemplateDto>(query, (module, question) =>
+            {
+                if (!moduleDictionary.TryGetValue(module.Id, out var currentModule))
+                {
+                    currentModule = module;
+                    moduleDictionary.Add(currentModule.Id, currentModule);
+                }
+
+                currentModule.Questions.Add(question);
+                return currentModule;
+            }, queryParameter, _transaction,
+               splitOn: "Id")
+            .Distinct()
+            .ToList();
+
+            return moduleWishQuestions;
         }
 
         public ICollection<ModuleTemplateDto> GetModuleWithAllQuestions()

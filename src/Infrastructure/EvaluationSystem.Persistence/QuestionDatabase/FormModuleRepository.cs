@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Dapper;
+using EvaluationSystem.Application.Models.FormModules;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
 
@@ -39,15 +40,31 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             return (ICollection<FormModule>)formWithModules;
         }
 
-        public ICollection<ModuleTemplate> GetModulesByFormId(int formId)
+        public ICollection<FormModelDto> GetModulesByFormId(int formId)
         {
             var query = @"SELECT * FROM FormModule AS fm
                                 JOIN ModuleTemplate AS mt ON mt.Id = fm.IdModule
                                 WHERE fm.IdForm = @IdForm";
 
-            var modules = _connection.Query<ModuleTemplate>(query, new { IdForm = formId});
+            var queryParameter = new { IdForm = formId };
 
-            return (ICollection<ModuleTemplate>)modules;
+            var formModuleDictionary = new Dictionary<int, FormModelDto>();
+            var modules = _connection.Query<FormModelDto, ModuleTemplate, FormModelDto>(query, (form, module) =>
+            {
+                if (!formModuleDictionary.TryGetValue(form.IdForm, out var currentForm))
+                {
+                    currentForm = form;
+                    formModuleDictionary.Add(currentForm.IdForm, currentForm);
+                }
+
+                currentForm.Modules.Add(module);
+                return currentForm;
+            }, queryParameter, _transaction,
+               splitOn: "Id")
+            .Distinct()
+            .ToList();
+
+            return modules;
         }
     }
 }
