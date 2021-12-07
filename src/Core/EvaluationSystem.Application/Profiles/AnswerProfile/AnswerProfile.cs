@@ -37,6 +37,10 @@ namespace EvaluationSystem.Application.Profiles.AnswerProfile
             CreateMap<AnswersInQuestionDto, AnswerDetailDto>()
                 .ForMember(a => a.IdAnswer, opts => opts.MapFrom(m => m.Id))
                 .ForMember(v => v.AnswerName, opts => opts.MapFrom(n => n.AnswerText));
+
+            //
+            CreateMap<CreateFormModuleQuestionAnswerDto, AnswerTemplate>()
+                .ForMember(a => a.AnswerText, opts => opts.MapFrom(p => p.AnswerText));
         }
     }
 }

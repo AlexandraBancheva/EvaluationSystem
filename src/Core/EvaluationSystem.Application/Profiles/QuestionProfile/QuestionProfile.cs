@@ -41,14 +41,19 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
 
             CreateMap<CreateFormDto, QuestionTemplate>();
 
+            //
             CreateMap<CreateFormModuleQuestionDto, QuestionTemplate>()
                 .ForMember(q => q.Name, opts => opts.MapFrom(a => a.QuestionName));
 
-            //
             CreateMap<QuestionInModuleDto, QuestionDetailDto>()
                 .ForMember(w => w.Id, opts => opts.MapFrom(u => u.Id))
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(r => r.Name))
                 .ForMember(p => p.Answers, opts => opts.MapFrom(a => a.Answers));
+
+            //
+            CreateMap<CreateFormModuleQuestionDto, QuestionTemplateDto>()
+                .ForMember(t => t.Name, opts => opts.MapFrom(y => y.QuestionName))
+                .ForMember(i => i.Answers, opts => opts.MapFrom(t => t.Answers));
         }
     }
 }

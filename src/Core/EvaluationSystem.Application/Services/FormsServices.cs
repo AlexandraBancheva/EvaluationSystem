@@ -44,33 +44,23 @@ namespace EvaluationSystem.Application.Services
         
         public IEnumerable<FormDetailDto> CreateNewForm(CreateFormDto form)
         {
-            var currentForm = _mapper.Map<FormTemplate>(form);
-            var formId = _formRepository.Insert(currentForm);
-            var currentModules = _mapper.Map<ICollection<ModuleTemplate>>(form.Module);
+            var currentForm = _mapper.Map<FormTemplateDto>(form);
+            var formId = _formRepository.Insert(_mapper.Map<FormTemplate>(currentForm));
 
-            foreach (var module in currentModules)
+            foreach (var module in currentForm.Modules)
             {
-                var modulePosition = form.ModulePosition;
-                var moduleId = _moduleRepository.Insert(module);
-                var currentQuestions = _mapper.Map<ICollection<QuestionTemplate>>(module.Questions);
-                _formModuleRepository.AddNewModuleInForm(formId, moduleId, modulePosition);
+                var moduleId = _moduleRepository.Insert(_mapper.Map<ModuleTemplate>(module));
+                _formModuleRepository.AddNewModuleInForm(formId, moduleId, currentForm.Position);
 
-                foreach (var question in currentQuestions)
+                foreach (var question in module.Questions)
                 {
-
-                    foreach (var position in form.Module)
+                    foreach (var answer in question.Answers)
                     {
-                        var questionPosition = position.QuestionPosition;
-                        var currentAnswers = _mapper.Map<ICollection<AnswerTemplate>>(question.Answers);
-
-                        foreach (var answer in currentAnswers)
-                        {
-                            question.IsReusable = false;
-
-                            var questionId = _questionCustomServices.CreateNewQuestion(moduleId, questionPosition, _mapper.Map<CreateQuestionDto>(question));
-                            answer.IdQuestion = questionId;
-                            _answerRepository.Insert(answer);
-                        }
+                        question.IsReusable = false;
+                        var questionId = _questionCustomServices.CreateNewQuestion(moduleId, module.Position, _mapper.Map<CreateQuestionDto>(question));
+                        answer.IdQuestion = questionId;
+                        _answerRepository.Insert(answer);
+                     //   _moduleQuestionRepository.AddNewQuestionToModule(moduleId, questionId, question.Id); ????
                     }
                 }
             }
