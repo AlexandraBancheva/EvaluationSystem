@@ -41,7 +41,7 @@ namespace EvaluationSystem.Application.Services
             _mapper = mapper;
         }
 
-        
+        // If module is null
         public IEnumerable<FormDetailDto> CreateNewForm(CreateFormDto form)
         {
             var currentForm = _mapper.Map<FormTemplateDto>(form);
@@ -56,16 +56,14 @@ namespace EvaluationSystem.Application.Services
                 {
                     foreach (var answer in question.Answers)
                     {
-                        question.IsReusable = false;
                         var questionId = _questionCustomServices.CreateNewQuestion(moduleId, module.Position, _mapper.Map<CreateQuestionDto>(question));
                         answer.IdQuestion = questionId;
                         _answerRepository.Insert(answer);
-                     //   _moduleQuestionRepository.AddNewQuestionToModule(moduleId, questionId, question.Id); ????
                     }
                 }
             }
 
-            return null;
+            return GetFormById(formId);
         }
 
         public void DeleteFormById(int formId)
@@ -106,7 +104,6 @@ namespace EvaluationSystem.Application.Services
             return _mapper.Map<UpdatedFormDto>(_formRepository.GetById(formId));
         }
 
-        //
         public IEnumerable<FormDetailDto> GetAllForsWithAllModules()
         {
             var results = _formRepository.AllForms();

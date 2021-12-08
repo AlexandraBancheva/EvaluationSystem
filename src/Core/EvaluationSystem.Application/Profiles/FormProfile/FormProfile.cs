@@ -40,6 +40,12 @@ namespace EvaluationSystem.Application.Profiles.FormProfile
                 .ForMember(f => f.Name, opts => opts.MapFrom(p => p.FormName))
                 .ForMember(t => t.Modules, opts => opts.MapFrom(k => k.Module))
                 .ForMember(u => u.Position, opts => opts.MapFrom(y => y.ModulePosition));
+
+            ///
+            CreateMap<FormTemplateDto, FormTemplate>()
+                .ForMember(f => f.Name, opts => opts.MapFrom(p => p.Name))
+                .ForMember(g => g.Modules, opts => opts.MapFrom(y => y.Modules));
+                //.ForAllOtherMembers(x => x.Ignore());
         }
     }
 }
