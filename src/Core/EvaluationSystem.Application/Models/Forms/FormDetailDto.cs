@@ -17,9 +17,5 @@ namespace EvaluationSystem.Application.Models.Forms
         public int Position { get; set; }
 
         public virtual ICollection<ModuleDetailDto> Modules { get; set; }
-
-        //public virtual ICollection<QuestionDetailDto> Questions { get; set; }
-
-        //public virtual ICollection<AnswerDetailDto> Answers { get; set; }
     }
 }

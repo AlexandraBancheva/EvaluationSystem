@@ -26,14 +26,13 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             _connection.Execute(query, new { FormId = formId }, _transaction);
         }
 
-        //
         public IEnumerable<FormWithAllDto> AllForms()
         {
             var query = @"SELECT * FROM FormModule AS fm
                             JOIN FormTemplate AS  ft ON ft.Id = fm.IdForm
                             JOIN ModuleTemplate AS mt ON mt.Id = fm.IdModule
                             JOIN ModuleQuestion AS mq ON mq.IdModule = mt.Id
-                            LEFT JOIN QuestionTemplate AS qt ON qt.Id = mq.IdQuestion
+                            JOIN QuestionTemplate AS qt ON qt.Id = mq.IdQuestion
                             LEFT JOIN AnswerTemplate AS [at] ON [at].IdQuestion = qt.Id";
 
             var formDictionary = new Dictionary<int, FormWithAllDto>();
@@ -84,7 +83,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var formDictionary = new Dictionary<int, FormWithAllDto>();
             var moduleDictionary = new Dictionary<int, ModuleInFormDto>();
             var questionDictionary = new Dictionary<int, QuestionInModuleDto>();
-            var results = _connection.Query<FormWithAllDto, ModuleInFormDto, QuestionInModuleDto, AnswersInQuestionDto, FormWithAllDto >(query, (form, module, question, answer) =>
+            var results = _connection.Query<FormWithAllDto, ModuleInFormDto, QuestionInModuleDto, AnswersInQuestionDto, FormWithAllDto>(query, (form, module, question, answer) =>
             {
                 if (!formDictionary.TryGetValue(form.Id, out var currentForm))
                 {

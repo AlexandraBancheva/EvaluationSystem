@@ -42,9 +42,10 @@ namespace EvaluationSystem.Application.Services
         }
 
         // If module is null
-        public IEnumerable<FormDetailDto> CreateNewForm(CreateFormDto form)
+        public ICollection<FormDetailDto> CreateNewForm(CreateFormDto form)
         {
             var currentForm = _mapper.Map<FormTemplateDto>(form);
+
             var formId = _formRepository.Insert(_mapper.Map<FormTemplate>(currentForm));
 
             foreach (var module in currentForm.Modules)
@@ -52,11 +53,16 @@ namespace EvaluationSystem.Application.Services
                 var moduleId = _moduleRepository.Insert(_mapper.Map<ModuleTemplate>(module));
                 _formModuleRepository.AddNewModuleInForm(formId, moduleId, currentForm.Position);
 
-                foreach (var question in module.Questions)
+                var questions = module.Questions;
+
+                foreach (var question in questions)
                 {
-                    foreach (var answer in question.Answers)
+
+                    var questionId = _questionCustomServices.CreateNewQuestion(moduleId, module.Position, _mapper.Map<CreateQuestionDto>(question));
+
+                    var answers = question.Answers;
+                    foreach (var answer in answers)
                     {
-                        var questionId = _questionCustomServices.CreateNewQuestion(moduleId, module.Position, _mapper.Map<CreateQuestionDto>(question));
                         answer.IdQuestion = questionId;
                         _answerRepository.Insert(answer);
                     }
@@ -87,10 +93,10 @@ namespace EvaluationSystem.Application.Services
             _formRepository.DeleteForm(formId);
         }
 
-        public IEnumerable<FormDetailDto> GetFormById(int formId)
+        public ICollection<FormDetailDto> GetFormById(int formId)
         {
             var res = _formRepository.GetAllWithFormId(formId);
-            var results = _mapper.Map<IEnumerable<FormDetailDto>>(res);
+            var results = _mapper.Map<ICollection<FormDetailDto>>(res);
 
             return results;
         }

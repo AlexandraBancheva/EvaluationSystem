@@ -5,11 +5,11 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IFormsServices
     {
-        IEnumerable<FormDetailDto> CreateNewForm(CreateFormDto form);
+        ICollection<FormDetailDto> CreateNewForm(CreateFormDto form);
 
         void DeleteFormById(int formId);
 
-        IEnumerable<FormDetailDto> GetFormById(int formId);
+        ICollection<FormDetailDto> GetFormById(int formId);
 
         UpdatedFormDto UpdateCurrentForm(int formId, UpdateFormDto form);
    
