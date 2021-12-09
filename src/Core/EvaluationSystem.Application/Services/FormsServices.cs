@@ -95,10 +95,10 @@ namespace EvaluationSystem.Application.Services
 
         public ICollection<FormDetailDto> GetFormById(int formId)
         {
-            var res = _formRepository.GetAllWithFormId(formId);
-            var results = _mapper.Map<ICollection<FormDetailDto>>(res);
-
-            return results;
+            // Maybe some foreaches!!!
+            var results = _formRepository.GetAllWithFormId(formId);
+            var res = _mapper.Map<ICollection<FormDetailDto>>(results);
+            return res;
         }
 
         public UpdatedFormDto UpdateCurrentForm(int formId, UpdateFormDto form)

@@ -40,9 +40,9 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             FROM ModuleTemplate AS mt
                             JOIN FormModule AS fm ON mt.Id = fm.IdModule
                             JOIN FormTemplate AS ft ON ft.Id = fm.IdForm
-                            WHERE IdForm = @IdForm and IdModule = IdModule";
+                            WHERE IdForm = @IdForm and IdModule = @IdModule";
 
-            _connection.Execute(query, new { Name = module.Name, IdForm = formId, IdModule = moduleId});
+            _connection.Execute(query, new { module.Name, IdForm = formId, IdModule = moduleId});
         }
     }
 }

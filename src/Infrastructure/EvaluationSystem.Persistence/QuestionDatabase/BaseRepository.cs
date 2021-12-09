@@ -3,6 +3,7 @@ using System.Data;
 using System.Collections.Generic;
 using Dapper;
 using EvaluationSystem.Application.Repositories;
+using System.Linq;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -27,7 +28,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public List<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _connection.GetList<T>(null, null, _transaction).ToList();
         }
 
         public T GetById(int id)
