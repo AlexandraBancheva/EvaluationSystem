@@ -5,10 +5,6 @@ using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Forms;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
-using System.Linq;
-using EvaluationSystem.Application.Models.Modules;
-using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
-using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -101,6 +97,26 @@ namespace EvaluationSystem.Application.Services
         {
             var results = _formRepository.GetAllWithFormId(formId);
             var res = _mapper.Map<ICollection<FormDetailDto>>(results);
+
+            //ICollection<FormDetailDto> list = new List<FormDetailDto>();
+
+            //foreach (var form in res)
+            //{
+            //    foreach (var module in form.Modules)
+            //    {
+            //        form.Modules.Add(module);
+            //        foreach (var question in module.Questions)
+            //        {
+            //            module.Questions.Add(question);
+            //            foreach (var answer in question.Answers)
+            //            {
+            //                question.Answers.Add(answer);
+            //            }
+            //        }
+            //    }
+
+            //    list.Add(form);
+            //}
 
             return res;
         }

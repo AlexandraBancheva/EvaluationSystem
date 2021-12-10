@@ -81,13 +81,14 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public IEnumerable<FormWithAllDto> GetAllWithFormId(int formId)
         {
-            var query = @"SELECT * FROM FormModule AS fm
-                            LEFT JOIN FormTemplate AS  ft ON ft.Id = fm.IdForm
-                            LEFT JOIN ModuleTemplate AS mt ON mt.Id = fm.IdModule
-                            LEFT JOIN ModuleQuestion AS mq ON mq.IdModule = mt.Id
-                            LEFT JOIN QuestionTemplate AS qt ON qt.Id = mq.IdQuestion
+            var query = @"SELECT ft.Id AS IdForm, ft.[Name], fm.Position, mt.Id AS IdModule, mt.[Name], mq.Position, qt.Id AS IdQuestion, qt.[Name], qt.DateOfCreation, qt.[Type], qt.IsReusable, [at].Id AS IdAnswer, [at].AnswerText, [at].IsDefault, [at].Position
+                            FROM FormTemplate AS ft
+                            INNER JOIN FormModule AS fm ON fm.IdForm = ft.Id
+                            INNER JOIN ModuleTemplate AS mt ON fm.IdModule = mt.Id
+                            INNER JOIN ModuleQuestion AS mq ON mq.IdModule = mt.Id
+                            LEFT JOIN QuestionTemplate AS qt ON mq.IdQuestion = qt.Id
                             LEFT JOIN AnswerTemplate AS [at] ON [at].IdQuestion = qt.Id
-                            WHERE fm.IdForm = @IdForm";
+                            WHERE IdForm = @IdForm";
 
             var formDictionary = new Dictionary<int, FormWithAllDto>();
             var moduleDictionary = new Dictionary<int, ModuleInFormDto>();
@@ -118,7 +119,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                 currentForm.Modules.Add(module);
                 return currentForm;
 
-            }, new { IdForm = formId }, _transaction, splitOn: "Id, Id, Id")
+            }, new { IdForm = formId }, _transaction, splitOn: "IdForm, IdModule, IdQuestion, IdAnswer")
                 .Distinct()
                 .ToList();
 

@@ -20,6 +20,6 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 
         public DateTime DateOfCreation { get; set; }
 
-        public ICollection<AnswersInQuestionDto> Answers { get; set; }
+        public virtual ICollection<AnswersInQuestionDto> Answers { get; set; }
     }
 }

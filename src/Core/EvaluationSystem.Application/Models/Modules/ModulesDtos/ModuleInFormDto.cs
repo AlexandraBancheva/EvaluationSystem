@@ -16,6 +16,6 @@ namespace EvaluationSystem.Application.Models.Modules.ModulesDtos
 
         public int Position { get; set; }
 
-        public ICollection<QuestionInModuleDto> Questions { get; set; }
+        public virtual ICollection<QuestionInModuleDto> Questions { get; set; }
     }
 }
