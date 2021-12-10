@@ -13,12 +13,12 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
         }
 
-        public void InsertAnswer(int questionId, AddNewAnswerDto model)
-        {
-            var query = @"INSERT INTO AnswerTemplate
-	                        VALUES (@Position, @AnswerText, @IdQuestion)";
+        //public void InsertAnswer(int questionId, AddNewAnswerDto model)
+        //{
+        //    var query = @"INSERT INTO AnswerTemplate
+	       //                 VALUES (@Position, @AnswerText, @IdQuestion)";
 
-            _connection.Execute(query, new { model.Position, model.AnswerText, IdQuestion = questionId }, _transaction);
-        }
+        //    _connection.Execute(query, new { model.Position, model.AnswerText, IdQuestion = questionId }, _transaction);
+        //}
     }
 }

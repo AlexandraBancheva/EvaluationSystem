@@ -20,7 +20,7 @@ namespace EvaluationSystem.Application.Services
             _mapper = mapper;
         }
 
-        public void AddNewAnswer(int questionId, AddNewAnswerDto model)
+        public void AddNewAnswer(int questionId, AddListAnswers model)
         {
             var isExist = _questionRepository.GetById(questionId);
             if (isExist == null)
@@ -28,20 +28,24 @@ namespace EvaluationSystem.Application.Services
                 throw new InvalidOperationException($"Question with this id {questionId} do not exist!");
             }
 
-            var current = _mapper.Map<AnswerTemplate>(model);
-            current.IdQuestion = questionId;
-
-            if (isExist.Type == QuestionType.NumericalOptions)
+            foreach (var answer in model.Answers)
             {
-                var isNumeric = int.TryParse(current.AnswerText, out var answerNum);
-                if (!isNumeric)
+                var current = _mapper.Map<AnswerTemplate>(answer);
+                current.IdQuestion = questionId;
+
+                if (isExist.Type == QuestionType.NumericalOptions)
                 {
-                    throw new InvalidOperationException("Answer type must be numeric!");
+                    var isNumeric = int.TryParse(current.AnswerText, out var answerNum);
+                    if (!isNumeric)
+                    {
+                        throw new InvalidOperationException("Answer type must be numeric!");
+                    }
                 }
+
+                var id = _answerRepository.Insert(current);
+                current.Id = id;
             }
 
-            var id = _answerRepository.Insert(current);
-            current.Id = id;
         }
 
         public void DeleteAnAnswer(int answerId)

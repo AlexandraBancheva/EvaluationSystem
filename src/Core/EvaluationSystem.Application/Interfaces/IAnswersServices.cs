@@ -4,7 +4,7 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IAnswersServices
     {
-        void AddNewAnswer(int questionId, AddNewAnswerDto model);
+        void AddNewAnswer(int questionId, AddListAnswers model);
 
         void DeleteAnAnswer(int answerId);
 

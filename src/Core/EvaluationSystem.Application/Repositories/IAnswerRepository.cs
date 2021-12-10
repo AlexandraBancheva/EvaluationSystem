@@ -6,6 +6,6 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IAnswerRepository : IRepository<AnswerTemplate>
     {
-        void InsertAnswer(int questionId, AddNewAnswerDto model);
+       // void InsertAnswer(int questionId, AddNewAnswerDto model);
     }
 }

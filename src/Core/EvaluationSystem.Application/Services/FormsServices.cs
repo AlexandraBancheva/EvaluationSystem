@@ -5,6 +5,10 @@ using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Forms;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
+using System.Linq;
+using EvaluationSystem.Application.Models.Modules;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
+using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -95,9 +99,9 @@ namespace EvaluationSystem.Application.Services
 
         public ICollection<FormDetailDto> GetFormById(int formId)
         {
-            // Maybe some foreaches!!!
             var results = _formRepository.GetAllWithFormId(formId);
             var res = _mapper.Map<ICollection<FormDetailDto>>(results);
+
             return res;
         }
 

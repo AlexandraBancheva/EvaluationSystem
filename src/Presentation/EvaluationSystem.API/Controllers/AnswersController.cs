@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EvaluationSystem.API.Controllers
 {
     [ApiController]
-    [Route(("api/questions/{questionId}/answers"))]
+    [Route(("api/forms/{formId}/modules/{moduleId}/questions/{questionId}/answers"))]
     public class AnswersController : ControllerBase
     {
         private readonly IAnswersServices answersServices;
@@ -16,14 +16,14 @@ namespace EvaluationSystem.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddNewAnswer(int questionId, [FromBody] AddNewAnswerDto model)
+        public IActionResult AddNewAnswer(int questionId, [FromBody] AddListAnswers model)
         {
             answersServices.AddNewAnswer(questionId, model);
             return Ok();
         }
 
         [HttpDelete()]
-        public IActionResult DeleteAnAnswerById(int questionId, int answerId)
+        public IActionResult DeleteAnAnswerById(int answerId)
         {
             answersServices.DeleteAnAnswer(answerId);
             return NoContent();
