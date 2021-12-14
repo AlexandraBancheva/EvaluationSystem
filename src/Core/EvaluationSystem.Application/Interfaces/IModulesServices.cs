@@ -7,13 +7,13 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IModulesServices
     {
-        ModuleDetailDto CreateModule(int formId, int position, CreateModuleDto model);
+        CurrentModuleDetailDto CreateModule(int formId, CreateModuleDto model);
 
         void DeleteCurrentModule(int moduleId);
 
-        ModuleDetailDto UpdateCurrentModule(int formId, int moduleId, UpdateModuleDto model);
+        CurrentModuleDetailDto UpdateCurrentModule(int formId, int moduleId, UpdateModuleDto model);
 
-        ModuleDetailDto GetCurrentModuleById(int formId, int moduleId);
+        CurrentModuleDetailDto GetCurrentModuleById(int formId, int moduleId);
 
        ICollection<ListFormIdWithAllModulesDto> GetAllModulesByFormId(int formId);
     }

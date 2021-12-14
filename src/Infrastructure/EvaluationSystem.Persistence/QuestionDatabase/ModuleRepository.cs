@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Repositories;
+using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -22,13 +23,14 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             _connection.Execute(query, new { ModuleId = moduleId }, _transaction);
         }
 
-        public ModuleTemplate GetModuleById(int formId, int moduleId)
+        public ModuleTemplateDto GetModuleById(int formId, int moduleId)
         {
-            var query = @"SELECT * FROM FormModule AS fm
-                            JOIN ModuleTemplate AS mt ON mt.Id = fm.IdModule
+            var query = @"SELECT mt.Id, mt.[Name], fm.Position AS ModulePosition
+                            FROM FormModule AS fm
+                            LEFT JOIN ModuleTemplate AS mt ON mt.Id = fm.IdModule
                             WHERE IdForm = @IdForm and IdModule = @IdModule";
 
-            var result = _connection.QueryFirstOrDefault<ModuleTemplate>(query, new { IdForm = formId, IdModule = moduleId});
+            var result = _connection.QueryFirstOrDefault<ModuleTemplateDto>(query, new { IdForm = formId, IdModule = moduleId});
 
             return result;
         }

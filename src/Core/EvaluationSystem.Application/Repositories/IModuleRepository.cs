@@ -1,4 +1,5 @@
-﻿using EvaluationSystem.Domain.Entities;
+﻿using EvaluationSystem.Application.Models.Modules.ModulesDtos;
+using EvaluationSystem.Domain.Entities;
 
 namespace EvaluationSystem.Application.Repositories
 {
@@ -6,7 +7,7 @@ namespace EvaluationSystem.Application.Repositories
     {
         void DeleteModule(int moduleId);
 
-        ModuleTemplate GetModuleById(int formId, int moduleId);
+        ModuleTemplateDto GetModuleById(int formId, int moduleId);
 
         void UpdateModule(int formId, int moduleId, ModuleTemplate module);
     }

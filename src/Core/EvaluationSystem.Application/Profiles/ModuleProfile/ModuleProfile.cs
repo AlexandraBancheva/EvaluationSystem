@@ -43,6 +43,16 @@ namespace EvaluationSystem.Application.Profiles.ModuleProfile
             CreateMap<ModuleTemplateDto, ModuleTemplate>()
                 .ForMember(m => m.Name, opts => opts.MapFrom(y => y.Name))
                 .ForMember(n => n.Questions, opts => opts.MapFrom(o => o.Questions));
+
+            CreateMap<ModuleTemplateDto, ModuleDetailDto>()
+                .ForMember(m => m.IdModule, opts => opts.MapFrom(p => p.Id))
+                .ForMember(o => o.ModuleName, opts => opts.MapFrom(y => y.Name))
+                .ForMember(r => r.Position, opts => opts.MapFrom(u => u.ModulePosition));
+
+            CreateMap<ModuleTemplateDto, CurrentModuleDetailDto>()
+                .ForMember(m => m.IdModule, opts => opts.MapFrom(p => p.Id))
+                .ForMember(o => o.ModuleName, opts => opts.MapFrom(m => m.Name))
+                .ForMember(y => y.Position, opts => opts.MapFrom(r => r.ModulePosition));
         }
     }
 }

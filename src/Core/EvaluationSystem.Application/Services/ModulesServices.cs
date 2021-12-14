@@ -30,11 +30,12 @@ namespace EvaluationSystem.Application.Services
             _mapper = mapper;
         }
 
-        public ModuleDetailDto CreateModule(int formId, int position, CreateModuleDto model)
+        // 14.12
+        public CurrentModuleDetailDto CreateModule(int formId, CreateModuleDto model)
         {
             var currentEntity = _mapper.Map<ModuleTemplate>(model);
             var newEntityId = _moduleRepository.Insert(currentEntity);
-           _formModulesServices.AddModulesInForm(formId, newEntityId, position);
+            _formModulesServices.AddModulesInForm(formId, newEntityId, model.Position);
 
 
             return GetCurrentModuleById(formId, newEntityId);
@@ -45,14 +46,16 @@ namespace EvaluationSystem.Application.Services
             _moduleRepository.DeleteModule(moduleId);
         }
 
-        public ModuleDetailDto GetCurrentModuleById(int formId, int moduleId)
+        // 14.12
+        public CurrentModuleDetailDto GetCurrentModuleById(int formId, int moduleId)
         {
             var entity = _moduleRepository.GetModuleById(formId, moduleId);
 
-            return _mapper.Map<ModuleDetailDto>(entity);
+            return _mapper.Map<CurrentModuleDetailDto>(entity);
         }
 
-        public ModuleDetailDto UpdateCurrentModule(int formId, int moduleId, UpdateModuleDto model)
+        // 14.12
+        public CurrentModuleDetailDto UpdateCurrentModule(int formId, int moduleId, UpdateModuleDto model)
         {
             var entity = _mapper.Map<ModuleTemplate>(model);
             entity.Id = moduleId;
@@ -61,7 +64,6 @@ namespace EvaluationSystem.Application.Services
             return GetCurrentModuleById(formId, moduleId);
         }
 
-        //
         public ICollection<ListFormIdWithAllModulesDto> GetAllModulesByFormId(int formId)
         {
             var allModules = _formModuleRepository.GetModulesByFormId(formId);
