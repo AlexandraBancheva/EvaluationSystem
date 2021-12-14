@@ -10,7 +10,7 @@ namespace EvaluationSystem.Application.Models.Modules.ModulesDtos
             this.Questions = new HashSet<QuestionInModuleDto>();
         }
 
-        public int Id { get; set; }
+        public int IdModule { get; set; }
 
         public string Name { get; set; }
 

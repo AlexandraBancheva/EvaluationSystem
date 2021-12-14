@@ -2,7 +2,7 @@
 {
     public class AnswersInQuestionDto
     {
-        public int Id { get; set; }
+        public int IdAnswer { get; set; }
 
         public string AnswerText { get; set; }
 

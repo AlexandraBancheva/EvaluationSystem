@@ -5,6 +5,11 @@ using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Forms;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
+using System.Linq;
+using EvaluationSystem.Application.Models.Modules;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
+using EvaluationSystem.Application.Models.Answers.AnswersDtos;
+using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -13,6 +18,7 @@ namespace EvaluationSystem.Application.Services
         private readonly IFormRepository _formRepository;
         private readonly IFormModuleRepository _formModuleRepository;
         private readonly IModuleRepository _moduleRepository;
+        private readonly IModulesServices _modulesServices;
         private readonly IModuleQuestionRepository _moduleQuestionRepository;
         private readonly ICustomQuestionsRepository _customQuestionsRepository;
         private readonly IQuestionRepository _questionRepository;
@@ -23,7 +29,8 @@ namespace EvaluationSystem.Application.Services
         public FormsServices(IMapper mapper, 
             IFormRepository formRepository,
             IFormModuleRepository formModuleRepository, 
-            IModuleRepository moduleRepository, 
+            IModuleRepository moduleRepository,
+            IModulesServices modulesServices,
             IModuleQuestionRepository moduleQuestionRepository,
             ICustomQuestionsServices questionCustomServices,
             IQuestionRepository questionRepository,
@@ -33,6 +40,7 @@ namespace EvaluationSystem.Application.Services
             _formRepository = formRepository;
             _formModuleRepository = formModuleRepository;
             _moduleRepository = moduleRepository;
+            _modulesServices = modulesServices;
             _moduleQuestionRepository = moduleQuestionRepository;
             _customQuestionsRepository = customQuestionsRepository;
             _questionRepository = questionRepository;
@@ -93,31 +101,41 @@ namespace EvaluationSystem.Application.Services
             _formRepository.DeleteForm(formId);
         }
 
+        //
         public ICollection<FormDetailDto> GetFormById(int formId)
         {
             var results = _formRepository.GetAllWithFormId(formId);
+            ModuleInFormDto tempModule = new ModuleInFormDto();
+            QuestionInModuleDto tempQuestion = new QuestionInModuleDto();
+
+            foreach (var form in results)
+            {
+                foreach (var module in form.Modules)
+                {
+                    if (tempModule.Name == module.Name)
+                    {
+                        form.Modules.Remove(module);
+                    }
+                    else
+                    {
+                        tempModule = module;
+                    }
+
+                    foreach (var question in module.Questions)
+                    {
+                        if (tempQuestion.Name == question.Name)
+                        {
+                            module.Questions.Remove(question);
+                        }
+                        else
+                        {
+                            tempQuestion = question;
+                        }
+                    }
+                }
+            }
+
             var res = _mapper.Map<ICollection<FormDetailDto>>(results);
-
-            //ICollection<FormDetailDto> list = new List<FormDetailDto>();
-
-            //foreach (var form in res)
-            //{
-            //    foreach (var module in form.Modules)
-            //    {
-            //        form.Modules.Add(module);
-            //        foreach (var question in module.Questions)
-            //        {
-            //            module.Questions.Add(question);
-            //            foreach (var answer in question.Answers)
-            //            {
-            //                question.Answers.Add(answer);
-            //            }
-            //        }
-            //    }
-
-            //    list.Add(form);
-            //}
-
             return res;
         }
 

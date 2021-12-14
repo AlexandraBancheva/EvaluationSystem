@@ -30,7 +30,7 @@ namespace EvaluationSystem.Application.Profiles.ModuleProfile
                 .ForMember(a => a.Name, opts => opts.MapFrom(k => k.Name));
 
             CreateMap<ModuleInFormDto, ModuleDetailDto>()
-                .ForMember(m => m.IdModule, opts => opts.MapFrom(n => n.Id))
+                .ForMember(m => m.IdModule, opts => opts.MapFrom(n => n.IdModule))
                 .ForMember(l => l.ModuleName, opts => opts.MapFrom(d => d.Name))
                 .ForMember(p => p.Questions, opts => opts.MapFrom(r => r.Questions));
 

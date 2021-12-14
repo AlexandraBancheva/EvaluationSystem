@@ -35,7 +35,7 @@ namespace EvaluationSystem.Application.Profiles.AnswerProfile
 
             //
             CreateMap<AnswersInQuestionDto, AnswerDetailDto>()
-                .ForMember(a => a.IdAnswer, opts => opts.MapFrom(m => m.Id))
+                .ForMember(a => a.IdAnswer, opts => opts.MapFrom(m => m.IdAnswer))
                 .ForMember(v => v.AnswerName, opts => opts.MapFrom(n => n.AnswerText));
 
             //

@@ -46,7 +46,7 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
                 .ForMember(q => q.Name, opts => opts.MapFrom(a => a.QuestionName));
 
             CreateMap<QuestionInModuleDto, QuestionDetailDto>()
-                .ForMember(w => w.Id, opts => opts.MapFrom(u => u.Id))
+                .ForMember(w => w.Id, opts => opts.MapFrom(u => u.IdQuestion))
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(r => r.Name))
                 .ForMember(p => p.Answers, opts => opts.MapFrom(a => a.Answers));
 

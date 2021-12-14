@@ -26,7 +26,8 @@ namespace EvaluationSystem.Application.Services
         {
             _moduleQuestionRepository.DeleteQuestionFromModule(moduleId, questionId);
         }
-
+         
+        //
         public IEnumerable<ListModulesQuestionsDto> GetAllModulesWithAllQuestions()
         {
             var modules = _moduleQuestionRepository.GetModuleWithAllQuestions();
@@ -34,6 +35,7 @@ namespace EvaluationSystem.Application.Services
 
             return allModules;
         }
+
 
         public IEnumerable<ListModulesQuestionsDto> GetModuleWithAllQuestions(int moduleId)
         {

@@ -12,7 +12,7 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
             this.Answers = new HashSet<AnswersInQuestionDto>();
         }
 
-        public int Id { get; set; }
+        public int IdQuestion { get; set; }
 
         public string Name { get; set; }
 
