@@ -7,13 +7,13 @@ namespace EvaluationSystem.Application.Models.Forms
     {
         public CreateFormDto()
         {
-            this.Module = new HashSet<CreateFormModuleDto>();
+            this.Modules = new HashSet<CreateFormModuleDto>();
         }
 
         public string FormName { get; set; }
 
-        public int ModulePosition { get; set; }
+       // public int ModulePosition { get; set; }
 
-        public virtual ICollection<CreateFormModuleDto> Module { get; set; }
+        public virtual ICollection<CreateFormModuleDto> Modules { get; set; }
     }
 }

@@ -13,6 +13,6 @@ namespace EvaluationSystem.Application.Interfaces
 
         UpdatedFormDto UpdateCurrentForm(int formId, UpdateFormDto form);
    
-        IEnumerable<FormDetailDto> GetAllForsWithAllModules();
+        ICollection<FormDetailDto> GetAllForsWithAllModules();
     }
 }

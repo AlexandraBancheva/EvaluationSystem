@@ -12,7 +12,9 @@ namespace EvaluationSystem.Application.Models.Modules.ModulesDtos
 
         public string ModuleName { get; set; }
 
-        public int QuestionPosition { get; set; }
+        public int ModulePosition { get; set; }
+
+       // public int QuestionPosition { get; set; }
 
         public virtual ICollection<CreateFormModuleQuestionDto> Question { get; set; }
 

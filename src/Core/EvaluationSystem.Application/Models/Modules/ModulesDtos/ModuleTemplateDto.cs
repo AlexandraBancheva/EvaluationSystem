@@ -14,7 +14,8 @@ namespace EvaluationSystem.Application.Models.Modules.ModulesDtos
 
         public string Name { get; set; }
 
-        public int Position { get; set; }
+        // ModulePosition
+        public int ModulePosition { get; set; }
 
         public virtual ICollection<QuestionTemplateDto> Questions { get; set; }
     }

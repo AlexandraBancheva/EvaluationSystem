@@ -18,6 +18,8 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 
         public bool  IsReusable { get; set; }
 
+        public int Position { get; set; }
+
         public virtual ICollection<AnswerDetailDto> Answers { get; set; }
 
     }

@@ -49,7 +49,7 @@ namespace EvaluationSystem.Application.Services
             _mapper = mapper;
         }
 
-        // If module is null
+
         public ICollection<FormDetailDto> CreateNewForm(CreateFormDto form)
         {
             var currentForm = _mapper.Map<FormTemplateDto>(form);
@@ -59,14 +59,14 @@ namespace EvaluationSystem.Application.Services
             foreach (var module in currentForm.Modules)
             {
                 var moduleId = _moduleRepository.Insert(_mapper.Map<ModuleTemplate>(module));
-                _formModuleRepository.AddNewModuleInForm(formId, moduleId, currentForm.Position);
+
+                _formModuleRepository.AddNewModuleInForm(formId, moduleId, module.ModulePosition);
 
                 var questions = module.Questions;
 
                 foreach (var question in questions)
                 {
-
-                    var questionId = _questionCustomServices.CreateNewQuestion(moduleId, module.Position, _mapper.Map<CreateQuestionDto>(question));
+                    var questionId = _questionCustomServices.CreateNewQuestion(moduleId, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
 
                     var answers = question.Answers;
                     foreach (var answer in answers)
@@ -101,10 +101,9 @@ namespace EvaluationSystem.Application.Services
             _formRepository.DeleteForm(formId);
         }
 
-        //
         public ICollection<FormDetailDto> GetFormById(int formId)
         {
-            var results = _formRepository.GetAllWithFormId(formId);
+            var results = _formRepository.GetAllByFormId(formId);
             ModuleInFormDto tempModule = new ModuleInFormDto();
             QuestionInModuleDto tempQuestion = new QuestionInModuleDto();
 
@@ -128,6 +127,10 @@ namespace EvaluationSystem.Application.Services
 
                     foreach (var question in module.Questions)
                     {
+                        if (question == null)
+                        {
+                            break;
+                        }
                         if (tempQuestion.Name == question.Name)
                         {
                             module.Questions.Remove(question);
@@ -153,11 +156,49 @@ namespace EvaluationSystem.Application.Services
             return _mapper.Map<UpdatedFormDto>(_formRepository.GetById(formId));
         }
 
-        public IEnumerable<FormDetailDto> GetAllForsWithAllModules()
+        public ICollection<FormDetailDto> GetAllForsWithAllModules()
         {
-            var results = _formRepository.AllForms();
+            var results = _formRepository.GetAllForms();
+            ModuleInFormDto tempModule = new ModuleInFormDto();
+            QuestionInModuleDto tempQuestion = new QuestionInModuleDto();
 
-            return _mapper.Map<IEnumerable<FormDetailDto>>(results);
+            foreach (var form in results)
+            {
+                foreach (var module in form.Modules)
+                {
+                    if (module == null)
+                    {
+                        break;
+                    }
+
+                    if (tempModule.Name == module.Name)
+                    {
+                        form.Modules.Remove(module);
+                    }
+                    else
+                    {
+                        tempModule = module;
+                    }
+
+                    foreach (var question in module.Questions)
+                    {
+                        if (question == null)
+                        {
+                            break;
+                        }
+                        if (tempQuestion.Name == question.Name)
+                        {
+                            module.Questions.Remove(question);
+                        }
+                        else
+                        {
+                            tempQuestion = question;
+                        }
+                    }
+                }
+            }
+
+            return _mapper.Map<ICollection<FormDetailDto>>(results);
         }
     }
 }

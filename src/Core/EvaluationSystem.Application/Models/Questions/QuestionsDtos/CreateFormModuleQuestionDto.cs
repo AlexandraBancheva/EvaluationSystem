@@ -17,6 +17,8 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 
         public QuestionType Type { get; set; }
 
+        public int QuestionPosition { get; set; }
+
         public virtual ICollection<CreateFormModuleQuestionAnswerDto> Answers { get; set; }
 
     }

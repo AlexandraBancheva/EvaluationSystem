@@ -8,8 +8,8 @@ namespace EvaluationSystem.Application.Repositories
     {
         void DeleteForm(int formId);
 
-        IEnumerable<FormWithAllDto> AllForms();
+        ICollection<FormWithAllDto> GetAllForms();
 
-        ICollection<FormWithAllDto> GetAllWithFormId(int formId);
+        ICollection<FormWithAllDto> GetAllByFormId(int formId);
     }
 }
