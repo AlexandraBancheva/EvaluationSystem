@@ -1,9 +1,8 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
+using System.Linq;
 using System.Collections.Generic;
 using Dapper;
 using EvaluationSystem.Application.Repositories;
-using System.Linq;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -31,9 +30,11 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             return _connection.GetList<T>(null, null, _transaction).ToList();
         }
 
+        // 14.12 Problem is here!
         public T GetById(int id)
         {
-            return _connection.Get<T>(id, _transaction);
+            var res = _connection.Get<T>(id, _transaction);
+            return res;
         }
 
         public int Insert(T entity)
