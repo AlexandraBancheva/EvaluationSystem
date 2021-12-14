@@ -112,6 +112,11 @@ namespace EvaluationSystem.Application.Services
             {
                 foreach (var module in form.Modules)
                 {
+                    if (module == null)
+                    {
+                        break;
+                    }
+
                     if (tempModule.Name == module.Name)
                     {
                         form.Modules.Remove(module);

@@ -79,14 +79,14 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             return forms;
         }
 
-        //
+
         public ICollection<FormWithAllDto> GetAllWithFormId(int formId)
         {
             var query = @"SELECT ft.Id AS Id, ft.[Name], fm.Position, mt.Id AS IdModule, mt.[Name], mq.Position, qt.Id AS IdQuestion, qt.[Name], qt.DateOfCreation, qt.[Type], qt.IsReusable, [at].Id AS IdAnswer, [at].AnswerText, [at].IsDefault, [at].Position
                             FROM FormTemplate AS ft
-                            JOIN FormModule AS fm ON fm.IdForm = ft.Id
-                            JOIN ModuleTemplate AS mt ON fm.IdModule = mt.Id
-                            JOIN ModuleQuestion AS mq ON mq.IdModule = mt.Id
+                            LEFT JOIN FormModule AS fm ON fm.IdForm = ft.Id
+                            LEFT JOIN ModuleTemplate AS mt ON fm.IdModule = mt.Id
+                            LEFT JOIN ModuleQuestion AS mq ON mq.IdModule = mt.Id
                             LEFT JOIN QuestionTemplate AS qt ON mq.IdQuestion = qt.Id
                             LEFT JOIN AnswerTemplate AS [at] ON [at].IdQuestion = qt.Id
                             WHERE ft.Id = @IdForm";
@@ -103,20 +103,25 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                     formDictionary.Add(currentForm.Id, currentForm);
                 }
 
-                if (!moduleDictionary.TryGetValue(module.IdModule, out var currentModule))
+                if (module != null)
                 {
-                    currentModule = module;
-                    moduleDictionary.Add(currentModule.IdModule, currentModule);
-                }
-                
-                if (!questionDictionary.TryGetValue(question.IdQuestion, out var currentQuestion))
-                {
-                    currentQuestion = question;
-                    questionDictionary.Add(currentQuestion.IdQuestion, currentQuestion);
+                    if (!moduleDictionary.TryGetValue(module.IdModule, out var currentModule))
+                    {
+                        currentModule = module;
+                        moduleDictionary.Add(currentModule.IdModule, currentModule);
+                    }
+
+                    if (!questionDictionary.TryGetValue(question.IdQuestion, out var currentQuestion))
+                    {
+                        currentQuestion = question;
+                        questionDictionary.Add(currentQuestion.IdQuestion, currentQuestion);
+                    }
+
+                    currentQuestion.Answers.Add(answer);
+                    currentModule.Questions.Add(question);
                 }
 
-                currentQuestion.Answers.Add(answer);
-                currentModule.Questions.Add(question);
+                
                 currentForm.Modules.Add(module);
                 return currentForm;
 
