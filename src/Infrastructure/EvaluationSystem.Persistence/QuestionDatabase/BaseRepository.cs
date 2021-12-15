@@ -30,7 +30,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             return _connection.GetList<T>(null, null, _transaction).ToList();
         }
 
-        // 14.12 Problem is here!
         public T GetById(int id)
         {
             var res = _connection.Get<T>(id, _transaction);

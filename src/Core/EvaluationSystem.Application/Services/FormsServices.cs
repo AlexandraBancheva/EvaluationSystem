@@ -80,19 +80,16 @@ namespace EvaluationSystem.Application.Services
             return GetFormById(formId);
         }
 
-        // 14.12
         public void DeleteFormById(int formId)
         {
             var formModules = _formModuleRepository.GetAllModulesByFormId(formId);
 
             foreach (var module in formModules)
             {
-                // Must get all questionIds
                 var moduleQuestions = _moduleQuestionRepository.GetAllQuestionIdsByModuleId(module.IdModule);
 
                 foreach (var question in moduleQuestions)
                 {
-                    // Don't work correct
                     _questionCustomServices.DeleteCustomQuestion(question.IdQuestion);
                     _moduleQuestionRepository.DeleteQuestionFromModule(module.IdModule, question.IdQuestion);
                 }
