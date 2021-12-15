@@ -2,9 +2,9 @@
 using AutoMapper;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
-using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
-using EvaluationSystem.Application.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Repositories;
+using EvaluationSystem.Application.Questions.QuestionsDtos;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -31,7 +31,7 @@ namespace EvaluationSystem.Application.Services
             var currentQuestion = _mapper.Map<QuestionTemplate>(model);
             currentQuestion.DateOfCreation = DateTime.UtcNow;
             currentQuestion.IsReusable = false;
-            var questionId = _questionRepository.Insert(currentQuestion);
+            var questionId = _customQuestionsRepository.Insert(currentQuestion);
             _moduleQuestionsServices.AddQuestionToModule(moduleId, questionId, position);
 
             return questionId; //GetQuestionById(questionId);
@@ -39,7 +39,7 @@ namespace EvaluationSystem.Application.Services
 
         public void DeleteCustomQuestion(int questionId)
         {
-            var entity = GetQuestionById(questionId);
+            var entity = GetCustomQuestionById(questionId);
             if (entity.IsReusable == true)
             {
                 _customQuestionsRepository.RemovedQuestion(questionId);
@@ -50,7 +50,7 @@ namespace EvaluationSystem.Application.Services
             }
         }
 
-        public QuestionDetailDto GetQuestionById(int questionId)
+        public QuestionDetailDto GetCustomQuestionById(int questionId)
         {
             var currentEntity = _questionRepository.GetById(questionId);
 

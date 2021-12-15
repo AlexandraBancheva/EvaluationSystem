@@ -5,6 +5,7 @@ using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
+using EvaluationSystem.Application.Models.ModuleQuestions;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -30,6 +31,15 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             _connection.Execute(query, new { ModuleId = moduleId, QuestionId = questionId}, _transaction);
         }
 
+        public ICollection<ModuleQuestionGettingAllQuestionIds> GetAllQuestionIdsByModuleId(int moduleId)
+        {
+            var query = @"SELECT IdQuestion FROM ModuleQuestion
+                            WHERE IdModule = @IdModule";
+
+            var results = _connection.Query<ModuleQuestionGettingAllQuestionIds>(query, new { IdModule = moduleId });
+
+            return (ICollection<ModuleQuestionGettingAllQuestionIds>)results;
+        }
 
         public ICollection<ModuleTemplateDto> GetAllQuestionsByModuleId(int moduleId)
         {

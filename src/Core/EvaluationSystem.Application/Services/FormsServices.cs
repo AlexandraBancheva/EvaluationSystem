@@ -87,13 +87,14 @@ namespace EvaluationSystem.Application.Services
 
             foreach (var module in formModules)
             {
-                var moduleQuestions = _moduleQuestionRepository.GetAllQuestionsByModuleId(module.IdModule);
+                // Must get all questionIds
+                var moduleQuestions = _moduleQuestionRepository.GetAllQuestionIdsByModuleId(module.IdModule);
 
                 foreach (var question in moduleQuestions)
                 {
                     // Don't work correct
-                    _questionCustomServices.DeleteCustomQuestion(question.Id);
-                    _moduleQuestionRepository.DeleteQuestionFromModule(module.IdModule, question.Id);
+                    _questionCustomServices.DeleteCustomQuestion(question.IdQuestion);
+                    _moduleQuestionRepository.DeleteQuestionFromModule(module.IdModule, question.IdQuestion);
                 }
 
                 _formModuleRepository.DeleteModuleFromForm(formId, module.IdModule);
@@ -154,8 +155,8 @@ namespace EvaluationSystem.Application.Services
             var entity = _mapper.Map<FormTemplate>(form);
             entity.Id = formId;
             _formRepository.Update(entity);
-
-            return _mapper.Map<UpdatedFormDto>(_formRepository.GetById(formId));
+            var res = _formRepository.GetById(formId);
+            return _mapper.Map<UpdatedFormDto>(res);
         }
 
         public ICollection<FormDetailDto> GetAllForsWithAllModules()

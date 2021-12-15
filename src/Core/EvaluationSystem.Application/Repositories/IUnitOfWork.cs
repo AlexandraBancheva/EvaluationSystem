@@ -5,7 +5,6 @@ namespace EvaluationSystem.Application.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {
-
         IDbConnection Connection { get; }
 
         IDbTransaction Transaction { get; }

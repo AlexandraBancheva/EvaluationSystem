@@ -1,8 +1,6 @@
 ﻿using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Repositories;
-using EvaluationSystem.Application.Models.Answers.AnswersDtos;
-using Dapper;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {

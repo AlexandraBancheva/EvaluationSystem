@@ -66,8 +66,6 @@ namespace EvaluationSystem.Application.Services
             entity.Id = answerId;
             entity.IdQuestion = questionId;
             _answerRepository.Update(entity);
-
-         //   return _mapper.Map<AnswerDetailDto>(entity);
         }
     }
 }

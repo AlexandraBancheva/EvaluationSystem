@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
+using EvaluationSystem.Application.Models.ModuleQuestions;
 
 namespace EvaluationSystem.Application.Repositories
 {
@@ -13,6 +14,9 @@ namespace EvaluationSystem.Application.Repositories
         ICollection<ModuleTemplateDto> GetModuleWithAllQuestions();
 
         ICollection<ModuleTemplateDto> GetAllQuestionsByModuleId(int moduleId);
+
+        //
+        ICollection<ModuleQuestionGettingAllQuestionIds> GetAllQuestionIdsByModuleId(int moduleId);
 
        // ICollection<ModuleTemplateDto> GetModuleWithAllQuestionsAnswers(int moduleId);
     }

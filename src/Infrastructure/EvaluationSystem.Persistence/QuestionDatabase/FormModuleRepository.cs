@@ -30,14 +30,14 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             _connection.Execute(query, new { FormId = formId, ModuleId = moduleId}, _transaction);
         }
 
-        public ICollection<FormModule> GetAllModulesByFormId(int formId)
+        public ICollection<FormModuleGettingOnlyModulesDto> GetAllModulesByFormId(int formId)
         {
-            var query = @"SELECT * FROM FormModule
+            var query = @"SELECT IdModule FROM FormModule
                             WHERE IdForm = @FormId";
 
-            var formWithModules = _connection.Query<FormModule>(query, new { FormId = formId });
+            var formWithModules = _connection.Query<FormModuleGettingOnlyModulesDto>(query, new { FormId = formId });
 
-            return (ICollection<FormModule>)formWithModules;
+            return (ICollection<FormModuleGettingOnlyModulesDto>)formWithModules;
         }
 
         public ICollection<FormModelDto> GetModulesByFormId(int formId)
