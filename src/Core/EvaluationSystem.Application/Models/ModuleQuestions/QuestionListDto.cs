@@ -10,6 +10,6 @@ namespace EvaluationSystem.Application.Models.ModuleQuestions
 
         public QuestionType Type { get; set; }
 
-       // public int Position { get; set; }
+        public int QuestionPosition { get; set; }
     }
 }

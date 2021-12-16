@@ -15,9 +15,8 @@ namespace EvaluationSystem.Application.Repositories
 
         ICollection<ModuleTemplateDto> GetAllQuestionsByModuleId(int moduleId);
 
-        //
         ICollection<ModuleQuestionGettingAllQuestionIds> GetAllQuestionIdsByModuleId(int moduleId);
 
-       // ICollection<ModuleTemplateDto> GetModuleWithAllQuestionsAnswers(int moduleId);
+        ICollection<ModuleQuestion> GetModuleWithAllQuestionIds(int moduleId);
     }
 }

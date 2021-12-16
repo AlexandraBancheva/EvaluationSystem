@@ -22,7 +22,6 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 
         public bool IsReusable { get; set; }
 
-        // QuestionPosition
         public int QuestionPosition { get; set; }
 
         public virtual ICollection<AnswerTemplate> Answers { get; set; }

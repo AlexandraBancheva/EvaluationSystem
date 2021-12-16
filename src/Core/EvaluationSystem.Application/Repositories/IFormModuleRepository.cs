@@ -10,7 +10,6 @@ namespace EvaluationSystem.Application.Repositories
 
         void DeleteModuleFromForm(int formId, int moduleId);
 
-        //
         ICollection<FormModuleGettingOnlyModulesDto> GetAllModulesByFormId(int formId);
 
         ICollection<FormModelDto> GetModulesByFormId(int formId);

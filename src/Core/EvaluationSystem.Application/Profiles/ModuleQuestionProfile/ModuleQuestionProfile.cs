@@ -12,6 +12,7 @@ namespace EvaluationSystem.Application.Profiles.ModuleQuestionProfile
             CreateMap<ModuleTemplateDto, ListModulesQuestionsDto>()
                 .ForMember(m => m.IdModule, opts => opts.MapFrom(n => n.Id))
                 .ForMember(o => o.ModuleName, opts => opts.MapFrom(p => p.Name))
+                .ForMember(mt => mt.Position, opts => opts.MapFrom(l => l.ModulePosition))
                 .ForMember(w => w.Questions, opts => opts.MapFrom(q => q.Questions));
 
             CreateMap<QuestionTemplateDto, QuestionListDto>()

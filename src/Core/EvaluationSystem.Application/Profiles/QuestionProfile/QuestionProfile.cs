@@ -4,7 +4,6 @@ using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Models.ModuleQuestions;
 using EvaluationSystem.Application.Models.Forms;
-using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 
 namespace EvaluationSystem.Application.Profiles.QuestionProfile
 {
@@ -62,6 +61,11 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
 
             CreateMap<QuestionTemplateDto, CreateQuestionDto>()
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(t => t.Name));
+
+            CreateMap<QuestionTemplateDto, QuestionListDto>()
+                .ForMember(a => a.IdQuestion, opts => opts.MapFrom(t => t.Id))
+                .ForMember(o => o.QuestionName, opts => opts.MapFrom(l => l.Name))
+                .ForMember(k => k.QuestionPosition, opts => opts.MapFrom(y => y.QuestionPosition));
         }
     }
 }

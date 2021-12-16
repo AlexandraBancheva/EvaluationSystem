@@ -43,7 +43,10 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public ICollection<ModuleTemplateDto> GetAllQuestionsByModuleId(int moduleId)
         {
-            var query = @"SELECT * FROM ModuleTemplate AS mt
+
+            var query = @"SELECT mt.Id AS Id, mt.[Name], fm.Position AS ModulePosition, qt.Id AS Id, qt.[Name], qt.DateOfCreation, qt.[Type], qt.IsReusable, mq.Position AS QuestionPosition
+                            FROM ModuleTemplate AS mt
+                            JOIN FormModule AS fm ON fm.IdModule = mt.Id
                             LEFT JOIN ModuleQuestion AS mq ON mq.IdModule = mt.Id
                             LEFT JOIN QuestionTemplate AS qt ON mq.IdQuestion = qt.Id
                             WHERE mt.Id = @ModuleId";
@@ -62,11 +65,21 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                 currentModule.Questions.Add(question);
                 return currentModule;
             }, queryParameter, _transaction,
-               splitOn: "Id")
+               splitOn: "Id, Id")
             .Distinct()
             .ToList();
 
             return moduleWishQuestions;
+        }
+
+        public ICollection<ModuleQuestion> GetModuleWithAllQuestionIds(int moduleId)
+        {
+            var query = @"SELECT * FROM ModuleQuestion
+                            WHERE IdModule = @ModuleId";
+
+            var questionsIds = _connection.Query<ModuleQuestion>(query, _transaction);
+
+            return (ICollection<ModuleQuestion>)questionsIds;
         }
 
         public ICollection<ModuleTemplateDto> GetModuleWithAllQuestions()
@@ -92,37 +105,5 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
             return modules;
         }
-
-       // public ICollection<ModuleTemplateDto> GetModuleWithAllQuestionsAnswers(int moduleId)
-       // {
-       //     var query = @"SELECT * FROM ModuleTemplate AS mt
-       //                     JOIN ModuleQuestion AS mq ON mt.Id = mq.IdModule
-       //                     JOIN QuestionTemplate AS qt ON mq.IdQuestion = qt.Id
-							//LEFT JOIN AnswerTemplate AS [at] ON qt.Id = [at].IdQuestion
-							//WHERE mt.Id = @IdModule";
-
-       //     var moduleDict = new Dictionary<int, ModuleTemplateDto>();
-       //     var questionDict = new Dictionary<int, QuestionTemplateDto>();
-       //     var results = _connection.Query<ModuleTemplateDto, QuestionTemplateDto, AnswerTemplate, ModuleTemplateDto>(query, (module, question, answer) =>
-       //     {
-       //         if (!moduleDict.TryGetValue(module.Id, out var currentModule))
-       //         {
-       //             currentModule = module;
-       //             moduleDict.Add(currentModule.Id, currentModule);
-       //         }
-
-       //         if (!questionDict.TryGetValue(question.Id, out var currentQuestion))
-       //         {
-       //             currentQuestion = question;
-       //             questionDict.Add(currentQuestion.Id, currentQuestion);
-       //         }
-
-       //         currentQuestion.Answers.Add(answer);
-       //         currentModule.Questions.Add(question);
-       //         return currentModule;
-       //     }, new { IdModule = moduleId }, _transaction, splitOn: "Id").Distinct().ToList();
-
-       //     return results;
-       // }
     }
 }
