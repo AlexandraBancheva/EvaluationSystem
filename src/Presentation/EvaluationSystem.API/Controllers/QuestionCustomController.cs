@@ -21,9 +21,5 @@ namespace EvaluationSystem.API.Controllers
             var result = _questionsCustomServices.CreateNewQuestion(moduleId, position, model);
             return Ok(result);
         }
-
-        // Update query
-
-        // Delete query
     }
 }

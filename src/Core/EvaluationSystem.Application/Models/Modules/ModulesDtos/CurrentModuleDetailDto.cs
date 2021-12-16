@@ -2,9 +2,9 @@
 {
     public class CurrentModuleDetailDto
     {
-        public int IdModule { get; set; }
+        public int Id { get; set; }
 
-        public string ModuleName { get; set; }
+        public string Name { get; set; }
 
         public int Position { get; set; }
     }

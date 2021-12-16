@@ -34,11 +34,6 @@ namespace EvaluationSystem.Application.Services
         public CurrentModuleDetailDto CreateModule(int formId, CreateModuleDto model)
         {
             var currentEntity = _mapper.Map<ModuleTemplate>(model);
-            var isExistsModuleName = CheckIfModuleNameExists(currentEntity.Name, _moduleRepository);
-            if (isExistsModuleName == false)
-            {
-                throw new InvalidOperationException($"The module name '{currentEntity.Name}' already exists.");
-            }
             var newEntityId = _moduleRepository.Insert(currentEntity);
             _formModulesServices.AddModulesInForm(formId, newEntityId, model.Position);
 
@@ -61,11 +56,6 @@ namespace EvaluationSystem.Application.Services
         public CurrentModuleDetailDto UpdateCurrentModule(int formId, int moduleId, UpdateModuleDto model)
         {
             var entity = _mapper.Map<ModuleTemplate>(model);
-            var isExistsModuleName = CheckIfModuleNameExists(entity.Name, _moduleRepository);
-            if (isExistsModuleName == false)
-            {
-                throw new InvalidOperationException($"The name '{entity.Name}' already exists.");
-            }
             entity.Id = moduleId;
             _moduleRepository.UpdateModule(formId, moduleId, entity);
 
@@ -79,6 +69,7 @@ namespace EvaluationSystem.Application.Services
             return _mapper.Map<ICollection<ListFormIdWithAllModulesDto>>(allModules);
         }
 
+        // Repeated code!
         public static bool CheckIfModuleNameExists(string moduleName, IModuleRepository moduleRepository)
         {
             var allNames = moduleRepository.GetAllModuleNames();

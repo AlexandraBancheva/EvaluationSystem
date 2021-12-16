@@ -50,8 +50,8 @@ namespace EvaluationSystem.Application.Profiles.ModuleProfile
                 .ForMember(r => r.Position, opts => opts.MapFrom(u => u.ModulePosition));
 
             CreateMap<ModuleTemplateDto, CurrentModuleDetailDto>()
-                .ForMember(m => m.IdModule, opts => opts.MapFrom(p => p.Id))
-                .ForMember(o => o.ModuleName, opts => opts.MapFrom(m => m.Name))
+                .ForMember(m => m.Id, opts => opts.MapFrom(p => p.Id))
+                .ForMember(o => o.Name, opts => opts.MapFrom(m => m.Name))
                 .ForMember(y => y.Position, opts => opts.MapFrom(r => r.ModulePosition));
         }
     }

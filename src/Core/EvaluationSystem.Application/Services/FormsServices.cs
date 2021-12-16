@@ -1,16 +1,13 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using System.Collections.Generic;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Forms;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
-using System.Linq;
-using EvaluationSystem.Application.Models.Modules;
-using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
-using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
-using System;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -54,7 +51,7 @@ namespace EvaluationSystem.Application.Services
         public ICollection<FormDetailDto> CreateNewForm(CreateFormDto form)
         {
             var currentForm = _mapper.Map<FormTemplateDto>(form);
-            var IsExist = CheckIfFormNameExists(currentForm.Name.ToString(), _formRepository);
+            var IsExist = CheckIfFormNameExists(currentForm.Name, _formRepository);
 
             if (IsExist == false)
             {
@@ -65,11 +62,11 @@ namespace EvaluationSystem.Application.Services
 
             foreach (var module in currentForm.Modules)
             {
-                var isExistModuleName = CheckIfModuleNameExists(module.Name, _moduleRepository);
-                if (isExistModuleName == false)
-                {
-                    throw new InvalidOperationException($"The module name '{module.Name}' already exists.");
-                }
+                //var isExistModuleName = CheckIfModuleNameExists(module.Name, _moduleRepository);
+                //if (isExistModuleName == false)
+                //{
+                //    throw new InvalidOperationException($"The module name '{module.Name}' already exists.");
+                //}
 
                 var moduleId = _moduleRepository.Insert(_mapper.Map<ModuleTemplate>(module));
 
@@ -79,11 +76,11 @@ namespace EvaluationSystem.Application.Services
 
                 foreach (var question in questions)
                 {
-                    var isExistQuestionName = CheckIfQuestionNameExists(question.Name, _questionRepository);
-                    if (isExistQuestionName == false)
-                    {
-                        throw new InvalidOperationException($"The question name '{question.Name}' already exists.");
-                    }
+                    //var isExistQuestionName = CheckIfQuestionNameExists(question.Name, _questionRepository);
+                    //if (isExistQuestionName == false)
+                    //{
+                    //    throw new InvalidOperationException($"The question name '{question.Name}' already exists.");
+                    //}
                     var questionId = _questionCustomServices.CreateNewQuestion(moduleId, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
 
                     var answers = question.Answers;
