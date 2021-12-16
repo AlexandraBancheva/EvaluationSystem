@@ -15,6 +15,6 @@ namespace EvaluationSystem.Application.Interfaces
 
         CurrentModuleDetailDto GetCurrentModuleById(int formId, int moduleId);
 
-       ICollection<ListFormIdWithAllModulesDto> GetAllModulesByFormId(int formId);
+        ICollection<ListFormIdWithAllModulesDto> GetAllModulesByFormId(int formId);
     }
 }

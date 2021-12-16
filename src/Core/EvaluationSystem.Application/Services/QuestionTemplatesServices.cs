@@ -34,6 +34,11 @@ namespace EvaluationSystem.Application.Services
         public QuestionDetailDto CreateNewQuestion(CreateQuestionDto model)
         {
             var currentEntity = _mapper.Map<QuestionTemplate>(model);
+            var isExistQuestionName = CheckIfQuestionNameExists(currentEntity.Name, _questionRepository);
+            if (isExistQuestionName == false)
+            {
+                throw new InvalidOperationException($"The question name '{currentEntity.Name}' already exists.");
+            }
             currentEntity.DateOfCreation = DateTime.UtcNow;
             currentEntity.IsReusable = true;
             var newEntityId = _questionRepository.Insert(currentEntity);
@@ -51,6 +56,13 @@ namespace EvaluationSystem.Application.Services
             }
 
             var current = _mapper.Map<QuestionTemplate>(model);
+
+            var isExistQuestionName = CheckIfQuestionNameExists(current.Name, _questionRepository);
+            if (isExistQuestionName == false)
+            {
+                throw new InvalidOperationException($"The new name '{current.Name}' already exists.");
+            }
+
             current.Id = questionId;
             current.DateOfCreation = DateTime.UtcNow;
             _questionRepository.Update(current);
@@ -76,6 +88,20 @@ namespace EvaluationSystem.Application.Services
             var questions = _questionRepository.GetAllById(questionId);
 
             return _mapper.Map<IEnumerable<ListQuestionsAnswersDto>>(questions);
+        }
+
+        public static bool CheckIfQuestionNameExists(string questionName, IQuestionRepository questionRepository)
+        {
+            var allNames = questionRepository.GetAllQuestionNames();
+            foreach (var name in allNames)
+            {
+                if (name.Name == questionName)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

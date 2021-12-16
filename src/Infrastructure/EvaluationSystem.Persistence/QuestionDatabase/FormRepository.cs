@@ -134,5 +134,14 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
             return results;
         }
+
+        public ICollection<CheckFormNameDto> GetAllFormNames()
+        {
+            var query = @"SELECT [Name] FROM FormTemplate";
+
+            var names = _connection.Query<CheckFormNameDto>(query, _transaction);
+
+            return (ICollection<CheckFormNameDto>)names;
+        }
     }
 }

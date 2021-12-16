@@ -9,8 +9,5 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
         public string Name { get; set; }
 
         public QuestionType? Type { get; set; }
-
-      //  public bool? IsReusable { get; set; }
-
     }
 }

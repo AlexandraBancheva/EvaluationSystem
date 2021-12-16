@@ -10,6 +10,7 @@ using EvaluationSystem.Application.Models.Modules;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
+using System;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -53,11 +54,23 @@ namespace EvaluationSystem.Application.Services
         public ICollection<FormDetailDto> CreateNewForm(CreateFormDto form)
         {
             var currentForm = _mapper.Map<FormTemplateDto>(form);
+            var IsExist = CheckIfFormNameExists(currentForm.Name.ToString(), _formRepository);
+
+            if (IsExist == false)
+            {
+                throw new InvalidOperationException($"The form name '{currentForm.Name}' already exists.");
+            }
 
             var formId = _formRepository.Insert(_mapper.Map<FormTemplate>(currentForm));
 
             foreach (var module in currentForm.Modules)
             {
+                var isExistModuleName = CheckIfModuleNameExists(module.Name, _moduleRepository);
+                if (isExistModuleName == false)
+                {
+                    throw new InvalidOperationException($"The module name '{module.Name}' already exists.");
+                }
+
                 var moduleId = _moduleRepository.Insert(_mapper.Map<ModuleTemplate>(module));
 
                 _formModuleRepository.AddNewModuleInForm(formId, moduleId, module.ModulePosition);
@@ -66,6 +79,11 @@ namespace EvaluationSystem.Application.Services
 
                 foreach (var question in questions)
                 {
+                    var isExistQuestionName = CheckIfQuestionNameExists(question.Name, _questionRepository);
+                    if (isExistQuestionName == false)
+                    {
+                        throw new InvalidOperationException($"The question name '{question.Name}' already exists.");
+                    }
                     var questionId = _questionCustomServices.CreateNewQuestion(moduleId, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
 
                     var answers = question.Answers;
@@ -150,6 +168,12 @@ namespace EvaluationSystem.Application.Services
         public UpdatedFormDto UpdateCurrentForm(int formId, UpdateFormDto form)
         {
             var entity = _mapper.Map<FormTemplate>(form);
+            var IsExist = CheckIfFormNameExists(entity.Name.ToString(), _formRepository);
+
+            if (IsExist == false)
+            {
+                throw new InvalidOperationException($"The form name '{entity.Name}' already exists.");
+            }
             entity.Id = formId;
             _formRepository.Update(entity);
             var res = _formRepository.GetById(formId);
@@ -199,6 +223,50 @@ namespace EvaluationSystem.Application.Services
             }
 
             return _mapper.Map<ICollection<FormDetailDto>>(results);
+        }
+
+        // Problem with repeated code!!!
+        public static bool CheckIfFormNameExists(string formName, IFormRepository formRepository)
+        {
+            var allNames = formRepository.GetAllFormNames();
+
+            foreach (var name in allNames)
+            {
+                if (name.Name == formName)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool CheckIfModuleNameExists(string moduleName, IModuleRepository moduleRepository)
+        {
+            var allNames = moduleRepository.GetAllModuleNames();
+            foreach (var name in allNames)
+            {
+                if (name.Name == moduleName)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool CheckIfQuestionNameExists(string questionName, IQuestionRepository questionRepository)
+        {
+            var allNames = questionRepository.GetAllQuestionNames();
+            foreach (var name in allNames)
+            {
+                if (name.Name == questionName)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

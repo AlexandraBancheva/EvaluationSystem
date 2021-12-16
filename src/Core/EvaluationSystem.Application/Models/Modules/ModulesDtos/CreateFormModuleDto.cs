@@ -14,8 +14,6 @@ namespace EvaluationSystem.Application.Models.Modules.ModulesDtos
 
         public int ModulePosition { get; set; }
 
-       // public int QuestionPosition { get; set; }
-
         public virtual ICollection<CreateFormModuleQuestionDto> Question { get; set; }
 
     }

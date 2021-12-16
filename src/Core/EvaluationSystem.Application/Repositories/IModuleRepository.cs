@@ -1,5 +1,6 @@
 ﻿using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 using EvaluationSystem.Domain.Entities;
+using System.Collections.Generic;
 
 namespace EvaluationSystem.Application.Repositories
 {
@@ -10,5 +11,7 @@ namespace EvaluationSystem.Application.Repositories
         ModuleTemplateDto GetModuleById(int formId, int moduleId);
 
         void UpdateModule(int formId, int moduleId, ModuleTemplate module);
+
+        ICollection<CheckModuleNameDto> GetAllModuleNames();
     }
 }

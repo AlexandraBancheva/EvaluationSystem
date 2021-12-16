@@ -2,6 +2,7 @@
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
+using System.Collections.Generic;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -23,6 +24,15 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             _connection.Execute(query, new { ModuleId = moduleId }, _transaction);
         }
 
+        public ICollection<CheckModuleNameDto> GetAllModuleNames()
+        {
+            var query = @"SELECT [Name] FROM ModuleTemplate";
+
+            var names = _connection.Query<CheckModuleNameDto>(query, _transaction);
+
+            return (ICollection<CheckModuleNameDto>)names;
+        }
+
         public ModuleTemplateDto GetModuleById(int formId, int moduleId)
         {
             var query = @"SELECT mt.Id, mt.[Name], fm.Position AS ModulePosition
@@ -30,7 +40,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             LEFT JOIN ModuleTemplate AS mt ON mt.Id = fm.IdModule
                             WHERE IdForm = @IdForm and IdModule = @IdModule";
 
-            var result = _connection.QueryFirstOrDefault<ModuleTemplateDto>(query, new { IdForm = formId, IdModule = moduleId});
+            var result = _connection.QueryFirstOrDefault<ModuleTemplateDto>(query, new { IdForm = formId, IdModule = moduleId}, _transaction);
 
             return result;
         }
@@ -44,7 +54,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             JOIN FormTemplate AS ft ON ft.Id = fm.IdForm
                             WHERE IdForm = @IdForm and IdModule = @IdModule";
 
-            _connection.Execute(query, new { module.Name, IdForm = formId, IdModule = moduleId});
+            _connection.Execute(query, new { module.Name, IdForm = formId, IdModule = moduleId}, _transaction);
         }
     }
 }

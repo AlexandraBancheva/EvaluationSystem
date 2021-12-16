@@ -11,5 +11,7 @@ namespace EvaluationSystem.Application.Repositories
         ICollection<FormWithAllDto> GetAllForms();
 
         ICollection<FormWithAllDto> GetAllByFormId(int formId);
+
+        ICollection<CheckFormNameDto> GetAllFormNames();
     }
 }

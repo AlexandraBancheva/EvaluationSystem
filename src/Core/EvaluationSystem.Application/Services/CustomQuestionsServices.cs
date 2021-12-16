@@ -29,6 +29,11 @@ namespace EvaluationSystem.Application.Services
         public int CreateNewQuestion(int moduleId, int position, CreateQuestionDto model)
         {
             var currentQuestion = _mapper.Map<QuestionTemplate>(model);
+            var isExistQuestionName = CheckIfQuestionNameExists(currentQuestion.Name, _questionRepository);
+            if (isExistQuestionName == false)
+            {
+                throw new InvalidOperationException($"The question name '{currentQuestion.Name}' already exists.");
+            }
             currentQuestion.DateOfCreation = DateTime.UtcNow;
             currentQuestion.IsReusable = false;
             var questionId = _customQuestionsRepository.Insert(currentQuestion);
@@ -60,6 +65,20 @@ namespace EvaluationSystem.Application.Services
             }
 
             return _mapper.Map<QuestionDetailDto>(currentEntity);
+        }
+
+        public static bool CheckIfQuestionNameExists(string questionName, IQuestionRepository questionRepository)
+        {
+            var allNames = questionRepository.GetAllQuestionNames();
+            foreach (var name in allNames)
+            {
+                if (name.Name == questionName)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

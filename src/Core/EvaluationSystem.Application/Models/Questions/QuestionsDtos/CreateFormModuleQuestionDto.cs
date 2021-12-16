@@ -11,8 +11,6 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
             this.Answers = new HashSet<CreateFormModuleQuestionAnswerDto>();
         }
 
-       // public int Position { get; set; }
-
         public string QuestionName { get; set; }
 
         public QuestionType Type { get; set; }
