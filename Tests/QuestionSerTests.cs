@@ -30,7 +30,7 @@ namespace Tests
         {
             questionDetailDto = new QuestionDetailDto()
             {
-                Id = QuestionId
+                IdQuestion = QuestionId
             };
 
             var answerRepoMock = new Mock<IAnswerRepository>();
@@ -51,7 +51,7 @@ namespace Tests
         public void Verify_QuestionsServicesGetQuestionById_ReturnsSameIdDto()
         {
             var result = _questionService.GetQuestionById(QuestionId);
-            Assert.That(result.Id == QuestionId);
+            Assert.That(result.IdQuestion == QuestionId);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace Tests
             });
 
            // var result = _questionService.GetQuestionById(insert.Id);
-            Assert.That(insertable.QuestionName == insert.Name); // ???
+            Assert.That(insertable.QuestionName == insert.QuestionName); // ???
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace Tests
 
             var updateDto = _questionService.UpdateCurrentQuestion(Id, dto);
             var res = _questionService.GetQuestionById(Id);
-            Assert.That(updateDto.Name == res.Name);
+            Assert.That(updateDto.QuestionName == res.QuestionName);
         }
 
         //[Test]

@@ -10,15 +10,16 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
             this.Answers = new HashSet<AnswerDetailDto>();
         }
 
-        public int Id { get; set; }
+        public int IdQuestion { get; set; }
 
-        public string Name { get; set; }
+        public string QuestionName { get; set; }
 
-        public string Type { get; set; }
+        public int Type { get; set; }
 
         public bool  IsReusable { get; set; }
 
-        public int Position { get; set; }
+        //
+        //public int QuestionPosition { get; set; }
 
         public virtual ICollection<AnswerDetailDto> Answers { get; set; }
     }

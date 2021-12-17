@@ -20,7 +20,8 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
                 .ForMember(q => q.IdQuestion, opts => opts.MapFrom(u => u.Id));
 
             CreateMap<QuestionTemplate, QuestionDetailDto>()
-                .ForMember(q => q.Name, opts => opts.MapFrom(qn => qn.Name))
+                .ForMember(q => q.QuestionName, opts => opts.MapFrom(qn => qn.Name))
+                .ForMember(p => p.IdQuestion, opts => opts.MapFrom(k => k.Id))
                 .ForMember(q => q.Type, opts => opts.MapFrom(a => a.Type));
 
             CreateMap<QuestionTemplate, ListQuestionsAnswersDto>()
@@ -40,17 +41,17 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
 
             CreateMap<CreateFormDto, QuestionTemplate>();
 
-            //
             CreateMap<CreateFormModuleQuestionDto, QuestionTemplate>()
                 .ForMember(q => q.Name, opts => opts.MapFrom(a => a.QuestionName));
 
+            // 17.12
             CreateMap<QuestionInModuleDto, QuestionDetailDto>()
-                .ForMember(w => w.Id, opts => opts.MapFrom(u => u.IdQuestion))
-                .ForMember(q => q.Name, opts => opts.MapFrom(r => r.Name))
-                .ForMember(o => o.Position, opts => opts.MapFrom(p => p.Position))
+                .ForMember(w => w.IdQuestion, opts => opts.MapFrom(u => u.IdQuestion))
+                .ForMember(q => q.QuestionName, opts => opts.MapFrom(r => r.Name))
+                //.ForMember(o => o.QuestionPosition, opts => opts.MapFrom(p => p.Position))
                 .ForMember(p => p.Answers, opts => opts.MapFrom(a => a.Answers));
 
-            //
+
             CreateMap<CreateFormModuleQuestionDto, QuestionTemplateDto>()
                 .ForMember(t => t.Name, opts => opts.MapFrom(y => y.QuestionName))
                 .ForMember(i => i.Answers, opts => opts.MapFrom(t => t.Answers));
@@ -68,8 +69,11 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
                 .ForMember(k => k.QuestionPosition, opts => opts.MapFrom(y => y.QuestionPosition));
 
             CreateMap<QuestionTemplateDto, QuestionDetailDto>()
-                .ForMember(q => q.Id, opts => opts.MapFrom(p => p.Id))
-                .ForMember(t => t.Position, opts => opts.MapFrom(l => l.QuestionPosition));
+                .ForMember(q => q.IdQuestion, opts => opts.MapFrom(p => p.Id));
+            //.ForMember(t => t.QuestionPosition, opts => opts.MapFrom(l => l.QuestionPosition));
+
+            CreateMap<QuestionTemplateDto, CustomQuestionDetailDto>()
+                .ForMember(p => p.Position, opts => opts.MapFrom(h => h.QuestionPosition));
         }
     }
 }

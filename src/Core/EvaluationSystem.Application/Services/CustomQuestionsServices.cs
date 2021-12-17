@@ -26,7 +26,7 @@ namespace EvaluationSystem.Application.Services
             _mapper = mapper;
         }
 
-        public QuestionDetailDto CreateNewQuestion(int moduleId, int position, CreateQuestionDto model)
+        public CustomQuestionDetailDto CreateNewQuestion(int moduleId, int position, CreateQuestionDto model)
         {
             var currentQuestion = _mapper.Map<QuestionTemplate>(model);
             currentQuestion.DateOfCreation = DateTime.UtcNow;
@@ -50,16 +50,15 @@ namespace EvaluationSystem.Application.Services
             }
         }
 
-        public QuestionDetailDto GetCustomQuestionById(int questionId)
+        public CustomQuestionDetailDto GetCustomQuestionById(int questionId)
         {
-            // var currentEntity = _questionRepository.GetById(questionId);
             var currentEntity = _customQuestionsRepository.GetCustomById(questionId);
             if (currentEntity == null)
             {
                 return null;
             }
 
-            return _mapper.Map<QuestionDetailDto>(currentEntity);
+            return _mapper.Map<CustomQuestionDetailDto>(currentEntity);
         }
 
         //Repeated code!

@@ -5,9 +5,9 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface ICustomQuestionsServices
     {
-        QuestionDetailDto CreateNewQuestion(int moduleId, int position, CreateQuestionDto model);
+        CustomQuestionDetailDto CreateNewQuestion(int moduleId, int position, CreateQuestionDto model);
 
-        QuestionDetailDto GetCustomQuestionById(int questionId);
+        CustomQuestionDetailDto GetCustomQuestionById(int questionId);
 
         void DeleteCustomQuestion(int questionId);
     }

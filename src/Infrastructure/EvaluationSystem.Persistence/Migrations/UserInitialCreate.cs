@@ -3,7 +3,7 @@
 namespace EvaluationSystem.Persistence.Migrations
 {
     [Migration(202112161736)]
-    public class User : Migration
+    public class UserInitialCreate : Migration
     {
         public override void Down()
         {

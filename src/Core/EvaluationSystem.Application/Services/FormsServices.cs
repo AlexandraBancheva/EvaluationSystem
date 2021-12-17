@@ -62,12 +62,6 @@ namespace EvaluationSystem.Application.Services
 
             foreach (var module in currentForm.Modules)
             {
-                //var isExistModuleName = CheckIfModuleNameExists(module.Name, _moduleRepository);
-                //if (isExistModuleName == false)
-                //{
-                //    throw new InvalidOperationException($"The module name '{module.Name}' already exists.");
-                //}
-
                 var moduleId = _moduleRepository.Insert(_mapper.Map<ModuleTemplate>(module));
 
                 _formModuleRepository.AddNewModuleInForm(formId, moduleId, module.ModulePosition);
@@ -76,11 +70,6 @@ namespace EvaluationSystem.Application.Services
 
                 foreach (var question in questions)
                 {
-                    //var isExistQuestionName = CheckIfQuestionNameExists(question.Name, _questionRepository);
-                    //if (isExistQuestionName == false)
-                    //{
-                    //    throw new InvalidOperationException($"The question name '{question.Name}' already exists.");
-                    //}
                     var questionNew = _questionCustomServices.CreateNewQuestion(moduleId, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
 
                     var answers = question.Answers;
