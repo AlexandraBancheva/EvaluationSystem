@@ -20,7 +20,7 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
                 .ForMember(q => q.IdQuestion, opts => opts.MapFrom(u => u.Id));
 
             CreateMap<QuestionTemplate, QuestionDetailDto>()
-                .ForMember(q => q.QuestionName, opts => opts.MapFrom(qn => qn.Name))
+                .ForMember(q => q.Name, opts => opts.MapFrom(qn => qn.Name))
                 .ForMember(q => q.Type, opts => opts.MapFrom(a => a.Type));
 
             CreateMap<QuestionTemplate, ListQuestionsAnswersDto>()
@@ -46,7 +46,7 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
 
             CreateMap<QuestionInModuleDto, QuestionDetailDto>()
                 .ForMember(w => w.Id, opts => opts.MapFrom(u => u.IdQuestion))
-                .ForMember(q => q.QuestionName, opts => opts.MapFrom(r => r.Name))
+                .ForMember(q => q.Name, opts => opts.MapFrom(r => r.Name))
                 .ForMember(o => o.Position, opts => opts.MapFrom(p => p.Position))
                 .ForMember(p => p.Answers, opts => opts.MapFrom(a => a.Answers));
 
@@ -66,6 +66,10 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
                 .ForMember(a => a.IdQuestion, opts => opts.MapFrom(t => t.Id))
                 .ForMember(o => o.QuestionName, opts => opts.MapFrom(l => l.Name))
                 .ForMember(k => k.QuestionPosition, opts => opts.MapFrom(y => y.QuestionPosition));
+
+            CreateMap<QuestionTemplateDto, QuestionDetailDto>()
+                .ForMember(q => q.Id, opts => opts.MapFrom(p => p.Id))
+                .ForMember(t => t.Position, opts => opts.MapFrom(l => l.QuestionPosition));
         }
     }
 }

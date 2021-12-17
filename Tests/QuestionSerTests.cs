@@ -72,7 +72,7 @@ namespace Tests
             });
 
            // var result = _questionService.GetQuestionById(insert.Id);
-            Assert.That(insertable.QuestionName == insert.QuestionName); // ???
+            Assert.That(insertable.QuestionName == insert.Name); // ???
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace Tests
 
             var updateDto = _questionService.UpdateCurrentQuestion(Id, dto);
             var res = _questionService.GetQuestionById(Id);
-            Assert.That(updateDto.QuestionName == res.QuestionName);
+            Assert.That(updateDto.Name == res.Name);
         }
 
         //[Test]

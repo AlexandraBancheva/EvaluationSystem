@@ -26,7 +26,7 @@ namespace EvaluationSystem.Application.Services
             _mapper = mapper;
         }
 
-        public int CreateNewQuestion(int moduleId, int position, CreateQuestionDto model)
+        public QuestionDetailDto CreateNewQuestion(int moduleId, int position, CreateQuestionDto model)
         {
             var currentQuestion = _mapper.Map<QuestionTemplate>(model);
             currentQuestion.DateOfCreation = DateTime.UtcNow;
@@ -34,7 +34,7 @@ namespace EvaluationSystem.Application.Services
             var questionId = _customQuestionsRepository.Insert(currentQuestion);
             _moduleQuestionsServices.AddQuestionToModule(moduleId, questionId, position);
 
-            return questionId; //GetQuestionById(questionId);
+            return GetCustomQuestionById(questionId);
         }
 
         public void DeleteCustomQuestion(int questionId)
@@ -52,8 +52,8 @@ namespace EvaluationSystem.Application.Services
 
         public QuestionDetailDto GetCustomQuestionById(int questionId)
         {
-            var currentEntity = _questionRepository.GetById(questionId);
-
+            // var currentEntity = _questionRepository.GetById(questionId);
+            var currentEntity = _customQuestionsRepository.GetCustomById(questionId);
             if (currentEntity == null)
             {
                 return null;

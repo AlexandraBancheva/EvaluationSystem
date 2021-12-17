@@ -12,7 +12,7 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 
         public int Id { get; set; }
 
-        public string QuestionName { get; set; }
+        public string Name { get; set; }
 
         public string Type { get; set; }
 
@@ -21,6 +21,5 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
         public int Position { get; set; }
 
         public virtual ICollection<AnswerDetailDto> Answers { get; set; }
-
     }
 }

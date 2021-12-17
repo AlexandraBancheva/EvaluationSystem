@@ -81,12 +81,13 @@ namespace EvaluationSystem.Application.Services
                     //{
                     //    throw new InvalidOperationException($"The question name '{question.Name}' already exists.");
                     //}
-                    var questionId = _questionCustomServices.CreateNewQuestion(moduleId, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
+                    var questionNew = _questionCustomServices.CreateNewQuestion(moduleId, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
 
                     var answers = question.Answers;
                     foreach (var answer in answers)
                     {
-                        answer.IdQuestion = questionId;
+                        //check!!!!
+                        answer.IdQuestion = questionNew.Id;
                         _answerRepository.Insert(answer);
                     }
                 }
