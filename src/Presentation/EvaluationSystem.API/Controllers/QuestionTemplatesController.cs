@@ -61,8 +61,9 @@ namespace EvaluationSystem.API.Controllers
             return NoContent();
         }
 
+
         [HttpGet]
-        [Route("/questionTemplates")]
+        [Route("[action]", Name = "QuestionTemplates")]
         public IActionResult GetAllQuestionTemplates()
         {
             var res = questionsServices.GetAllQuestionTemplatesWithTheirAnswers();
