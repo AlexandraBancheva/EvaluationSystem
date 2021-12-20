@@ -18,8 +18,9 @@ namespace EvaluationSystem.API.Controllers
         [HttpPost]
         public IActionResult AddNewAnswer(int questionId, [FromBody] AddListAnswers model)
         {
-            answersServices.AddNewAnswer(questionId, model);
-            return Ok();
+            // answersServices.AddNewAnswer(questionId, model);
+            var res = answersServices.CreateAnswer(questionId, model);
+            return Ok(res);
         }
 
         [HttpDelete()]

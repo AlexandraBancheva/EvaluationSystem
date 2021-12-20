@@ -4,6 +4,8 @@ using EvaluationSystem.Domain.Enums;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Answers.AnswersDtos;
+using EvaluationSystem.Application.Models.Questions;
+using System.Collections.Generic;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -22,7 +24,7 @@ namespace EvaluationSystem.Application.Services
             _mapper = mapper;
         }
 
-        public void AddNewAnswer(int questionId, AddListAnswers model)
+        public ICollection<AnswerListDto> CreateAnswer(int questionId, AddListAnswers model)
         {
             var isExist = _questionRepository.GetById(questionId);
             if (isExist == null)
@@ -30,9 +32,10 @@ namespace EvaluationSystem.Application.Services
                 throw new InvalidOperationException($"Question with this id {questionId} do not exist!");
             }
 
+            AnswerTemplate current = new AnswerTemplate();
             foreach (var answer in model.Answers)
             {
-                var current = _mapper.Map<AnswerTemplate>(answer);
+                current = _mapper.Map<AnswerTemplate>(answer);
                 current.IdQuestion = questionId;
 
                 if (isExist.Type == QuestionType.NumericalOptions)
@@ -48,6 +51,8 @@ namespace EvaluationSystem.Application.Services
                 current.Id = id;
             }
 
+            var allAnswers = _answerRepository.GetAllByQuestionId(questionId);
+            return _mapper.Map<ICollection<AnswerListDto>>(allAnswers);
         }
 
         public void DeleteAnAnswer(int answerId)
