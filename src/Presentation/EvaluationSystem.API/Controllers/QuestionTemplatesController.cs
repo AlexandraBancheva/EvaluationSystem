@@ -17,7 +17,7 @@ namespace EvaluationSystem.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetQuestionByIdWithAnswers()
+        public IActionResult GetQuestionsWithAnswers()
         {
             var res = questionsServices.GetAllQuestionsWithTheirAnswers();
             return Ok(res);
@@ -59,6 +59,14 @@ namespace EvaluationSystem.API.Controllers
         {
             questionsServices.DeleteQuestion(questionId);
             return NoContent();
+        }
+
+        [HttpGet]
+        [Route("/questionTemplates")]
+        public IActionResult GetAllQuestionTemplates()
+        {
+            var res = questionsServices.GetAllQuestionTemplatesWithTheirAnswers();
+            return Ok(res);
         }
     }
 }

@@ -75,7 +75,7 @@ namespace EvaluationSystem.Application.Services
                     var answers = question.Answers;
                     foreach (var answer in answers)
                     {
-                        answer.IdQuestion = questionNew.Id;
+                        answer.IdQuestion = questionNew.IdQuestion;
                         _answerRepository.Insert(answer);
                     }
                 }

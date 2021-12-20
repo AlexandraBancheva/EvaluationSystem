@@ -2,7 +2,6 @@
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
-using System.Collections.Generic;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {

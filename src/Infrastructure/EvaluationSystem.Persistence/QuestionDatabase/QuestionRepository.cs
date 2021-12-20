@@ -76,5 +76,32 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
             return questions;
         }
+
+        // 20.12
+        public ICollection<QuestionTemplate> GetAllQuestionTemplates()
+        {
+            var query = @"SELECT *
+                    FROM QuestionTemplate AS q
+                    LEFT JOIN AnswerTemplate AS a ON q.Id = a.IdQuestion
+                    WHERE q.IsReusable = 'true'";
+
+            var questionDictionary = new Dictionary<int, QuestionTemplate>();
+            var allQuestionTemplates = _connection.Query<QuestionTemplate, AnswerTemplate, QuestionTemplate>(query, (question, answer) =>
+            {
+                if (!questionDictionary.TryGetValue(question.Id, out var currentQuestion))
+                {
+                    currentQuestion = question;
+                    questionDictionary.Add(currentQuestion.Id, currentQuestion);
+                }
+
+                currentQuestion.Answers.Add(answer);
+                return currentQuestion;
+            }, _transaction,
+               splitOn: "Id")
+            .Distinct()
+            .ToList();
+
+            return allQuestionTemplates;
+        }
     }
 }

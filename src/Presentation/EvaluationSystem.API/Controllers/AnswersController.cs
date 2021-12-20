@@ -18,12 +18,11 @@ namespace EvaluationSystem.API.Controllers
         [HttpPost]
         public IActionResult AddNewAnswer(int questionId, [FromBody] AddListAnswers model)
         {
-            // answersServices.AddNewAnswer(questionId, model);
             var res = answersServices.CreateAnswer(questionId, model);
             return Ok(res);
         }
 
-        [HttpDelete()]
+        [HttpDelete("{answerId}")]
         public IActionResult DeleteAnAnswerById(int answerId)
         {
             answersServices.DeleteAnAnswer(answerId);

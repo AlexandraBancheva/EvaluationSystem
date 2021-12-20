@@ -11,5 +11,8 @@ namespace EvaluationSystem.Application.Interfaces
         ICollection<QuestionTemplate> GetAllQuestionsWithAnswers();
 
         ICollection<QuestionTemplate> GetAllById(int questionId);
+
+        // 20.12
+        ICollection<QuestionTemplate> GetAllQuestionTemplates();
     }
 }

@@ -73,7 +73,8 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
             //.ForMember(t => t.QuestionPosition, opts => opts.MapFrom(l => l.QuestionPosition));
 
             CreateMap<QuestionTemplateDto, CustomQuestionDetailDto>()
-                .ForMember(p => p.Position, opts => opts.MapFrom(h => h.QuestionPosition));
+                .ForMember(p => p.QuestionPosition, opts => opts.MapFrom(h => h.QuestionPosition))
+                .ForMember(q => q.QuestionName, opts => opts.MapFrom(l => l.Name));
         }
     }
 }
