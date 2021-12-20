@@ -83,7 +83,7 @@ namespace Tests
             var dto = new UpdateQuestionDto
             {
                 Name = name,
-                Type = QuestionType.CheckBoxes,
+               // Type = QuestionType.CheckBoxes,
                 //IsReusable = true,
             };
 

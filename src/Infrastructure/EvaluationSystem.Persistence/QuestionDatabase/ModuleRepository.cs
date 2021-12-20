@@ -2,7 +2,6 @@
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
-using System.Collections.Generic;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -22,15 +21,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             DELETE ModuleTemplate
                             WHERE Id = @ModuleId";
             _connection.Execute(query, new { ModuleId = moduleId }, _transaction);
-        }
-
-        public ICollection<CheckModuleNameDto> GetAllModuleNames()
-        {
-            var query = @"SELECT [Name] FROM ModuleTemplate";
-
-            var names = _connection.Query<CheckModuleNameDto>(query, _transaction);
-
-            return (ICollection<CheckModuleNameDto>)names;
         }
 
         public ModuleTemplateDto GetModuleById(int formId, int moduleId)

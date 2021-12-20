@@ -1,6 +1,5 @@
 ﻿using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Repositories;
-using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 
 namespace EvaluationSystem.Application.Interfaces
 {

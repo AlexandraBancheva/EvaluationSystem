@@ -75,7 +75,6 @@ namespace EvaluationSystem.Application.Services
                     var answers = question.Answers;
                     foreach (var answer in answers)
                     {
-                        //check!!!!
                         answer.IdQuestion = questionNew.Id;
                         _answerRepository.Insert(answer);
                     }
@@ -212,7 +211,6 @@ namespace EvaluationSystem.Application.Services
             return _mapper.Map<ICollection<FormDetailDto>>(results);
         }
 
-        // Problem with repeated code!!!
         public static bool CheckIfFormNameExists(string formName, IFormRepository formRepository)
         {
             var allNames = formRepository.GetAllFormNames();
@@ -220,34 +218,6 @@ namespace EvaluationSystem.Application.Services
             foreach (var name in allNames)
             {
                 if (name.Name == formName)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        public static bool CheckIfModuleNameExists(string moduleName, IModuleRepository moduleRepository)
-        {
-            var allNames = moduleRepository.GetAllModuleNames();
-            foreach (var name in allNames)
-            {
-                if (name.Name == moduleName)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        public static bool CheckIfQuestionNameExists(string questionName, IQuestionRepository questionRepository)
-        {
-            var allNames = questionRepository.GetAllQuestionNames();
-            foreach (var name in allNames)
-            {
-                if (name.Name == questionName)
                 {
                     return false;
                 }

@@ -68,20 +68,5 @@ namespace EvaluationSystem.Application.Services
            
             return _mapper.Map<ICollection<ListFormIdWithAllModulesDto>>(allModules);
         }
-
-        // Repeated code!
-        public static bool CheckIfModuleNameExists(string moduleName, IModuleRepository moduleRepository)
-        {
-            var allNames = moduleRepository.GetAllModuleNames();
-            foreach (var name in allNames)
-            {
-                if (name.Name == moduleName)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
     }
 }

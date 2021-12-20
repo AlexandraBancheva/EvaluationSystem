@@ -60,20 +60,5 @@ namespace EvaluationSystem.Application.Services
 
             return _mapper.Map<CustomQuestionDetailDto>(currentEntity);
         }
-
-        //Repeated code!
-        public static bool CheckIfQuestionNameExists(string questionName, IQuestionRepository questionRepository)
-        {
-            var allNames = questionRepository.GetAllQuestionNames();
-            foreach (var name in allNames)
-            {
-                if (name.Name == questionName)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
     }
 }

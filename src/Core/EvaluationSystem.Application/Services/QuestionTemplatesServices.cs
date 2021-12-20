@@ -50,12 +50,23 @@ namespace EvaluationSystem.Application.Services
                 return null;
             }
 
-            var current = _mapper.Map<QuestionTemplate>(model);
-            current.Id = questionId;
-            current.DateOfCreation = DateTime.UtcNow;
-            _questionRepository.Update(current);
-
-            return _mapper.Map<QuestionDetailDto>(current);
+            var currentEntityForUpdate = _mapper.Map<QuestionTemplate>(model);
+            var currentNameEntity = isExist.Name;
+            var updatedEntity = new QuestionTemplate();
+            if (currentNameEntity != currentEntityForUpdate.Name)
+            {
+                updatedEntity = new QuestionTemplate
+                {
+                    Id = questionId,
+                    Name = currentEntityForUpdate.Name,
+                    Type = isExist.Type,
+                    IsReusable = isExist.IsReusable,
+                    DateOfCreation = DateTime.UtcNow,
+                    Answers = isExist.Answers,
+                };
+                _questionRepository.Update(updatedEntity);
+            }
+            return _mapper.Map<QuestionDetailDto>(updatedEntity);
         }
 
         public void DeleteQuestion(int questionId)
@@ -76,21 +87,6 @@ namespace EvaluationSystem.Application.Services
             var questions = _questionRepository.GetAllById(questionId);
 
             return _mapper.Map<IEnumerable<ListQuestionsAnswersDto>>(questions);
-        }
-
-        // Repeated code
-        public static bool CheckIfQuestionNameExists(string questionName, IQuestionRepository questionRepository)
-        {
-            var allNames = questionRepository.GetAllQuestionNames();
-            foreach (var name in allNames)
-            {
-                if (name.Name == questionName)
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
     }
 }

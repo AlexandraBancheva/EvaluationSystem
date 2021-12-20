@@ -7,7 +7,5 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
         public int Id { get; set; }
 
         public string Name { get; set; }
-
-        public QuestionType? Type { get; set; }
     }
 }

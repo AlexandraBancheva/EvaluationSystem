@@ -3,7 +3,6 @@ using AutoMapper;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Application.Models.ModuleQuestions;
-using System;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -42,22 +41,6 @@ namespace EvaluationSystem.Application.Services
             var res = _mapper.Map<IEnumerable<ListModulesQuestionsDto>>(moduleQuestions);
 
             return res;
-        }
-
-        // Repeated code
-        public static bool CheckIfQuestionIdExists(int moduleId, int questionId, IModuleQuestionRepository moduleQuestionRepository)
-        {
-            var allQuestionIds = moduleQuestionRepository.GetAllQuestionIdsByModuleId(moduleId);
-
-            foreach (var id in allQuestionIds)
-            {
-                if (id.IdQuestion == questionId)
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
     }
 }
