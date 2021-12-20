@@ -4,7 +4,6 @@ using Dapper;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Repositories;
-using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -52,15 +51,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             .ToList();
 
             return questions;
-        }
-
-        public ICollection<CheckQuestionNamesDto> GetAllQuestionNames()
-        {
-            var query = @"SELECT [Name] FROM QuestionTemplate";
-
-            var names = _connection.Query<CheckQuestionNamesDto>(query, _transaction);
-
-            return (ICollection<CheckQuestionNamesDto>)names;
         }
 
         public ICollection<QuestionTemplate> GetAllQuestionsWithAnswers()
