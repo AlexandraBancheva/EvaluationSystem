@@ -3,7 +3,7 @@
 namespace EvaluationSystem.Persistence.Migrations
 {
     [Migration(202112201720)]
-    public class AttestationModule : Migration
+    public class AttestationModuleInitialCreate : Migration
     {
         public override void Down()
         {

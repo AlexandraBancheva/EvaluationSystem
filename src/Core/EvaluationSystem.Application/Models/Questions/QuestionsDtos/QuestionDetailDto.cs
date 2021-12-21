@@ -19,7 +19,7 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 
         public bool  IsReusable { get; set; }
 
-        public DateTime DateOdCreation { get; set; }
+        public DateTime DateOfCreation { get; set; }
 
         public virtual ICollection<AnswerDetailDto> Answers { get; set; }
     }

@@ -3,7 +3,7 @@
 namespace EvaluationSystem.Persistence.Migrations
 {
     [Migration(202112201730)]
-    public class AttestationForm : Migration
+    public class AttestationFormInitialCreate : Migration
     {
         public override void Down()
         {
