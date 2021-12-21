@@ -22,7 +22,8 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
             CreateMap<QuestionTemplate, QuestionDetailDto>()
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(qn => qn.Name))
                 .ForMember(p => p.IdQuestion, opts => opts.MapFrom(k => k.Id))
-                .ForMember(q => q.Type, opts => opts.MapFrom(a => a.Type));
+                .ForMember(q => q.Type, opts => opts.MapFrom(a => a.Type))
+                .ForMember(p => p.DateOdCreation, opts => opts.MapFrom(k => k.DateOfCreation));
 
             CreateMap<QuestionTemplate, ListQuestionsAnswersDto>()
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(y => y.Name))
@@ -74,7 +75,8 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
 
             CreateMap<QuestionTemplateDto, CustomQuestionDetailDto>()
                 .ForMember(p => p.QuestionPosition, opts => opts.MapFrom(h => h.QuestionPosition))
-                .ForMember(q => q.QuestionName, opts => opts.MapFrom(l => l.Name));
+                .ForMember(q => q.QuestionName, opts => opts.MapFrom(l => l.Name))
+                .ForMember(p => p.DateOfCreation, opts => opts.MapFrom(j => j.DateOfCreation));
         }
     }
 }

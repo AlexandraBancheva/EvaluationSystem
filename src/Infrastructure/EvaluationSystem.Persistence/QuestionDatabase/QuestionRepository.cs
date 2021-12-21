@@ -77,7 +77,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             return questions;
         }
 
-        // 20.12
         public ICollection<QuestionTemplate> GetAllQuestionTemplates()
         {
             var query = @"SELECT *

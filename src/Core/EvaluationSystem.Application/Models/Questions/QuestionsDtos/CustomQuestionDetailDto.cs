@@ -1,4 +1,5 @@
 ﻿using EvaluationSystem.Application.Models.Answers.AnswersDtos;
+using System;
 using System.Collections.Generic;
 
 namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
@@ -12,7 +13,6 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 
         public int IdQuestion { get; set; }
 
-        //
         public string QuestionName { get; set; }
 
         public int Type { get; set; }
@@ -20,6 +20,8 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
         public bool IsReusable { get; set; }
 
         public int QuestionPosition { get; set; }
+
+        public DateTime DateOfCreation { get; set; }
 
         public virtual ICollection<AnswerDetailDto> Answers { get; set; }
     }

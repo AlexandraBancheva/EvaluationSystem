@@ -10,20 +10,10 @@ namespace EvaluationSystem.Application.Validations.QuestionValidations
         {
             RuleFor(q => q.QuestionName)
                 .NotEmpty().WithMessage("{PropertyName} cannot be empty!")
-                .Length(1, 100).WithMessage("Length of {PropertyName} must be between 1 and 100 characters!")
-                .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters!");
+                .Length(1, 100).WithMessage("Length of {PropertyName} must be between 1 and 100 characters!");
 
-            // Validation for enums??
             RuleFor(e => e.Type)
                 .IsInEnum();
-        }
-
-        public bool BeAValidName(string name)
-        {
-            name = name.Replace(" ", "");
-            name = name.Replace("-", "");
-
-            return name.All(char.IsLetterOrDigit);
         }
     }
 }

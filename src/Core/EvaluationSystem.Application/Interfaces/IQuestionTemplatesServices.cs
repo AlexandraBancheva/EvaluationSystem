@@ -16,7 +16,6 @@ namespace EvaluationSystem.Application.Interfaces
 
         IEnumerable<ListQuestionsAnswersDto> GetAllQuestionsWithTheirAnswers();
 
-        // 20.12
         IEnumerable<ListQuestionsAnswersDto> GetAllQuestionTemplatesWithTheirAnswers();
 
         IEnumerable<ListQuestionsAnswersDto> GetAllAnswersByQuestionId(int questionId);

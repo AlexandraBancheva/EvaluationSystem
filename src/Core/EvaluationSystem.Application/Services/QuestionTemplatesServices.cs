@@ -89,7 +89,6 @@ namespace EvaluationSystem.Application.Services
             return _mapper.Map<IEnumerable<ListQuestionsAnswersDto>>(questions);
         }
 
-        // 20.12
         public IEnumerable<ListQuestionsAnswersDto> GetAllQuestionTemplatesWithTheirAnswers()
         {
             // throw new NotImplementedException();
