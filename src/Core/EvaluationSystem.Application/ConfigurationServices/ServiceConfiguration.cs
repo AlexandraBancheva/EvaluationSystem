@@ -1,4 +1,5 @@
 ﻿using EvaluationSystem.Application.Interfaces;
+using EvaluationSystem.Application.Models.Users;
 using EvaluationSystem.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +16,8 @@ namespace EvaluationSystem.Application.ConfigurationServices
             services.AddScoped<IModuleQuestionsServices, ModuleQuestionsServices>();
             services.AddScoped<IFormsServices, FormsServices>();
             services.AddScoped<IFormModulesServices, FormModulesServices>();
+            services.AddScoped<IUsersServices, UsersServices>();
+            services.AddScoped<IUser, CurrentUser>();
         }
     }
 }
