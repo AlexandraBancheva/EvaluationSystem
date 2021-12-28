@@ -98,6 +98,7 @@ namespace EvaluationSystem.API
             app.UpdateDatabase();
 
             app.UseMiddleware<ErrorHandleMiddleware>();
+            app.UseMiddleware<UserTokenMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = EvaluationSystem.API
-build_property.ProjectDir = C:\Users\alexandra\source\repos\EvaluationSystem\src\Presentation\EvaluationSystem.API\
+build_property.ProjectDir = C:\Users\Alex\Desktop\EvaluationSystem\EvaluationSystem\src\Presentation\EvaluationSystem.API\

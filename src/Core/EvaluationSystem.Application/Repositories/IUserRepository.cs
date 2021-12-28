@@ -4,7 +4,7 @@ using EvaluationSystem.Domain.Entities;
 
 namespace EvaluationSystem.Application.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository<User>
     {
         IEnumerable<User> GetAllUsers();
 
