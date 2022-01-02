@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 
-namespace EvaluationSystem.Application.Models.Forms
+namespace EvaluationSystem.Application.Models.AttestationForms
 {
-    public class FormTemplateDto
+    public class AttestationFormDto
     {
-        public FormTemplateDto()
+        public AttestationFormDto()
         {
             this.Modules = new HashSet<ModuleTemplateDto>();
         }
@@ -13,8 +13,6 @@ namespace EvaluationSystem.Application.Models.Forms
         public int Id { get; set; }
 
         public string Name { get; set; }
-
-       // public int Position { get; set; }
 
         public virtual ICollection<ModuleTemplateDto> Modules { get; set; }
     }
