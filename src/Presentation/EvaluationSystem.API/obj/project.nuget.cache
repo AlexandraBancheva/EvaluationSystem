@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Lz7VWXEW5z3fYjOiNXYGxGQuj4TYaKgTfs8oRW2d08fA3Few1KjOjMC920g+US8bYVjDjyZfrdexq0TKr/VJRw==",
+  "dgSpecHash": "KWwLgVqy0GeJnWLGeL0gBzW6k4FSTmV/BufjMoeiQ+PhkcVoWHV62eLLl7DvRKJFhRfCq609FjLprUwGbt9bhQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Alex\\Desktop\\EvaluationSystem\\EvaluationSystem\\src\\Presentation\\EvaluationSystem.API\\EvaluationSystem.API.csproj",
   "expectedPackageFiles": [
@@ -32,6 +32,7 @@
     "C:\\Users\\Alex\\.nuget\\packages\\fluentvalidation\\10.3.4\\fluentvalidation.10.3.4.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.3.4\\fluentvalidation.aspnetcore.10.3.4.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.3.4\\fluentvalidation.dependencyinjectionextensions.10.3.4.nupkg.sha512",
+    "C:\\Users\\Alex\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.12\\microsoft.aspnetcore.authentication.jwtbearer.5.0.12.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.0.0\\microsoft.bcl.asyncinterfaces.1.0.0.nupkg.sha512",

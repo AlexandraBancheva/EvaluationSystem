@@ -2,10 +2,13 @@
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.AttestationForms;
 using EvaluationSystem.Application.Models.Forms;
+using EvaluationSystem.Application.Models.Modules.ModulesDtos;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -36,7 +39,7 @@ namespace EvaluationSystem.Application.Services
             _mapper = mapper;
         }
 
-        public void CreateNewForm(CreateFormDto form)
+        public int CreateNewForm(CreateFormDto form)
         {
             var currentForm = _mapper.Map<AttestationFormDto>(form);
             var IsExist = CheckIfFormNameExists(currentForm.Name, _attestationFormRepository);
@@ -69,6 +72,9 @@ namespace EvaluationSystem.Application.Services
                     }
                 }
             }
+
+            // 03.01.2022
+            return attestationFormId;
         }
 
         public void DeleteFormFromAttestation(int formId)
@@ -107,5 +113,50 @@ namespace EvaluationSystem.Application.Services
             return true;
         }
 
+        public ICollection<FormDetailDto> GetFormById(int formId)
+        {
+            var results = _attestationFormRepository.GetAllByFormId(formId);
+            ModuleInFormDto tempModule = new ModuleInFormDto();
+            QuestionInModuleDto tempQuestion = new QuestionInModuleDto();
+
+            foreach (var form in results)
+            {
+                foreach (var module in form.Modules)
+                {
+                    if (module == null)
+                    {
+                        break;
+                    }
+
+                    if (tempModule.Name == module.Name)
+                    {
+                        form.Modules.Remove(module);
+                    }
+                    else
+                    {
+                        tempModule = module;
+                    }
+
+                    foreach (var question in module.Questions)
+                    {
+                        if (question == null)
+                        {
+                            break;
+                        }
+                        if (tempQuestion.Name == question.Name)
+                        {
+                            module.Questions.Remove(question);
+                        }
+                        else
+                        {
+                            tempQuestion = question;
+                        }
+                    }
+                }
+            }
+
+            var res = _mapper.Map<ICollection<FormDetailDto>>(results);
+            return res;
+        }
     }
 }

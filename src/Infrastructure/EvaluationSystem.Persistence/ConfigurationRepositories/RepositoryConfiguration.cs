@@ -23,7 +23,10 @@ namespace EvaluationSystem.Persistence.Configurations
             services.AddScoped<IAttestationQuestionRepository, AttestationQuestionRepository>();
             services.AddScoped<IAttestationAnswerRepository, AttestationAnswerRepository>();
             services.AddScoped<IAttestationModuleRepository, AttestationModuleRepository>();
+            services.AddScoped<IAttestationModuleQuestionRepository, AttestationModuleQuestionRepository>();
             services.AddScoped<IAttestationFormRepository, AttestationFormRepository>();
+            services.AddScoped<IAttestationFormModuleRepository, AttestationFormModuleRepository>();
+            services.AddScoped<IAttestationRepository, AttestationRepository>();
         }
     }
 }

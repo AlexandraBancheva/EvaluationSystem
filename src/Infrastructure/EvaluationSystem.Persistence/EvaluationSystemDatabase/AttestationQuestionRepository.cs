@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 {
-    public class AttestationQuestionRepository : BaseRepository<AttestationQuestion>, IAttestationQuestionRepository
+    public class AttestationQuestionRepository : QuestionDatabase.BaseRepository<AttestationQuestion>, IAttestationQuestionRepository
     {
         public AttestationQuestionRepository(IUnitOfWork unitOfWork) 
             : base(unitOfWork)

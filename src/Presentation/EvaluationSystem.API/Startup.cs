@@ -21,6 +21,11 @@ using EvaluationSystem.Application.Profiles.FormProfile;
 using EvaluationSystem.Application.Profiles.FormModuleProfile;
 using EvaluationSystem.Application.Validations.FormValidations;
 using EvaluationSystem.Persistence;
+using EvaluationSystem.Application.Profiles.AttestationModuleProfile;
+using EvaluationSystem.Application.Profiles.AttestationFormProfile;
+using EvaluationSystem.Application.Profiles.AttestationAnswerProfile;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Collections.Generic;
 
 namespace EvaluationSystem.API
 {
@@ -56,11 +61,53 @@ namespace EvaluationSystem.API
             // Memory cache
            //services.AddMemoryCache();
 
-            services.AddAutoMapper(typeof(QuestionProfile), typeof(AnswerProfile), typeof(ModuleProfile), typeof(ModuleQuestionProfile), typeof(FormProfile), typeof(FormModuleProfile));
+            services.AddAutoMapper(typeof(QuestionProfile), 
+                typeof(AnswerProfile), 
+                typeof(ModuleProfile), 
+                typeof(ModuleQuestionProfile), 
+                typeof(FormProfile), 
+                typeof(FormModuleProfile),
+                typeof(AttestationModuleProfile),
+                typeof(AttestationFormProfile),
+                typeof(AttestationAnswerProfile));
             services.AddControllers();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = Configuration["Auth2:Domain"];
+                options.Audience = Configuration["Auth2:Audience"];
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EvaluationSystem.API", Version = "v1" });
+
+                c.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Description = "Standard Authorization header using the Bearer scheme."
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Id = "bearerAuth",
+                                Type = ReferenceType.SecurityScheme
+                            }
+                        },
+                        new List<string>()
+                    }
+                });
             });
 
             RepositoryConfiguration.ConfigureServices(services);
@@ -72,6 +119,13 @@ namespace EvaluationSystem.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -82,20 +136,15 @@ namespace EvaluationSystem.API
 
             CreateDatabase.EnsureDatabase(Configuration);
 
+            app.UpdateDatabase();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseCors(builder =>
-            {
-                builder.AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader();
-            });
+            app.UseAuthentication();
 
             app.UseAuthorization();
-
-            app.UpdateDatabase();
 
             app.UseMiddleware<ErrorHandleMiddleware>();
             app.UseMiddleware<UserTokenMiddleware>();

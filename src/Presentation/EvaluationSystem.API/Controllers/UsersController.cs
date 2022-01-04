@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EvaluationSystem.API.Controllers
 {
-    //[Authorize] ?
     [ApiController]
     [Route("api/users")]
     public class UsersController : ControllerBase

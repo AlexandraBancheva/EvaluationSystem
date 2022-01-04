@@ -18,6 +18,12 @@ namespace EvaluationSystem.Application.ConfigurationServices
             services.AddScoped<IFormModulesServices, FormModulesServices>();
             services.AddScoped<IUsersServices, UsersServices>();
             services.AddScoped<IUser, CurrentUser>();
+            services.AddScoped<IAttestationQuestionsServices, AttestationQuestionsServices>();
+            services.AddScoped<IAttestationAnswersServices, AttestationAnswersServices>();
+            services.AddScoped<IAttestationModulesServices, AttestationModulesServices>();
+            services.AddScoped<IAttestationFormsServices, AttestationFormsServices>();
+            services.AddScoped<IAttestationFormModulesServices, AttestationFormModulesServices>();
+            services.AddScoped<IAttestationsServices, AttestationsServices>();
         }
     }
 }

@@ -10,9 +10,7 @@ namespace EvaluationSystem.Application.Models.Attestations
             this.UserParticipants = new HashSet<UserParticipantDto>();
         }
 
-        public string Username { get; set; }
-
-        public string Email { get; set; }
+        public UserInfoDto User { get; set; }
 
         public int IdForm { get; set; }
 

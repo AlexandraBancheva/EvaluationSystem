@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
-using EvaluationSystem.Application.Models.Forms;
+﻿using EvaluationSystem.Application.Models.Forms;
+using System.Collections.Generic;
 
 namespace EvaluationSystem.Application.Interfaces
 {
     public interface IAttestationFormsServices
     {
-        void CreateNewForm(CreateFormDto form);
+        int CreateNewForm(CreateFormDto form);
 
         void DeleteFormFromAttestation(int formId);
+
+        ICollection<FormDetailDto> GetFormById(int formId);
     }
 }

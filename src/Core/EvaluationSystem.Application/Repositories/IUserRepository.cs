@@ -9,5 +9,7 @@ namespace EvaluationSystem.Application.Repositories
         IEnumerable<User> GetAllUsers();
 
         IEnumerable<UserToEvaluateDto> GetUsersToEvaluate(string email);
+
+        User GetUserByEmail(string email);
     }
 }

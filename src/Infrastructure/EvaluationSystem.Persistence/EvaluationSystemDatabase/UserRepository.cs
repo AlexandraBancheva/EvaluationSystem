@@ -22,6 +22,16 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             return users;
         }
 
+        public User GetUserByEmail(string email)
+        {
+            var query = @"SELECT * FROM [User]
+                        WHERE Email = @Email";
+
+            var result = _connection.Query<User>(query, new { Email = email }, _transaction);
+
+            return (User)result;
+        }
+
         public IEnumerable<UserToEvaluateDto> GetUsersToEvaluate(string email)
         {
             var query = @"SELECT a.Id AS IdAttestation, a.IdForm, u.[Email] 

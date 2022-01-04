@@ -5,7 +5,7 @@ using EvaluationSystem.Persistence.QuestionDatabase;
 
 namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 {
-    public class AttestationModuleRepository : BaseRepository<AttestationModule>, IAttestationModuleRepository
+    public class AttestationModuleRepository : QuestionDatabase.BaseRepository<AttestationModule>, IAttestationModuleRepository
     {
         public AttestationModuleRepository(IUnitOfWork unitOfWork) 
             : base(unitOfWork)

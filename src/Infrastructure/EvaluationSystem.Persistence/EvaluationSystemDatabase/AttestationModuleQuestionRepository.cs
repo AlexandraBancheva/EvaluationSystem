@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 {
-    public class AttestationModuleQuestionRepository : BaseRepository<AttestationModuleQuestion>, IAttestationModuleQuestionRepository
+    public class AttestationModuleQuestionRepository : QuestionDatabase.BaseRepository<AttestationModuleQuestion>, IAttestationModuleQuestionRepository
     {
         public AttestationModuleQuestionRepository(IUnitOfWork unitOfWork) 
             : base(unitOfWork)
