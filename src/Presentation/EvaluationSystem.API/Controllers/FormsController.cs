@@ -1,12 +1,14 @@
 ﻿using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Forms;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EvaluationSystem.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/forms")]
-    public class FormsController : ControllerBase
+    public class FormsController : BaseController
     {
         private readonly IFormsServices _formsServices;
 

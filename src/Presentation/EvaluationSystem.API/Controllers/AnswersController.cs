@@ -6,7 +6,7 @@ namespace EvaluationSystem.API.Controllers
 {
     [ApiController]
     [Route(("api/forms/{formId}/modules/{moduleId}/questions/{questionId}/answers"))]
-    public class AnswersController : ControllerBase
+    public class AnswersController : BaseController
     {
         private readonly IAnswersServices answersServices;
 

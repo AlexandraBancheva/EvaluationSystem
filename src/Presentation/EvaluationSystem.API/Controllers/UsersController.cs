@@ -5,7 +5,7 @@ namespace EvaluationSystem.API.Controllers
 {
     [ApiController]
     [Route("api/users")]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseController
     {
         private readonly IUsersServices _usersServices;
         public UsersController(IUsersServices usersServices)

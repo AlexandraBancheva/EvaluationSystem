@@ -6,7 +6,7 @@ namespace EvaluationSystem.API.Controllers
 {
     [ApiController]
     [Route("api/modules/{moduleId}/customQuestions")]
-    public class QuestionCustomController : ControllerBase
+    public class QuestionCustomController : BaseController
     {
         private readonly ICustomQuestionsServices _questionsCustomServices;
 

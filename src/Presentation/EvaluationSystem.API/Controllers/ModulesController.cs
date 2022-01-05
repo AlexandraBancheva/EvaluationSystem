@@ -7,7 +7,7 @@ namespace EvaluationSystem.API.Controllers
 {
     [ApiController]
     [Route("api/forms/{formId}/modules")]
-    public class ModulesController : ControllerBase
+    public class ModulesController : BaseController
     {
         private readonly IModulesServices _modulesServices;
         private readonly IModuleQuestionsServices _moduleQuestionsServices;

@@ -43,20 +43,20 @@ namespace EvaluationSystem.API
         {
             services.AddControllers().AddFluentValidation(fv =>
                         fv.RegisterValidatorsFromAssemblyContaining<CreateQuestionValidation>());
-            services.AddControllers().AddFluentValidation(fv => 
-                        fv.RegisterValidatorsFromAssemblyContaining<UpdateQuestionValidation>());
-            services.AddControllers().AddFluentValidation(fv =>
-                        fv.RegisterValidatorsFromAssemblyContaining<CreateAnswerValidaton>());
-            services.AddControllers().AddFluentValidation(fv => 
-                        fv.RegisterValidatorsFromAssemblyContaining<UpdateAnswerValidation>());
-            services.AddControllers().AddFluentValidation(fv =>
-                        fv.RegisterValidatorsFromAssemblyContaining<CreateModuleValidation>());
-            services.AddControllers().AddFluentValidation(fv => 
-                        fv.RegisterValidatorsFromAssemblyContaining<UpdateModuleValidation>());
-            services.AddControllers().AddFluentValidation(fv =>
-                        fv.RegisterValidatorsFromAssemblyContaining<CreateModuleValidation>());
-            services.AddControllers().AddFluentValidation(fv => 
-                        fv.RegisterValidatorsFromAssemblyContaining<UpdateFormValidation>());
+            //services.AddControllers().AddFluentValidation(fv => 
+            //            fv.RegisterValidatorsFromAssemblyContaining<UpdateQuestionValidation>());
+            //services.AddControllers().AddFluentValidation(fv =>
+            //            fv.RegisterValidatorsFromAssemblyContaining<CreateAnswerValidaton>());
+            //services.AddControllers().AddFluentValidation(fv => 
+            //            fv.RegisterValidatorsFromAssemblyContaining<UpdateAnswerValidation>());
+            //services.AddControllers().AddFluentValidation(fv =>
+            //            fv.RegisterValidatorsFromAssemblyContaining<CreateModuleValidation>());
+            //services.AddControllers().AddFluentValidation(fv => 
+            //            fv.RegisterValidatorsFromAssemblyContaining<UpdateModuleValidation>());
+            //services.AddControllers().AddFluentValidation(fv =>
+            //            fv.RegisterValidatorsFromAssemblyContaining<CreateModuleValidation>());
+            //services.AddControllers().AddFluentValidation(fv => 
+            //            fv.RegisterValidatorsFromAssemblyContaining<UpdateFormValidation>());
 
             // Memory cache
            //services.AddMemoryCache();
@@ -70,7 +70,38 @@ namespace EvaluationSystem.API
                 typeof(AttestationModuleProfile),
                 typeof(AttestationFormProfile),
                 typeof(AttestationAnswerProfile));
+
+            RepositoryConfiguration.ConfigureServices(services);
+            ServiceConfiguration.ConfigureServices(services);
+
+            UseMigrator.UseMigrations(services);
+
             services.AddControllers();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "EvaluationSystem.API", Version = "v1" });
+
+                var securitySchema = new OpenApiSecurityScheme
+                {
+                    Description = "Using the Authorization header with the Bearer scheme.",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                };
+
+                c.AddSecurityDefinition("Bearer", securitySchema);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                     { securitySchema, new[] { "Bearer" } }
+                });
+            });
 
             services.AddAuthentication(options =>
             {
@@ -81,39 +112,6 @@ namespace EvaluationSystem.API
                 options.Authority = Configuration["Auth2:Domain"];
                 options.Audience = Configuration["Auth2:Audience"];
             });
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "EvaluationSystem.API", Version = "v1" });
-
-                c.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme
-                {
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "bearer",
-                    BearerFormat = "JWT",
-                    Description = "Standard Authorization header using the Bearer scheme."
-                });
-
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Id = "bearerAuth",
-                                Type = ReferenceType.SecurityScheme
-                            }
-                        },
-                        new List<string>()
-                    }
-                });
-            });
-
-            RepositoryConfiguration.ConfigureServices(services);
-            ServiceConfiguration.ConfigureServices(services);
-
-            UseMigrator.UseMigrations(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

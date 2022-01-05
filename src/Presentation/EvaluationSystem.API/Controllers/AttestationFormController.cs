@@ -5,7 +5,7 @@ namespace EvaluationSystem.API.Controllers
 {
     [ApiController]
     [Route("api/attestationForms")]
-    public class AttestationFormsController : ControllerBase
+    public class AttestationFormsController : BaseController
     {
         private readonly IAttestationFormsServices _attestationFormsServices;
 
