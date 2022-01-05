@@ -78,6 +78,15 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
                 .ForMember(p => p.QuestionPosition, opts => opts.MapFrom(h => h.QuestionPosition))
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(l => l.Name))
                 .ForMember(p => p.DateOfCreation, opts => opts.MapFrom(j => j.DateOfCreation));
+
+            //AttestationsServices
+            //CreateMap<QuestionDetailDto, CreateFormModuleQuestionDto>()
+            //    .ForMember(q => q.QuestionName, opts => opts.MapFrom(r => r.QuestionName))
+            //    .ForMember(p => p.Answers, opts => opts.MapFrom(t => t.Answers))
+            //    .ForMember(q => q.Type, opts => opts.MapFrom(w => w.Type)); // maybe problem here Type and int
+            CreateMap<QuestionInModuleDto, CreateFormModuleQuestionDto>()
+                .ForMember(q => q.QuestionName, opts => opts.MapFrom(t => t.Name))
+                .ForMember(p => p.QuestionPosition, opts => opts.MapFrom(o => o.Position));
         }
     }
 }

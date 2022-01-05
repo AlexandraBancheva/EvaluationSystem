@@ -41,6 +41,13 @@ namespace EvaluationSystem.Application.Profiles.FormProfile
             CreateMap<FormTemplateDto, FormTemplate>()
                 .ForMember(f => f.Name, opts => opts.MapFrom(p => p.Name))
                 .ForMember(g => g.Modules, opts => opts.MapFrom(y => y.Modules));
+
+            // AttestationsServices
+            //CreateMap<FormDetailDto, CreateFormDto>()
+            //    .ForMember(f => f.FormName, opts => opts.MapFrom(d => d.Name))
+            //    .ForMember(p => p.Modules, opts => opts.MapFrom(s => s.Modules));
+            CreateMap<FormWithAllDto, CreateFormDto>()
+                .ForMember(f => f.FormName, opts => opts.MapFrom(y => y.Name));
         }
     }
 }

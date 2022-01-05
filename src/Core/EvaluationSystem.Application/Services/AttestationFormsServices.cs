@@ -42,13 +42,6 @@ namespace EvaluationSystem.Application.Services
         public int CreateNewForm(CreateFormDto form)
         {
             var currentForm = _mapper.Map<AttestationFormDto>(form);
-            var IsExist = CheckIfFormNameExists(currentForm.Name, _attestationFormRepository);
-
-            if (IsExist == false)
-            {
-                throw new InvalidOperationException($"The form name '{currentForm.Name}' already exists.");
-            }
-
             var attestationFormId = _attestationFormRepository.Insert(_mapper.Map<AttestationForm>(currentForm));
 
             foreach (var module in currentForm.Modules)
@@ -61,19 +54,17 @@ namespace EvaluationSystem.Application.Services
 
                 foreach (var question in attestationQuestions)
                 {
-                    var newAttestationQuestion = _attestationQuestionsServices.CreateNewQuestion(attestationModuleId, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
+                    var newAttestationQuestionId = _attestationQuestionsServices.CreateNewQuestion(attestationModuleId, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
 
                     var attestationAnswers = question.Answers;
 
                     foreach (var answer in attestationAnswers)
                     {
-                        answer.IdQuestion = newAttestationQuestion.IdQuestion;
+                        answer.IdQuestion = newAttestationQuestionId;
                         _attestationAnswerRepository.Insert(_mapper.Map<AttestationAnswer>(answer));
                     }
                 }
             }
-
-            // 03.01.2022
             return attestationFormId;
         }
 

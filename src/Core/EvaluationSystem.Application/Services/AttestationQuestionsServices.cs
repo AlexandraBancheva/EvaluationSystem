@@ -22,7 +22,7 @@ namespace EvaluationSystem.Application.Services
             _attestationModuleQuestionRepository = attestationModuleQuestionRepository;
         }
 
-        public CustomQuestionDetailDto CreateNewQuestion(int moduleId, int position, CreateQuestionDto model) // Maybe return int???
+        public int CreateNewQuestion(int moduleId, int position, CreateQuestionDto model) // Maybe return int??? CustomQuestionDetailDto
         {
             var currentQuestion = _mapper.Map<AttestationQuestion>(model);
             currentQuestion.IsReusable = false;
@@ -30,7 +30,7 @@ namespace EvaluationSystem.Application.Services
             int questionId = _attestationQuestionRepository.Insert(currentQuestion);
             _attestationModuleQuestionRepository.AddNewQuestionToModule(moduleId, questionId, position);
 
-            return GetCustomQuestionById(questionId);
+            return questionId;//GetCustomQuestionById(questionId);
         }
 
         public void DeleteAttestationQuestion(int questionId)

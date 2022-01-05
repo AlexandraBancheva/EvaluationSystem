@@ -26,7 +26,7 @@ namespace EvaluationSystem.Application.Middlewares
                 var userId = userRepository.Insert(new Domain.Entities.User() { Email = userEmail, Name = username});
             }
 
-            currentUser.Id = user.IdUser;
+            currentUser.Id = user.Id;
             currentUser.Name = user.Name;
             currentUser.Email = user.Email;
 

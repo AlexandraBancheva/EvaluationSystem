@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using EvaluationSystem.Application.Models.Attestations;
 using EvaluationSystem.Application.Models.Participants;
+using EvaluationSystem.Application.Models.Users;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Persistence.QuestionDatabase;
@@ -35,20 +36,22 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             _connection.Execute(query, new { IdAttestation = attestationId }, _transaction);
         }
 
+        // Problem! 05.01.2022
         public ICollection<AttestationInfoDbDto> GetAllAttestation()
         {
-            var query = @"SELECT * FROM [Attestation] AS [at]
-                        LEFT JOIN [User] AS u ON u.IdUser = [at].IdUserToEvaluate
-                        LEFT JOIN AttestationForm AS af ON [at].IdForm = af.Id
-                        LEFT JOIN AttestationParticipant AS ap ON ap.IdAttestation = [at].Id
-                        RIGHT JOIN [User] AS up ON up.IdUser = ap.IdUserParticipant";
+            var query = @"SELECT *
+                        FROM [Attestation] AS [at]
+                        JOIN [User] AS u ON u.Id = [at].IdUserToEvaluate
+                        JOIN AttestationForm AS af ON [at].IdForm = af.Id
+                        JOIN AttestationParticipant AS ap ON ap.IdAttestation = [at].Id
+                        JOIN [User] AS up ON up.Id = ap.IdUserParticipant";
 
             var attestationDictionary = new Dictionary<int, AttestationInfoDbDto>();
-            var attestations = _connection.Query<AttestationInfoDbDto, ParticipantsInfoDbDto, AttestationInfoDbDto>(query, (attest, participant) =>
+            var attestations = _connection.Query<AttestationInfoDbDto, ParticipantsInfoDbDto, AttestationInfoDbDto>(query, (attestation, participant) =>
             {
-                if (attestationDictionary.TryGetValue(attest.Id, out var currentAttest))
+                if (!attestationDictionary.TryGetValue(attestation.Id, out var currentAttest))
                 {
-                    currentAttest = attest;
+                    currentAttest = attestation;
                     attestationDictionary.Add(currentAttest.Id, currentAttest);
                 }
 

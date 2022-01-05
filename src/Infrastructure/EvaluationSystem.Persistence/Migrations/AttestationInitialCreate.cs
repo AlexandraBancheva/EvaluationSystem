@@ -15,7 +15,7 @@ namespace EvaluationSystem.Persistence.Migrations
             Create.Table("Attestation")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity()
                 .WithColumn("IdForm").AsInt32().ForeignKey("AttestationForm", "Id").NotNullable()
-                .WithColumn("IdUserToEvaluate").AsInt32().ForeignKey("User", "IdUser").NotNullable()
+                .WithColumn("IdUserToEvaluate").AsInt32().ForeignKey("User", "Id").NotNullable()
                 .WithColumn("CreateDate").AsDateTime2().NotNullable();
         }
     }

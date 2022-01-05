@@ -5,10 +5,10 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IAttestationsServices
     {
-        void CreateAttestation(CreateAttestationDto model);
+        AttestationDetailDto CreateAttestation(CreateAttestationDto model);
 
         void DeleteAttestation(int attestationId);
 
-        IEnumerable<AttestationInfoDbDto> GetAllAttestations();
+        ICollection<AttestationInfoDbDto> GetAllAttestations();
     }
 }

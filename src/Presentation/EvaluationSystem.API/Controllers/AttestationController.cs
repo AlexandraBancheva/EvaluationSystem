@@ -17,8 +17,8 @@ namespace EvaluationSystem.API.Controllers
         [HttpPost]
         public IActionResult CreateAttestation([FromBody] CreateAttestationDto model)
         {
-            _attestationsServices.CreateAttestation(model);
-            return Ok();
+            var result = _attestationsServices.CreateAttestation(model);
+            return Ok(result);
         }
 
         [HttpDelete("{attestationId}")]

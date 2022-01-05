@@ -8,6 +8,6 @@ namespace EvaluationSystem.Application.Models.Participants
 
         public string Email { get; set; }
 
-        public Status ParticipantStatus { get; set; }
+        public string ParticipantStatus { get; set; }
     }
 }

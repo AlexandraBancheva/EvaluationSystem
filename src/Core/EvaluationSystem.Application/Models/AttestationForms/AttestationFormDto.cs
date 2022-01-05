@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 
 namespace EvaluationSystem.Application.Models.AttestationForms
 {
@@ -7,13 +6,13 @@ namespace EvaluationSystem.Application.Models.AttestationForms
     {
         public AttestationFormDto()
         {
-            this.Modules = new HashSet<ModuleTemplateDto>();
+            this.Modules = new HashSet<AttestationModuleDto>();
         }
 
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public virtual ICollection<ModuleTemplateDto> Modules { get; set; }
+        public virtual ICollection<AttestationModuleDto> Modules { get; set; }
     }
 }

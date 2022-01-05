@@ -15,7 +15,7 @@ namespace EvaluationSystem.Persistence.Migrations
             Create.Table("AttestationParticipant")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity()
                 .WithColumn("IdAttestation").AsInt32().ForeignKey("Attestation", "Id").NotNullable()
-                .WithColumn("IdUserParticipant").AsInt32().ForeignKey("User", "IdUser").NotNullable()
+                .WithColumn("IdUserParticipant").AsInt32().ForeignKey("User", "Id").NotNullable()
                 .WithColumn("Status").AsString().NotNullable()
                 .WithColumn("Position").AsString().NotNullable();
         }

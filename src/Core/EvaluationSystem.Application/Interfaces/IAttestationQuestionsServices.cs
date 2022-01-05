@@ -5,7 +5,7 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IAttestationQuestionsServices
     {
-        CustomQuestionDetailDto CreateNewQuestion(int moduleId, int position, CreateQuestionDto model); //  
+        int CreateNewQuestion(int moduleId, int position, CreateQuestionDto model); //  
 
         void DeleteAttestationQuestion(int questionId);
 

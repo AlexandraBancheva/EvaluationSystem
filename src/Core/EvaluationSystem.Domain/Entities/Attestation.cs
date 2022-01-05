@@ -4,7 +4,7 @@ namespace EvaluationSystem.Domain.Entities
 {
     public class Attestation
     {
-        public int IdAttestation { get; set; }
+        public int Id { get; set; }
 
         public int IdForm { get; set; }
 

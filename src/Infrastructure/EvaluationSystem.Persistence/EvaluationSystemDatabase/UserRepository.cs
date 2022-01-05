@@ -27,19 +27,19 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"SELECT * FROM [User]
                         WHERE Email = @Email";
 
-            var result = _connection.Query<User>(query, new { Email = email }, _transaction);
+            var result = _connection.QueryFirstOrDefault<User>(query, new { Email = email }, _transaction);
 
-            return (User)result;
+            return result;
         }
 
         public IEnumerable<UserToEvaluateDto> GetUsersToEvaluate(string email)
         {
             var query = @"SELECT a.Id AS IdAttestation, a.IdForm, u.[Email] 
                         FROM [User] AS u
-                        JOIN [Attestation] AS a ON a.IdUserToEvaluate = u.IdUser
+                        JOIN [Attestation] AS a ON a.IdUserToEvaluate = u.Id
                         JOIN [AttestationParticipant] AS ap ON ap.IdAttestation = a.Id
-                        JOIN [User] AS ue ON ap.IdUserParticipant = ue.IdUser
-                        WHERE ue.Email = @Email AND ap.[Status] = 1";
+                        JOIN [User] AS ue ON ap.IdUserParticipant = ue.Id
+                        WHERE ue.Email = @Email AND ap.[Status] = 'Open'";
 
             var users = _connection.Query<UserToEvaluateDto>(query, new { Email = email }, _transaction);
 
