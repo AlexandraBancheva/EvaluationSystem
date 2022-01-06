@@ -1,12 +1,11 @@
 ﻿using Dapper;
 using EvaluationSystem.Application.Models.Attestations;
+using System.Linq;
+using System.Collections.Generic;
 using EvaluationSystem.Application.Models.Participants;
-using EvaluationSystem.Application.Models.Users;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Persistence.QuestionDatabase;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 {

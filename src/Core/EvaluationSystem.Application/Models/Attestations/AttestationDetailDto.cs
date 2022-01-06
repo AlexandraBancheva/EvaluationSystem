@@ -19,7 +19,7 @@ namespace EvaluationSystem.Application.Models.Attestations
 
         public string Status { get; set; }
 
-        public DateTime DateOfCreation { get; set; }
+        public DateTime CreateDate { get; set; }
 
         public virtual ICollection<ParticipantDetailDto> UserParticipants { get; set; }
     }

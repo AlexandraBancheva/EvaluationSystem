@@ -125,6 +125,7 @@ namespace EvaluationSystem.Application.Services
                     Id = attestationId,
                     Username = userForEvaluate.Name,
                     FormName = attestationForm.Name,
+                    CreateDate = attestationForInsert.CreateDate,
                     Status = Status.Open.ToString(),
                     UserParticipants = new List<ParticipantDetailDto>(),
                 };
