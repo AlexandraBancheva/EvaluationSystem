@@ -49,7 +49,8 @@ namespace EvaluationSystem.Application.Services
                     _userAnswerRepository.Insert(attestationAnswer);
                 }
             }
-            
+
+            _userAnswerRepository.ChangeStatusToDone(model.IdAttestation, _currentUser.Id);
         }
     }
 }
