@@ -36,10 +36,9 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             _connection.Execute(query, new { IdAttestation = attestationId }, _transaction);
         }
 
-        // Problem! 05.01.2022
         public ICollection<AttestationInfoDbDto> GetAllAttestation()
         {
-            var query = @"SELECT *
+            var query = @"SELECT [at].Id AS IdAttestation, [af].Id AS IdForm, u.[Name] AS Username, af.[Name] AS FormName, ap.[Status] AS Status, [at].CreateDate, up.Id AS IdUser, up.[Name] AS ParticipantUser, up.[Email] AS ParticipantEmail, ap.[Status] AS ParticipantStatus
                         FROM [Attestation] AS [at]
                         JOIN [User] AS u ON u.Id = [at].IdUserToEvaluate
                         JOIN AttestationForm AS af ON [at].IdForm = af.Id
@@ -49,15 +48,15 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             var attestationDictionary = new Dictionary<int, AttestationInfoDbDto>();
             var attestations = _connection.Query<AttestationInfoDbDto, ParticipantsInfoDbDto, AttestationInfoDbDto>(query, (attestation, participant) =>
             {
-                if (!attestationDictionary.TryGetValue(attestation.Id, out var currentAttest))
+                if (!attestationDictionary.TryGetValue(attestation.IdAttestation, out var currentAttest))
                 {
                     currentAttest = attestation;
-                    attestationDictionary.Add(currentAttest.Id, currentAttest);
+                    attestationDictionary.Add(currentAttest.IdAttestation, currentAttest);
                 }
 
                 currentAttest.Participants.Add(participant);
                 return currentAttest;
-            }, _transaction, splitOn: "Id")
+            }, _transaction, splitOn: "IdUser")
                 .Distinct()
                 .ToList();
 

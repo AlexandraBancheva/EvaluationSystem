@@ -1,8 +1,7 @@
-﻿using EvaluationSystem.Application.Models.Participants;
-using EvaluationSystem.Application.Models.Users;
-using EvaluationSystem.Domain.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using EvaluationSystem.Application.Models.Participants;
+using EvaluationSystem.Domain.Enums;
 
 namespace EvaluationSystem.Application.Models.Attestations
 {
@@ -13,9 +12,11 @@ namespace EvaluationSystem.Application.Models.Attestations
             this.Participants = new HashSet<ParticipantsInfoDbDto>();
         }
 
-        public int Id { get; set; }
+        public int IdAttestation { get; set; }
 
-        public UserInfoDto User { get; set; }
+        public  string Username { get; set; }
+
+        public int IdForm { get; set; }
 
         public string FormName { get; set; }
 

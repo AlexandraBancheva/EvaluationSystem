@@ -43,6 +43,12 @@ namespace EvaluationSystem.Application.Services
         public AttestationDetailDto CreateAttestation(CreateAttestationDto model)
         {
             var formId = model.IdForm;
+            var isExist = _formRepository.GetById(formId);
+
+            if (isExist == null)
+            {
+                throw new Exception("This form id doesn't exist!");
+            }
 
             var form = _formRepository.GetAllByFormId(formId);
             var attestation = new AttestationDetailDto();
@@ -143,7 +149,7 @@ namespace EvaluationSystem.Application.Services
         public ICollection<AttestationInfoDbDto> GetAllAttestations()
         {
             var attestations = _attestationRepository.GetAllAttestation();
-            
+
             foreach (var attestation in attestations)
             {
                 if (attestation.Participants.All(p => p.ParticipantStatus == Status.Done))

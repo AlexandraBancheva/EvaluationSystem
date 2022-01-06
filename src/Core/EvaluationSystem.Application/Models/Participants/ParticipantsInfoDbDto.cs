@@ -4,9 +4,9 @@ namespace EvaluationSystem.Application.Models.Participants
 {
     public class ParticipantsInfoDbDto
     {
-        public string Name { get; set; }
+        public string ParticipantUser { get; set; }
 
-        public string Email { get; set; }
+        public string ParticipantEmail { get; set; }
 
         public Status ParticipantStatus { get; set; }
     }
