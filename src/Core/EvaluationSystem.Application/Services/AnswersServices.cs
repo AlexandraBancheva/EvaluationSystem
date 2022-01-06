@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using EvaluationSystem.Domain.Enums;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 using EvaluationSystem.Application.Models.Questions;
-using System.Collections.Generic;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -43,7 +43,7 @@ namespace EvaluationSystem.Application.Services
                     var isNumeric = int.TryParse(current.AnswerText, out var answerNum);
                     if (!isNumeric)
                     {
-                        throw new InvalidOperationException("Answer type must be numeric!");
+                        throw new InvalidOperationException("Answer must be numeric!");
                     }
                 }
 

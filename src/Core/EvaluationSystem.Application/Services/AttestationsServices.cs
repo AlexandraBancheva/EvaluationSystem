@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using AutoMapper;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Attestations;
 using EvaluationSystem.Application.Models.Forms;
@@ -7,16 +10,12 @@ using EvaluationSystem.Application.Models.Users;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace EvaluationSystem.Application.Services
 {
     public class AttestationsServices : IAttestationsServices
     {
         private readonly IUserRepository _userRepository;
-        private readonly IFormsServices _formsServices;
         private readonly IAttestationRepository _attestationRepository;
         private readonly IAttestationFormRepository _attestationFormRepository;
         private readonly IFormRepository _formRepository;
@@ -26,7 +25,6 @@ namespace EvaluationSystem.Application.Services
         public AttestationsServices(IUserRepository userRepository, 
                                     IAttestationRepository attestationRepository,
                                     IAttestationFormRepository attestationFormRepository,
-                                    IFormsServices formsServices,
                                     IFormRepository formRepository,
                                     IAttestationFormsServices attestationFormsServices, 
                                     IMapper mapper)
@@ -35,7 +33,6 @@ namespace EvaluationSystem.Application.Services
             _attestationRepository = attestationRepository;
             _attestationFormRepository = attestationFormRepository;
             _formRepository = formRepository;
-            _formsServices = formsServices;
             _attestationFormsServices = attestationFormsServices;
             _mapper = mapper;
         }
