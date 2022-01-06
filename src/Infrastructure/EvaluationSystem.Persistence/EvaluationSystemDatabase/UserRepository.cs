@@ -32,16 +32,16 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             return result;
         }
 
-        public IEnumerable<UserToEvaluateDto> GetUsersToEvaluate(string email)
+        public IEnumerable<UserToEvaluateDto> GetUsersToEvaluate(int idParticipant)
         {
-            var query = @"SELECT a.Id AS IdAttestation, a.IdForm, u.[Email] 
-                        FROM [User] AS u
-                        JOIN [Attestation] AS a ON a.IdUserToEvaluate = u.Id
-                        JOIN [AttestationParticipant] AS ap ON ap.IdAttestation = a.Id
-                        JOIN [User] AS ue ON ap.IdUserParticipant = ue.Id
-                        WHERE ue.Email = @Email AND ap.[Status] = 'Open'";
+            var query = @"SELECT [at].Id AS IdAttestation, [at].IdForm, u.[Email] 
+                            FROM Attestation AS [at]
+                            LEFT JOIN [User] AS u ON [at].IdUserToEvaluate = u.Id
+                            LEFT JOIN AttestationForm AS af ON [at].IdForm = af.Id
+                            LEFT JOIN AttestationParticipant AS ap ON ap.IdAttestation = [at].Id
+                            WHERE ap.IdUserParticipant = @IdParticipant AND ap.[Status] = 'Open'";
 
-            var users = _connection.Query<UserToEvaluateDto>(query, new { Email = email }, _transaction);
+            var users = _connection.Query<UserToEvaluateDto>(query, new { IdParticipant = idParticipant }, _transaction);
 
             return users;
         }

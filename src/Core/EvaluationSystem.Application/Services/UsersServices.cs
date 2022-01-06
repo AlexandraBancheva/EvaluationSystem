@@ -28,7 +28,8 @@ namespace EvaluationSystem.Application.Services
 
         public IEnumerable<UserToEvaluateDto> GetUsersToEvaluate()
         {
-            var res = _userRepository.GetUsersToEvaluate(_currentUser.Email);
+            var participantId = _currentUser.Id;
+            var res = _userRepository.GetUsersToEvaluate(participantId);
             return res;
         }
     }
