@@ -91,7 +91,6 @@ namespace EvaluationSystem.Application.Services
 
         public IEnumerable<ListQuestionsAnswersDto> GetAllQuestionTemplatesWithTheirAnswers()
         {
-            // throw new NotImplementedException();
             var allQuestionTemplates = _questionRepository.GetAllQuestionTemplates();
 
             return _mapper.Map<IEnumerable<ListQuestionsAnswersDto>>(allQuestionTemplates);

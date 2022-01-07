@@ -1,13 +1,13 @@
-﻿using Dapper;
+﻿using System.Collections.Generic;
+using Dapper;
 using EvaluationSystem.Application.Models.FormModules;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Persistence.QuestionDatabase;
-using System.Collections.Generic;
 
 namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 {
-    public class AttestationFormModuleRepository : QuestionDatabase.BaseRepository<AttestationFormModule>, IAttestationFormModuleRepository
+    public class AttestationFormModuleRepository : BaseRepository<AttestationFormModule>, IAttestationFormModuleRepository
     {
         public AttestationFormModuleRepository(IUnitOfWork unitOfWork) 
             : base(unitOfWork)

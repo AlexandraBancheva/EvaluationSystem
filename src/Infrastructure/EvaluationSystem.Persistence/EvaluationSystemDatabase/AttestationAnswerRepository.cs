@@ -1,12 +1,12 @@
-﻿using Dapper;
+﻿using System.Collections.Generic;
+using Dapper;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Persistence.QuestionDatabase;
-using System.Collections.Generic;
 
 namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 {
-    public class AttestationAnswerRepository : QuestionDatabase.BaseRepository<AttestationAnswer>, IAttestationAnswerRepository
+    public class AttestationAnswerRepository : BaseRepository<AttestationAnswer>, IAttestationAnswerRepository
     {
         public AttestationAnswerRepository(IUnitOfWork unitOfWork) 
             : base(unitOfWork)

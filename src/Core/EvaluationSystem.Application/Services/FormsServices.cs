@@ -1,6 +1,6 @@
 ﻿using System;
-using AutoMapper;
 using System.Collections.Generic;
+using AutoMapper;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Forms;
@@ -16,10 +16,7 @@ namespace EvaluationSystem.Application.Services
         private readonly IFormRepository _formRepository;
         private readonly IFormModuleRepository _formModuleRepository;
         private readonly IModuleRepository _moduleRepository;
-        private readonly IModulesServices _modulesServices;
         private readonly IModuleQuestionRepository _moduleQuestionRepository;
-        private readonly ICustomQuestionsRepository _customQuestionsRepository;
-        private readonly IQuestionRepository _questionRepository;
         private readonly IAnswerRepository _answerRepository;
         private readonly ICustomQuestionsServices _questionCustomServices;
         private readonly IMapper _mapper;
@@ -28,20 +25,14 @@ namespace EvaluationSystem.Application.Services
             IFormRepository formRepository,
             IFormModuleRepository formModuleRepository, 
             IModuleRepository moduleRepository,
-            IModulesServices modulesServices,
             IModuleQuestionRepository moduleQuestionRepository,
             ICustomQuestionsServices questionCustomServices,
-            IQuestionRepository questionRepository,
-            IAnswerRepository answerRepository, 
-            ICustomQuestionsRepository customQuestionsRepository)
+            IAnswerRepository answerRepository)
         {
             _formRepository = formRepository;
             _formModuleRepository = formModuleRepository;
             _moduleRepository = moduleRepository;
-            _modulesServices = modulesServices;
             _moduleQuestionRepository = moduleQuestionRepository;
-            _customQuestionsRepository = customQuestionsRepository;
-            _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _questionCustomServices = questionCustomServices;
             _mapper = mapper;

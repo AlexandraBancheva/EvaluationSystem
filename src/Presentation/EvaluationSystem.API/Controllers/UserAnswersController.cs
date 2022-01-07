@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EvaluationSystem.API.Controllers
 {
     [ApiController]
-    [Route("api/UserAnswers")]
+    [Route("api/UserAnswers/")]
     public class UserAnswersController : BaseController
     {
         private readonly IUserAnswersServices _userAnswersServices;
@@ -22,7 +22,8 @@ namespace EvaluationSystem.API.Controllers
             return Ok();
         }
 
-        [HttpGet("{attestationId}")]
+        [HttpGet()]
+        [Route("{attestationId}/{userEmail}")]
         public IActionResult GetAttestationAnswerByUser(int attestationId, string userEmail)
         {
             var res = _userAnswersServices.GetAttestationAnswerByUser(attestationId, userEmail);

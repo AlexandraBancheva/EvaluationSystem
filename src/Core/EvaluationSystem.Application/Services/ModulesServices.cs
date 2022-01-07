@@ -1,12 +1,11 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Application.Models.Modules;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
-using System.Collections.Generic;
 using EvaluationSystem.Application.Models.FormModules;
-using System;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -36,7 +35,6 @@ namespace EvaluationSystem.Application.Services
             var currentEntity = _mapper.Map<ModuleTemplate>(model);
             var newEntityId = _moduleRepository.Insert(currentEntity);
             _formModulesServices.AddModulesInForm(formId, newEntityId, model.Position);
-
 
             return GetCurrentModuleById(formId, newEntityId);
         }

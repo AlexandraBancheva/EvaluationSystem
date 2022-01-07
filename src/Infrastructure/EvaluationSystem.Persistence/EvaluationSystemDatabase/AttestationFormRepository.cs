@@ -7,10 +7,11 @@ using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Persistence.QuestionDatabase;
 
 namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 {
-    public class AttestationFormRepository : QuestionDatabase.BaseRepository<AttestationForm>, IAttestationFormRepository
+    public class AttestationFormRepository : BaseRepository<AttestationForm>, IAttestationFormRepository
     {
         public AttestationFormRepository(IUnitOfWork unitOfWork) 
             : base(unitOfWork)

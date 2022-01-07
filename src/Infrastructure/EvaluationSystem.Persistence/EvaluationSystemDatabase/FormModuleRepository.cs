@@ -12,7 +12,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         public FormModuleRepository(IUnitOfWork unitOfWork)
             : base(unitOfWork) 
         {
-
         }
 
         public void AddNewModuleInForm(int formId, int moduleId, int position)
