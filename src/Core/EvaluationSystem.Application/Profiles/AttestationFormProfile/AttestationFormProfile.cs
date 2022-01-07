@@ -9,11 +9,15 @@ namespace EvaluationSystem.Application.Profiles.AttestationFormProfile
     {
         public AttestationFormProfile()
         {
-            // 05.01.22
             CreateMap<CreateFormDto, AttestationFormDto>()
                 .ForMember(f => f.Name, opts => opts.MapFrom(p => p.FormName));
 
             CreateMap<AttestationFormDto, AttestationForm>();
+
+            CreateMap<FormDetailDto, AttestationFormDetailDto>()
+                .ForMember(f => f.Modules, opts => opts.MapFrom(p => p.Modules))
+                .ForMember(g => g.Name, opts => opts.MapFrom(r => r.Name))
+                .ForMember(y => y.Id, opts => opts.MapFrom(k => k.Id));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.AttestationForms;
 using EvaluationSystem.Application.Models.Forms;
@@ -7,8 +8,6 @@ using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
-using System;
-using System.Collections.Generic;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -19,6 +18,7 @@ namespace EvaluationSystem.Application.Services
         private readonly IAttestationAnswerRepository _attestationAnswerRepository;
         private readonly IAttestationModuleQuestionRepository _attestationModuleQuestionRepository;
         private readonly IAttestationFormModuleRepository _attestationFormModuleRepository;
+        private readonly IAttestationRepository _attestationRepository;
         private readonly IAttestationQuestionsServices _attestationQuestionsServices;
         private IMapper _mapper;
 
@@ -28,6 +28,7 @@ namespace EvaluationSystem.Application.Services
                                         IAttestationAnswerRepository attestationAnswerRepository,
                                         IAttestationFormModuleRepository attestationFormModuleRepository,
                                         IAttestationQuestionsServices attestationQuestionsServices, 
+                                        IAttestationRepository attestationRepository,
                                         IMapper mapper)
         {
             _attestationFormRepository = attestationFormRepository;
@@ -35,6 +36,7 @@ namespace EvaluationSystem.Application.Services
             _attestationModuleQuestionRepository = attestationModuleQuestionRepository;
             _attestationAnswerRepository = attestationAnswerRepository;
             _attestationFormModuleRepository = attestationFormModuleRepository;
+            _attestationRepository = attestationRepository;
             _attestationQuestionsServices = attestationQuestionsServices;
             _mapper = mapper;
         }
@@ -57,11 +59,13 @@ namespace EvaluationSystem.Application.Services
                     var newAttestationQuestionId = _attestationQuestionsServices.CreateNewQuestion(attestationModuleId, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
 
                     var attestationAnswers = question.Answers;
-
                     foreach (var answer in attestationAnswers)
                     {
-                        answer.IdQuestion = newAttestationQuestionId;
-                        _attestationAnswerRepository.Insert(_mapper.Map<AttestationAnswer>(answer));
+                        if (answer != null)
+                        {
+                            answer.IdQuestion = newAttestationQuestionId;
+                            _attestationAnswerRepository.Insert(_mapper.Map<AttestationAnswer>(answer));
+                        }     
                     }
                 }
             }
@@ -89,24 +93,10 @@ namespace EvaluationSystem.Application.Services
             _attestationFormRepository.DeleteAttestationForm(formId);
         }
 
-        public static bool CheckIfFormNameExists(string formName, IAttestationFormRepository attestationFormRepository)
+        public ICollection<FormDetailDto> GetFormById(int attestationId)
         {
-            var allNames = attestationFormRepository.GetAllFormNames();
-
-            foreach (var name in allNames)
-            {
-                if (name.Name == formName)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        public ICollection<FormDetailDto> GetFormById(int formId)
-        {
-            var results = _attestationFormRepository.GetAllByFormId(formId);
+            var attestation = _attestationRepository.GetById(attestationId);
+            var results = _attestationFormRepository.GetAllByFormId(attestation.IdForm);
             ModuleInFormDto tempModule = new ModuleInFormDto();
             QuestionInModuleDto tempQuestion = new QuestionInModuleDto();
 
@@ -149,5 +139,21 @@ namespace EvaluationSystem.Application.Services
             var res = _mapper.Map<ICollection<FormDetailDto>>(results);
             return res;
         }
+
+        public static bool CheckIfFormNameExists(string formName, IAttestationFormRepository attestationFormRepository)
+        {
+            var allNames = attestationFormRepository.GetAllFormNames();
+
+            foreach (var name in allNames)
+            {
+                if (name.Name == formName)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
     }
 }

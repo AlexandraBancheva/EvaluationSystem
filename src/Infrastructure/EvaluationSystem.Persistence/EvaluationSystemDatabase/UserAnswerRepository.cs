@@ -1,7 +1,8 @@
-﻿using EvaluationSystem.Domain.Entities;
+﻿using System.Collections.Generic;
+using Dapper;
+using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Persistence.QuestionDatabase;
-using Dapper;
 
 namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 {
@@ -19,6 +20,16 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                         WHERE IdAttestation = @AttestationId AND IdUserParticipant = @IdUserParticipant";
 
             _connection.Execute(query, new { AttestationId = attestationId, IdUserParticipant = idUserParticipant }, _transaction);
+        }
+
+        public ICollection<UserAnswer> GetAllAnswersByUser(int attestationId, int userId)
+        {
+            var query = @"SELECT * FROM [UserAnswer]
+                        WHERE IdAttestation = @IdAttestation AND IdUserParticipant = @IdUserParticipant";
+
+            var results = _connection.Query<UserAnswer>(query, new { IdAttestation = attestationId, IdUserParticipant = userId}, _transaction);
+
+            return (ICollection<UserAnswer>)results;
         }
     }
 }

@@ -10,7 +10,6 @@ namespace EvaluationSystem.Application.Profiles.AttestationQuestionProfile
     {
         public AttestationQuestionProfile()
         {
-            // 05.01.2022
             CreateMap<CreateFormModuleQuestionDto, AttestationQuestionDto>()
                 .ForMember(q => q.Name, opts => opts.MapFrom(r => r.QuestionName))
                 .ForMember(t => t.QuestionPosition, opts => opts.MapFrom(q => q.QuestionPosition))
@@ -21,6 +20,8 @@ namespace EvaluationSystem.Application.Profiles.AttestationQuestionProfile
 
             CreateMap<CreateQuestionDto, AttestationQuestion>()
                 .ForMember(q => q.Name, opts => opts.MapFrom(t => t.QuestionName));
+
+            CreateMap<QuestionDetailDto, AttestationQuestionDetailDto>();
         }
     }
 }

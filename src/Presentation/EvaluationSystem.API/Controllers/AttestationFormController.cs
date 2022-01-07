@@ -14,10 +14,10 @@ namespace EvaluationSystem.API.Controllers
             _attestationFormsServices = attestationFormsServices;
         }
 
-        [HttpGet("{formId}")]
-        public IActionResult GetById(int formId)
+        [HttpGet("{attestationId}")]
+        public IActionResult GetById(int attestationId)
         {
-            var results = _attestationFormsServices.GetFormById(formId);
+            var results = _attestationFormsServices.GetFormById(attestationId);
             return Ok(results);
         }
     }

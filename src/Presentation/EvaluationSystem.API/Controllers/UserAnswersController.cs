@@ -21,5 +21,12 @@ namespace EvaluationSystem.API.Controllers
             _userAnswersServices.Create(model);
             return Ok();
         }
+
+        [HttpGet("{attestationId}")]
+        public IActionResult GetAttestationAnswerByUser(int attestationId, string userEmail)
+        {
+            var res = _userAnswersServices.GetAttestationAnswerByUser(attestationId, userEmail);
+            return Ok(res);
+        }
     }
 }
