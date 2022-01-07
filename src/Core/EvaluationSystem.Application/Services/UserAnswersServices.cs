@@ -44,7 +44,7 @@ namespace EvaluationSystem.Application.Services
                     {
                         throw new Exception("AnswerText is empty!");
                     }
-                    attestationAnswer.IdAttestationAnswer = 0;
+                    attestationAnswer.IdAttestationAnswer = null;
                     attestationAnswer.TextAnswer = body.AnswerText;
                     _userAnswerRepository.Insert(attestationAnswer);
                 }

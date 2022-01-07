@@ -12,7 +12,7 @@
 
         public int IdAttestationQuestion { get; set; }
 
-        public int IdAttestationAnswer { get; set; }
+        public int? IdAttestationAnswer { get; set; }
 
         public string TextAnswer { get; set; }
     }

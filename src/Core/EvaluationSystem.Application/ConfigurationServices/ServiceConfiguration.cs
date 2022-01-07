@@ -24,6 +24,7 @@ namespace EvaluationSystem.Application.ConfigurationServices
             services.AddScoped<IAttestationFormsServices, AttestationFormsServices>();
             services.AddScoped<IAttestationFormModulesServices, AttestationFormModulesServices>();
             services.AddScoped<IAttestationsServices, AttestationsServices>();
+            services.AddScoped<IUserAnswersServices, UserAnswersServices>();
         }
     }
 }
