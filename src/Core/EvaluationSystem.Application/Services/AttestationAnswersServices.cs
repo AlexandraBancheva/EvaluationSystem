@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
-using EvaluationSystem.Application.Interfaces;
-using EvaluationSystem.Application.Models.Answers.AnswersDtos;
-using EvaluationSystem.Application.Models.Questions;
-using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Interfaces;
+using EvaluationSystem.Application.Repositories;
+using EvaluationSystem.Application.Models.Questions;
+using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 
 namespace EvaluationSystem.Application.Services
 {

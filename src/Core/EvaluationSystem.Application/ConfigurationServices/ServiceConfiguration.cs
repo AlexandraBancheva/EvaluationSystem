@@ -7,7 +7,7 @@ namespace EvaluationSystem.Application.ConfigurationServices
 {
     public static class ServiceConfiguration
     {
-        public static void ConfigureServices(IServiceCollection services)
+        public static IServiceCollection AddConfigurationServices(this IServiceCollection services)
         {
             services.AddScoped<IQuestionTemplatesServices, QuestionTemplatesServices>();
             services.AddScoped<ICustomQuestionsServices, CustomQuestionsServices>();
@@ -25,6 +25,8 @@ namespace EvaluationSystem.Application.ConfigurationServices
             services.AddScoped<IAttestationFormModulesServices, AttestationFormModulesServices>();
             services.AddScoped<IAttestationsServices, AttestationsServices>();
             services.AddScoped<IUserAnswersServices, UserAnswersServices>();
+
+            return services;
         }
     }
 }

@@ -37,8 +37,9 @@ namespace EvaluationSystem.Application.Services
             currentEntity.DateOfCreation = DateTime.UtcNow;
             currentEntity.IsReusable = true;
             var newEntityId = _questionRepository.Insert(currentEntity);
-
-            return GetQuestionById(newEntityId);
+            var question = _mapper.Map<QuestionDetailDto>(currentEntity);
+            question.IdQuestion = newEntityId;
+            return question;
         }
 
         public QuestionDetailDto UpdateCurrentQuestion(int questionId, UpdateQuestionDto model)

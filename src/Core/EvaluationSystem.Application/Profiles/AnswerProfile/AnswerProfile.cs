@@ -47,10 +47,11 @@ namespace EvaluationSystem.Application.Profiles.AnswerProfile
                 .ForMember(a => a.IdAnswer, opts => opts.MapFrom(p => p.Id))
                 .ForMember(r => r.AnswerText, opts => opts.MapFrom(k => k.AnswerText));
 
-            // AttestationsServices
-            //CreateMap<AnswerDetailDto, CreateFormModuleQuestionAnswerDto>()
-            //    .ForMember(a => a.AnswerText, opts => opts.MapFrom(r => r.AnswerName));
             CreateMap<AnswersInQuestionDto, CreateFormModuleQuestionAnswerDto>();
+
+            CreateMap<AnswerTemplate, AnswerDetailDto>()
+                .ForMember(a => a.IdAnswer, opts => opts.MapFrom(e => e.Id))
+                .ForMember(t => t.AnswerName, opts => opts.MapFrom(l => l.AnswerText));
         }
     }
 }

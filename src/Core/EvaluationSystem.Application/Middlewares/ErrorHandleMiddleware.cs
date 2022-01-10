@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using EvaluationSystem.Application.Exceptions;
 using EvaluationSystem.Application.Models.Errors;
 using EvaluationSystem.Application.Repositories;
 using FluentValidation;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 
 namespace EvaluationSystem.Application.Middlewares
 {
     public class ErrorHandleMiddleware
     {
         private readonly RequestDelegate _next;
-        private ILogger<ErrorHandleMiddleware> _logger;
+        private readonly ILogger _logger;
 
         public ErrorHandleMiddleware(RequestDelegate next, ILogger<ErrorHandleMiddleware> logger)
         {
-            _next = next;
             _logger = logger;
+            _next = next;
         }
 
         public async Task Invoke(HttpContext context, IUnitOfWork unitOfWork)

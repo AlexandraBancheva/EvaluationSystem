@@ -23,7 +23,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             WHERE IdForm = @FormId
                             DELETE FROM FormTemplate
                             WHERE Id = @FormId";
-            _connection.Execute(query, new { FormId = formId }, _transaction);
+            Connection.Execute(query, new { FormId = formId }, Transaction);
         }
 
         public ICollection<FormWithAllDto> GetAllForms()
@@ -39,7 +39,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var formDictionary = new Dictionary<int, FormWithAllDto>();
             var moduleDictionary = new Dictionary<int, ModuleInFormDto>();
             var questionDictionary = new Dictionary<int, QuestionInModuleDto>();
-            var forms = _connection.Query<FormWithAllDto, ModuleInFormDto, QuestionInModuleDto, AnswersInQuestionDto, FormWithAllDto>(query, (form, module, question, answer) =>
+            var forms = Connection.Query<FormWithAllDto, ModuleInFormDto, QuestionInModuleDto, AnswersInQuestionDto, FormWithAllDto>(query, (form, module, question, answer) =>
             {
                 if (!formDictionary.TryGetValue(form.Id, out var currentForm))
                 {
@@ -72,7 +72,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                 currentForm.Modules.Add(module);
                 return currentForm;
 
-            }, _transaction, splitOn: "Id, IdModule, IdQuestion, IdAnswer")
+            }, Transaction, splitOn: "Id, IdModule, IdQuestion, IdAnswer")
                 .Distinct()
                 .ToList();
 
@@ -94,7 +94,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var formDictionary = new Dictionary<int, FormWithAllDto>();
             var moduleDictionary = new Dictionary<int, ModuleInFormDto>();
             var questionDictionary = new Dictionary<int, QuestionInModuleDto>();
-            var results = _connection.Query<FormWithAllDto, ModuleInFormDto, QuestionInModuleDto, AnswersInQuestionDto, FormWithAllDto>(query, (form, module, question, answer) =>
+            var results = Connection.Query<FormWithAllDto, ModuleInFormDto, QuestionInModuleDto, AnswersInQuestionDto, FormWithAllDto>(query, (form, module, question, answer) =>
             {
                 if (!formDictionary.TryGetValue(form.Id, out var currentForm))
                 {
@@ -128,7 +128,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                 currentForm.Modules.Add(module);
                 return currentForm;
 
-            }, new { IdForm = formId }, _transaction, splitOn: "Id, IdModule, IdQuestion, IdAnswer")
+            }, new { IdForm = formId }, Transaction, splitOn: "Id, IdModule, IdQuestion, IdAnswer")
                 .Distinct()
                 .ToList();
 
@@ -139,7 +139,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
             var query = @"SELECT [Name] FROM FormTemplate";
 
-            var names = _connection.Query<CheckFormNameDto>(query, _transaction);
+            var names = Connection.Query<CheckFormNameDto>(query, Transaction);
 
             return (ICollection<CheckFormNameDto>)names;
         }

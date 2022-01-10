@@ -17,7 +17,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
             var query = @"SELECT * FROM [User]";
 
-            var users = _connection.Query<User>(query, _transaction);
+            var users = Connection.Query<User>(query, Transaction);
 
             return users;
         }
@@ -27,7 +27,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"SELECT * FROM [User]
                         WHERE Email = @Email";
 
-            var result = _connection.QueryFirstOrDefault<User>(query, new { Email = email }, _transaction);
+            var result = Connection.QueryFirstOrDefault<User>(query, new { Email = email }, Transaction);
 
             return result;
         }
@@ -41,7 +41,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             LEFT JOIN AttestationParticipant AS ap ON ap.IdAttestation = [at].Id
                             WHERE ap.IdUserParticipant = @IdParticipant AND ap.[Status] = 'Open'";
 
-            var users = _connection.Query<UserToEvaluateDto>(query, new { IdParticipant = idParticipant }, _transaction);
+            var users = Connection.Query<UserToEvaluateDto>(query, new { IdParticipant = idParticipant }, Transaction);
 
             return users;
         }

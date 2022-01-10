@@ -33,8 +33,10 @@ namespace EvaluationSystem.Application.Services
             currentQuestion.IsReusable = false;
             var questionId = _customQuestionsRepository.Insert(currentQuestion);
             _moduleQuestionsServices.AddQuestionToModule(moduleId, questionId, position);
+            var customQuestion = _mapper.Map<CustomQuestionDetailDto>(currentQuestion);
+            customQuestion.IdQuestion = questionId;
 
-            return GetCustomQuestionById(questionId);
+            return customQuestion;
         }
 
         public void DeleteCustomQuestion(int questionId)

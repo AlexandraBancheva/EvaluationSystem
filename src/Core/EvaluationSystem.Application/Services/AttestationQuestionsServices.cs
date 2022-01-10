@@ -1,10 +1,10 @@
 ﻿using System;
 using AutoMapper;
-using EvaluationSystem.Application.Interfaces;
-using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
-using EvaluationSystem.Application.Questions.QuestionsDtos;
-using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Interfaces;
+using EvaluationSystem.Application.Repositories;
+using EvaluationSystem.Application.Questions.QuestionsDtos;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -22,7 +22,7 @@ namespace EvaluationSystem.Application.Services
             _attestationModuleQuestionRepository = attestationModuleQuestionRepository;
         }
 
-        public int CreateNewQuestion(int moduleId, int position, CreateQuestionDto model) // Maybe return int??? CustomQuestionDetailDto
+        public int CreateNewQuestion(int moduleId, int position, CreateQuestionDto model)
         {
             var currentQuestion = _mapper.Map<AttestationQuestion>(model);
             currentQuestion.IsReusable = false;
@@ -30,7 +30,7 @@ namespace EvaluationSystem.Application.Services
             int questionId = _attestationQuestionRepository.Insert(currentQuestion);
             _attestationModuleQuestionRepository.AddNewQuestionToModule(moduleId, questionId, position);
 
-            return questionId;//GetCustomQuestionById(questionId);
+            return questionId;
         }
 
         public void DeleteAttestationQuestion(int questionId)

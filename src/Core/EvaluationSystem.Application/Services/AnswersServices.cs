@@ -4,16 +4,16 @@ using AutoMapper;
 using EvaluationSystem.Domain.Enums;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
-using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 using EvaluationSystem.Application.Models.Questions;
+using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 
 namespace EvaluationSystem.Application.Services
 {
     public class AnswersServices : IAnswersServices
     {
+        private readonly IMapper _mapper;
         private readonly IAnswerRepository _answerRepository;
         private readonly IQuestionRepository _questionRepository;
-        private readonly IMapper _mapper;
 
         public AnswersServices(IAnswerRepository answerRepository, 
                                IQuestionRepository questionRepository, 

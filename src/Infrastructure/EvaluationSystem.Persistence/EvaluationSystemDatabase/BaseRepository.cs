@@ -16,35 +16,35 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             _unitOfWork = unitOfWork;
         }
 
-        public IDbTransaction _transaction => _unitOfWork.Transaction;
+        public IDbTransaction Transaction => _unitOfWork.Transaction;
 
-        public IDbConnection _connection => _unitOfWork.Connection;
+        public IDbConnection Connection => _unitOfWork.Connection;
 
         public void Delete(T entity)
         {
-            _connection.Delete(entity, _transaction);
+            Connection.Delete(entity, Transaction);
         }
 
         public List<T> GetAll()
         {
-            return _connection.GetList<T>(null, null, _transaction).ToList();
+            return Connection.GetList<T>(null, null, Transaction).ToList();
         }
 
         public T GetById(int id)
         {
-            var res = _connection.Get<T>(id, _transaction);
+            var res = Connection.Get<T>(id, Transaction);
             return res;
         }
 
         public int Insert(T entity)
         {
-            var id = _connection.Insert<T>(entity, _transaction);
+            var id = Connection.Insert<T>(entity, Transaction);
             return (int)id;
         }
 
         public void Update(T entity)
         {
-            _connection.Update(entity, _transaction);
+            Connection.Update(entity, Transaction);
         }
     }
 }

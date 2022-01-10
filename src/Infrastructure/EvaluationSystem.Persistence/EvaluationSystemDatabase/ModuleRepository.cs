@@ -20,7 +20,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             WHERE IdModule = @ModuleId
                             DELETE ModuleTemplate
                             WHERE Id = @ModuleId";
-            _connection.Execute(query, new { ModuleId = moduleId }, _transaction);
+            Connection.Execute(query, new { ModuleId = moduleId }, Transaction);
         }
 
         public ModuleTemplateDto GetModuleById(int formId, int moduleId)
@@ -30,7 +30,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             LEFT JOIN ModuleTemplate AS mt ON mt.Id = fm.IdModule
                             WHERE IdForm = @IdForm and IdModule = @IdModule";
 
-            var result = _connection.QueryFirstOrDefault<ModuleTemplateDto>(query, new { IdForm = formId, IdModule = moduleId}, _transaction);
+            var result = Connection.QueryFirstOrDefault<ModuleTemplateDto>(query, new { IdForm = formId, IdModule = moduleId}, Transaction);
 
             return result;
         }
@@ -44,7 +44,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             JOIN FormTemplate AS ft ON ft.Id = fm.IdForm
                             WHERE IdForm = @IdForm and IdModule = @IdModule";
 
-            _connection.Execute(query, new { module.Name, IdForm = formId, IdModule = moduleId}, _transaction);
+            Connection.Execute(query, new { module.Name, IdForm = formId, IdModule = moduleId}, Transaction);
         }
     }
 }

@@ -4,28 +4,23 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using FluentValidation.AspNetCore;
 using EvaluationSystem.Persistence.Migrations;
 using EvaluationSystem.Application.Middlewares;
-using EvaluationSystem.Application.Validations;
 using EvaluationSystem.Persistence.Configurations;
 using EvaluationSystem.Application.ConfigurationServices;
 using EvaluationSystem.Application.Profiles.ModuleProfile;
 using EvaluationSystem.Application.Profiles.AnswerProfile;
 using EvaluationSystem.Application.Profiles.QuestionProfile;
-using EvaluationSystem.Application.Validations.AnswerValidations;
 using EvaluationSystem.Application.Validations.QuestionValidations;
-using EvaluationSystem.Application.Validations.ModuleValidations;
 using EvaluationSystem.Application.Profiles.ModuleQuestionProfile;
 using EvaluationSystem.Application.Profiles.FormProfile;
 using EvaluationSystem.Application.Profiles.FormModuleProfile;
-using EvaluationSystem.Application.Validations.FormValidations;
 using EvaluationSystem.Persistence;
 using EvaluationSystem.Application.Profiles.AttestationModuleProfile;
 using EvaluationSystem.Application.Profiles.AttestationFormProfile;
 using EvaluationSystem.Application.Profiles.AttestationAnswerProfile;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Collections.Generic;
 
 namespace EvaluationSystem.API
 {
@@ -41,25 +36,15 @@ namespace EvaluationSystem.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddConfigurationRepositories();
+            services.AddConfigurationServices();
+
             services.AddControllers().AddFluentValidation(fv =>
                         fv.RegisterValidatorsFromAssemblyContaining<CreateQuestionValidation>());
-            //services.AddControllers().AddFluentValidation(fv => 
-            //            fv.RegisterValidatorsFromAssemblyContaining<UpdateQuestionValidation>());
-            //services.AddControllers().AddFluentValidation(fv =>
-            //            fv.RegisterValidatorsFromAssemblyContaining<CreateAnswerValidaton>());
-            //services.AddControllers().AddFluentValidation(fv => 
-            //            fv.RegisterValidatorsFromAssemblyContaining<UpdateAnswerValidation>());
-            //services.AddControllers().AddFluentValidation(fv =>
-            //            fv.RegisterValidatorsFromAssemblyContaining<CreateModuleValidation>());
-            //services.AddControllers().AddFluentValidation(fv => 
-            //            fv.RegisterValidatorsFromAssemblyContaining<UpdateModuleValidation>());
-            //services.AddControllers().AddFluentValidation(fv =>
-            //            fv.RegisterValidatorsFromAssemblyContaining<CreateModuleValidation>());
-            //services.AddControllers().AddFluentValidation(fv => 
-            //            fv.RegisterValidatorsFromAssemblyContaining<UpdateFormValidation>());
-
+            
+            services.AddControllers();
             // Memory cache
-           //services.AddMemoryCache();
+            //services.AddMemoryCache();
 
             services.AddAutoMapper(typeof(QuestionProfile), 
                 typeof(AnswerProfile), 
@@ -70,13 +55,6 @@ namespace EvaluationSystem.API
                 typeof(AttestationModuleProfile),
                 typeof(AttestationFormProfile),
                 typeof(AttestationAnswerProfile));
-
-            RepositoryConfiguration.ConfigureServices(services);
-            ServiceConfiguration.ConfigureServices(services);
-
-            UseMigrator.UseMigrations(services);
-
-            services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {
@@ -102,6 +80,9 @@ namespace EvaluationSystem.API
                      { securitySchema, new[] { "Bearer" } }
                 });
             });
+
+
+            UseMigrator.UseMigrations(services);
 
             services.AddAuthentication(options =>
             {

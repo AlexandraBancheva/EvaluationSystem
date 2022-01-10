@@ -8,9 +8,10 @@ namespace EvaluationSystem.Persistence.Configurations
 {
     public static class RepositoryConfiguration
     {
-        public static void ConfigureServices(IServiceCollection services)
+        public static IServiceCollection AddConfigurationRepositories(this IServiceCollection services)
         {
-            // services.AddScoped<IUnitOfWork, UnitOfWork>();
+           // services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddTransient<IUnitOfWork, UnitOfWork>(); // => PROBLEM!!!
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<ICustomQuestionsRepository, CustomQuestionsRepository>();
@@ -20,6 +21,7 @@ namespace EvaluationSystem.Persistence.Configurations
             services.AddScoped<IFormRepository, FormRepository>();
             services.AddScoped<IFormModuleRepository, FormModuleRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+
             services.AddScoped<IAttestationQuestionRepository, AttestationQuestionRepository>();
             services.AddScoped<IAttestationAnswerRepository, AttestationAnswerRepository>();
             services.AddScoped<IAttestationModuleRepository, AttestationModuleRepository>();
@@ -27,7 +29,10 @@ namespace EvaluationSystem.Persistence.Configurations
             services.AddScoped<IAttestationFormRepository, AttestationFormRepository>();
             services.AddScoped<IAttestationFormModuleRepository, AttestationFormModuleRepository>();
             services.AddScoped<IAttestationRepository, AttestationRepository>();
+
             services.AddScoped<IUserAnswerRepository, UserAnswerRepository>();
+
+            return services;
         }
     }
 }

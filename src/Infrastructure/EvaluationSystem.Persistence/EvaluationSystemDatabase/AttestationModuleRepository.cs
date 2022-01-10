@@ -21,7 +21,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                         DELETE FROM AttestationModule
                         WHERE Id = @ModuleId";
 
-            _connection.Execute(query, new { ModuleId  = moduleId}, _transaction);
+            Connection.Execute(query, new { ModuleId  = moduleId}, Transaction);
         }
     }
 }

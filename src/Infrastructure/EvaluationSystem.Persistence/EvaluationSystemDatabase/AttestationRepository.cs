@@ -22,7 +22,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                         VALUES (@IdAttestation, @IdUserParticipant, @Status, @Position)";
             var status = "Open";
 
-            _connection.Execute(query, new { IdAttestation  = attestationId, IdUserParticipant = participantId, Status = status, Position = position }, _transaction);
+            Connection.Execute(query, new { IdAttestation  = attestationId, IdUserParticipant = participantId, Status = status, Position = position }, Transaction);
         }
 
         public void DeleteAttestation(int attestationId)
@@ -32,7 +32,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                         DELETE FROM [Attestation]
                         WHERE Id = @IdAttestation";
 
-            _connection.Execute(query, new { IdAttestation = attestationId }, _transaction);
+            Connection.Execute(query, new { IdAttestation = attestationId }, Transaction);
         }
 
         public ICollection<AttestationInfoDbDto> GetAllAttestation()
@@ -45,7 +45,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                         JOIN [User] AS up ON up.Id = ap.IdUserParticipant";
 
             var attestationDictionary = new Dictionary<int, AttestationInfoDbDto>();
-            var attestations = _connection.Query<AttestationInfoDbDto, ParticipantsInfoDbDto, AttestationInfoDbDto>(query, (attestation, participant) =>
+            var attestations = Connection.Query<AttestationInfoDbDto, ParticipantsInfoDbDto, AttestationInfoDbDto>(query, (attestation, participant) =>
             {
                 if (!attestationDictionary.TryGetValue(attestation.IdAttestation, out var currentAttest))
                 {
@@ -55,7 +55,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 
                 currentAttest.Participants.Add(participant);
                 return currentAttest;
-            }, _transaction, splitOn: "IdUser")
+            }, Transaction, splitOn: "IdUser")
                 .Distinct()
                 .ToList();
 

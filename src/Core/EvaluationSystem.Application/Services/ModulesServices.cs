@@ -35,8 +35,10 @@ namespace EvaluationSystem.Application.Services
             var currentEntity = _mapper.Map<ModuleTemplate>(model);
             var newEntityId = _moduleRepository.Insert(currentEntity);
             _formModulesServices.AddModulesInForm(formId, newEntityId, model.Position);
-
-            return GetCurrentModuleById(formId, newEntityId);
+            var module = _mapper.Map<CurrentModuleDetailDto>(currentEntity);
+            module.Id = newEntityId;
+            module.Position = model.Position;
+            return module;
         }
 
         public void DeleteCurrentModule(int moduleId)

@@ -48,6 +48,8 @@ namespace EvaluationSystem.Application.Profiles.FormProfile
             //    .ForMember(p => p.Modules, opts => opts.MapFrom(s => s.Modules));
             CreateMap<FormWithAllDto, CreateFormDto>()
                 .ForMember(f => f.FormName, opts => opts.MapFrom(y => y.Name));
+
+            CreateMap<FormTemplateDto, FormDetailDto>();
         }
     }
 }

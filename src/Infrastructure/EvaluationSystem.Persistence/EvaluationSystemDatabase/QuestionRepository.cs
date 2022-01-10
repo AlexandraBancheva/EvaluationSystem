@@ -22,7 +22,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             WHERE IdQuestion = @QuestionId
                             DELETE FROM QuestionTemplate
                             WHERE Id = @QuestionId";
-            _connection.Execute(query, new { QuestionId = questionId}, _transaction);
+            Connection.Execute(query, new { QuestionId = questionId}, Transaction);
         }
 
         public ICollection<QuestionTemplate> GetAllById(int questionId)
@@ -35,7 +35,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var queryParameter = new { QuestionId = questionId };
 
             var questionDictionary = new Dictionary<int, QuestionTemplate>();
-            var questions = _connection.Query<QuestionTemplate, AnswerTemplate, QuestionTemplate>(query, (question, answer) =>
+            var questions = Connection.Query<QuestionTemplate, AnswerTemplate, QuestionTemplate>(query, (question, answer) =>
             {
                 if (!questionDictionary.TryGetValue(question.Id, out var currentQuestion))
                 {
@@ -45,7 +45,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                 currentQuestion.Answers.Add(answer);
                 return currentQuestion;
-            }, queryParameter, _transaction,
+            }, queryParameter, Transaction,
                splitOn: "Id")
             .Distinct()
             .ToList();
@@ -59,7 +59,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             FROM QuestionTemplate AS q
                             LEFT JOIN AnswerTemplate AS a ON q.Id = a.IdQuestion";
             var questionDictionary = new Dictionary<int, QuestionTemplate>();
-            var questions = _connection.Query<QuestionTemplate, AnswerTemplate, QuestionTemplate>(query, (question, answer) =>
+            var questions = Connection.Query<QuestionTemplate, AnswerTemplate, QuestionTemplate>(query, (question, answer) =>
                 {
                     if (!questionDictionary.TryGetValue(question.Id, out var currentQuestion))
                     {
@@ -69,7 +69,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                     currentQuestion.Answers.Add(answer);
                     return currentQuestion;
-            }, _transaction,
+            }, Transaction,
                splitOn: "Id")
             .Distinct()
             .ToList();
@@ -85,7 +85,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                     WHERE q.IsReusable = 'true'";
 
             var questionDictionary = new Dictionary<int, QuestionTemplate>();
-            var allQuestionTemplates = _connection.Query<QuestionTemplate, AnswerTemplate, QuestionTemplate>(query, (question, answer) =>
+            var allQuestionTemplates = Connection.Query<QuestionTemplate, AnswerTemplate, QuestionTemplate>(query, (question, answer) =>
             {
                 if (!questionDictionary.TryGetValue(question.Id, out var currentQuestion))
                 {
@@ -95,7 +95,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                 currentQuestion.Answers.Add(answer);
                 return currentQuestion;
-            }, _transaction,
+            }, Transaction,
                splitOn: "Id")
             .Distinct()
             .ToList();

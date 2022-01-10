@@ -39,7 +39,7 @@ namespace EvaluationSystem.Application.Services
         }
 
 
-        public ICollection<FormDetailDto> CreateNewForm(CreateFormDto form)
+        public FormDetailDto CreateNewForm(CreateFormDto form)
         {
             var currentForm = _mapper.Map<FormTemplateDto>(form);
             var IsExist = CheckIfFormNameExists(currentForm.Name, _formRepository);
@@ -56,23 +56,27 @@ namespace EvaluationSystem.Application.Services
                 var moduleId = _moduleRepository.Insert(_mapper.Map<ModuleTemplate>(module));
 
                 _formModuleRepository.AddNewModuleInForm(formId, moduleId, module.ModulePosition);
+                module.Id = moduleId;
 
                 var questions = module.Questions;
 
                 foreach (var question in questions)
                 {
                     var questionNew = _questionCustomServices.CreateNewQuestion(moduleId, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
-
+                    question.Id = questionNew.IdQuestion;
                     var answers = question.Answers;
                     foreach (var answer in answers)
                     {
-                        answer.IdQuestion = questionNew.IdQuestion;
-                        _answerRepository.Insert(answer);
+                        answer.IdQuestion = question.Id;
+                        var answerId =  _answerRepository.Insert(answer);
+                        answer.Id = answerId;
                     }
                 }
             }
 
-            return GetFormById(formId);
+            currentForm.Id = formId;
+            var succesForm = _mapper.Map<FormDetailDto>(currentForm);
+            return succesForm;
         }
 
         public void DeleteFormById(int formId)

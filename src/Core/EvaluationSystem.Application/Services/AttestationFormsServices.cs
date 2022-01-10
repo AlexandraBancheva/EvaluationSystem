@@ -13,6 +13,7 @@ namespace EvaluationSystem.Application.Services
 {
     public class AttestationFormsServices : IAttestationFormsServices
     {
+        private readonly IMapper _mapper;
         private readonly IAttestationFormRepository _attestationFormRepository;
         private readonly IAttestationModuleRepository _attestationModuleRepository;
         private readonly IAttestationAnswerRepository _attestationAnswerRepository;
@@ -20,7 +21,6 @@ namespace EvaluationSystem.Application.Services
         private readonly IAttestationFormModuleRepository _attestationFormModuleRepository;
         private readonly IAttestationRepository _attestationRepository;
         private readonly IAttestationQuestionsServices _attestationQuestionsServices;
-        private IMapper _mapper;
 
         public AttestationFormsServices(IAttestationFormRepository attestationFormRepository, 
                                         IAttestationModuleRepository attestationModuleRepository,

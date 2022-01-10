@@ -19,7 +19,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                         SET [Status] = 'Done'
                         WHERE IdAttestation = @AttestationId AND IdUserParticipant = @IdUserParticipant";
 
-            _connection.Execute(query, new { AttestationId = attestationId, IdUserParticipant = idUserParticipant }, _transaction);
+            Connection.Execute(query, new { AttestationId = attestationId, IdUserParticipant = idUserParticipant }, Transaction);
         }
 
         public ICollection<UserAnswer> GetAllAnswersByUser(int attestationId, int userId)
@@ -27,7 +27,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             var query = @"SELECT * FROM [UserAnswer]
                         WHERE IdAttestation = @IdAttestation AND IdUserParticipant = @IdUserParticipant";
 
-            var results = _connection.Query<UserAnswer>(query, new { IdAttestation = attestationId, IdUserParticipant = userId}, _transaction);
+            var results = Connection.Query<UserAnswer>(query, new { IdAttestation = attestationId, IdUserParticipant = userId}, Transaction);
 
             return (ICollection<UserAnswer>)results;
         }

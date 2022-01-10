@@ -14,8 +14,6 @@ namespace EvaluationSystem.Application.Models.Forms
 
         public string Name { get; set; }
 
-       // public int Position { get; set; }
-
         public virtual ICollection<ModuleTemplateDto> Modules { get; set; }
     }
 }

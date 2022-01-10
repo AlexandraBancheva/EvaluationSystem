@@ -13,23 +13,12 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         public UnitOfWork(IConfiguration configuration)
         {
             _connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
-            Connection.Open();
+            _connection.Open();
         }
 
-        public IDbConnection Connection
-        {
-            get 
-            { 
-                return _connection; 
-            }
-        }
+        public IDbConnection Connection => _connection;
 
-        public IDbTransaction Transaction { 
-            get 
-            {
-                return _transaction; 
-            }
-        }
+        public IDbTransaction Transaction => _transaction;
 
         public void Begin()
         {
@@ -49,7 +38,12 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                 _transaction.Dispose();
                 _transaction = null;
             }
-            _connection.Dispose();
+
+            if (_connection != null)
+            {
+                _connection.Dispose();
+                _connection = null;
+            }
         }
 
         public void Rollback()

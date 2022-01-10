@@ -22,7 +22,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                         DELETE FROM AttestationQuestion
                         WHERE Id = @IdQuestion";
 
-            _connection.Execute(query, new { IdQuestion = questionId}, _transaction);
+            Connection.Execute(query, new { IdQuestion = questionId}, Transaction);
         }
 
         public ICollection<AttestationQuestion> GetAllById(int questionId)
@@ -33,7 +33,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             var queryParameter = new { QuestionId = questionId };
 
             var questionDictionary = new Dictionary<int, AttestationQuestion>();
-            var questions = _connection.Query<AttestationQuestion, AttestationAnswer, AttestationQuestion>(query, (question, answer) =>
+            var questions = Connection.Query<AttestationQuestion, AttestationAnswer, AttestationQuestion>(query, (question, answer) =>
             {
                 if (!questionDictionary.TryGetValue(question.Id, out var currentQuestion))
                 {
@@ -43,7 +43,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 
                 currentQuestion.AttestationAnswers.Add(answer);
                 return currentQuestion;
-            }, queryParameter, _transaction,
+            }, queryParameter, Transaction,
                splitOn: "Id")
             .Distinct()
             .ToList();
@@ -57,7 +57,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                             FROM AttestationQuestion AS aq
                             LEFT JOIN AttestationAnswer AS aa ON aq.Id = aa.IdQuestion";
             var questionDictionary = new Dictionary<int, AttestationQuestion>();
-            var questions = _connection.Query<AttestationQuestion, AttestationAnswer, AttestationQuestion>(query, (question, answer) =>
+            var questions = Connection.Query<AttestationQuestion, AttestationAnswer, AttestationQuestion>(query, (question, answer) =>
             {
                 if (!questionDictionary.TryGetValue(question.Id, out var currentQuestion))
                 {
@@ -67,7 +67,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 
                 currentQuestion.AttestationAnswers.Add(answer);
                 return currentQuestion;
-            }, _transaction,
+            }, Transaction,
                splitOn: "Id")
             .Distinct()
             .ToList();

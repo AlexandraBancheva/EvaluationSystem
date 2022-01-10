@@ -9,11 +9,13 @@ namespace EvaluationSystem.Application.Services
     public class AttestationModulesServices : IAttestationModulesServices
     {
         private readonly IAttestationModuleRepository _attestationModuleRepository;
+        private readonly IAttestationFormModulesServices _attestationFormModulesServices;
         private IMapper _mapper;
 
-        public AttestationModulesServices(IAttestationModuleRepository attestationModuleRepository, IMapper mapper)
+        public AttestationModulesServices(IAttestationModuleRepository attestationModuleRepository, IAttestationFormModulesServices attestationFormModulesServices, IMapper mapper)
         {
             _attestationModuleRepository = attestationModuleRepository;
+            _attestationFormModulesServices = attestationFormModulesServices;
             _mapper = mapper;
         }
 
@@ -22,8 +24,7 @@ namespace EvaluationSystem.Application.Services
             var currentEntity = _mapper.Map<AttestationModule>(model);
             var newEntityId = _attestationModuleRepository.Insert(currentEntity);
 
-            // Add to linkage table!!!
-           // _formModulesServices.AddModulesInForm(formId, newEntityId, model.Position);
+            _attestationFormModulesServices.AddModuleInForm(formId, newEntityId, model.Position);
         }
 
         public void DeleteCurrentModule(int moduleId)

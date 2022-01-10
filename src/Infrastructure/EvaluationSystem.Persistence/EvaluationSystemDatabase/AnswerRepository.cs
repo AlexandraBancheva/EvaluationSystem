@@ -18,7 +18,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"SELECT * FROM AnswerTemplate
                         WHERE IdQuestion = @QuestionId";
 
-            var answers = _connection.Query<AnswerTemplate>(query, new { QuestionId = questionId}, _transaction);
+            var answers = Connection.Query<AnswerTemplate>(query, new { QuestionId = questionId}, Transaction);
 
             return (ICollection<AnswerTemplate>)answers;
         }

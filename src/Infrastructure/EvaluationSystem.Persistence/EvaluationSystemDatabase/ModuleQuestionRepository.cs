@@ -20,7 +20,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
             var query = @"INSERT INTO ModuleQuestion
                             VALUES (@IdModule, @IdQuestion, @Position)";
-            _connection.Execute(query, new { IdModule = moduleId, IdQuestion = questionId, Position = position}, _transaction);
+            Connection.Execute(query, new { IdModule = moduleId, IdQuestion = questionId, Position = position}, Transaction);
         }
 
         public void DeleteQuestionFromModule(int moduleId, int questionId)
@@ -28,7 +28,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"DELETE ModuleQuestion
                             WHERE IdModule = @ModuleId AND IdQuestion = @QuestionId ";
 
-            _connection.Execute(query, new { ModuleId = moduleId, QuestionId = questionId}, _transaction);
+            Connection.Execute(query, new { ModuleId = moduleId, QuestionId = questionId}, Transaction);
         }
 
         public ICollection<ModuleQuestionGettingAllQuestionIds> GetAllQuestionIdsByModuleId(int moduleId)
@@ -36,7 +36,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"SELECT IdQuestion FROM ModuleQuestion
                             WHERE IdModule = @IdModule";
 
-            var results = _connection.Query<ModuleQuestionGettingAllQuestionIds>(query, new { IdModule = moduleId });
+            var results = Connection.Query<ModuleQuestionGettingAllQuestionIds>(query, new { IdModule = moduleId });
 
             return (ICollection<ModuleQuestionGettingAllQuestionIds>)results;
         }
@@ -54,7 +54,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var queryParameter = new { ModuleId = moduleId };
 
             var moduleDictionary = new Dictionary<int, ModuleTemplateDto>();
-            var moduleWishQuestions = _connection.Query<ModuleTemplateDto, QuestionTemplateDto, ModuleTemplateDto>(query, (module, question) =>
+            var moduleWishQuestions = Connection.Query<ModuleTemplateDto, QuestionTemplateDto, ModuleTemplateDto>(query, (module, question) =>
             {
                 if (!moduleDictionary.TryGetValue(module.Id, out var currentModule))
                 {
@@ -64,7 +64,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                 currentModule.Questions.Add(question);
                 return currentModule;
-            }, queryParameter, _transaction,
+            }, queryParameter, Transaction,
                splitOn: "Id, Id")
             .Distinct()
             .ToList();
@@ -77,7 +77,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"SELECT * FROM ModuleQuestion
                             WHERE IdModule = @ModuleId";
 
-            var questionsIds = _connection.Query<ModuleQuestion>(query, _transaction);
+            var questionsIds = Connection.Query<ModuleQuestion>(query, Transaction);
 
             return (ICollection<ModuleQuestion>)questionsIds;
         }
@@ -89,7 +89,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             JOIN QuestionTemplate AS qt ON mq.IdQuestion = qt.Id";
 
             var moduleDictionary = new Dictionary<int, ModuleTemplateDto>();
-            var modules = _connection.Query<ModuleTemplateDto, QuestionTemplateDto, ModuleTemplateDto>(query, (module, question) =>
+            var modules = Connection.Query<ModuleTemplateDto, QuestionTemplateDto, ModuleTemplateDto>(query, (module, question) =>
             {
                 if (!moduleDictionary.TryGetValue(module.Id, out var currentModule))
                 {
@@ -99,7 +99,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                 currentModule.Questions.Add(question);
                 return currentModule;
-            }, _transaction, splitOn: "Id")
+            }, Transaction, splitOn: "Id")
                 .Distinct()
                 .ToList();
 
