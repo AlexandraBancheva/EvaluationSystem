@@ -11,5 +11,7 @@ namespace EvaluationSystem.Application.Interfaces
         void UpdateAnswer(int questionId, int answerId, UpdateAnswerDto model);
 
         ICollection<AnswerListDto> CreateAnswer(int questionId, AddListAnswers model);
+
+        ICollection<AnswerListDto> CreateAnswerTemplates(int formId, int moduleId, int questionId, AddListAnswers model);
     }
 }

@@ -6,6 +6,7 @@ using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Questions;
 using EvaluationSystem.Application.Models.Answers.AnswersDtos;
+using EvaluationSystem.Application.Repositories;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -14,13 +15,19 @@ namespace EvaluationSystem.Application.Services
         private readonly IMapper _mapper;
         private readonly IAnswerRepository _answerRepository;
         private readonly IQuestionRepository _questionRepository;
+        private readonly IModuleRepository _modulesRepository;
+        private readonly IFormsServices _formsServices;
 
         public AnswersServices(IAnswerRepository answerRepository, 
-                               IQuestionRepository questionRepository, 
+                               IQuestionRepository questionRepository,
+                               IModuleRepository modulesRepository,
+                               IFormsServices formsServices,
                                IMapper mapper)
         {
             _answerRepository = answerRepository;
             _questionRepository = questionRepository;
+            _modulesRepository = modulesRepository;
+            _formsServices = formsServices;
             _mapper = mapper;
         }
 
@@ -54,6 +61,26 @@ namespace EvaluationSystem.Application.Services
             var allAnswers = _answerRepository.GetAllByQuestionId(questionId);
             return _mapper.Map<ICollection<AnswerListDto>>(allAnswers);
         }
+
+        public ICollection<AnswerListDto> CreateAnswerTemplates(int formId, int moduleId, int questionId, AddListAnswers model)
+        {
+            var isExistModule = _modulesRepository.GetById(moduleId);
+            if (isExistModule == null)
+            {
+                throw new Exception($"Invalid module id.");
+            }
+
+            var isExistForm = _formsServices.GetFormById(formId);
+            if (isExistForm == null)
+            {
+                throw new Exception("Invalid form Id.");
+            }
+
+            var allAnswerTemplates = CreateAnswer(questionId, model);
+
+            return allAnswerTemplates;
+        }
+
 
         public void DeleteAnAnswer(int answerId)
         {
