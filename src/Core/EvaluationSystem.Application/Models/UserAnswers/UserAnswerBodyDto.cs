@@ -6,15 +6,16 @@ namespace EvaluationSystem.Application.Models.UserAnswers
     {
         public UserAnswerBodyDto()
         {
-            this.AnswerIds = new HashSet<int>();
+            //this.AnswerIds = new HashSet<int>();
+            this.AttestationModuleIds = new HashSet<AttestationModuleIdsDto>();
         }
 
-        public int AttestationModuleId { get; set; }
+        public ICollection<AttestationModuleIdsDto> AttestationModuleIds { get; set; }
 
-        public int AttestationQuestionId { get; set; }
+      //  public int AttestationQuestionId { get; set; }
 
-        public string AnswerText { get; set; }
+      //  public string AnswerText { get; set; }
 
-        public virtual ICollection<int> AnswerIds { get; set; }
+       // public virtual ICollection<int> AnswerIds { get; set; }
     }
 }
