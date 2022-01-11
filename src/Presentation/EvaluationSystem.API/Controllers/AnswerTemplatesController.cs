@@ -16,9 +16,9 @@ namespace EvaluationSystem.API.Controllers
         }
 
         [HttpPost()]
-        public IActionResult AddNewAnswer(int formId, int moduleId, int questionId, [FromBody] AddListAnswers model)
+        public IActionResult AddNewAnswer(int questionId, [FromBody] AddListAnswers model)
         {
-            var result = _answersServices.CreateAnswerTemplates(formId, moduleId, questionId, model);
+            var result = _answersServices.CreateAnswer(questionId, model);
             return Ok(result);
         }
 

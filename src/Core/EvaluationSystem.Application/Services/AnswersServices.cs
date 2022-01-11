@@ -16,17 +16,20 @@ namespace EvaluationSystem.Application.Services
         private readonly IAnswerRepository _answerRepository;
         private readonly IQuestionRepository _questionRepository;
         private readonly IModuleRepository _modulesRepository;
+        private readonly IFormModuleRepository _formModuleRepository;
         private readonly IFormsServices _formsServices;
 
         public AnswersServices(IAnswerRepository answerRepository, 
                                IQuestionRepository questionRepository,
                                IModuleRepository modulesRepository,
+                               IFormModuleRepository formModuleRepository,
                                IFormsServices formsServices,
                                IMapper mapper)
         {
             _answerRepository = answerRepository;
             _questionRepository = questionRepository;
             _modulesRepository = modulesRepository;
+            _formModuleRepository = formModuleRepository;
             _formsServices = formsServices;
             _mapper = mapper;
         }
@@ -64,16 +67,10 @@ namespace EvaluationSystem.Application.Services
 
         public ICollection<AnswerListDto> CreateAnswerTemplates(int formId, int moduleId, int questionId, AddListAnswers model)
         {
-            var isExistModule = _modulesRepository.GetById(moduleId);
-            if (isExistModule == null)
+            var isExistFormModule = _formModuleRepository.CheckIfFormTemplateContainsModuleId(formId, moduleId);
+            if (isExistFormModule == null)
             {
-                throw new Exception($"Invalid module id.");
-            }
-
-            var isExistForm = _formsServices.GetFormById(formId);
-            if (isExistForm == null)
-            {
-                throw new Exception("Invalid form Id.");
+                throw new Exception("Invalid form or module.");
             }
 
             var allAnswerTemplates = CreateAnswer(questionId, model);
