@@ -21,16 +21,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             Connection.Execute(query, new { IdForm = formId, IdModule = moduleId, Position = position }, Transaction);
         }
 
-        public FormModule CheckIfFormTemplateContainsModuleId(int formId, int moduleId)
-        {
-            var query = @"SELECT * FROM FormModule
-                        WHERE IdForm = @IdForm AND IdModule = @IdModule";
-
-            var result = Connection.QueryFirstOrDefault<FormModule>(query, new { IdForm = formId, IdModule = moduleId }, Transaction);
-
-            return result;
-        }
-
         public void DeleteModuleFromForm(int formId, int moduleId)
         {
             var query = @"DELETE FROM FormModule 

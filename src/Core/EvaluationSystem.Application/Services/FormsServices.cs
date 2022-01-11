@@ -64,6 +64,7 @@ namespace EvaluationSystem.Application.Services
                 {
                     var questionNew = _questionCustomServices.CreateNewQuestion(moduleId, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
                     question.Id = questionNew.IdQuestion;
+                    question.DateOfCreation = questionNew.DateOfCreation;
                     var answers = question.Answers;
                     foreach (var answer in answers)
                     {

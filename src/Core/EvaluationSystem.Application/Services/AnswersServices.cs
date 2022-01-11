@@ -15,22 +15,13 @@ namespace EvaluationSystem.Application.Services
         private readonly IMapper _mapper;
         private readonly IAnswerRepository _answerRepository;
         private readonly IQuestionRepository _questionRepository;
-        private readonly IModuleRepository _modulesRepository;
-        private readonly IFormModuleRepository _formModuleRepository;
-        private readonly IFormsServices _formsServices;
 
         public AnswersServices(IAnswerRepository answerRepository, 
                                IQuestionRepository questionRepository,
-                               IModuleRepository modulesRepository,
-                               IFormModuleRepository formModuleRepository,
-                               IFormsServices formsServices,
                                IMapper mapper)
         {
             _answerRepository = answerRepository;
             _questionRepository = questionRepository;
-            _modulesRepository = modulesRepository;
-            _formModuleRepository = formModuleRepository;
-            _formsServices = formsServices;
             _mapper = mapper;
         }
 
@@ -67,7 +58,7 @@ namespace EvaluationSystem.Application.Services
 
         public ICollection<AnswerListDto> CreateAnswerTemplates(int formId, int moduleId, int questionId, AddListAnswers model)
         {
-            var isExistFormModule = _formModuleRepository.CheckIfFormTemplateContainsModuleId(formId, moduleId);
+            var isExistFormModule = _answerRepository.CheckFormIdModuleIdQuestionId(formId, moduleId, questionId);
             if (isExistFormModule == null)
             {
                 throw new Exception("Invalid form or module.");
@@ -78,9 +69,14 @@ namespace EvaluationSystem.Application.Services
             return allAnswerTemplates;
         }
 
-
-        public void DeleteAnAnswer(int answerId)
+        // 11.01.22
+        public void DeleteAnAnswer(int formId, int moduleId, int questionId, int answerId)
         {
+            var isExistFormModuleQuestion = _answerRepository.CheckFormIdModuleIdQuestionId(formId, moduleId, questionId);
+            if (isExistFormModuleQuestion == null)
+            {
+                throw new Exception("Invalid form or module or question.");
+            }
             var entity = _answerRepository.GetById(answerId);
             _answerRepository.Delete(entity);
         }
@@ -90,13 +86,24 @@ namespace EvaluationSystem.Application.Services
             var isExist = _questionRepository.GetById(questionId);
             if (isExist == null)
             {
-                throw new InvalidOperationException($"Question with this id {questionId} do not exist!");
+                throw new InvalidOperationException($"Question with id {questionId} do not exist!");
             }
 
             var entity = _mapper.Map<AnswerTemplate>(model);
             entity.Id = answerId;
             entity.IdQuestion = questionId;
             _answerRepository.Update(entity);
+        }
+
+        public void UpdateAnswerTemplate(int formId, int moduleId, int questionId, int answerId, UpdateAnswerDto model)
+        {
+            var isExistFormModule = _answerRepository.CheckFormIdModuleIdQuestionId(formId, moduleId, questionId);
+            if (isExistFormModule == null)
+            {
+                throw new Exception("Invalid form or module.");
+            }
+
+            UpdateAnswer(questionId, answerId, model);
         }
     }
 }

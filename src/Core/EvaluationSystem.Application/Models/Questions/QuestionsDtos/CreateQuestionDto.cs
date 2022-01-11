@@ -7,7 +7,5 @@ namespace EvaluationSystem.Application.Questions.QuestionsDtos
         public string QuestionName { get; set; }
 
         public QuestionType Type { get; set; }
-
-       // public bool IsReusable { get; set; }
     }
 }

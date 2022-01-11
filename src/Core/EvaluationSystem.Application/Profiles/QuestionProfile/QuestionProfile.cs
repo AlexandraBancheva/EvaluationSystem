@@ -45,11 +45,9 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
             CreateMap<CreateFormModuleQuestionDto, QuestionTemplate>()
                 .ForMember(q => q.Name, opts => opts.MapFrom(a => a.QuestionName));
 
-            // 17.12
             CreateMap<QuestionInModuleDto, QuestionDetailDto>()
                 .ForMember(w => w.IdQuestion, opts => opts.MapFrom(u => u.IdQuestion))
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(r => r.Name))
-                //.ForMember(o => o.QuestionPosition, opts => opts.MapFrom(p => p.Position))
                 .ForMember(p => p.Answers, opts => opts.MapFrom(a => a.Answers));
 
 
@@ -70,8 +68,8 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
                 .ForMember(k => k.QuestionPosition, opts => opts.MapFrom(y => y.QuestionPosition));
 
             CreateMap<QuestionTemplateDto, QuestionDetailDto>()
-                .ForMember(q => q.IdQuestion, opts => opts.MapFrom(p => p.Id));
-            //.ForMember(t => t.QuestionPosition, opts => opts.MapFrom(l => l.QuestionPosition));
+                .ForMember(q => q.IdQuestion, opts => opts.MapFrom(p => p.Id))
+                .ForMember(p => p.DateOfCreation, opts => opts.MapFrom(d => d.DateOfCreation));
 
             CreateMap<QuestionTemplateDto, CustomQuestionDetailDto>()
                 .ForMember(q => q.IdQuestion, opts => opts.MapFrom(t => t.Id))
@@ -79,16 +77,10 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(l => l.Name))
                 .ForMember(p => p.DateOfCreation, opts => opts.MapFrom(j => j.DateOfCreation));
 
-            //AttestationsServices
-            //CreateMap<QuestionDetailDto, CreateFormModuleQuestionDto>()
-            //    .ForMember(q => q.QuestionName, opts => opts.MapFrom(r => r.QuestionName))
-            //    .ForMember(p => p.Answers, opts => opts.MapFrom(t => t.Answers))
-            //    .ForMember(q => q.Type, opts => opts.MapFrom(w => w.Type)); // maybe problem here Type and int
             CreateMap<QuestionInModuleDto, CreateFormModuleQuestionDto>()
                 .ForMember(q => q.QuestionName, opts => opts.MapFrom(t => t.Name))
                 .ForMember(p => p.QuestionPosition, opts => opts.MapFrom(o => o.Position));
 
-            // 10.01.2022
             CreateMap<QuestionTemplate, CustomQuestionDetailDto>()
                 .ForMember(a => a.QuestionName, opts => opts.MapFrom(r => r.Name));
 

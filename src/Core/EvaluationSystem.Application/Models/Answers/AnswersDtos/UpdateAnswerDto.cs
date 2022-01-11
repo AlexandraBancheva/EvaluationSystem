@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EvaluationSystem.Application.Models.Answers.AnswersDtos
+﻿namespace EvaluationSystem.Application.Models.Answers.AnswersDtos
 {
     public class UpdateAnswerDto
     {
