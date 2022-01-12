@@ -21,6 +21,7 @@ namespace EvaluationSystem.Application.Models.Attestations
         public string FormName { get; set; }
 
         public Status Status { get; set; }
+       // public string Status { get; set; }
 
         public DateTime CreateDate { get; set; }
 

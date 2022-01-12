@@ -1,6 +1,6 @@
-﻿using EvaluationSystem.Application.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
+using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Attestations;
-using Microsoft.AspNetCore.Mvc;
 
 namespace EvaluationSystem.API.Controllers
 {
