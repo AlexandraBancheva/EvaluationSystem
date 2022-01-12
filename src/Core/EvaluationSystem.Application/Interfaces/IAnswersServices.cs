@@ -6,7 +6,9 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IAnswersServices
     {
-        void DeleteAnAnswer(int answerId);
+        void DeleteAnswerTemplate(int questionId, int answerId);
+
+        void DeleteAnAnswer(int formId, int moduleId, int question, int answerId);
 
         void UpdateAnswer(int questionId, int answerId, UpdateAnswerDto model);
 

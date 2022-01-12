@@ -6,7 +6,6 @@ using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Questions;
 using EvaluationSystem.Application.Models.Answers.AnswersDtos;
-using EvaluationSystem.Application.Repositories;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -69,13 +68,24 @@ namespace EvaluationSystem.Application.Services
             return allAnswerTemplates;
         }
 
-        // 11.01.22
         public void DeleteAnAnswer(int formId, int moduleId, int questionId, int answerId)
         {
-            var isExistFormModuleQuestion = _answerRepository.CheckFormIdModuleIdQuestionId(formId, moduleId, questionId);
+            var isExistFormModuleQuestion = _answerRepository.CheckFormIdModuleIdQuestionIdAnswerId(formId, moduleId, questionId, answerId);
             if (isExistFormModuleQuestion == null)
             {
                 throw new Exception("Invalid form or module or question.");
+            }
+
+            var curEntity = _answerRepository.GetById(answerId);
+            _answerRepository.Delete(curEntity);
+        }
+
+        public void DeleteAnswerTemplate(int questionId, int answerId)
+        {
+            var isExist = _answerRepository.CheckQuestionIdAnswerId(questionId, answerId);
+            if (isExist == null)
+            {
+                throw new Exception("Invalid questionId or answerId.");
             }
             var entity = _answerRepository.GetById(answerId);
             _answerRepository.Delete(entity);

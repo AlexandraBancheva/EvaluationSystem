@@ -1,7 +1,8 @@
-﻿using EvaluationSystem.Domain.Entities;
+﻿using System.Collections.Generic;
+using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Repositories;
-using System.Collections.Generic;
 using EvaluationSystem.Application.Models.Forms;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Interfaces
 {
@@ -9,6 +10,10 @@ namespace EvaluationSystem.Application.Interfaces
     {
         ICollection<AnswerTemplate> GetAllByQuestionId(int questionId);
 
-        FormModuleQuestionDto CheckFormIdModuleIdQuestionId(int formId, int moduleId, int questionId);
+        CheckQuestionIdAnswerIdDto CheckQuestionIdAnswerId(int questionId, int answerId);
+
+        CheckFormModuleQuestionDto CheckFormIdModuleIdQuestionId(int formId, int moduleId, int questionId);
+
+        CheckFormModuleQuestionAnswerDto CheckFormIdModuleIdQuestionIdAnswerId(int formId, int moduleId, int questionId, int answerId);
     }
 }
