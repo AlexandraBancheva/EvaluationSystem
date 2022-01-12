@@ -9,3 +9,4 @@ C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domai
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\net5.0\EvaluationSystem.Domain.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\net5.0\ref\EvaluationSystem.Domain.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\net5.0\EvaluationSystem.Domain.pdb
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Domain\obj\Debug\net5.0\EvaluationSystem.Domain.csproj.AssemblyReference.cache

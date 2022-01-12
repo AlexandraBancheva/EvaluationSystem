@@ -42,7 +42,10 @@ namespace EvaluationSystem.API
 
             services.AddControllers().AddFluentValidation(fv =>
                         fv.RegisterValidatorsFromAssemblyContaining<CreateQuestionValidation>());
-            
+
+            services.AddControllers().AddJsonOptions(options =>
+                       options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
             services.AddControllers();
             // Memory cache
             //services.AddMemoryCache();
@@ -94,10 +97,6 @@ namespace EvaluationSystem.API
                 options.Authority = Configuration["Auth2:Domain"];
                 options.Audience = Configuration["Auth2:Audience"];
             });
-
-            // 12.01.2022
-            services.AddControllers().AddJsonOptions(options =>
-                        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

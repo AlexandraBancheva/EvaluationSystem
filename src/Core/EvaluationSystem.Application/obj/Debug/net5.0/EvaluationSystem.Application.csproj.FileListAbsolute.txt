@@ -9,7 +9,6 @@ C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Appli
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\net5.0\EvaluationSystem.Application.AssemblyInfoInputs.cache
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\net5.0\EvaluationSystem.Application.AssemblyInfo.cs
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\net5.0\EvaluationSystem.Application.csproj.CoreCompileInputs.cache
-C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\net5.0\EvaluationSystem.Application.csproj.CopyComplete
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\net5.0\EvaluationSystem.Application.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\net5.0\ref\EvaluationSystem.Application.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\net5.0\EvaluationSystem.Application.pdb

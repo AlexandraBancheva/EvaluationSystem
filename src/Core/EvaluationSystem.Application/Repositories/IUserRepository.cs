@@ -6,10 +6,12 @@ namespace EvaluationSystem.Application.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
-        IEnumerable<User> GetAllUsers();
+        ICollection<User> GetAllUsers();
 
         IEnumerable<UserToEvaluateDto> GetUsersToEvaluate(int idParticipant);
 
         User GetUserByEmail(string email);
+
+        void DeleteUserByEmail(string email);
     }
 }

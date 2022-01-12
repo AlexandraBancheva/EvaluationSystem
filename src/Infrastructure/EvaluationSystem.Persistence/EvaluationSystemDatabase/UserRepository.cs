@@ -13,13 +13,21 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public void DeleteUserByEmail(string email)
+        {
+            var query = @" DELETE FROM [User]
+                        WHERE Email = @Email";
+
+            Connection.Execute(query, new { Email = email}, Transaction);
+        }
+
+        public ICollection<User> GetAllUsers()
         {
             var query = @"SELECT * FROM [User]";
 
             var users = Connection.Query<User>(query, Transaction);
 
-            return users;
+            return (ICollection<User>)users;
         }
 
         public User GetUserByEmail(string email)

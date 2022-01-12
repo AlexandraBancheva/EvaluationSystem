@@ -9,6 +9,10 @@ namespace EvaluationSystem.Application.Profiles
         public UserProfile()
         {
             CreateMap<User, UserDetailDto>();
+
+            CreateMap<User, UsersFromCloudDto>();
+
+            CreateMap<UsersFromCloudDto, UserDetailDto>();
         }
     }
 }
