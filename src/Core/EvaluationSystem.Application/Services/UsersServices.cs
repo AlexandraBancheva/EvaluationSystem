@@ -1,12 +1,12 @@
-﻿using Microsoft.Graph;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Collections.Generic;
+using Microsoft.Graph;
 using AutoMapper;
 using Azure.Identity;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Users;
 using EvaluationSystem.Application.Repositories;
-using System.Threading.Tasks;
-using System.Linq;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -34,9 +34,9 @@ namespace EvaluationSystem.Application.Services
             var clientSecretCredential = new ClientSecretCredential(tenantId, clientId, clientSecret);
             var graphClient = new GraphServiceClient(clientSecretCredential, scopes);
 
-            var userFromCloud = await UpdatingUsersInDatabase(graphClient); // Error!
-            userFromCloud = userFromCloud.OrderBy(x => x.Email).ToList();
-            return _mapper.Map<ICollection<UserDetailDto>>(userFromCloud);
+            var userFromCloud = await UpdatingUsersInDatabase(graphClient);
+            userFromCloud = userFromCloud.OrderBy(x => x.Id).ToList();
+            return userFromCloud;
         }
 
         public IEnumerable<UserToEvaluateDto> GetUsersToEvaluate()
@@ -46,7 +46,7 @@ namespace EvaluationSystem.Application.Services
             return res;
         }
 
-        private async Task<ICollection<UsersFromCloudDto>> UpdatingUsersInDatabase(GraphServiceClient graphClient)
+        private async Task<ICollection<UserDetailDto>> UpdatingUsersInDatabase(GraphServiceClient graphClient)
         {
             var users = await graphClient
                             .Users
@@ -70,7 +70,6 @@ namespace EvaluationSystem.Application.Services
                 {
                     break;
                 }
-
                 users = await users.NextPageRequest.GetAsync();
             }
 
@@ -112,13 +111,11 @@ namespace EvaluationSystem.Application.Services
 
                     if (isExist == false)
                     {
-
                         _userRepository.DeleteUserByEmail(dbUser.Email);
                     }
                 }
             }
-
-            return usersFromCloud;
+            return _mapper.Map<ICollection<UserDetailDto>>(dbUsers);
         }
     }
 }

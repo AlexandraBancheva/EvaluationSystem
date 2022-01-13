@@ -1,5 +1,6 @@
 ﻿using EvaluationSystem.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace EvaluationSystem.API.Controllers
 {
@@ -13,14 +14,14 @@ namespace EvaluationSystem.API.Controllers
             _usersServices = usersServices;
         }
 
-        [HttpGet()]
-        public IActionResult GetAllUsers()
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
         {
-            var res = _usersServices.GetAll();
+            var res = await _usersServices.GetAll();
             return Ok(res);
         }
 
-        [HttpGet()]
+        [HttpGet]
         [Route("[action]", Name = "GetUsersToEvaluate")]
         public IActionResult GetUsersToEvaluate()
         {
