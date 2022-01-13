@@ -29,6 +29,7 @@ namespace EvaluationSystem.Persistence.Configurations
             services.AddScoped<IAttestationFormRepository, AttestationFormRepository>();
             services.AddScoped<IAttestationFormModuleRepository, AttestationFormModuleRepository>();
             services.AddScoped<IAttestationRepository, AttestationRepository>();
+            services.AddScoped<IAttestationParticipantRepository, AttestationParticipantRepository>();
 
             services.AddScoped<IUserAnswerRepository, UserAnswerRepository>();
 

@@ -20,13 +20,15 @@ namespace EvaluationSystem.Application.Services
         private readonly IAttestationFormRepository _attestationFormRepository;
         private readonly IFormRepository _formRepository;
         private readonly IAttestationFormsServices _attestationFormsServices;
+        private readonly IUserAnswersServices _userAnswersServices;
         private IMapper _mapper;
 
         public AttestationsServices(IUserRepository userRepository, 
                                     IAttestationRepository attestationRepository,
                                     IAttestationFormRepository attestationFormRepository,
                                     IFormRepository formRepository,
-                                    IAttestationFormsServices attestationFormsServices, 
+                                    IAttestationFormsServices attestationFormsServices,
+                                    IUserAnswersServices userAnswersServices,
                                     IMapper mapper)
         {
             _userRepository = userRepository;
@@ -34,6 +36,7 @@ namespace EvaluationSystem.Application.Services
             _attestationFormRepository = attestationFormRepository;
             _formRepository = formRepository;
             _attestationFormsServices = attestationFormsServices;
+            _userAnswersServices = userAnswersServices;
             _mapper = mapper;
         }
 
@@ -138,10 +141,9 @@ namespace EvaluationSystem.Application.Services
         public void DeleteAttestation(int attestationId)
         {
             var attestation = _attestationRepository.GetById(attestationId);
-            // Delete from useranswersServices!
-            _attestationRepository.DeleteAttestation(attestationId);
-
+            _userAnswersServices.DeleteUserAnswer(attestationId);
             _attestationFormRepository.DeleteAttestationForm(attestation.IdForm);
+            _attestationRepository.DeleteAttestation(attestationId);
         }
 
         public ICollection<AttestationInfoDbDto> GetAllAttestations()

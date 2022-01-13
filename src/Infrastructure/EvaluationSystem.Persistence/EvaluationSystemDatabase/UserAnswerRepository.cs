@@ -22,6 +22,14 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             Connection.Execute(query, new { AttestationId = attestationId, IdUserParticipant = idUserParticipant }, Transaction);
         }
 
+        public void DeleteUserAnswerByAttestationId(int attestationId)
+        {
+            var query = @"DELETE [UserAnswer]
+                        WHERE IdAttestation = @AttestationId";
+
+            Connection.Execute(query, new { AttestationId = attestationId }, Transaction);
+        }
+
         public ICollection<UserAnswer> GetAllAnswersByUser(int attestationId, int userId)
         {
             var query = @"SELECT * FROM [UserAnswer]

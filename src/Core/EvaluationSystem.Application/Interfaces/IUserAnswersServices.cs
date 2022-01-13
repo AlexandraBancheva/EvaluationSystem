@@ -9,5 +9,7 @@ namespace EvaluationSystem.Application.Interfaces
         void Create(CreateUserAnswerDto model);
 
         ICollection<AttestationFormDetailDto> GetAttestationAnswerByUser(int attestationId, string userEmail);
+
+        void DeleteUserAnswer(int attestationId);
     }
 }

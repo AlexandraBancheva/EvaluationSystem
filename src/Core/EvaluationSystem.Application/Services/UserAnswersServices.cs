@@ -123,5 +123,11 @@ namespace EvaluationSystem.Application.Services
 
             return resultForm;
         }
+
+        public void DeleteUserAnswer(int attestationId)
+        {
+            // Checks
+            _userAnswerRepository.DeleteUserAnswerByAttestationId(attestationId);
+        }
     }
 }

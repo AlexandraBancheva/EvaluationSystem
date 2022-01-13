@@ -19,12 +19,20 @@ namespace EvaluationSystem.Application.Services
 
 
         private readonly IUserRepository _userRepository;
+        private readonly IAttestationParticipantRepository _attestationParticipantRepository;
+        private readonly IAttestationsServices _attestationsServices;
         private readonly IMapper _mapper;
         private readonly IUser _currentUser;
 
-        public UsersServices(IUserRepository userRepository, IMapper mapper, IUser currentUser)
+        public UsersServices(IUserRepository userRepository, 
+                             IAttestationParticipantRepository attestationParticipantRepository, 
+                             IAttestationsServices attestationsServices, 
+                             IMapper mapper, 
+                             IUser currentUser)
         {
             _userRepository = userRepository;
+            _attestationParticipantRepository = attestationParticipantRepository;
+            _attestationsServices = attestationsServices;
             _mapper = mapper;
             _currentUser = currentUser;
         }
@@ -111,6 +119,11 @@ namespace EvaluationSystem.Application.Services
 
                     if (isExist == false)
                     {
+                        var allParticipants = _attestationParticipantRepository.GetAllAttestationParticipant(dbUser.Id);
+                        foreach (var participant in allParticipants)
+                        {
+                            _attestationsServices.DeleteAttestation(participant.IdAttestation);
+                        }
                         _userRepository.DeleteUserByEmail(dbUser.Email);
                     }
                 }

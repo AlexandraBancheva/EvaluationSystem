@@ -8,5 +8,7 @@ namespace EvaluationSystem.Application.Repositories
         void ChangeStatusToDone(int attestationId, int idUserParticipant);
 
         ICollection<UserAnswer> GetAllAnswersByUser(int attestationId, int userId);
+
+        void DeleteUserAnswerByAttestationId(int attestationId);
     }
 }
