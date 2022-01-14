@@ -13,12 +13,22 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
         {
         }
 
+        public void DeleteAttestationIdFromAttestationParticipant(int userId, int attestationId)
+        {
+            var query = @"DELETE FROM [AttestationParticipant]
+                        WHERE IdUserParticipant = @UserId
+                        DELETE FROM [AttestationParticipant]
+                        WHERE  IdAttestation = @AttestationId";
+
+            Connection.Execute(query, new { UserId = userId, AttestationId = attestationId }, Transaction);
+        }
+
         public ICollection<AttestationParticipant> GetAllAttestationParticipant(int userId)
         {
             var query = @"SELECT * FROM AttestationParticipant
                         WHERE IdUserParticipant = @UserId";
 
-            var res = Connection.Query<ICollection<AttestationParticipant>>(query, new { UserId = userId }, Transaction);
+            var res = Connection.Query<AttestationParticipant>(query, new { UserId = userId }, Transaction);
 
             return (ICollection<AttestationParticipant>)res;
         }

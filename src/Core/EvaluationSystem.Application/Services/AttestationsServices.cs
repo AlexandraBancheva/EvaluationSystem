@@ -18,6 +18,7 @@ namespace EvaluationSystem.Application.Services
         private readonly IUserRepository _userRepository;
         private readonly IAttestationRepository _attestationRepository;
         private readonly IAttestationFormRepository _attestationFormRepository;
+        private readonly IAttestationParticipantRepository _attestationParticipantRepository;
         private readonly IFormRepository _formRepository;
         private readonly IAttestationFormsServices _attestationFormsServices;
         private readonly IUserAnswersServices _userAnswersServices;
@@ -26,6 +27,7 @@ namespace EvaluationSystem.Application.Services
         public AttestationsServices(IUserRepository userRepository, 
                                     IAttestationRepository attestationRepository,
                                     IAttestationFormRepository attestationFormRepository,
+                                    IAttestationParticipantRepository attestationParticipantRepository,
                                     IFormRepository formRepository,
                                     IAttestationFormsServices attestationFormsServices,
                                     IUserAnswersServices userAnswersServices,
@@ -34,6 +36,7 @@ namespace EvaluationSystem.Application.Services
             _userRepository = userRepository;
             _attestationRepository = attestationRepository;
             _attestationFormRepository = attestationFormRepository;
+            _attestationParticipantRepository = attestationParticipantRepository;
             _formRepository = formRepository;
             _attestationFormsServices = attestationFormsServices;
             _userAnswersServices = userAnswersServices;
@@ -142,8 +145,9 @@ namespace EvaluationSystem.Application.Services
         {
             var attestation = _attestationRepository.GetById(attestationId);
             _userAnswersServices.DeleteUserAnswer(attestationId);
-            _attestationFormRepository.DeleteAttestationForm(attestation.IdForm);
+            _attestationParticipantRepository.DeleteAttestationIdFromAttestationParticipant(attestation.IdUserToEvaluate, attestationId);
             _attestationRepository.DeleteAttestation(attestationId);
+            _attestationFormRepository.DeleteAttestationForm(attestation.IdForm);
         }
 
         public ICollection<AttestationInfoDbDto> GetAllAttestations()

@@ -20,18 +20,21 @@ namespace EvaluationSystem.Application.Services
 
         private readonly IUserRepository _userRepository;
         private readonly IAttestationParticipantRepository _attestationParticipantRepository;
+        private readonly IAttestationRepository _attestationRepository;
         private readonly IAttestationsServices _attestationsServices;
         private readonly IMapper _mapper;
         private readonly IUser _currentUser;
 
         public UsersServices(IUserRepository userRepository, 
-                             IAttestationParticipantRepository attestationParticipantRepository, 
+                             IAttestationParticipantRepository attestationParticipantRepository,
+                             IAttestationRepository attestationRepository,
                              IAttestationsServices attestationsServices, 
                              IMapper mapper, 
                              IUser currentUser)
         {
             _userRepository = userRepository;
             _attestationParticipantRepository = attestationParticipantRepository;
+            _attestationRepository = attestationRepository;
             _attestationsServices = attestationsServices;
             _mapper = mapper;
             _currentUser = currentUser;
@@ -43,8 +46,9 @@ namespace EvaluationSystem.Application.Services
             var graphClient = new GraphServiceClient(clientSecretCredential, scopes);
 
             var userFromCloud = await UpdatingUsersInDatabase(graphClient);
-            userFromCloud = userFromCloud.OrderBy(x => x.Id).ToList();
-            return userFromCloud;
+
+            var allUsers = _userRepository.GetAll().OrderBy(x => x.Email).ToList();
+            return _mapper.Map<ICollection<UserDetailDto>>(allUsers);
         }
 
         public IEnumerable<UserToEvaluateDto> GetUsersToEvaluate()
@@ -68,7 +72,7 @@ namespace EvaluationSystem.Application.Services
             {
                 foreach (var user in users.CurrentPage)
                 {
-                    if (user.UserPrincipalName.EndsWith("@vsgbg.com") && !user.UserPrincipalName.EndsWith("#EXT#@vsgbg.com"))
+                    if (user.UserPrincipalName.EndsWith("@vsgbgmnngff") && !user.UserPrincipalName.EndsWith("#EXT#@vsgbg.com"))
                     {
                         allUsers.Add(user);
                     }
@@ -84,8 +88,7 @@ namespace EvaluationSystem.Application.Services
             var usersFromCloud = _mapper.Map<ICollection<UsersFromCloudDto>>(allUsers);
             var dbUsers = _userRepository.GetAll();
 
-            if (usersFromCloud.Count > dbUsers.Count)
-            {
+
                 foreach (var currUser in usersFromCloud)
                 {
                     var user = _userRepository.GetUserByEmail(currUser.Email);
@@ -101,9 +104,7 @@ namespace EvaluationSystem.Application.Services
                         _userRepository.Insert(user);
                     }
                 }
-            }
-            else if (dbUsers.Count > usersFromCloud.Count)
-            {
+
                 foreach (var dbUser in dbUsers)
                 {
                     var isExist = false;
@@ -124,10 +125,15 @@ namespace EvaluationSystem.Application.Services
                         {
                             _attestationsServices.DeleteAttestation(participant.IdAttestation);
                         }
+                        var userForEvaluate = _attestationRepository.GetAllAtestationByUserId(dbUser.Id);
+                        foreach (var user in userForEvaluate)
+                        {
+                            _attestationsServices.DeleteAttestation(user.Id);
+                        }
                         _userRepository.DeleteUserByEmail(dbUser.Email);
                     }
                 }
-            }
+
             return _mapper.Map<ICollection<UserDetailDto>>(dbUsers);
         }
     }

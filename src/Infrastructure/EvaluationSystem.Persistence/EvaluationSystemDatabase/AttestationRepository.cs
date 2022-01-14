@@ -35,6 +35,16 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             Connection.Execute(query, new { IdAttestation = attestationId }, Transaction);
         }
 
+        public ICollection<Attestation> GetAllAtestationByUserId(int userId)
+        {
+            var query = @"SELECT * FROM [Attestation]
+                        WHERE IdUserToEvaluate = @UserId";
+
+            var res = Connection.Query<Attestation>(query, new { UserId = userId}, Transaction);
+
+            return (ICollection<Attestation>)res;
+        }
+
         public ICollection<AttestationInfoDbDto> GetAllAttestation()
         {
             var query = @"SELECT [at].Id AS IdAttestation, [af].Id AS IdForm, u.[Name] AS Username, af.[Name] AS FormName, ap.[Status] AS Status, [at].CreateDate, up.Id AS IdUser, up.[Name] AS ParticipantUser, up.[Email] AS ParticipantEmail, ap.[Status] AS ParticipantStatus

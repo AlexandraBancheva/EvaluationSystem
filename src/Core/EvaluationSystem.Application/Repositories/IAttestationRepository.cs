@@ -11,5 +11,7 @@ namespace EvaluationSystem.Application.Repositories
         void DeleteAttestation(int attestationId);
 
         ICollection<AttestationInfoDbDto> GetAllAttestation();
+
+        ICollection<Attestation> GetAllAtestationByUserId(int userId);
     }
 }

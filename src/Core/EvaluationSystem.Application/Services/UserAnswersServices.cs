@@ -126,7 +126,6 @@ namespace EvaluationSystem.Application.Services
 
         public void DeleteUserAnswer(int attestationId)
         {
-            // Checks
             _userAnswerRepository.DeleteUserAnswerByAttestationId(attestationId);
         }
     }

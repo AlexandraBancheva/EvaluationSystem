@@ -15,7 +15,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public void DeleteUserByEmail(string email)
         {
-            var query = @" DELETE FROM [User]
+            var query = @"DELETE FROM [User]
                         WHERE Email = @Email";
 
             Connection.Execute(query, new { Email = email}, Transaction);
