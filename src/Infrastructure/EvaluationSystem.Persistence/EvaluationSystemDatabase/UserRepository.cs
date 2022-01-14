@@ -42,7 +42,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public IEnumerable<UserToEvaluateDto> GetUsersToEvaluate(int idParticipant)
         {
-            var query = @"SELECT [at].Id AS IdAttestation, [at].IdForm, u.[Email] 
+            var query = @"SELECT [at].Id AS IdAttestation, [at].IdForm, u.[Name], u.[Email] 
                             FROM Attestation AS [at]
                             LEFT JOIN [User] AS u ON [at].IdUserToEvaluate = u.Id
                             LEFT JOIN AttestationForm AS af ON [at].IdForm = af.Id

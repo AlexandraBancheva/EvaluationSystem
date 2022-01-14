@@ -72,7 +72,7 @@ namespace EvaluationSystem.Application.Services
             {
                 foreach (var user in users.CurrentPage)
                 {
-                    if (user.UserPrincipalName.EndsWith("@vsgbgmnngff") && !user.UserPrincipalName.EndsWith("#EXT#@vsgbg.com"))
+                    if (user.UserPrincipalName.EndsWith("@vsgbg.com") && !user.UserPrincipalName.EndsWith("#EXT#@vsgbg.com"))
                     {
                         allUsers.Add(user);
                     }

@@ -23,7 +23,10 @@ namespace EvaluationSystem.Application.Middlewares
             if (user == null)
             {
                 var username = context.User.Claims.FirstOrDefault(c => c.Type == "name")?.Value;
-                var userId = userRepository.Insert(new Domain.Entities.User() { Email = userEmail, Name = username});
+                user = new Domain.Entities.User() { Email = userEmail, Name = username };
+                var userId = userRepository.Insert(user);
+                user.Id = userId;
+               // var userId = userRepository.Insert();
             }
 
             currentUser.Id = user.Id;
