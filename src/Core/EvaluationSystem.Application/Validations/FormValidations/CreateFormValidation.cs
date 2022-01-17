@@ -12,6 +12,13 @@ namespace EvaluationSystem.Application.Validations.FormValidations
                 .NotEmpty().WithMessage("{PropertyName} cannot be empty!")
                 .Length(3, 200).WithMessage("{PropertyName} must be between 3 and 200 characters!")
                 .Must(BeAValidName);
+
+            RuleForEach(x => x.Modules).ChildRules(modules =>
+                modules.RuleFor(x => x.ModuleName)
+                .NotEmpty().WithMessage("{PropertyName} cannot be empty!")
+                .Length(3, 200).WithMessage("{PropertyName} must be between 3 and 200 characters!")
+                .Must(BeAValidName)
+            );
         }
 
         public bool BeAValidName(string name)

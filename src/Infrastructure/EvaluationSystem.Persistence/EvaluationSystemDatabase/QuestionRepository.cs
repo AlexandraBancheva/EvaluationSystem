@@ -22,7 +22,9 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             WHERE IdQuestion = @QuestionId
                             DELETE FROM QuestionTemplate
                             WHERE Id = @QuestionId";
-            Connection.Execute(query, new { QuestionId = questionId}, Transaction);
+            var queryParameter = new { QuestionId = questionId };
+
+            Connection.Execute(query, queryParameter, transaction: Transaction);
         }
 
         public ICollection<QuestionTemplate> GetAllById(int questionId)
@@ -45,7 +47,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                 currentQuestion.Answers.Add(answer);
                 return currentQuestion;
-            }, queryParameter, Transaction,
+            }, queryParameter, transaction: Transaction,
                splitOn: "Id")
             .Distinct()
             .ToList();
@@ -69,7 +71,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                     currentQuestion.Answers.Add(answer);
                     return currentQuestion;
-            }, Transaction,
+            }, transaction: Transaction,
                splitOn: "Id")
             .Distinct()
             .ToList();
@@ -95,7 +97,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                 currentQuestion.Answers.Add(answer);
                 return currentQuestion;
-            }, Transaction,
+            }, transaction: Transaction,
                splitOn: "Id")
             .Distinct()
             .ToList();

@@ -18,14 +18,14 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"DELETE FROM [User]
                         WHERE Email = @Email";
 
-            Connection.Execute(query, new { Email = email}, Transaction);
+            Connection.Execute(query, new { Email = email }, transaction: Transaction);
         }
 
         public ICollection<User> GetAllUsers()
         {
             var query = @"SELECT * FROM [User]";
 
-            var users = Connection.Query<User>(query, Transaction);
+            var users = Connection.Query<User>(query, transaction: Transaction);
 
             return (ICollection<User>)users;
         }
@@ -35,7 +35,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"SELECT * FROM [User]
                         WHERE Email = @Email";
 
-            var result = Connection.QueryFirstOrDefault<User>(query, new { Email = email }, Transaction);
+            var result = Connection.QueryFirstOrDefault<User>(query, new { Email = email }, transaction: Transaction);
 
             return result;
         }
@@ -49,7 +49,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             LEFT JOIN AttestationParticipant AS ap ON ap.IdAttestation = [at].Id
                             WHERE ap.IdUserParticipant = @IdParticipant AND ap.[Status] = 'Open'";
 
-            var users = Connection.Query<UserToEvaluateDto>(query, new { IdParticipant = idParticipant }, Transaction);
+            var users = Connection.Query<UserToEvaluateDto>(query, new { IdParticipant = idParticipant }, transaction: Transaction);
 
             return users;
         }

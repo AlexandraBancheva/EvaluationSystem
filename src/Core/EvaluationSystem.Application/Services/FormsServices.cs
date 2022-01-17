@@ -8,6 +8,7 @@ using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
+using EvaluationSystem.Application.Models.Modules;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -19,6 +20,7 @@ namespace EvaluationSystem.Application.Services
         private readonly IModuleQuestionRepository _moduleQuestionRepository;
         private readonly IAnswerRepository _answerRepository;
         private readonly ICustomQuestionsServices _questionCustomServices;
+        private readonly IModulesServices _modulesServices;
         private readonly IMapper _mapper;
 
         public FormsServices(IMapper mapper, 
@@ -27,6 +29,7 @@ namespace EvaluationSystem.Application.Services
             IModuleRepository moduleRepository,
             IModuleQuestionRepository moduleQuestionRepository,
             ICustomQuestionsServices questionCustomServices,
+            IModulesServices modulesServices,
             IAnswerRepository answerRepository)
         {
             _formRepository = formRepository;
@@ -35,11 +38,12 @@ namespace EvaluationSystem.Application.Services
             _moduleQuestionRepository = moduleQuestionRepository;
             _answerRepository = answerRepository;
             _questionCustomServices = questionCustomServices;
+            _modulesServices = modulesServices;
             _mapper = mapper;
         }
 
 
-        public FormDetailDto CreateNewForm(CreateFormDto form)
+        public ICollection<FormDetailDto> CreateNewForm(CreateFormDto form)
         {
             var currentForm = _mapper.Map<FormTemplateDto>(form);
             var IsExist = CheckIfFormNameExists(currentForm.Name, _formRepository);
@@ -53,16 +57,15 @@ namespace EvaluationSystem.Application.Services
 
             foreach (var module in currentForm.Modules)
             {
-                var moduleId = _moduleRepository.Insert(_mapper.Map<ModuleTemplate>(module));
-
-                _formModuleRepository.AddNewModuleInForm(formId, moduleId, module.ModulePosition);
-                module.Id = moduleId;
+                var mappedEntity = _mapper.Map<CreateModuleDto>(module);
+                var newModule = _modulesServices.CreateModule(formId, mappedEntity);  // Fluent validation doesn't work!
 
                 var questions = module.Questions;
 
                 foreach (var question in questions)
                 {
-                    var questionNew = _questionCustomServices.CreateNewQuestion(moduleId, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
+                    var mappedNewEntity = _mapper.Map<CreateQuestionDto>(question);
+                    var questionNew = _questionCustomServices.CreateNewQuestion(newModule.Id, question.QuestionPosition, mappedNewEntity);
                     question.Id = questionNew.IdQuestion;
                     question.DateOfCreation = questionNew.DateOfCreation;
                     var answers = question.Answers;
@@ -75,9 +78,7 @@ namespace EvaluationSystem.Application.Services
                 }
             }
 
-            currentForm.Id = formId;
-            var successForm = _mapper.Map<FormDetailDto>(currentForm);
-            return successForm;
+            return GetFormById(formId);
         }
 
         public void DeleteFormById(int formId)

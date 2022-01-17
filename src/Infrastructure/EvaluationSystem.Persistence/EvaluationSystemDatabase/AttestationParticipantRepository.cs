@@ -20,7 +20,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                         DELETE FROM [AttestationParticipant]
                         WHERE  IdAttestation = @AttestationId";
 
-            Connection.Execute(query, new { UserId = userId, AttestationId = attestationId }, Transaction);
+            Connection.Execute(query, new { UserId = userId, AttestationId = attestationId }, transaction: Transaction);
         }
 
         public ICollection<AttestationParticipant> GetAllAttestationParticipant(int userId)
@@ -28,7 +28,8 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             var query = @"SELECT * FROM AttestationParticipant
                         WHERE IdUserParticipant = @UserId";
 
-            var res = Connection.Query<AttestationParticipant>(query, new { UserId = userId }, Transaction);
+            var queryParameter = new { UserId = userId };
+            var res = Connection.Query<AttestationParticipant>(query, queryParameter, transaction: Transaction);
 
             return (ICollection<AttestationParticipant>)res;
         }

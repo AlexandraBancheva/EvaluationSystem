@@ -22,6 +22,7 @@ using EvaluationSystem.Persistence;
 using EvaluationSystem.Application.Profiles.AttestationModuleProfile;
 using EvaluationSystem.Application.Profiles.AttestationFormProfile;
 using EvaluationSystem.Application.Profiles.AttestationAnswerProfile;
+using EvaluationSystem.Application.Validations.ModuleValidations;
 
 namespace EvaluationSystem.API
 {
@@ -45,18 +46,6 @@ namespace EvaluationSystem.API
 
             services.AddControllers().AddJsonOptions(options =>
                        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
-
-            //JsonSerializerOptions options = new()
-            //{
-            //    ReferenceHandler = ReferenceHandler.IgnoreCycles,
-            //    WriteIndented = true
-            //};
-
-            //services.AddControllers().AddJsonOptions(options =>
-            //{
-            //    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-            //});
-
 
             services.AddControllers();
             // Memory cache

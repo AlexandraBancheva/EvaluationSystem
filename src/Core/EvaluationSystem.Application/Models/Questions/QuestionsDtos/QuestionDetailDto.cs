@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using EvaluationSystem.Application.Models.Answers.AnswersDtos;
+using EvaluationSystem.Domain.Enums;
 
 namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 {
@@ -15,7 +16,7 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 
         public string QuestionName { get; set; }
 
-        public int Type { get; set; }
+        public QuestionType Type { get; set; }
 
         public bool  IsReusable { get; set; }
 

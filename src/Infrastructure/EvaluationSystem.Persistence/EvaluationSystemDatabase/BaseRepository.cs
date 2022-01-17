@@ -16,9 +16,9 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             _unitOfWork = unitOfWork;
         }
 
-        public IDbTransaction Transaction => _unitOfWork.Transaction;
-
         public IDbConnection Connection => _unitOfWork.Connection;
+
+        public IDbTransaction Transaction => _unitOfWork.Transaction;
 
         public void Delete(T entity)
         {

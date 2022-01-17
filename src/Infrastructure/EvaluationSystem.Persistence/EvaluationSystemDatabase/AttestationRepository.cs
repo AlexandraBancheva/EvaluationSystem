@@ -20,9 +20,9 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
         {
             var query = @"INSERT INTO [AttestationParticipant]
                         VALUES (@IdAttestation, @IdUserParticipant, @Status, @Position)";
-            var status = "Open";
 
-            Connection.Execute(query, new { IdAttestation  = attestationId, IdUserParticipant = participantId, Status = status, Position = position }, Transaction);
+            var status = "Open";
+            Connection.Execute(query, new { IdAttestation  = attestationId, IdUserParticipant = participantId, Status = status, Position = position }, transaction: Transaction);
         }
 
         public void DeleteAttestation(int attestationId)
@@ -32,7 +32,8 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                         DELETE FROM [Attestation]
                         WHERE Id = @IdAttestation";
 
-            Connection.Execute(query, new { IdAttestation = attestationId }, Transaction);
+            var queryParameter = new { IdAttestation = attestationId };
+            Connection.Execute(query, queryParameter, transaction: Transaction);
         }
 
         public ICollection<Attestation> GetAllAtestationByUserId(int userId)
@@ -40,7 +41,8 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             var query = @"SELECT * FROM [Attestation]
                         WHERE IdUserToEvaluate = @UserId";
 
-            var res = Connection.Query<Attestation>(query, new { UserId = userId}, Transaction);
+            var queryParameter = new { UserId = userId };
+            var res = Connection.Query<Attestation>(query, queryParameter, transaction: Transaction);
 
             return (ICollection<Attestation>)res;
         }
@@ -65,7 +67,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 
                 currentAttest.Participants.Add(participant);
                 return currentAttest;
-            }, Transaction, splitOn: "IdUser")
+            }, transaction: Transaction, splitOn: "IdUser")
                 .Distinct()
                 .ToList();
 

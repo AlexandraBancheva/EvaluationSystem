@@ -18,7 +18,8 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             var query = @"SELECT * FROM AttestationAnswer
                         WHERE IdQuestion = @QuestionId";
 
-            var attestationAnswers = Connection.Query<AttestationAnswer>(query, new { QuestionId = questionId }, Transaction);
+            var queryParameter = new { QuestionId = questionId };
+            var attestationAnswers = Connection.Query<AttestationAnswer>(query, queryParameter, transaction: Transaction);
 
             return (ICollection<AttestationAnswer>)attestationAnswers;
         }

@@ -23,7 +23,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             JOIN ModuleQuestion AS mq ON mq.IdModule = mt.Id
                             WHERE fm.IdForm = @IdForm AND fm.IdModule = @IdModule AND mq.IdQuestion = @IdQuestion";
 
-            var res = Connection.QueryFirstOrDefault<CheckFormModuleQuestionDto>(query, new { IdForm = formId, IdModule = moduleId, IdQuestion = questionId }, Transaction);
+            var res = Connection.QueryFirstOrDefault<CheckFormModuleQuestionDto>(query, new { IdForm = formId, IdModule = moduleId, IdQuestion = questionId }, transaction: Transaction);
 
             return res;
         }
@@ -37,7 +37,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                         JOIN AnswerTemplate AS [at] ON [at].IdQuestion = mq.IdQuestion
                         WHERE fm.IdForm = @IdForm AND fm.IdModule = @IdModule AND mq.IdQuestion = @IdQuestion AND [at].Id = @IdAnswer";
 
-            var res = Connection.QueryFirstOrDefault<CheckFormModuleQuestionAnswerDto>(query, new { IdForm = formId, IdModule = moduleId, IdQuestion = questionId, IdAnswer = answerId});
+            var res = Connection.QueryFirstOrDefault<CheckFormModuleQuestionAnswerDto>(query, new { IdForm = formId, IdModule = moduleId, IdQuestion = questionId, IdAnswer = answerId}, transaction: Transaction);
 
             return res;
         }
@@ -49,7 +49,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                         JOIN AnswerTemplate AS [at] ON [at].IdQuestion = qt.Id
                         WHERE qt.IsReusable = 'true' AND [at].IdQuestion = @IdQuestion AND [at].Id = @IdAnswer";
 
-            var res = Connection.QueryFirstOrDefault<CheckQuestionIdAnswerIdDto>(query, new { IdQuestion = questionId, IdAnswer = answerId }, Transaction);
+            var res = Connection.QueryFirstOrDefault<CheckQuestionIdAnswerIdDto>(query, new { IdQuestion = questionId, IdAnswer = answerId }, transaction: Transaction);
 
             return res;
         }
@@ -59,7 +59,8 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"SELECT * FROM AnswerTemplate
                         WHERE IdQuestion = @QuestionId";
 
-            var answers = Connection.Query<AnswerTemplate>(query, new { QuestionId = questionId}, Transaction);
+            var queryParameter = new { QuestionId = questionId };
+            var answers = Connection.Query<AnswerTemplate>(query, queryParameter, transaction: Transaction);
 
             return (ICollection<AnswerTemplate>)answers;
         }

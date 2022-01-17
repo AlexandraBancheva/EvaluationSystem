@@ -19,7 +19,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             var query = @"INSERT INTO AttestationFormModule
                         VALUES (@IdAttestationForm, @IdAttestationModule, @Position)";
 
-            Connection.Execute(query, new { IdAttestationForm = formId, IdAttestationModule = moduleId, Position = position }, Transaction);
+            Connection.Execute(query, new { IdAttestationForm = formId, IdAttestationModule = moduleId, Position = position }, transaction: Transaction);
         }
 
         public void DeleteModuleFromForm(int formId, int moduleId)
@@ -27,7 +27,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             var query = @"DELETE FROM AttestationFormModule
                         WHERE IdAttestationForm = @IdAttestationForm AND IdAttestationModule = @IdAttestationModule";
 
-            Connection.Execute(query, new { IdAttestationForm = formId, IdAttestationModule = moduleId }, Transaction);
+            Connection.Execute(query, new { IdAttestationForm = formId, IdAttestationModule = moduleId }, transaction: Transaction);
         }
 
         public ICollection<FormModuleGettingOnlyModulesDto> GetAllModulesByFormId(int formId)
@@ -35,7 +35,8 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             var query = @"SELECT IdAttestationModule FROM AttestationFormModule
                         WHERE IdAttestationForm = @IdAttestationForm";
 
-            var formWithModules = Connection.Query<FormModuleGettingOnlyModulesDto>(query, new { IdAttestationForm = formId });
+            var queryParameter = new { IdAttestationForm = formId };
+            var formWithModules = Connection.Query<FormModuleGettingOnlyModulesDto>(query, queryParameter, transaction: Transaction);
 
             return (ICollection<FormModuleGettingOnlyModulesDto>)formWithModules;
         }

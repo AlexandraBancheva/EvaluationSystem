@@ -18,7 +18,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
             var query = @"INSERT INTO FormModule
                             VALUES (@IdForm, @IdModule, @Position)";
-            Connection.Execute(query, new { IdForm = formId, IdModule = moduleId, Position = position }, Transaction);
+            Connection.Execute(query, new { IdForm = formId, IdModule = moduleId, Position = position }, transaction: Transaction);
         }
 
         public void DeleteModuleFromForm(int formId, int moduleId)
@@ -26,7 +26,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"DELETE FROM FormModule 
                             WHERE IdForm = @FormId AND IdModule = @ModuleId";
 
-            Connection.Execute(query, new { FormId = formId, ModuleId = moduleId}, Transaction);
+            Connection.Execute(query, new { FormId = formId, ModuleId = moduleId}, transaction: Transaction);
         }
 
         public ICollection<FormModuleGettingOnlyModulesDto> GetAllModulesByFormId(int formId)
@@ -34,7 +34,8 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"SELECT IdModule FROM FormModule
                             WHERE IdForm = @FormId";
 
-            var formWithModules = Connection.Query<FormModuleGettingOnlyModulesDto>(query, new { FormId = formId });
+            var queryParameter = new { FormId = formId };
+            var formWithModules = Connection.Query<FormModuleGettingOnlyModulesDto>(query, queryParameter, transaction: Transaction);
 
             return (ICollection<FormModuleGettingOnlyModulesDto>)formWithModules;
         }
@@ -46,7 +47,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                                 WHERE fm.IdForm = @IdForm";
 
             var queryParameter = new { IdForm = formId };
-
             var formModuleDictionary = new Dictionary<int, FormModelDto>();
             var modules = Connection.Query<FormModelDto, ModuleTemplate, FormModelDto>(query, (form, module) =>
             {
@@ -58,7 +58,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                 currentForm.Modules.Add(module);
                 return currentForm;
-            }, queryParameter, Transaction,
+            }, queryParameter, transaction: Transaction,
                splitOn: "Id")
             .Distinct()
             .ToList();

@@ -23,7 +23,9 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             WHERE IdForm = @FormId
                             DELETE FROM FormTemplate
                             WHERE Id = @FormId";
-            Connection.Execute(query, new { FormId = formId }, Transaction);
+
+            var queryParameter = new { FormId = formId };
+            Connection.Execute(query, queryParameter, transaction: Transaction);
         }
 
         public ICollection<FormWithAllDto> GetAllForms()
@@ -72,7 +74,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                 currentForm.Modules.Add(module);
                 return currentForm;
 
-            }, Transaction, splitOn: "Id, IdModule, IdQuestion, IdAnswer")
+            }, transaction: Transaction, splitOn: "Id, IdModule, IdQuestion, IdAnswer")
                 .Distinct()
                 .ToList();
 
@@ -90,7 +92,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             LEFT JOIN AnswerTemplate AS [at] ON [at].IdQuestion = qt.Id
                             WHERE ft.Id = @IdForm";
 
-
+            var queryParameter = new { IdForm = formId };
             var formDictionary = new Dictionary<int, FormWithAllDto>();
             var moduleDictionary = new Dictionary<int, ModuleInFormDto>();
             var questionDictionary = new Dictionary<int, QuestionInModuleDto>();
@@ -128,7 +130,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                 currentForm.Modules.Add(module);
                 return currentForm;
 
-            }, new { IdForm = formId }, Transaction, splitOn: "Id, IdModule, IdQuestion, IdAnswer")
+            }, queryParameter, transaction: Transaction, splitOn: "Id, IdModule, IdQuestion, IdAnswer")
                 .Distinct()
                 .ToList();
 
@@ -139,7 +141,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
             var query = @"SELECT [Name] FROM FormTemplate";
 
-            var names = Connection.Query<CheckFormNameDto>(query, Transaction);
+            var names = Connection.Query<CheckFormNameDto>(query, transaction: Transaction);
 
             return (ICollection<CheckFormNameDto>)names;
         }

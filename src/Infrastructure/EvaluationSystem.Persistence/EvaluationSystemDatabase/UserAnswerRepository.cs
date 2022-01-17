@@ -19,7 +19,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                         SET [Status] = 'Done'
                         WHERE IdAttestation = @AttestationId AND IdUserParticipant = @IdUserParticipant";
 
-            Connection.Execute(query, new { AttestationId = attestationId, IdUserParticipant = idUserParticipant }, Transaction);
+            Connection.Execute(query, new { AttestationId = attestationId, IdUserParticipant = idUserParticipant }, transaction: Transaction);
         }
 
         public void DeleteUserAnswerByAttestationId(int attestationId)
@@ -27,7 +27,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             var query = @"DELETE [UserAnswer]
                         WHERE IdAttestation = @AttestationId";
 
-            Connection.Execute(query, new { AttestationId = attestationId }, Transaction);
+            Connection.Execute(query, new { AttestationId = attestationId }, transaction: Transaction);
         }
 
         public ICollection<UserAnswer> GetAllAnswersByUser(int attestationId, int userId)
@@ -35,7 +35,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             var query = @"SELECT * FROM [UserAnswer]
                         WHERE IdAttestation = @IdAttestation AND IdUserParticipant = @IdUserParticipant";
 
-            var results = Connection.Query<UserAnswer>(query, new { IdAttestation = attestationId, IdUserParticipant = userId}, Transaction);
+            var results = Connection.Query<UserAnswer>(query, new { IdAttestation = attestationId, IdUserParticipant = userId}, transaction: Transaction);
 
             return (ICollection<UserAnswer>)results;
         }

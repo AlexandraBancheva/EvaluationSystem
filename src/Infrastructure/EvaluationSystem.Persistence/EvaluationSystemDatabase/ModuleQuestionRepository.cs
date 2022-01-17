@@ -20,7 +20,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
         {
             var query = @"INSERT INTO ModuleQuestion
                             VALUES (@IdModule, @IdQuestion, @Position)";
-            Connection.Execute(query, new { IdModule = moduleId, IdQuestion = questionId, Position = position}, Transaction);
+            Connection.Execute(query, new { IdModule = moduleId, IdQuestion = questionId, Position = position}, transaction: Transaction);
         }
 
         public void DeleteQuestionFromModule(int moduleId, int questionId)
@@ -28,7 +28,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"DELETE ModuleQuestion
                             WHERE IdModule = @ModuleId AND IdQuestion = @QuestionId ";
 
-            Connection.Execute(query, new { ModuleId = moduleId, QuestionId = questionId}, Transaction);
+            Connection.Execute(query, new { ModuleId = moduleId, QuestionId = questionId}, transaction: Transaction);
         }
 
         public ICollection<ModuleQuestionGettingAllQuestionIds> GetAllQuestionIdsByModuleId(int moduleId)
@@ -36,7 +36,8 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"SELECT IdQuestion FROM ModuleQuestion
                             WHERE IdModule = @IdModule";
 
-            var results = Connection.Query<ModuleQuestionGettingAllQuestionIds>(query, new { IdModule = moduleId });
+            var queryParameter = new { IdModule = moduleId };
+            var results = Connection.Query<ModuleQuestionGettingAllQuestionIds>(query, queryParameter, transaction: Transaction);
 
             return (ICollection<ModuleQuestionGettingAllQuestionIds>)results;
         }
@@ -64,7 +65,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                 currentModule.Questions.Add(question);
                 return currentModule;
-            }, queryParameter, Transaction,
+            }, queryParameter, transaction: Transaction,
                splitOn: "Id, Id")
             .Distinct()
             .ToList();
@@ -77,7 +78,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"SELECT * FROM ModuleQuestion
                             WHERE IdModule = @ModuleId";
 
-            var questionsIds = Connection.Query<ModuleQuestion>(query, Transaction);
+            var questionsIds = Connection.Query<ModuleQuestion>(query, transaction: Transaction);
 
             return (ICollection<ModuleQuestion>)questionsIds;
         }
@@ -99,7 +100,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                 currentModule.Questions.Add(question);
                 return currentModule;
-            }, Transaction, splitOn: "Id")
+            }, transaction: Transaction, splitOn: "Id")
                 .Distinct()
                 .ToList();
 

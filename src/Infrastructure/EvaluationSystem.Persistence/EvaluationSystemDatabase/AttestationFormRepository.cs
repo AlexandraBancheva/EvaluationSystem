@@ -25,7 +25,8 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                 DELETE FROM AttestationForm
                 WHERE Id = @FormId";
 
-            Connection.Execute(query, new {FormId = formId }, Transaction);
+            var queryParameter = new { FormId = formId };
+            Connection.Execute(query, queryParameter, transaction: Transaction);
         }
 
         public ICollection<FormWithAllDto> GetAllByFormId(int formId)
@@ -39,7 +40,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                             LEFT JOIN AttestationAnswer AS [at] ON [at].IdQuestion = qt.Id
                             WHERE ft.Id = @IdForm";
 
-
+            var queryParameter = new { IdForm = formId };
             var formDictionary = new Dictionary<int, FormWithAllDto>();
             var moduleDictionary = new Dictionary<int, ModuleInFormDto>();
             var questionDictionary = new Dictionary<int, QuestionInModuleDto>();
@@ -77,7 +78,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                 currentForm.Modules.Add(module);
                 return currentForm;
 
-            }, new { IdForm = formId }, Transaction, splitOn: "Id, IdModule, IdQuestion, IdAnswer")
+            }, queryParameter, transaction: Transaction, splitOn: "Id, IdModule, IdQuestion, IdAnswer")
                 .Distinct()
                 .ToList();
 
@@ -88,7 +89,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
         {
             var query = @"SELECT [Name] FROM AttestationForm";
 
-            var names = Connection.Query<CheckFormNameDto>(query, Transaction);
+            var names = Connection.Query<CheckFormNameDto>(query, transaction: Transaction);
 
             return (ICollection<CheckFormNameDto>)names;
         }

@@ -28,22 +28,11 @@ namespace EvaluationSystem.Application.Services
                 throw new InvalidOperationException($"Question with this id {questionId} do not exist!");
             }
 
-            AttestationAnswer current = new AttestationAnswer();
+            var current = new AttestationAnswer();
             foreach (var answer in model.Answers)
             {
                 current = _mapper.Map<AttestationAnswer>(answer);
                 current.IdQuestion = questionId;
-
-                // CHECKS!
-                //if (isExist.Type == QuestionType.NumericalOptions)
-                //{
-                //    var isNumeric = int.TryParse(current.AnswerText, out var answerNum);
-                //    if (!isNumeric)
-                //    {
-                //        throw new InvalidOperationException("Answer type must be numeric!");
-                //    }
-                //}
-
                 var id = _attestationAnswerRepository.Insert(current);
                 current.Id = id;
             }

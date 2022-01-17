@@ -22,7 +22,8 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                         DELETE FROM AttestationQuestion
                         WHERE Id = @IdQuestion";
 
-            Connection.Execute(query, new { IdQuestion = questionId}, Transaction);
+            var queryParameter = new { IdQuestion = questionId };
+            Connection.Execute(query, queryParameter, transaction: Transaction);
         }
 
         public ICollection<AttestationQuestion> GetAllById(int questionId)
@@ -31,7 +32,6 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                         LEFT JOIN AttestationAnswer AS aa ON aa.IdQuestion = aq.Id";
 
             var queryParameter = new { QuestionId = questionId };
-
             var questionDictionary = new Dictionary<int, AttestationQuestion>();
             var questions = Connection.Query<AttestationQuestion, AttestationAnswer, AttestationQuestion>(query, (question, answer) =>
             {
@@ -43,7 +43,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 
                 currentQuestion.AttestationAnswers.Add(answer);
                 return currentQuestion;
-            }, queryParameter, Transaction,
+            }, queryParameter, transaction: Transaction,
                splitOn: "Id")
             .Distinct()
             .ToList();
@@ -67,7 +67,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 
                 currentQuestion.AttestationAnswers.Add(answer);
                 return currentQuestion;
-            }, Transaction,
+            }, transaction: Transaction,
                splitOn: "Id")
             .Distinct()
             .ToList();

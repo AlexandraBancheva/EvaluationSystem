@@ -17,7 +17,8 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
             var query = @"DELETE FROM ModuleQuestion
                         WHERE IdQuestion = @QuestionId";
 
-            Connection.Execute(query, new { QuestionId = questionId });
+            var queryParameter = new { QuestionId = questionId };
+            Connection.Execute(query, queryParameter, transaction: Transaction);
         }
 
         public void DeleteCustomQuestion(int questionId)
@@ -28,7 +29,9 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             WHERE IdQuestion = @QuestionId
                             DELETE FROM QuestionTemplate
                             WHERE Id = @QuestionId";
-            Connection.Execute(query, new { QuestionId = questionId }, Transaction);
+
+            var queryParameter = new { QuestionId = questionId };
+            Connection.Execute(query, queryParameter, transaction: Transaction);
         }
 
         public QuestionTemplateDto GetCustomById(int questionId)
@@ -38,7 +41,9 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                             JOIN ModuleQuestion AS mq ON mq.IdQuestion = qt.Id
                             WHERE qt.Id = @IdQuestion";
 
-            var res = Connection.QueryFirstOrDefault<QuestionTemplateDto>(query, new { IdQuestion = questionId }, Transaction);
+
+            var queryParameter = new { IdQuestion = questionId };
+            var res = Connection.QueryFirstOrDefault<QuestionTemplateDto>(query, queryParameter, transaction: Transaction);
 
             return res;
         }
