@@ -10,9 +10,8 @@ namespace EvaluationSystem.Persistence.Configurations
     {
         public static IServiceCollection AddConfigurationRepositories(this IServiceCollection services)
         {
-           // services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddTransient<IUnitOfWork, UnitOfWork>(); // => PROBLEM!!!
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<ICustomQuestionsRepository, CustomQuestionsRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();

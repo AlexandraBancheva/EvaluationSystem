@@ -18,7 +18,7 @@ namespace EvaluationSystem.Application.Middlewares
         public async Task Invoke(HttpContext context, IUserRepository userRepository, IUser currentUser)
         {
             var userEmail = context.User.Claims.FirstOrDefault(u => u.Type == "preferred_username")?.Value;
-            var user = userRepository.GetAllUsers().FirstOrDefault(u => u.Email == userEmail);
+            var user = userRepository.GetUserByEmail(userEmail);
 
             if (user == null)
             {
@@ -26,7 +26,6 @@ namespace EvaluationSystem.Application.Middlewares
                 user = new Domain.Entities.User() { Email = userEmail, Name = username };
                 var userId = userRepository.Insert(user);
                 user.Id = userId;
-               // var userId = userRepository.Insert();
             }
 
             currentUser.Id = user.Id;

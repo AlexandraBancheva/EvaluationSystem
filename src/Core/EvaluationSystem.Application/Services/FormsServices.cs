@@ -76,8 +76,8 @@ namespace EvaluationSystem.Application.Services
             }
 
             currentForm.Id = formId;
-            var succesForm = _mapper.Map<FormDetailDto>(currentForm);
-            return succesForm;
+            var successForm = _mapper.Map<FormDetailDto>(currentForm);
+            return successForm;
         }
 
         public void DeleteFormById(int formId)
