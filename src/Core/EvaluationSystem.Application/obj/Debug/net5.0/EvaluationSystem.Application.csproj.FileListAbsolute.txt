@@ -12,3 +12,4 @@ C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Appli
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\net5.0\EvaluationSystem.Application.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\net5.0\ref\EvaluationSystem.Application.dll
 C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\net5.0\EvaluationSystem.Application.pdb
+C:\Users\alexandra\source\repos\EvaluationSystem\src\Core\EvaluationSystem.Application\obj\Debug\net5.0\EvaluationSystem.Application.csproj.CopyComplete

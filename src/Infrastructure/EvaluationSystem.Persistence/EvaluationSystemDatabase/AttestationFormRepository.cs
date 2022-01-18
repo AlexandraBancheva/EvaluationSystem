@@ -33,11 +33,11 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
         {
             var query = @"SELECT ft.Id AS Id, ft.[Name], mt.Id AS IdModule, mt.[Name], fm.Position, qt.Id AS IdQuestion, qt.[Name], qt.DateOfCreation, qt.[Type], qt.IsReusable, mq.Position, [at].Id AS IdAnswer, [at].AnswerText, [at].IsDefault, [at].Position
                             FROM AttestationForm AS ft
-                            LEFT JOIN AttestationFormModule AS fm ON fm.IdAttestationForm = ft.Id
-                            LEFT JOIN AttestationModule AS mt ON fm.IdAttestationModule = mt.Id
-                            LEFT JOIN AttestationModuleQuestion AS mq ON mq.IdAttestationModule = mt.Id
-                            LEFT JOIN AttestationQuestion AS qt ON mq.IdAttestationQuestion = qt.Id
-                            LEFT JOIN AttestationAnswer AS [at] ON [at].IdQuestion = qt.Id
+                            JOIN AttestationFormModule AS fm ON fm.IdAttestationForm = ft.Id
+                            JOIN AttestationModule AS mt ON fm.IdAttestationModule = mt.Id
+                            JOIN AttestationModuleQuestion AS mq ON mq.IdAttestationModule = mt.Id
+                            JOIN AttestationQuestion AS qt ON mq.IdAttestationQuestion = qt.Id
+                            JOIN AttestationAnswer AS [at] ON [at].IdQuestion = qt.Id
                             WHERE ft.Id = @IdForm";
 
             var queryParameter = new { IdForm = formId };
