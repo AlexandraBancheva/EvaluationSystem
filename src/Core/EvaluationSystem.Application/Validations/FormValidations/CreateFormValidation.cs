@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using FluentValidation;
 using EvaluationSystem.Application.Models.Forms;
+using EvaluationSystem.Application.Validations.ModuleValidations;
 
 namespace EvaluationSystem.Application.Validations.FormValidations
 {
@@ -13,12 +14,8 @@ namespace EvaluationSystem.Application.Validations.FormValidations
                 .Length(3, 200).WithMessage("{PropertyName} must be between 3 and 200 characters!")
                 .Must(BeAValidName);
 
-            RuleForEach(x => x.Modules).ChildRules(modules =>
-                modules.RuleFor(x => x.ModuleName)
-                .NotEmpty().WithMessage("{PropertyName} cannot be empty!")
-                .Length(3, 200).WithMessage("{PropertyName} must be between 3 and 200 characters!")
-                .Must(BeAValidName)
-            );
+            RuleForEach(x => x.Modules).SetValidator(new ModuleValidator());
+
         }
 
         public bool BeAValidName(string name)

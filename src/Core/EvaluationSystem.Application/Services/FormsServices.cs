@@ -35,7 +35,7 @@ namespace EvaluationSystem.Application.Services
             _formRepository = formRepository;
             _formModuleRepository = formModuleRepository;
             _moduleRepository = moduleRepository;
-            _moduleQuestionRepository = moduleQuestionRepository;
+            _moduleQuestionRepository = moduleQuestionRepository;            
             _answerRepository = answerRepository;
             _questionCustomServices = questionCustomServices;
             _modulesServices = modulesServices;
@@ -58,8 +58,7 @@ namespace EvaluationSystem.Application.Services
             foreach (var module in currentForm.Modules)
             {
                 var mappedEntity = _mapper.Map<CreateModuleDto>(module);
-                var newModule = _modulesServices.CreateModule(formId, mappedEntity);  // Fluent validation doesn't work!
-
+                var newModule = _modulesServices.CreateModule(formId, mappedEntity);  
                 var questions = module.Questions;
 
                 foreach (var question in questions)
