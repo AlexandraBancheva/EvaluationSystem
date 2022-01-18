@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.AttestationForms;
@@ -96,6 +97,11 @@ namespace EvaluationSystem.Application.Services
         public ICollection<FormDetailDto> GetFormById(int attestationId)
         {
             var attestation = _attestationRepository.GetById(attestationId);
+            if (attestation == null)
+            {
+                throw new InvalidOperationException("Invalid attestation id!");
+            }
+
             var results = _attestationFormRepository.GetAllByFormId(attestation.IdForm);
             ModuleInFormDto tempModule = new ModuleInFormDto();
             QuestionInModuleDto tempQuestion = new QuestionInModuleDto();

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace EvaluationSystem.Application.Models.UserAnswers
+﻿namespace EvaluationSystem.Application.Models.UserAnswers
 {
     public class AttestationAnswerDto
     {

@@ -6,6 +6,8 @@
 
         public string AnswerName { get; set; }
 
+        public bool IsDefault { get; set; }
+
         public int Position { get; set; }
     }
 }

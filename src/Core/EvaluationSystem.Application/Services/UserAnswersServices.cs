@@ -38,44 +38,32 @@ namespace EvaluationSystem.Application.Services
         {
             foreach (var body in model.Body)
             {
-                foreach (var attModule in body.AttestationModuleIds)
+                var attestationAnswer = new UserAnswer
                 {
-                    foreach (var attQuestion in attModule.QuestionIds)
-                    {
-                        var attestationAnswer = new UserAnswer
-                        {
-                            IdAttestation = model.IdAttestation,
-                            IdUserParticipant = _currentUser.Id,
-                            IdAttestationModule = attModule.AttestationModuleId,
-                            IdAttestationQuestion = attQuestion.AttestationQuestionId,
-                        };
+                    IdAttestation = model.IdAttestation,
+                    IdUserParticipant = _currentUser.Id,
+                    IdAttestationModule = body.AttestationModuleId,
+                    IdAttestationQuestion = body.AttestationQuestionId
+                };
 
-                        if (attQuestion.Answer.Count != 0)
-                        {
-                            foreach (var answer in attQuestion.Answer)
-                            {
-                                if (answer.AnswerId != 0)
-                                {
-                                        attestationAnswer.IdAttestationAnswer = answer.AnswerId;
-                                        attestationAnswer.TextAnswer = null;
-                                        _userAnswerRepository.Insert(attestationAnswer);
-                                }
-                                else
-                                {
-                                    if (answer.TextAnswer != null || answer.TextAnswer != string.Empty)
-                                    {
-                                        attestationAnswer.TextAnswer = answer.TextAnswer;
-                                        attestationAnswer.IdAttestationAnswer = null;
-                                        _userAnswerRepository.Insert(attestationAnswer);
-                                    }
-                                    else
-                                    {
-                                        throw new Exception("Text answer cannot be empty.");
-                                    }
-                                }
-                            }
-                        }
+                if (body.AnswerIds.Count != 0)
+                {
+                    foreach (var answerId in body.AnswerIds)
+                    {
+                        attestationAnswer.IdAttestationAnswer = answerId;
+                        attestationAnswer.TextAnswer = null;
+                        _userAnswerRepository.Insert(attestationAnswer);
                     }
+                }
+                else
+                {
+                    if (body.AnswerText == null || body.AnswerText == "")
+                    {
+                        throw new Exception("AnswerText is empty!");
+                    }
+                    attestationAnswer.IdAttestationAnswer = 0;
+                    attestationAnswer.TextAnswer = body.AnswerText;
+                    _userAnswerRepository.Insert(attestationAnswer);
                 }
             }
             _userAnswerRepository.ChangeStatusToDone(model.IdAttestation, _currentUser.Id);
