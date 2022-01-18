@@ -6,7 +6,7 @@ namespace EvaluationSystem.API.Controllers
 {
     [ApiController]
     [Route("api/attestations")]
-    public class AttestationsController : BaseController
+    public class AttestationsController : BaseAdminController
     {
         private readonly IAttestationsServices _attestationsServices;
         public AttestationsController(IAttestationsServices attestationsServices)

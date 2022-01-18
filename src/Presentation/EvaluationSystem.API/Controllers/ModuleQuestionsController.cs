@@ -5,7 +5,7 @@ namespace EvaluationSystem.API.Controllers
 {
     [ApiController]
     [Route("api/modules/{moduleId}/questions")]
-    public class ModuleQuestionsController : BaseController
+    public class ModuleQuestionsController : BaseAdminController
     {
         private readonly IModuleQuestionsServices _moduleQuestionsServices;
 
