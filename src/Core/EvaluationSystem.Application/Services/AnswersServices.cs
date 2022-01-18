@@ -91,7 +91,7 @@ namespace EvaluationSystem.Application.Services
             _answerRepository.Delete(entity);
         }
 
-        public void UpdateAnswer(int questionId, int answerId, UpdateAnswerDto model)
+        public ICollection<AnswerListDto> UpdateAnswer(int questionId, int answerId, UpdateAnswerDto model)
         {
             var isExist = _questionRepository.GetById(questionId);
             if (isExist == null)
@@ -103,9 +103,12 @@ namespace EvaluationSystem.Application.Services
             entity.Id = answerId;
             entity.IdQuestion = questionId;
             _answerRepository.Update(entity);
+
+            var allAnswers = _answerRepository.GetAllByQuestionId(questionId);
+            return _mapper.Map<ICollection<AnswerListDto>>(allAnswers);
         }
 
-        public void UpdateAnswerTemplate(int formId, int moduleId, int questionId, int answerId, UpdateAnswerDto model)
+        public ICollection<AnswerListDto> UpdateAnswerTemplate(int formId, int moduleId, int questionId, int answerId, UpdateAnswerDto model)
         {
             var isExistFormModule = _answerRepository.CheckFormIdModuleIdQuestionId(formId, moduleId, questionId);
             if (isExistFormModule == null)
@@ -113,7 +116,9 @@ namespace EvaluationSystem.Application.Services
                 throw new Exception("Invalid form or module.");
             }
 
-            UpdateAnswer(questionId, answerId, model);
+            var res = UpdateAnswer(questionId, answerId, model);
+
+            return res;
         }
     }
 }

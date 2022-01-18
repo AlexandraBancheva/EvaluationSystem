@@ -29,11 +29,11 @@ namespace EvaluationSystem.API.Controllers
             return NoContent();
         }
 
-        [HttpPut()]
+        [HttpPut("{answerId}")]
         public IActionResult UpdateAnswerTemplate(int questionId, int answerId, [FromBody] UpdateAnswerDto model)
         {
-            _answersServices.UpdateAnswer(questionId, answerId, model);
-            return Ok();
+           var res = _answersServices.UpdateAnswer(questionId, answerId, model);
+            return Ok(res);
         }
     }
 }

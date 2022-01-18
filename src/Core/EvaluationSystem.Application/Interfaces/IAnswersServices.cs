@@ -10,12 +10,12 @@ namespace EvaluationSystem.Application.Interfaces
 
         void DeleteAnAnswer(int formId, int moduleId, int question, int answerId);
 
-        void UpdateAnswer(int questionId, int answerId, UpdateAnswerDto model);
+        ICollection<AnswerListDto> UpdateAnswer(int questionId, int answerId, UpdateAnswerDto model);
 
         ICollection<AnswerListDto> CreateAnswer(int questionId, AddListAnswers model);
 
         ICollection<AnswerListDto> CreateAnswerTemplates(int formId, int moduleId, int questionId, AddListAnswers model);
 
-        void UpdateAnswerTemplate(int formId, int moduleId, int questionId, int answerId, UpdateAnswerDto model);
+        ICollection<AnswerListDto> UpdateAnswerTemplate(int formId, int moduleId, int questionId, int answerId, UpdateAnswerDto model);
     }
 }
