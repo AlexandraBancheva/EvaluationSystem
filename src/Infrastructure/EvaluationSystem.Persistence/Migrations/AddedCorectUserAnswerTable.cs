@@ -7,7 +7,7 @@ namespace EvaluationSystem.Persistence.Migrations
     {
         public override void Down()
         {
-            throw new System.NotImplementedException();
+            Delete.Table("UserAnswer");
         }
 
         public override void Up()

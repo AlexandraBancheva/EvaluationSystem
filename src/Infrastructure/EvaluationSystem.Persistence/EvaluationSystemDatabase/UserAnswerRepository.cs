@@ -40,5 +40,17 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 
             return (ICollection<UserAnswer>)results;
         }
+
+        public UserAnswer GetUserAnswerByAttestationId(int attestationId)
+        {
+            var query = @"SELECT * FROM [UserAnswer]
+                        WHERE IdAttestation = @AttestationId";
+
+            var queryParameter = new { AttestationId = attestationId };
+
+            var res = Connection.QueryFirstOrDefault<UserAnswer>(query, queryParameter, transaction: Transaction);
+
+            return res;
+        }
     }
 }

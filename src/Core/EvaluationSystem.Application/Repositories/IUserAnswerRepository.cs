@@ -10,5 +10,7 @@ namespace EvaluationSystem.Application.Repositories
         ICollection<UserAnswer> GetAllAnswersByUser(int attestationId, int userId);
 
         void DeleteUserAnswerByAttestationId(int attestationId);
+
+        UserAnswer GetUserAnswerByAttestationId(int attestationId);
     }
 }

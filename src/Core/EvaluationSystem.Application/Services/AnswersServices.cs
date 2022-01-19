@@ -45,10 +45,20 @@ namespace EvaluationSystem.Application.Services
                     {
                         throw new InvalidOperationException("Answer must be numeric!");
                     }
+                    else
+                    {
+                        var id = _answerRepository.Insert(current);
+                        current.Id = id;
+                    }
+                }
+                // 19.01.2022
+                else if (isExist.Type == QuestionType.RadioButtons || isExist.Type == QuestionType.CheckBoxes)
+                {
+                    var id = _answerRepository.Insert(current);
+                    current.Id = id;
                 }
 
-                var id = _answerRepository.Insert(current);
-                current.Id = id;
+                
             }
 
             var allAnswers = _answerRepository.GetAllByQuestionId(questionId);

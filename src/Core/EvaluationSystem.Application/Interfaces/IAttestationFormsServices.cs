@@ -1,4 +1,5 @@
-﻿using EvaluationSystem.Application.Models.Forms;
+﻿using EvaluationSystem.Application.Models.AttestationQuestions;
+using EvaluationSystem.Application.Models.Forms;
 using System.Collections.Generic;
 
 namespace EvaluationSystem.Application.Interfaces
@@ -8,6 +9,8 @@ namespace EvaluationSystem.Application.Interfaces
         int CreateNewForm(CreateFormDto form);
 
         void DeleteFormFromAttestation(int formId);
+
+        void UpdateUserAnswer(int attestationId, AttestationQuestionUpdateDto model);
 
         ICollection<FormDetailDto> GetFormById(int formId);
     }

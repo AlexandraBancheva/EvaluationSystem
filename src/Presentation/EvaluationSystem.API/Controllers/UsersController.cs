@@ -22,8 +22,8 @@ namespace EvaluationSystem.API.Controllers
         }
 
         [HttpGet]
-        [Route("[action]", Name = "GetUsersToEvaluate")]
-        public IActionResult GetUsersToEvaluate()
+        [Route("[action]", Name = "ListOfUsersForEvaluation")]
+        public IActionResult ListOfUsersForEvaluation()
         {
             var res = _usersServices.GetUsersToEvaluate();
             return Ok(res);

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using AutoMapper;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.AttestationForms;
+using EvaluationSystem.Application.Models.AttestationQuestions;
 using EvaluationSystem.Application.Models.Forms;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Domain.Enums;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -21,6 +23,8 @@ namespace EvaluationSystem.Application.Services
         private readonly IAttestationModuleQuestionRepository _attestationModuleQuestionRepository;
         private readonly IAttestationFormModuleRepository _attestationFormModuleRepository;
         private readonly IAttestationRepository _attestationRepository;
+        private readonly IAttestationQuestionRepository _attestationQuestionRepository;
+        private readonly IUserAnswerRepository _userAnswerRepository;
         private readonly IAttestationQuestionsServices _attestationQuestionsServices;
 
         public AttestationFormsServices(IAttestationFormRepository attestationFormRepository, 
@@ -28,6 +32,8 @@ namespace EvaluationSystem.Application.Services
                                         IAttestationModuleQuestionRepository attestationModuleQuestionRepository,
                                         IAttestationAnswerRepository attestationAnswerRepository,
                                         IAttestationFormModuleRepository attestationFormModuleRepository,
+                                        IAttestationQuestionRepository attestationQuestionRepository,
+                                        IUserAnswerRepository userAnswerRepository,
                                         IAttestationQuestionsServices attestationQuestionsServices, 
                                         IAttestationRepository attestationRepository,
                                         IMapper mapper)
@@ -38,6 +44,8 @@ namespace EvaluationSystem.Application.Services
             _attestationAnswerRepository = attestationAnswerRepository;
             _attestationFormModuleRepository = attestationFormModuleRepository;
             _attestationRepository = attestationRepository;
+            _attestationQuestionRepository = attestationQuestionRepository;
+            _userAnswerRepository = userAnswerRepository;
             _attestationQuestionsServices = attestationQuestionsServices;
             _mapper = mapper;
         }
@@ -146,6 +154,32 @@ namespace EvaluationSystem.Application.Services
             return res;
         }
 
+        // 19.01.22
+        public void UpdateUserAnswer(int attestationId, AttestationQuestionUpdateDto model)
+        {
+            var userAnswer = _userAnswerRepository.GetUserAnswerByAttestationId(attestationId);
+
+            if (userAnswer.IdAttestationQuestion == model.AttestationQuestionId)
+            {
+                var question = _attestationQuestionRepository.GetById(userAnswer.IdAttestationQuestion);
+                if (question.Type == QuestionType.TextField)
+                {
+                    userAnswer.TextAnswer = model.AnswerText;
+                    userAnswer.IdAttestationAnswer = null;
+                    _userAnswerRepository.Update(userAnswer);
+                }
+                else
+                {
+                    foreach (var answer in model.AnswerIds)
+                    {
+                        userAnswer.TextAnswer = null;
+                        userAnswer.IdAttestationAnswer = answer;
+                        _userAnswerRepository.Update(userAnswer);
+                    }
+                }
+            }
+        }
+
         public static bool CheckIfFormNameExists(string formName, IAttestationFormRepository attestationFormRepository)
         {
             var allNames = attestationFormRepository.GetAllFormNames();
@@ -160,6 +194,5 @@ namespace EvaluationSystem.Application.Services
 
             return true;
         }
-
     }
 }
