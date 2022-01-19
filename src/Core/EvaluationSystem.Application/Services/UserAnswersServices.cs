@@ -72,34 +72,42 @@ namespace EvaluationSystem.Application.Services
         public ICollection<AttestationFormDetailDto> GetAttestationAnswerByUser(int attestationId, string userEmail)
         {
             var attestation = _attestationRepository.GetById(attestationId);
-            var form = _attestationFormsServices.GetFormById(attestation.IdForm);
+            var form = _attestationFormsServices.GetFormById(attestationId);
             var participant = _userRepository.GetUserByEmail(userEmail);
 
 
             var attestationAnswers = _userAnswerRepository.GetAllAnswersByUser(attestationId, participant.Id);
-            var resultForm = _mapper.Map<ICollection<AttestationFormDetailDto>>(form); 
-
-            foreach (var body in attestationAnswers)
+            var resultForm = _mapper.Map<ICollection<AttestationFormDetailDto>>(form);
+            if (attestationAnswers.Count == 0)
             {
-                foreach (var currForm in resultForm)
+                throw new InvalidOperationException("Attestation has not been decided yet!");
+            }
+            else
+            {
+                
+
+                foreach (var body in attestationAnswers)
                 {
-                    if (currForm.Id == attestation.IdForm)
+                    foreach (var currForm in resultForm)
                     {
-                        foreach (var currentModule in currForm.Modules)
+                        if (currForm.Id == attestation.IdForm)
                         {
-                            foreach (var currentQuestion in currentModule.Questions)
+                            foreach (var currentModule in currForm.Modules)
                             {
-                                if (currentQuestion.Type == (int)QuestionType.TextField)
+                                foreach (var currentQuestion in currentModule.Questions)
                                 {
-                                    currentQuestion.TextAnswer = body.TextAnswer;
-                                }
-                                else
-                                {
-                                    foreach (var answer in currentQuestion.Answers)
+                                    if (currentQuestion.Type == (int)QuestionType.TextField)
                                     {
-                                        if (answer.IdAnswer == body.IdAttestationAnswer)
+                                        currentQuestion.TextAnswer = body.TextAnswer;
+                                    }
+                                    else
+                                    {
+                                        foreach (var answer in currentQuestion.Answers)
                                         {
+                                            if (answer.IdAnswer == body.IdAttestationAnswer)
+                                            {
                                                 answer.IsAnswered = true;
+                                            }
                                         }
                                     }
                                 }

@@ -32,10 +32,11 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 
         public ICollection<UserAnswer> GetAllAnswersByUser(int attestationId, int userId)
         {
-            var query = @"SELECT * FROM [UserAnswer]
-                        WHERE IdAttestation = @IdAttestation AND IdUserParticipant = @IdUserParticipant";
+            var query = @"SELECT * FROM [UserAnswer] AS ua
+                        JOIN [AttestationParticipant] AS ap ON ua.IdAttestation = ap.IdAttestation
+                        WHERE ua.IdAttestation = @IdAttestation AND ap.IdUserParticipant = @IdUserParticipant  AND ap.[Status] = 'Done'";
 
-            var results = Connection.Query<UserAnswer>(query, new { IdAttestation = attestationId, IdUserParticipant = userId}, transaction: Transaction);
+            var results = Connection.Query<UserAnswer>(query, new { IdAttestation = attestationId, IdUserParticipant = userId }, transaction: Transaction);
 
             return (ICollection<UserAnswer>)results;
         }
