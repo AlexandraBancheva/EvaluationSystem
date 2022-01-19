@@ -11,11 +11,13 @@ namespace EvaluationSystem.Application.Services
     public class QuestionTemplatesServices : IQuestionTemplatesServices
     {
         private readonly IQuestionRepository _questionRepository;
+        private readonly IModuleQuestionsServices _moduleQuestionsServices;
         private readonly IMapper _mapper;
 
-        public QuestionTemplatesServices(IQuestionRepository questionRepository, IMapper mapper)
+        public QuestionTemplatesServices(IQuestionRepository questionRepository, IModuleQuestionsServices moduleQuestionsServices, IMapper mapper)
         {
             _questionRepository = questionRepository;
+            _moduleQuestionsServices = moduleQuestionsServices;
             _mapper = mapper;
         }
 
@@ -40,6 +42,21 @@ namespace EvaluationSystem.Application.Services
             var question = _mapper.Map<QuestionDetailDto>(currentEntity);
             question.IdQuestion = newEntityId;
             return question;
+        }
+
+        // Create New Question From Form
+        public QuestionDetailDto CreateQuestionTemplateFromForm(int moduleId, int position, CreateQuestionDto model)
+        {
+            var currentQuestion = _mapper.Map<QuestionTemplate>(model);
+            currentQuestion.DateOfCreation = DateTime.UtcNow;
+            currentQuestion.IsReusable = true;
+            var questionId = _questionRepository.Insert(currentQuestion);
+            _moduleQuestionsServices.AddQuestionToModule(moduleId, questionId, position);
+            var questionTemplate = _mapper.Map<QuestionDetailDto>(currentQuestion);
+            questionTemplate.IdQuestion = questionId;
+            //return customQuestion;
+
+            return questionTemplate;
         }
 
         public QuestionDetailDto UpdateCurrentQuestion(int questionId, UpdateQuestionDto model)

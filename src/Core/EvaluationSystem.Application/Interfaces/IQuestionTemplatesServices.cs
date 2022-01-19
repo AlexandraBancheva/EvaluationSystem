@@ -8,6 +8,9 @@ namespace EvaluationSystem.Application.Interfaces
     {
         QuestionDetailDto CreateNewQuestion(CreateQuestionDto model);
 
+        // 19.01.2022
+        QuestionDetailDto CreateQuestionTemplateFromForm(int moduleId, int position, CreateQuestionDto model);
+
         QuestionDetailDto GetQuestionById(int questionId);
 
         QuestionDetailDto UpdateCurrentQuestion(int questionId, UpdateQuestionDto model);

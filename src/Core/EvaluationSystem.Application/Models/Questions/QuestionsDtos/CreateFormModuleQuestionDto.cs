@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using EvaluationSystem.Domain.Enums;
 using EvaluationSystem.Application.Models.Answers.AnswersDtos;
-using System;
+using System.ComponentModel;
 
 namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 {
@@ -17,6 +17,9 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
         public QuestionType Type { get; set; }
 
         public int QuestionPosition { get; set; }
+
+        [DefaultValue("false")]
+        public bool IsTemplate { get; set; }
 
         public virtual ICollection<CreateFormModuleQuestionAnswerDto> Answers { get; set; }
 

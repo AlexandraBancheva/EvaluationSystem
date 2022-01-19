@@ -20,6 +20,7 @@ namespace EvaluationSystem.Application.Services
         private readonly IModuleQuestionRepository _moduleQuestionRepository;
         private readonly IAnswerRepository _answerRepository;
         private readonly ICustomQuestionsServices _questionCustomServices;
+        private readonly IQuestionTemplatesServices _questionTemplatesServices;
         private readonly IModulesServices _modulesServices;
         private readonly IMapper _mapper;
 
@@ -29,6 +30,7 @@ namespace EvaluationSystem.Application.Services
             IModuleRepository moduleRepository,
             IModuleQuestionRepository moduleQuestionRepository,
             ICustomQuestionsServices questionCustomServices,
+            IQuestionTemplatesServices questionTemplatesServices,
             IModulesServices modulesServices,
             IAnswerRepository answerRepository)
         {
@@ -38,6 +40,7 @@ namespace EvaluationSystem.Application.Services
             _moduleQuestionRepository = moduleQuestionRepository;            
             _answerRepository = answerRepository;
             _questionCustomServices = questionCustomServices;
+            _questionTemplatesServices = questionTemplatesServices;
             _modulesServices = modulesServices;
             _mapper = mapper;
         }
@@ -63,11 +66,21 @@ namespace EvaluationSystem.Application.Services
 
                 foreach (var question in questions)
                 {
-                    var mappedNewEntity = _mapper.Map<CreateQuestionDto>(question);
-                    var questionNew = _questionCustomServices.CreateNewQuestion(newModule.Id, question.QuestionPosition, mappedNewEntity);
-                    question.Id = questionNew.IdQuestion;
-                    question.DateOfCreation = questionNew.DateOfCreation;
+                    if (question.IsTemplate == true)
+                    {
+                        question.IsReusable = true;
+                        var questionTemplate = _questionTemplatesServices.CreateQuestionTemplateFromForm(newModule.Id, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
+                        question.Id = questionTemplate.IdQuestion;
+                    }
+                    else
+                    {
+                        var questionNew = _questionCustomServices.CreateNewQuestion(newModule.Id, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
+                        question.Id = questionNew.IdQuestion;
+                    }
+
+                    question.DateOfCreation = DateTime.UtcNow;
                     var answers = question.Answers;
+                   
                     foreach (var answer in answers)
                     {
                         answer.IdQuestion = question.Id;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Domain.Enums;
 
@@ -23,6 +24,9 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
         public bool IsReusable { get; set; }
 
         public int QuestionPosition { get; set; }
+
+        [DefaultValue("false")]
+        public bool IsTemplate { get; set; }
 
         public virtual ICollection<AnswerTemplate> Answers { get; set; }
     }
