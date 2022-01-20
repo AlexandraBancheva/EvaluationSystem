@@ -94,7 +94,7 @@ namespace EvaluationSystem.Application.Services
                             {
                                 foreach (var currentQuestion in currentModule.Questions)
                                 {
-                                    if (currentQuestion.Type == (int)QuestionType.TextField)
+                                    if (currentQuestion.Type == QuestionType.TextField)
                                     {
                                         currentQuestion.TextAnswer = body.TextAnswer;
                                     }
