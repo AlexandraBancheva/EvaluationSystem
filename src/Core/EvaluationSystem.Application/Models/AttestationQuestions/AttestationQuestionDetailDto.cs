@@ -1,4 +1,5 @@
 ﻿using EvaluationSystem.Application.Models.AttestationAnswers;
+using EvaluationSystem.Domain.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +16,7 @@ namespace EvaluationSystem.Application.Models.AttestationQuestions
 
         public string QuestionName { get; set; }
 
-        public int Type { get; set; }
+        public QuestionType Type { get; set; }
 
         public bool IsReusable { get; set; }
 

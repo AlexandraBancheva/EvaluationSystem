@@ -54,11 +54,12 @@ namespace EvaluationSystem.Application.Services
         {
             var currentForm = _mapper.Map<AttestationFormDto>(form);
             var attestationFormId = _attestationFormRepository.Insert(_mapper.Map<AttestationForm>(currentForm));
+            currentForm.Id = attestationFormId;
 
             foreach (var module in currentForm.Modules)
             {
                 var attestationModuleId = _attestationModuleRepository.Insert(_mapper.Map<AttestationModule>(module));
-
+                module.Id = attestationModuleId;
                 _attestationFormModuleRepository.AddModuleInForm(attestationFormId, attestationModuleId, module.ModulePosition);
 
                 var attestationQuestions = module.Questions;
@@ -66,7 +67,7 @@ namespace EvaluationSystem.Application.Services
                 foreach (var question in attestationQuestions)
                 {
                     var newAttestationQuestionId = _attestationQuestionsServices.CreateNewQuestion(attestationModuleId, question.QuestionPosition, _mapper.Map<CreateQuestionDto>(question));
-
+                    question.Id = newAttestationQuestionId;
                     var attestationAnswers = question.Answers;
                     foreach (var answer in attestationAnswers)
                     {
@@ -154,7 +155,6 @@ namespace EvaluationSystem.Application.Services
             return res;
         }
 
-        // 19.01.22
         public void UpdateUserAnswer(int attestationId, AttestationQuestionUpdateDto model)
         {
             var userAnswer = _userAnswerRepository.GetUserAnswerByAttestationId(attestationId);
@@ -168,7 +168,24 @@ namespace EvaluationSystem.Application.Services
                     userAnswer.IdAttestationAnswer = null;
                     _userAnswerRepository.Update(userAnswer);
                 }
-                else
+                else if (question.Type == QuestionType.NumericalOptions || question.Type == QuestionType.RadioButtons)
+                {
+                    if (model.AnswerIds.Count != 1)
+                    {
+                        throw new InvalidOperationException("Only one answer");
+                    }
+                    else
+                    {
+                        userAnswer.IdAttestationAnswer = 0;
+                        foreach (var answer in model.AnswerIds)
+                        {
+                            userAnswer.TextAnswer = null;
+                            userAnswer.IdAttestationAnswer = answer;
+                            _userAnswerRepository.Update(userAnswer);
+                        }
+                    }
+                }
+                else if (question.Type == QuestionType.CheckBoxes)
                 {
                     foreach (var answer in model.AnswerIds)
                     {

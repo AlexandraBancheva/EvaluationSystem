@@ -37,7 +37,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                             JOIN AttestationModule AS mt ON fm.IdAttestationModule = mt.Id
                             JOIN AttestationModuleQuestion AS mq ON mq.IdAttestationModule = mt.Id
                             JOIN AttestationQuestion AS qt ON mq.IdAttestationQuestion = qt.Id
-                            JOIN AttestationAnswer AS [at] ON [at].IdQuestion = qt.Id
+                            LEFT JOIN AttestationAnswer AS [at] ON [at].IdQuestion = qt.Id
                             WHERE ft.Id = @IdForm";
 
             var queryParameter = new { IdForm = formId };

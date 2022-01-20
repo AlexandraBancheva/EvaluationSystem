@@ -12,5 +12,7 @@ namespace EvaluationSystem.Application.Repositories
         void DeleteUserAnswerByAttestationId(int attestationId);
 
         UserAnswer GetUserAnswerByAttestationId(int attestationId);
+
+        void AddAnswerLikeATextField(int idAttestation, int idUser, int idAttestationModule, int idAttestationQuestion, string textAnswer);
     }
 }

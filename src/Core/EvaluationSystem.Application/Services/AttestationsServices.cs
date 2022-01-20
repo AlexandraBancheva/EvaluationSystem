@@ -58,8 +58,7 @@ namespace EvaluationSystem.Application.Services
 
             foreach (var currForm in form)
             {
-                var formForAttestation = _mapper.Map<CreateFormDto>(currForm);
-                var attestationFormId = _attestationFormsServices.CreateNewForm(formForAttestation);
+                var attestationFormId = _attestationFormsServices.CreateNewForm(_mapper.Map<CreateFormDto>(currForm));
 
                 var userForEvaluate = _userRepository.GetUserByEmail(model.User.Email);
 

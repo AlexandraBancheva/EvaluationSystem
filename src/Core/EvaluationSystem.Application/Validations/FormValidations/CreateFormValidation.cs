@@ -11,19 +11,10 @@ namespace EvaluationSystem.Application.Validations.FormValidations
         {
             RuleFor(f => f.FormName)
                 .NotEmpty().WithMessage("{PropertyName} cannot be empty!")
-                .Length(3, 200).WithMessage("{PropertyName} must be between 3 and 200 characters!")
-                .Must(BeAValidName);
+                .Length(3, 200).WithMessage("{PropertyName} must be between 3 and 200 characters!");
 
             RuleForEach(x => x.Modules).SetValidator(new ModuleValidator());
 
-        }
-
-        public bool BeAValidName(string name)
-        {
-            name = name.Replace(" ", "");
-            name = name.Replace("-", "");
-
-            return name.All(char.IsLetterOrDigit);
         }
     }
 }

@@ -63,7 +63,7 @@ namespace EvaluationSystem.Application.Services
                     }
                     attestationAnswer.IdAttestationAnswer = 0;
                     attestationAnswer.TextAnswer = body.AnswerText;
-                    _userAnswerRepository.Insert(attestationAnswer);
+                    _userAnswerRepository.AddAnswerLikeATextField(attestationAnswer.IdAttestation, attestationAnswer.IdUserParticipant, attestationAnswer.IdAttestationModule, attestationAnswer.IdAttestationQuestion, attestationAnswer.TextAnswer);
                 }
             }
             _userAnswerRepository.ChangeStatusToDone(model.IdAttestation, _currentUser.Id);
@@ -84,8 +84,6 @@ namespace EvaluationSystem.Application.Services
             }
             else
             {
-                
-
                 foreach (var body in attestationAnswers)
                 {
                     foreach (var currForm in resultForm)
@@ -100,7 +98,17 @@ namespace EvaluationSystem.Application.Services
                                     {
                                         currentQuestion.TextAnswer = body.TextAnswer;
                                     }
-                                    else
+                                    else if (currentQuestion.Type == QuestionType.NumericalOptions || currentQuestion.Type == QuestionType.RadioButtons)
+                                    {
+                                        foreach (var answer in currentQuestion.Answers)
+                                        {
+                                            if (answer.IdAnswer == body.IdAttestationAnswer)
+                                            {
+                                                answer.IsAnswered = true;
+                                            }
+                                        }
+                                    }
+                                    else if (currentQuestion.Type == QuestionType.CheckBoxes)
                                     {
                                         foreach (var answer in currentQuestion.Answers)
                                         {

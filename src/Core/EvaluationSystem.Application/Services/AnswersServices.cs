@@ -51,14 +51,11 @@ namespace EvaluationSystem.Application.Services
                         current.Id = id;
                     }
                 }
-                // 19.01.2022
                 else if (isExist.Type == QuestionType.RadioButtons || isExist.Type == QuestionType.CheckBoxes)
                 {
                     var id = _answerRepository.Insert(current);
                     current.Id = id;
                 }
-
-                
             }
 
             var allAnswers = _answerRepository.GetAllByQuestionId(questionId);

@@ -10,16 +10,7 @@ namespace EvaluationSystem.Application.Validations.FormValidations
         {
             RuleFor(f => f.FormName)
                 .NotEmpty().WithMessage("{PropertyName} cannot be empty!")
-                .Length(3, 200).WithMessage("{PropertyName} must be between 3 and 200 characters!")
-                .Must(BeAValidName);
-        }
-
-        public bool BeAValidName(string name)
-        {
-            name = name.Replace(" ", "");
-            name = name.Replace("-", "");
-
-            return name.All(char.IsLetterOrDigit);
+                .Length(3, 200).WithMessage("{PropertyName} must be between 3 and 200 characters!");
         }
     }
 }

@@ -13,6 +13,19 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
         {
         }
 
+        public void AddAnswerLikeATextField(int idAttestation, int idUser, int idAttestationModule, int idAttestationQuestion, string textAnswer)
+        {
+            var query = @"INSERT INTO [UserAnswer]
+                        VALUES (@IdAttestation, @IdUser, @IdAttestationModule, @IdAttestationQuestion, null, @TextAnswer)";
+
+            Connection.Execute(query, new { IdAttestation = idAttestation, 
+                                            IdUser = idUser, 
+                                            IdAttestationModule = idAttestationModule, 
+                                            IdAttestationQuestion = idAttestationQuestion, 
+                                            TextAnswer = textAnswer}, 
+                             transaction: Transaction);
+        }
+
         public void ChangeStatusToDone(int attestationId, int idUserParticipant)
         {
             var query = @"UPDATE AttestationParticipant
