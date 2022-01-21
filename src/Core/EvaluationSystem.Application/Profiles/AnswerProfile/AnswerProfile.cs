@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using EvaluationSystem.Application.Models.Answers.AnswersDtos;
+using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Models.Forms;
 using EvaluationSystem.Application.Models.Questions;
-using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 
 namespace EvaluationSystem.Application.Profiles.AnswerProfile
 {
@@ -16,8 +16,6 @@ namespace EvaluationSystem.Application.Profiles.AnswerProfile
                 .ForMember(a => a.AnswerName, opts => opts.MapFrom(an => an.AnswerText))
                 .ForMember(a => a.IdAnswer, opts => opts.MapFrom(b => b.Id));
 
-            CreateMap<AddNewAnswerDto, AnswerTemplate>();
-
             CreateMap<UpdateAnswerDto, AnswerTemplate>();
 
             CreateMap<AnswerTemplate, AnswerListDto>()
@@ -25,33 +23,20 @@ namespace EvaluationSystem.Application.Profiles.AnswerProfile
                 .ForMember(y => y.AnswerText, opts => opts.MapFrom(y => y.AnswerText));
 
             CreateMap<CreateFormDto, AnswerTemplate>();
+
             CreateMap<AnswerTemplate, AnswerDetailDto>()
                 .ForMember(a => a.AnswerName, opts => opts.MapFrom(o => o.AnswerText));
 
             CreateMap<CreateFormModuleQuestionAnswerDto, AnswerTemplate>();
 
-            CreateMap<AnswerTemplate, AnswerDetailDto>()
-                .ForMember(a => a.AnswerName, opts => opts.MapFrom(b => b.AnswerText));
-
-            //
             CreateMap<AnswersInQuestionDto, AnswerDetailDto>()
                 .ForMember(a => a.IdAnswer, opts => opts.MapFrom(m => m.IdAnswer))
                 .ForMember(v => v.AnswerName, opts => opts.MapFrom(n => n.AnswerText));
 
-            //
             CreateMap<CreateFormModuleQuestionAnswerDto, AnswerTemplate>()
                 .ForMember(a => a.AnswerText, opts => opts.MapFrom(p => p.AnswerText));
 
-            //
-            CreateMap<AnswerTemplate, AnswerListDto>()
-                .ForMember(a => a.IdAnswer, opts => opts.MapFrom(p => p.Id))
-                .ForMember(r => r.AnswerText, opts => opts.MapFrom(k => k.AnswerText));
-
             CreateMap<AnswersInQuestionDto, CreateFormModuleQuestionAnswerDto>();
-
-            CreateMap<AnswerTemplate, AnswerDetailDto>()
-                .ForMember(a => a.IdAnswer, opts => opts.MapFrom(e => e.Id))
-                .ForMember(t => t.AnswerName, opts => opts.MapFrom(l => l.AnswerText));
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using FluentValidation;
+﻿using FluentValidation;
 using EvaluationSystem.Application.Models.Forms;
 using EvaluationSystem.Application.Validations.ModuleValidations;
 

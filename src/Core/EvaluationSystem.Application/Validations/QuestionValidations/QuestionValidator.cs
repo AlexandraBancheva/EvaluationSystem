@@ -1,6 +1,6 @@
-﻿using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
+﻿using FluentValidation;
 using EvaluationSystem.Application.Validations.AnswerValidations;
-using FluentValidation;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Validations.QuestionValidations
 {

@@ -1,7 +1,7 @@
-﻿using EvaluationSystem.Application.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
+using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Modules;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
-using Microsoft.AspNetCore.Mvc;
 
 namespace EvaluationSystem.API.Controllers
 {

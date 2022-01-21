@@ -18,11 +18,6 @@ namespace EvaluationSystem.Application.Profiles.ModuleQuestionProfile
             CreateMap<QuestionTemplateDto, QuestionListDto>()
                 .ForMember(p => p.IdQuestion, opts => opts.MapFrom(o => o.Id))
                 .ForMember(y => y.QuestionName, opts => opts.MapFrom(v => v.Name));
-               // .ForMember(p => p.Position, opts => opts.MapFrom(o => o.Position));
-            
-            //
-            //CreateMap<CreateFormDto, ModuleQuestion>()
-            //    .ForMember(o => o.Position, opts => opts.MapFrom(r => r.QuestionPosition));
         }
     }
 }

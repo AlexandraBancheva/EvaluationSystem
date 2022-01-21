@@ -7,22 +7,21 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using FluentValidation.AspNetCore;
+using EvaluationSystem.Persistence;
 using EvaluationSystem.Persistence.Migrations;
 using EvaluationSystem.Application.Middlewares;
 using EvaluationSystem.Persistence.Configurations;
+using EvaluationSystem.Application.Profiles.FormProfile;
 using EvaluationSystem.Application.ConfigurationServices;
 using EvaluationSystem.Application.Profiles.ModuleProfile;
 using EvaluationSystem.Application.Profiles.AnswerProfile;
 using EvaluationSystem.Application.Profiles.QuestionProfile;
-using EvaluationSystem.Application.Validations.QuestionValidations;
-using EvaluationSystem.Application.Profiles.ModuleQuestionProfile;
-using EvaluationSystem.Application.Profiles.FormProfile;
 using EvaluationSystem.Application.Profiles.FormModuleProfile;
-using EvaluationSystem.Persistence;
-using EvaluationSystem.Application.Profiles.AttestationModuleProfile;
+using EvaluationSystem.Application.Profiles.ModuleQuestionProfile;
 using EvaluationSystem.Application.Profiles.AttestationFormProfile;
+using EvaluationSystem.Application.Validations.QuestionValidations;
+using EvaluationSystem.Application.Profiles.AttestationModuleProfile;
 using EvaluationSystem.Application.Profiles.AttestationAnswerProfile;
-using EvaluationSystem.Application.Validations.ModuleValidations;
 
 namespace EvaluationSystem.API
 {

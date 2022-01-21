@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using Dapper;
-using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Repositories;
+using EvaluationSystem.Application.Models.ModuleQuestions;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
-using EvaluationSystem.Application.Models.ModuleQuestions;
 
 namespace EvaluationSystem.Persistence.QuestionDatabase
 {
@@ -62,7 +62,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                     currentModule = module;
                     moduleDictionary.Add(currentModule.Id, currentModule);
                 }
-
                 currentModule.Questions.Add(question);
                 return currentModule;
             }, queryParameter, transaction: Transaction,
@@ -97,7 +96,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                     currentModule = module;
                     moduleDictionary.Add(currentModule.Id, currentModule);
                 }
-
                 currentModule.Questions.Add(question);
                 return currentModule;
             }, transaction: Transaction, splitOn: "Id")

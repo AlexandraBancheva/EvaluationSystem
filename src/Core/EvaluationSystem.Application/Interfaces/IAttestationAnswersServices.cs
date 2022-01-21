@@ -6,8 +6,8 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IAttestationAnswersServices
     {
-        ICollection<AnswerListDto> CreateAnswer(int questionId, AddListAnswers model);
-
         void DeleteAttestationAnswer(int answerId);
+
+        ICollection<AnswerListDto> CreateAnswer(int questionId, AddListAnswers model);
     }
 }

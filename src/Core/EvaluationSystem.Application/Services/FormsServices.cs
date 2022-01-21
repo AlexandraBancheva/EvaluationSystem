@@ -5,10 +5,10 @@ using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.Forms;
 using EvaluationSystem.Application.Repositories;
+using EvaluationSystem.Application.Models.Modules;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
-using EvaluationSystem.Application.Models.Modules;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -89,7 +89,6 @@ namespace EvaluationSystem.Application.Services
                     }
                 }
             }
-
             return GetFormById(formId);
         }
 
@@ -110,7 +109,6 @@ namespace EvaluationSystem.Application.Services
                 _formModuleRepository.DeleteModuleFromForm(formId, module.IdModule);
                 _moduleRepository.DeleteModule(module.IdModule);
             }
-
             _formRepository.DeleteForm(formId);
         }
 
@@ -155,7 +153,6 @@ namespace EvaluationSystem.Application.Services
                     }
                 }
             }
-
             var res = _mapper.Map<ICollection<FormDetailDto>>(results);
             return res;
         }
@@ -216,7 +213,6 @@ namespace EvaluationSystem.Application.Services
                     }
                 }
             }
-
             return _mapper.Map<ICollection<FormDetailDto>>(results);
         }
 
@@ -231,7 +227,6 @@ namespace EvaluationSystem.Application.Services
                     return false;
                 }
             }
-
             return true;
         }
     }

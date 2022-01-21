@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using EvaluationSystem.Domain.Entities;
-using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
-using EvaluationSystem.Application.Questions.QuestionsDtos;
-using EvaluationSystem.Application.Models.ModuleQuestions;
 using EvaluationSystem.Application.Models.Forms;
+using EvaluationSystem.Application.Models.ModuleQuestions;
+using EvaluationSystem.Application.Questions.QuestionsDtos;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Profiles.QuestionProfile
 {
@@ -30,11 +30,11 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
                 .ForMember(f => f.IdQuestion, opts => opts.MapFrom(v => v.Id))
                 .ForMember(r => r.Answers, opts => opts.MapFrom(u => u.Answers));
 
-            CreateMap<QuestionTemplate, UpdateQuestionDto>()
-                .ForAllMembers(opts => opts.Condition((src, destination, srcMembers) => srcMembers != null));    // Do not work
+            //CreateMap<QuestionTemplate, UpdateQuestionDto>()
+            //    .ForAllMembers(opts => opts.Condition((src, destination, srcMembers) => srcMembers != null));    // Do not work
 
-            CreateMap<UpdateQuestionDto, QuestionTemplate>()
-                .ForAllMembers(opts => opts.Condition((src, destination, srcMembers) => srcMembers != null)); ;  // Do not work
+            //CreateMap<UpdateQuestionDto, QuestionTemplate>()
+            //    .ForAllMembers(opts => opts.Condition((src, destination, srcMembers) => srcMembers != null)); ;  // Do not work
 
             CreateMap<QuestionTemplate, QuestionListDto>()
                 .ForMember(v => v.IdQuestion, opts => opts.MapFrom(b => b.Id))
@@ -69,6 +69,7 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
 
             CreateMap<QuestionTemplateDto, QuestionDetailDto>()
                 .ForMember(q => q.IdQuestion, opts => opts.MapFrom(p => p.Id))
+                .ForMember(a => a.QuestionName, opts => opts.MapFrom(k => k.Name))
                 .ForMember(p => p.DateOfCreation, opts => opts.MapFrom(d => d.DateOfCreation));
 
             CreateMap<QuestionTemplateDto, CustomQuestionDetailDto>()
@@ -83,10 +84,6 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
 
             CreateMap<QuestionTemplate, CustomQuestionDetailDto>()
                 .ForMember(a => a.QuestionName, opts => opts.MapFrom(r => r.Name));
-
-            CreateMap<QuestionTemplateDto, QuestionDetailDto>()
-                .ForMember(q => q.IdQuestion, opts => opts.MapFrom(r => r.Id))
-                .ForMember(t => t.QuestionName, opts => opts.MapFrom(r => r.Name));
         }
     }
 }

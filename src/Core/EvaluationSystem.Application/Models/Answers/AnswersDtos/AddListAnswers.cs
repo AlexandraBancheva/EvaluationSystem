@@ -9,6 +9,6 @@ namespace EvaluationSystem.Application.Models.Answers.AnswersDtos
             this.Answers = new HashSet<AddNewAnswerDto>();
         }
 
-        public ICollection<AddNewAnswerDto> Answers { get; set; }
+        public virtual ICollection<AddNewAnswerDto> Answers { get; set; }
     }
 }

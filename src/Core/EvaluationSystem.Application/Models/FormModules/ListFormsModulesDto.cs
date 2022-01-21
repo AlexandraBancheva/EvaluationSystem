@@ -15,6 +15,6 @@ namespace EvaluationSystem.Application.Models.FormModules
 
         public int Postion { get; set; }
 
-        public ICollection<ListModulesDto> Modules { get; set; }
+        public virtual ICollection<ListModulesDto> Modules { get; set; }
     }
 }

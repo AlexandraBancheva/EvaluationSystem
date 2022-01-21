@@ -1,6 +1,6 @@
-﻿using EvaluationSystem.Application.Models.FormModules;
+﻿using System.Collections.Generic;
 using EvaluationSystem.Domain.Entities;
-using System.Collections.Generic;
+using EvaluationSystem.Application.Models.FormModules;
 
 namespace EvaluationSystem.Application.Repositories
 {
@@ -8,8 +8,8 @@ namespace EvaluationSystem.Application.Repositories
     {
         void AddModuleInForm(int formId, int moduleId, int position);
 
-        ICollection<FormModuleGettingOnlyModulesDto> GetAllModulesByFormId(int formId);
-
         void DeleteModuleFromForm(int formId, int moduleId);
+
+        ICollection<FormModuleGettingOnlyModulesDto> GetAllModulesByFormId(int formId);
     }
 }

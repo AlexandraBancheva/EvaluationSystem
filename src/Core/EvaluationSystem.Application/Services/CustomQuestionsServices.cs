@@ -59,7 +59,6 @@ namespace EvaluationSystem.Application.Services
             {
                 return null;
             }
-
             return _mapper.Map<CustomQuestionDetailDto>(currentEntity);
         }
     }

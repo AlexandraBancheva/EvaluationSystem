@@ -12,9 +12,10 @@ namespace EvaluationSystem.Application.Services
     public class AttestationAnswersServices : IAttestationAnswersServices
     {
         private readonly IAttestationAnswerRepository _attestationAnswerRepository;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
-        public AttestationAnswersServices(IAttestationAnswerRepository attestationAnswerRepository, IMapper mapper)
+        public AttestationAnswersServices(IAttestationAnswerRepository attestationAnswerRepository, 
+                                          IMapper mapper)
         {
             _attestationAnswerRepository = attestationAnswerRepository;
             _mapper = mapper;

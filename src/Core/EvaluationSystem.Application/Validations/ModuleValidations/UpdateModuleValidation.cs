@@ -1,5 +1,5 @@
-﻿using EvaluationSystem.Application.Models.Modules.ModulesDtos;
-using FluentValidation;
+﻿using FluentValidation;
+using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 
 namespace EvaluationSystem.Application.Validations.ModuleValidations
 {

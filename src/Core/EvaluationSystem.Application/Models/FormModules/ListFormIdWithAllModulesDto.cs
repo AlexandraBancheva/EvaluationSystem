@@ -12,6 +12,6 @@ namespace EvaluationSystem.Application.Models.FormModules
 
         public int FormId { get; set; }
 
-        public ICollection<ModuleDetail> Modules { get; set; }
+        public virtual ICollection<ModuleDetail> Modules { get; set; }
     }
 }

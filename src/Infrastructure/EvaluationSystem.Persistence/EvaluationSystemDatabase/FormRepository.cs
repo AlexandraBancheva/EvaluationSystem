@@ -70,7 +70,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                    
                     currentModule.Questions.Add(question);
                 }
-                
                 currentForm.Modules.Add(module);
                 return currentForm;
 
@@ -125,8 +124,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
                     currentModule.Questions.Add(question);
                 }
-
-
                 currentForm.Modules.Add(module);
                 return currentForm;
 

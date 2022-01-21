@@ -12,8 +12,8 @@ namespace EvaluationSystem.Application.Services
 {
     public class UserAnswersServices : IUserAnswersServices
     {
-        private IUser _currentUser;
-        private IMapper _mapper;
+        private readonly IUser _currentUser;
+        private readonly IMapper _mapper;
         private readonly IUserAnswerRepository _userAnswerRepository;
         private readonly IAttestationRepository _attestationRepository;
         private readonly IUserRepository _userRepository;

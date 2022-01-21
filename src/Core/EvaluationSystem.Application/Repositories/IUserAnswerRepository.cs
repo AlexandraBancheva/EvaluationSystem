@@ -7,12 +7,13 @@ namespace EvaluationSystem.Application.Repositories
     {
         void ChangeStatusToDone(int attestationId, int idUserParticipant);
 
-        ICollection<UserAnswer> GetAllAnswersByUser(int attestationId, int userId);
-
         void DeleteUserAnswerByAttestationId(int attestationId);
+
+        void AddAnswerLikeATextField(int idAttestation, int idUser, int idAttestationModule, int idAttestationQuestion, string textAnswer);
 
         UserAnswer GetUserAnswerByAttestationId(int attestationId);
 
-        void AddAnswerLikeATextField(int idAttestation, int idUser, int idAttestationModule, int idAttestationQuestion, string textAnswer);
+        ICollection<UserAnswer> GetAllAnswersByUser(int attestationId, int userId);
+
     }
 }

@@ -9,6 +9,5 @@ namespace EvaluationSystem.Application.Models.Participants
         public string ParticipantEmail { get; set; }
 
        public Status ParticipantStatus { get; set; }
-       // public string ParticipantStatus { get; set; }
     }
 }

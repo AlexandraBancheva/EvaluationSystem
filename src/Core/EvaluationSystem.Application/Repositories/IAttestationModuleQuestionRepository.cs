@@ -1,6 +1,6 @@
-﻿using EvaluationSystem.Application.Models.ModuleQuestions;
+﻿using System.Collections.Generic;
 using EvaluationSystem.Domain.Entities;
-using System.Collections.Generic;
+using EvaluationSystem.Application.Models.ModuleQuestions;
 
 namespace EvaluationSystem.Application.Repositories
 {
@@ -8,8 +8,8 @@ namespace EvaluationSystem.Application.Repositories
     {
         void AddNewQuestionToModule(int moduleId, int questionId, int position);
 
-        ICollection<ModuleQuestionGettingAllQuestionIds> GetAllQuestionIdsByModuleId(int moduleId);
-
         void DeleteQuestionFromModule(int moduleId, int questionId);
+
+        ICollection<ModuleQuestionGettingAllQuestionIds> GetAllQuestionIdsByModuleId(int moduleId);
     }
 }

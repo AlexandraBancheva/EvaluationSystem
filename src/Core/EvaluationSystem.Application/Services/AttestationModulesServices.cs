@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using EvaluationSystem.Application.Interfaces;
-using EvaluationSystem.Application.Models.Modules;
-using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Interfaces;
+using EvaluationSystem.Application.Repositories;
+using EvaluationSystem.Application.Models.Modules;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -10,9 +10,11 @@ namespace EvaluationSystem.Application.Services
     {
         private readonly IAttestationModuleRepository _attestationModuleRepository;
         private readonly IAttestationFormModulesServices _attestationFormModulesServices;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
-        public AttestationModulesServices(IAttestationModuleRepository attestationModuleRepository, IAttestationFormModulesServices attestationFormModulesServices, IMapper mapper)
+        public AttestationModulesServices(IAttestationModuleRepository attestationModuleRepository, 
+                                          IAttestationFormModulesServices attestationFormModulesServices, 
+                                          IMapper mapper)
         {
             _attestationModuleRepository = attestationModuleRepository;
             _attestationFormModulesServices = attestationFormModulesServices;

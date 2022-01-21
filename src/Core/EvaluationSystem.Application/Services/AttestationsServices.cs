@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Collections.Generic;
 using AutoMapper;
+using EvaluationSystem.Domain.Enums;
+using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
-using EvaluationSystem.Application.Models.Attestations;
 using EvaluationSystem.Application.Models.Forms;
-using EvaluationSystem.Application.Models.Participants;
 using EvaluationSystem.Application.Models.Users;
 using EvaluationSystem.Application.Repositories;
-using EvaluationSystem.Domain.Entities;
-using EvaluationSystem.Domain.Enums;
+using EvaluationSystem.Application.Models.Attestations;
+using EvaluationSystem.Application.Models.Participants;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -22,7 +22,7 @@ namespace EvaluationSystem.Application.Services
         private readonly IFormRepository _formRepository;
         private readonly IAttestationFormsServices _attestationFormsServices;
         private readonly IUserAnswersServices _userAnswersServices;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public AttestationsServices(IUserRepository userRepository, 
                                     IAttestationRepository attestationRepository,
@@ -168,7 +168,6 @@ namespace EvaluationSystem.Application.Services
                     attestation.Status = Status.InProgress;
                 }
             }
-
             return attestations;
         }
     }

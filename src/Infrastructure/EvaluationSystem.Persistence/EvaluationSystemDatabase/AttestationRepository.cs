@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using Dapper;
+using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Repositories;
+using EvaluationSystem.Persistence.QuestionDatabase;
 using EvaluationSystem.Application.Models.Attestations;
 using EvaluationSystem.Application.Models.Participants;
-using EvaluationSystem.Application.Repositories;
-using EvaluationSystem.Domain.Entities;
-using EvaluationSystem.Persistence.QuestionDatabase;
 
 namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 {
@@ -64,7 +64,6 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                     currentAttest = attestation;
                     attestationDictionary.Add(currentAttest.IdAttestation, currentAttest);
                 }
-
                 currentAttest.Participants.Add(participant);
                 return currentAttest;
             }, transaction: Transaction, splitOn: "IdUser")

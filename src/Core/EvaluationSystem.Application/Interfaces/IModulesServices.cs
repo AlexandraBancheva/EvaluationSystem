@@ -7,9 +7,9 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IModulesServices
     {
-        CurrentModuleDetailDto CreateModule(int formId, CreateModuleDto model);
-
         void DeleteCurrentModule(int moduleId);
+
+        CurrentModuleDetailDto CreateModule(int formId, CreateModuleDto model);
 
         CurrentModuleDetailDto UpdateCurrentModule(int formId, int moduleId, UpdateModuleDto model);
 

@@ -1,5 +1,5 @@
-﻿using EvaluationSystem.Application.Models.Modules.ModulesDtos;
-using EvaluationSystem.Domain.Entities;
+﻿using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 
 namespace EvaluationSystem.Application.Repositories
 {

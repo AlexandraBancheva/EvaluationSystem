@@ -1,6 +1,6 @@
-﻿using EvaluationSystem.Application.Interfaces;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using EvaluationSystem.Application.Interfaces;
 
 namespace EvaluationSystem.API.Controllers
 {

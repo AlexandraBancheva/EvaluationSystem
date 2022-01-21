@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NLog.Extensions.Logging;
 using NLog.Web;
+using NLog.Extensions.Logging;
 
 namespace EvaluationSystem.API
 {

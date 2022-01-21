@@ -1,5 +1,5 @@
-﻿using EvaluationSystem.Application.Questions.QuestionsDtos;
-using FluentValidation;
+﻿using FluentValidation;
+using EvaluationSystem.Application.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Validations.QuestionValidations
 {

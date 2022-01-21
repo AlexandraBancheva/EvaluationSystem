@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using Dapper;
-using EvaluationSystem.Application.Models.Answers.AnswersDtos;
+using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Models.Forms;
+using EvaluationSystem.Application.Repositories;
+using EvaluationSystem.Persistence.QuestionDatabase;
+using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
-using EvaluationSystem.Application.Repositories;
-using EvaluationSystem.Domain.Entities;
-using EvaluationSystem.Persistence.QuestionDatabase;
 
 namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 {
@@ -73,8 +73,6 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 
                     currentModule.Questions.Add(question);
                 }
-
-
                 currentForm.Modules.Add(module);
                 return currentForm;
 

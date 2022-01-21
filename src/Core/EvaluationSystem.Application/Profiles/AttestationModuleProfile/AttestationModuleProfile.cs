@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using EvaluationSystem.Application.Models;
-using EvaluationSystem.Application.Models.AttestationModules;
-using EvaluationSystem.Application.Models.Modules;
-using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Models;
+using EvaluationSystem.Application.Models.Modules;
+using EvaluationSystem.Application.Models.AttestationModules;
+using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 
 namespace EvaluationSystem.Application.Profiles.AttestationModuleProfile
 {

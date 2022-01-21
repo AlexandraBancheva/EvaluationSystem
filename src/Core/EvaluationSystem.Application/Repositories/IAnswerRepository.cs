@@ -8,12 +8,12 @@ namespace EvaluationSystem.Application.Interfaces
 {
     public interface IAnswerRepository : IRepository<AnswerTemplate>
     {
-        ICollection<AnswerTemplate> GetAllByQuestionId(int questionId);
-
         CheckQuestionIdAnswerIdDto CheckQuestionIdAnswerId(int questionId, int answerId);
 
         CheckFormModuleQuestionDto CheckFormIdModuleIdQuestionId(int formId, int moduleId, int questionId);
 
         CheckFormModuleQuestionAnswerDto CheckFormIdModuleIdQuestionIdAnswerId(int formId, int moduleId, int questionId, int answerId);
+
+        ICollection<AnswerTemplate> GetAllByQuestionId(int questionId);
     }
 }

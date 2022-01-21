@@ -44,7 +44,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                     currentQuestion = question;
                     questionDictionary.Add(currentQuestion.Id, currentQuestion);
                 }
-
                 currentQuestion.Answers.Add(answer);
                 return currentQuestion;
             }, queryParameter, transaction: Transaction,
@@ -68,7 +67,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                         currentQuestion = question;
                         questionDictionary.Add(currentQuestion.Id, currentQuestion);
                     }
-
                     currentQuestion.Answers.Add(answer);
                     return currentQuestion;
             }, transaction: Transaction,
@@ -94,7 +92,6 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
                     currentQuestion = question;
                     questionDictionary.Add(currentQuestion.Id, currentQuestion);
                 }
-
                 currentQuestion.Answers.Add(answer);
                 return currentQuestion;
             }, transaction: Transaction,

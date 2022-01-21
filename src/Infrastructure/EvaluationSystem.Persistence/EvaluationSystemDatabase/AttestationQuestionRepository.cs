@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using Dapper;
-using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Repositories;
 
 namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 {
@@ -40,7 +40,6 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                     currentQuestion = question;
                     questionDictionary.Add(currentQuestion.Id, currentQuestion);
                 }
-
                 currentQuestion.AttestationAnswers.Add(answer);
                 return currentQuestion;
             }, queryParameter, transaction: Transaction,
@@ -64,7 +63,6 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                     currentQuestion = question;
                     questionDictionary.Add(currentQuestion.Id, currentQuestion);
                 }
-
                 currentQuestion.AttestationAnswers.Add(answer);
                 return currentQuestion;
             }, transaction: Transaction,

@@ -44,7 +44,6 @@ namespace EvaluationSystem.Application.Services
             return question;
         }
 
-        // Create New Question From Form
         public QuestionDetailDto CreateQuestionTemplateFromForm(int moduleId, int position, CreateQuestionDto model)
         {
             var currentQuestion = _mapper.Map<QuestionTemplate>(model);
@@ -54,7 +53,6 @@ namespace EvaluationSystem.Application.Services
             _moduleQuestionsServices.AddQuestionToModule(moduleId, questionId, position);
             var questionTemplate = _mapper.Map<QuestionDetailDto>(currentQuestion);
             questionTemplate.IdQuestion = questionId;
-            //return customQuestion;
 
             return questionTemplate;
         }

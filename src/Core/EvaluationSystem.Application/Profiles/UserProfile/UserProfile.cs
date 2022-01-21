@@ -1,5 +1,5 @@
-﻿using EvaluationSystem.Application.Models.Users;
-using Microsoft.Graph;
+﻿using Microsoft.Graph;
+using EvaluationSystem.Application.Models.Users;
 
 namespace EvaluationSystem.Application.Profiles
 {

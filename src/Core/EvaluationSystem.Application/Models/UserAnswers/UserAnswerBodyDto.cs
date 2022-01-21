@@ -7,10 +7,7 @@ namespace EvaluationSystem.Application.Models.UserAnswers
         public UserAnswerBodyDto()
         {
             this.AnswerIds = new HashSet<int>();
-           // this.AttestationModuleIds = new HashSet<AttestationModuleIdsDto>();
         }
-
-       // public ICollection<AttestationModuleIdsDto> AttestationModuleIds { get; set; }
 
         public int AttestationModuleId { get; set; }
 

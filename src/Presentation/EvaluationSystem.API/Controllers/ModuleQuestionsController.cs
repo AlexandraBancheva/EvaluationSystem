@@ -1,5 +1,5 @@
-﻿using EvaluationSystem.Application.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using EvaluationSystem.Application.Interfaces;
 
 namespace EvaluationSystem.API.Controllers
 {

@@ -1,7 +1,6 @@
-﻿using EvaluationSystem.Application.Models.Modules.ModulesDtos;
+﻿using FluentValidation;
+using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 using EvaluationSystem.Application.Validations.QuestionValidations;
-using FluentValidation;
-using System.Linq;
 
 namespace EvaluationSystem.Application.Validations.ModuleValidations
 {

@@ -1,7 +1,7 @@
-﻿using EvaluationSystem.Application.Models.AttestationAnswers;
-using EvaluationSystem.Domain.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using EvaluationSystem.Application.Models.AttestationAnswers;
+using EvaluationSystem.Domain.Enums;
 
 namespace EvaluationSystem.Application.Models.AttestationQuestions
 {
@@ -22,8 +22,8 @@ namespace EvaluationSystem.Application.Models.AttestationQuestions
 
         public DateTime DateOfCreation { get; set; }
 
-        public virtual ICollection<AttestationAnswerDetailDto> Answers { get; set; }
-
         public string TextAnswer { get; set; } = null;
+
+        public virtual ICollection<AttestationAnswerDetailDto> Answers { get; set; }
     }
 }

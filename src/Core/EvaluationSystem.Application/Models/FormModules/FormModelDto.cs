@@ -12,6 +12,6 @@ namespace EvaluationSystem.Application.Models.FormModules
 
         public int IdForm { get; set; }
 
-        public ICollection<ModuleTemplate> Modules { get; set; }
+        public virtual ICollection<ModuleTemplate> Modules { get; set; }
     }
 }

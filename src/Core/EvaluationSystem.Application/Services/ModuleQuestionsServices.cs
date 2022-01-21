@@ -11,7 +11,8 @@ namespace EvaluationSystem.Application.Services
         private readonly IModuleQuestionRepository _moduleQuestionRepository;
         private readonly IMapper _mapper;
 
-        public ModuleQuestionsServices(IModuleQuestionRepository moduleQuestionRepository, IMapper mapper)
+        public ModuleQuestionsServices(IModuleQuestionRepository moduleQuestionRepository, 
+                                       IMapper mapper)
         {
             _moduleQuestionRepository = moduleQuestionRepository;
             _mapper = mapper;

@@ -14,8 +14,9 @@ namespace EvaluationSystem.Application.Services
         private readonly IAttestationQuestionRepository _attestationQuestionRepository;
         private readonly IAttestationModuleQuestionRepository _attestationModuleQuestionRepository;
 
-        public AttestationQuestionsServices(IMapper mapper, IAttestationQuestionRepository attestationQuestionRepository,
-            IAttestationModuleQuestionRepository attestationModuleQuestionRepository)
+        public AttestationQuestionsServices(IMapper mapper, 
+                                            IAttestationQuestionRepository attestationQuestionRepository,
+                                            IAttestationModuleQuestionRepository attestationModuleQuestionRepository)
         {
             _mapper = mapper;
             _attestationQuestionRepository = attestationQuestionRepository;

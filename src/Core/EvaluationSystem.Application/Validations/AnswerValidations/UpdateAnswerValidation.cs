@@ -1,5 +1,5 @@
-﻿using EvaluationSystem.Domain.Entities;
-using FluentValidation;
+﻿using FluentValidation;
+using EvaluationSystem.Domain.Entities;
 
 namespace EvaluationSystem.Application.Validations.AnswerValidations
 {

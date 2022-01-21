@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 {
-    public class ListQuestionsDto  /// From Repository
+    public class ListQuestionsDto
     {
         public int IdQuestion { get; set; }
 
