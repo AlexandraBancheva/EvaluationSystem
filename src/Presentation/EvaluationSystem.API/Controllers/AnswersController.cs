@@ -8,9 +8,9 @@ namespace EvaluationSystem.API.Controllers
     [Route("api/forms/{formId}/modules/{moduleId}/questions/{questionId}/answers")]
     public class AnswersController : BaseAdminController
     {
-        private readonly IAnswersServices answersServices;
+        private readonly IAnswerUsersServices answersServices;
 
-        public AnswersController(IAnswersServices answersServices)
+        public AnswersController(IAnswerUsersServices answersServices)
         {
             this.answersServices = answersServices;
         }

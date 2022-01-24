@@ -9,7 +9,7 @@ using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 
 namespace EvaluationSystem.Application.Services
 {
-    public class AnswersServices : IAnswersServices
+    public class AnswersServices : IAnswerUsersServices
     {
         private readonly IMapper _mapper;
         private readonly IAnswerRepository _answerRepository;

@@ -11,7 +11,7 @@ namespace EvaluationSystem.Application.ConfigurationServices
         {
             services.AddScoped<IQuestionTemplatesServices, QuestionTemplatesServices>();
             services.AddScoped<ICustomQuestionsServices, CustomQuestionsServices>();
-            services.AddScoped<IAnswersServices, AnswersServices>();
+            services.AddScoped<IAnswerUsersServices, AnswersServices>();
             services.AddScoped<IModulesServices, ModulesServices>();
             services.AddScoped<IModuleQuestionsServices, ModuleQuestionsServices>();
             services.AddScoped<IFormsServices, FormsServices>();

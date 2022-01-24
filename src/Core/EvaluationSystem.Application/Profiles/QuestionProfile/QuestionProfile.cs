@@ -30,11 +30,11 @@ namespace EvaluationSystem.Application.Profiles.QuestionProfile
                 .ForMember(f => f.IdQuestion, opts => opts.MapFrom(v => v.Id))
                 .ForMember(r => r.Answers, opts => opts.MapFrom(u => u.Answers));
 
-            //CreateMap<QuestionTemplate, UpdateQuestionDto>()
-            //    .ForAllMembers(opts => opts.Condition((src, destination, srcMembers) => srcMembers != null));    // Do not work
+            CreateMap<QuestionTemplate, UpdateQuestionDto>()
+                .ForAllMembers(opts => opts.Condition((src, destination, srcMembers) => srcMembers != null));
 
-            //CreateMap<UpdateQuestionDto, QuestionTemplate>()
-            //    .ForAllMembers(opts => opts.Condition((src, destination, srcMembers) => srcMembers != null)); ;  // Do not work
+            CreateMap<UpdateQuestionDto, QuestionTemplate>()
+                .ForAllMembers(opts => opts.Condition((src, destination, srcMembers) => srcMembers != null));
 
             CreateMap<QuestionTemplate, QuestionListDto>()
                 .ForMember(v => v.IdQuestion, opts => opts.MapFrom(b => b.Id))

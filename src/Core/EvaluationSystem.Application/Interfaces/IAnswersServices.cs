@@ -4,7 +4,7 @@ using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 
 namespace EvaluationSystem.Application.Interfaces
 {
-    public interface IAnswersServices
+    public interface IAnswerUsersServices
     {
         void DeleteAnswerTemplate(int questionId, int answerId);
 

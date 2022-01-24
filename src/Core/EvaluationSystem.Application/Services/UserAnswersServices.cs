@@ -63,7 +63,7 @@ namespace EvaluationSystem.Application.Services
                     }
                     attestationAnswer.IdAttestationAnswer = 0;
                     attestationAnswer.TextAnswer = body.AnswerText;
-                    _userAnswerRepository.AddAnswerLikeATextField(attestationAnswer.IdAttestation, attestationAnswer.IdUserParticipant, attestationAnswer.IdAttestationModule, attestationAnswer.IdAttestationQuestion, attestationAnswer.TextAnswer);
+                    _userAnswerRepository.UpdateTextFiledInUserAnswer(attestationAnswer.IdAttestation, attestationAnswer.IdUserParticipant, attestationAnswer.IdAttestationModule, attestationAnswer.IdAttestationQuestion, attestationAnswer.TextAnswer);
                 }
             }
             _userAnswerRepository.ChangeStatusToDone(model.IdAttestation, _currentUser.Id);
@@ -78,12 +78,12 @@ namespace EvaluationSystem.Application.Services
 
             var attestationAnswers = _userAnswerRepository.GetAllAnswersByUser(attestationId, participant.Id);
             var resultForm = _mapper.Map<ICollection<AttestationFormDetailDto>>(form);
-            if (attestationAnswers.Count == 0)
-            {
-                throw new InvalidOperationException("Attestation has not been decided yet!");
-            }
-            else
-            {
+            //if (attestationAnswers.Count == 0)
+            //{
+            //    throw new InvalidOperationException("Attestation has not been decided yet!");
+            //}
+            //else
+            //{
                 foreach (var body in attestationAnswers)
                 {
                     foreach (var currForm in resultForm)
@@ -123,7 +123,7 @@ namespace EvaluationSystem.Application.Services
                         }
                     }
                 }
-            }
+            //}
 
             return resultForm;
         }

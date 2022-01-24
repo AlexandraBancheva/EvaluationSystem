@@ -8,9 +8,9 @@ namespace EvaluationSystem.API.Controllers
     [Route(("api/questionTemplates/{questionId}/answers"))]
     public class AnswerTemplatesController : BaseAdminController
     {
-        private readonly IAnswersServices _answersServices;
+        private readonly IAnswerUsersServices _answersServices;
 
-        public AnswerTemplatesController(IAnswersServices answersServices)
+        public AnswerTemplatesController(IAnswerUsersServices answersServices)
         {
             _answersServices = answersServices;
         }
