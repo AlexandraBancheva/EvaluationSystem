@@ -9,16 +9,18 @@ namespace EvaluationSystem.Application.Repositories
 
         void DeleteUserAnswerByAttestationId(int attestationId);
 
+        void RemovedAnswerFromDb(int id); // 24.01.2022
+
         void UpdateTextFiledInUserAnswer(int idAttestation, int idUser, int idAttestationModule, int idAttestationQuestion, string textAnswer);
 
         UserAnswer GetUserAnswerByAttestationId(int attestationId, int questionId); // 24.01.2022
 
-        UserAnswer GetUserAnswer(int attestationId);
+        UserAnswer GetUserAnswer(int attestationId, int questionId); // 24.01.2022
 
         UserAnswer GetUserAnswerTextFieldByAttestationId(int attestationId, int questionId); // 24.01.2022
 
         ICollection<UserAnswer> GetAllAnswersByUser(int attestationId, int userId);
 
-        ICollection<UserAnswer> GetAllUserAnswerWhenCheckBoxes(int attestationId);
+        ICollection<UserAnswer> GetAllUserAnswerWhenCheckBoxes(int attestationId, int questionId); // 24.10.2022
     }
 }

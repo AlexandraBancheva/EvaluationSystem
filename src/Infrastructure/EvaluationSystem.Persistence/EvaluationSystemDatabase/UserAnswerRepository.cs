@@ -55,26 +55,26 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             return (ICollection<UserAnswer>)results;
         }
 
-        public ICollection<UserAnswer> GetAllUserAnswerWhenCheckBoxes(int attestationId)
+        public ICollection<UserAnswer> GetAllUserAnswerWhenCheckBoxes(int attestationId, int questionId)
         {
             var query = @"SELECT * FROM [UserAnswer]
-                       WHERE IdAttestation = @AttestationId";
+                       WHERE IdAttestation = @AttestationId AND IdAttestationQuestion = @QuestionId";
 
-            var results = Connection.Query<UserAnswer>(query, new { AttestationId = attestationId }, transaction: Transaction);
+            var results = Connection.Query<UserAnswer>(query, new { AttestationId = attestationId, QuestionId = questionId }, transaction: Transaction);
 
             return (ICollection<UserAnswer>)results;
         }
 
-        public UserAnswer GetUserAnswer(int attestationId)
+        public UserAnswer GetUserAnswer(int attestationId, int questionId)
         {
             var query = @"SELECT * FROM [UserAnswer]
-                       WHERE IdAttestation = @AttestationId";
+                       WHERE IdAttestation = @AttestationId AND IdAttestationQuestion = @QuestionId";
 
-            var result = Connection.QueryFirstOrDefault<UserAnswer>(query, new { AttestationId = attestationId }, transaction: Transaction);
+            var result = Connection.QueryFirstOrDefault<UserAnswer>(query, new { AttestationId = attestationId, QuestionId = questionId }, transaction: Transaction);
             return result;
         }
 
-        public UserAnswer GetUserAnswerByAttestationId(int attestationId, int questionId) // To correct method name
+        public UserAnswer GetUserAnswerByAttestationId(int attestationId, int questionId) // If hasn't any textAnswer
         {
             var query = @"SELECT [at].Id, [am].Id AS IdAttestationModule, aq.Id AS IdAttestationQuestion
                         FROM [Attestation] AS [at]
@@ -83,34 +83,38 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
                         JOIN AttestationModule AS am ON afm.IdAttestationModule = am.Id
                         JOIN AttestationModuleQuestion AS amq ON amq.IdAttestationModule = am.Id
                         JOIN AttestationQuestion AS aq ON amq.IdAttestationQuestion = aq.Id
-                        JOIN AttestationAnswer AS aa ON aa.IdQuestion = amq.IdAttestationQuestion
+                        LEFT JOIN AttestationAnswer AS aa ON aa.IdQuestion = amq.IdAttestationQuestion
                         WHERE [at].Id = @AttestationId AND aq.[Id] = @QuestionId";
-
-            //var queryParameter = new { AttestationId = attestationId };
 
             var res = Connection.QueryFirstOrDefault<UserAnswer>(query, new { AttestationId = attestationId, QuestionId = questionId }, transaction: Transaction);
 
             return res;
         }
 
-        public UserAnswer GetUserAnswerTextFieldByAttestationId(int attestationId, int questionId)
+        public UserAnswer GetUserAnswerTextFieldByAttestationId(int attestationId, int questionId) // If has some textAnswer
         {
-            var query = @"SELECT [at].Id, [am].Id AS IdAttestationModule, aq.Id AS IdAttestationQuestion, ua.TextAnswer
-                        FROM [Attestation] AS [at]
-						JOIN [UserAnswer] AS ua ON ua.IdAttestation = [at].Id
-                        JOIN AttestationForm AS af ON [at].IdForm = af.Id
-                        JOIN AttestationFormModule AS afm ON afm.IdAttestationForm = af.Id
-                        JOIN AttestationModule AS am ON afm.IdAttestationModule = am.Id
-                        JOIN AttestationModuleQuestion AS amq ON amq.IdAttestationModule = am.Id
-                        JOIN AttestationQuestion AS aq ON amq.IdAttestationQuestion = aq.Id
-                        LEFT JOIN AttestationAnswer AS aa ON aa.IdQuestion = amq.IdAttestationQuestion
-                        WHERE [at].Id = @AttestationId AND aq.[Id] = @QuestionId";
+            var query = @"SELECT [at].Id, [am].Id AS IdAttestationModule, aq.Id AS IdAttestationQuestion, ua.IdUserParticipant, ua.TextAnswer
+                              FROM[Attestation] AS[at]
+                              JOIN[UserAnswer] AS ua ON ua.IdAttestation = [at].Id
+                              JOIN AttestationForm AS af ON[at].IdForm = af.Id
+                              JOIN AttestationFormModule AS afm ON afm.IdAttestationForm = af.Id
+                              JOIN AttestationModule AS am ON afm.IdAttestationModule = am.Id
+                              JOIN AttestationModuleQuestion AS amq ON amq.IdAttestationModule = am.Id
+                              JOIN AttestationQuestion AS aq ON amq.IdAttestationQuestion = aq.Id
+                              LEFT JOIN AttestationAnswer AS aa ON aa.IdQuestion = amq.IdAttestationQuestion
+                              WHERE[at].Id = @AttestationId AND aq.[Id] = @QuestionId";
 
-           // var queryParameter = new { AttestationId = attestationId };
-
-            var res = Connection.QueryFirstOrDefault<UserAnswer>(query, new { AttestationId = attestationId , QuestionId = questionId }, transaction: Transaction);
+            var res = Connection.QueryFirstOrDefault<UserAnswer>(query, new { AttestationId = attestationId, QuestionId =  questionId }, transaction: Transaction);
 
             return res;
+        }
+
+        public void RemovedAnswerFromDb(int id)
+        {
+            var query = @"DELETE [UserAnswer]
+                        WHERE  Id = @Id";
+
+            Connection.Execute(query, new { Id = id }, transaction: Transaction);
         }
     }
 }

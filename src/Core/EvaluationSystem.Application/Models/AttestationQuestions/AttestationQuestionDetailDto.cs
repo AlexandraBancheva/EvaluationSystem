@@ -22,7 +22,7 @@ namespace EvaluationSystem.Application.Models.AttestationQuestions
 
         public DateTime DateOfCreation { get; set; }
 
-        public string TextAnswer { get; set; } = null;
+        public string TextAnswer { get; set; }
 
         public virtual ICollection<AttestationAnswerDetailDto> Answers { get; set; }
     }

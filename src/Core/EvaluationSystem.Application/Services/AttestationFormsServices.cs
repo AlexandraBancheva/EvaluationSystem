@@ -160,92 +160,128 @@ namespace EvaluationSystem.Application.Services
 
         public void UpdateUserAnswer(int attestationId, AttestationQuestionUpdateDto model)
         {
-            var userAnswerFromDb = _userAnswerRepository.GetUserAnswerByAttestationId(attestationId, model.AttestationQuestionId);
-            if (userAnswerFromDb != null)
-            {
-                userAnswerFromDb.IdUserParticipant = _currentUser.Id;
-            }
-            var answeredAttestation = _userAnswerRepository.GetAllUserAnswerWhenCheckBoxes(attestationId);
-            var userAnswerTextFiled = _userAnswerRepository.GetUserAnswerTextFieldByAttestationId(attestationId, model.AttestationQuestionId);
-            var userAnswer = new UserAnswer();
+            var question = _attestationQuestionRepository.GetById(model.AttestationQuestionId);
             var usersAnswers = new List<UserAnswer>();
-            var attestationQuestionId = 0;
+            var userAnswer = new UserAnswer();
 
-            if (answeredAttestation.Count == 0)
+            if (question.Id == model.AttestationQuestionId)
             {
-                if (userAnswerFromDb == null)
+                if (question.Type == QuestionType.CheckBoxes)
                 {
+                    var answeredAttestation = _userAnswerRepository.GetAllUserAnswerWhenCheckBoxes(attestationId, model.AttestationQuestionId);
+                    foreach (var answer in answeredAttestation)
+                    {
+                        usersAnswers.Add(answer);
+                    }
+                    var attestationInfo = _userAnswerRepository.GetUserAnswerByAttestationId(attestationId, model.AttestationQuestionId);
                     userAnswer = new UserAnswer
                     {
                         IdAttestation = attestationId,
                         IdUserParticipant = _currentUser.Id,
-                        IdAttestationModule = userAnswerTextFiled.IdAttestationQuestion,
-                        IdAttestationQuestion = userAnswerTextFiled.IdAttestationQuestion,
-                        IdAttestationAnswer = userAnswerTextFiled.IdAttestationAnswer,
-                        TextAnswer = userAnswerTextFiled.TextAnswer,
+                        IdAttestationModule = attestationInfo.IdAttestationModule,
+                        IdAttestationQuestion = attestationInfo.IdAttestationQuestion,
                     };
-                    attestationQuestionId = userAnswer.IdAttestationQuestion;
-                }
-                else
-                {
-                    userAnswer = new UserAnswer
+                    if (answeredAttestation.Count == 0)
                     {
-                        IdAttestation = attestationId,
-                        IdUserParticipant = _currentUser.Id,
-                        IdAttestationModule = userAnswerFromDb.IdAttestationModule,
-                        IdAttestationQuestion = userAnswerFromDb.IdAttestationQuestion,
-                        IdAttestationAnswer = userAnswerFromDb.IdAttestationAnswer,
-                        TextAnswer = userAnswerFromDb.TextAnswer,
-                    };
-                    attestationQuestionId = userAnswer.IdAttestationQuestion;
-                } 
-            }
-            else if (answeredAttestation.Count == 1 && userAnswerTextFiled.TextAnswer != null)
-            {
-                if (userAnswerFromDb == null)
-                {
-                    userAnswer = new UserAnswer
+                        foreach (var answer in model.AnswerIds)
+                        {
+
+                            userAnswer.TextAnswer = null;
+                            userAnswer.IdAttestationAnswer = answer;
+                            _userAnswerRepository.Insert(userAnswer);
+                        }
+                    }
+                    else
                     {
-                        IdAttestation = attestationId,
-                        IdUserParticipant = _currentUser.Id,
-                        IdAttestationModule = userAnswerTextFiled.IdAttestationQuestion,
-                        IdAttestationQuestion = userAnswerTextFiled.IdAttestationQuestion,
-                        IdAttestationAnswer = userAnswerTextFiled.IdAttestationAnswer,
-                        TextAnswer = userAnswerTextFiled.TextAnswer,
-                    };
-                    attestationQuestionId = userAnswer.IdAttestationQuestion;
-                }
-                else
-                {
-                    userAnswer = new UserAnswer
-                    {
-                        IdAttestation = attestationId,
-                        IdUserParticipant = _currentUser.Id,
-                        IdAttestationModule = userAnswerFromDb.IdAttestationModule,
-                        IdAttestationQuestion = userAnswerFromDb.IdAttestationQuestion,
-                        IdAttestationAnswer = userAnswerFromDb.IdAttestationAnswer,
-                        TextAnswer = userAnswerFromDb.TextAnswer,
-                    };
-                    attestationQuestionId = userAnswer.IdAttestationQuestion;
-                }
-            }
-            else if (answeredAttestation.Count != 0)
-            {
-                foreach (var answer in answeredAttestation)
-                {
-                    usersAnswers.Add(answer);
-                    if (attestationQuestionId != answer.IdAttestationQuestion)
-                    {
-                        attestationQuestionId = answer.IdAttestationQuestion;
+                        foreach (var forDelete in usersAnswers)
+                        {
+                            _userAnswerRepository.RemovedAnswerFromDb(forDelete.Id);
+                        }
+                        foreach (var answer in model.AnswerIds)
+                        {
+                            userAnswer.IdAttestationAnswer = answer;
+                            userAnswer.TextAnswer = null;
+                            _userAnswerRepository.Insert(userAnswer);
+                        }
                     }
                 }
-            }
-
-            if (attestationQuestionId == model.AttestationQuestionId)
-            {
-                var question = _attestationQuestionRepository.GetById(attestationQuestionId);
-                if (question.Type == QuestionType.TextField)
+                else if (question.Type == QuestionType.NumericalOptions || question.Type == QuestionType.RadioButtons)
                 {
+                    if (model.AnswerIds.Count != 1)
+                    {
+                        throw new InvalidOperationException("Only one answer");
+                    }
+                    else
+                    {
+                        var answeredAttestation = _userAnswerRepository.GetUserAnswer(attestationId, model.AttestationQuestionId);
+                        if (answeredAttestation == null)
+                        {
+
+                            var inforFromDb = _userAnswerRepository.GetUserAnswerByAttestationId(attestationId, model.AttestationQuestionId);
+                            userAnswer = new UserAnswer
+                            {
+
+                                IdAttestation = attestationId,
+                                IdUserParticipant = _currentUser.Id,
+                                IdAttestationModule = inforFromDb.IdAttestationModule,
+                                IdAttestationQuestion = inforFromDb.IdAttestationQuestion,
+                            };
+
+                            foreach (var answer in model.AnswerIds)
+                            {
+                                userAnswer.IdAttestationAnswer = answer;
+                                _userAnswerRepository.Insert(userAnswer);
+                            }
+                        }
+                        else
+                        {
+                            userAnswer = new UserAnswer
+                            {
+                                IdAttestation = answeredAttestation.IdAttestation,
+                                IdUserParticipant = answeredAttestation.IdUserParticipant,
+                                IdAttestationModule = answeredAttestation.IdAttestationModule,
+                                IdAttestationQuestion = answeredAttestation.IdAttestationQuestion,
+                                IdAttestationAnswer = answeredAttestation.IdAttestationAnswer,
+                            };
+                            _userAnswerRepository.RemovedAnswerFromDb(answeredAttestation.Id);
+                            foreach (var answer in model.AnswerIds)
+                            {
+                                userAnswer.IdAttestationAnswer = answer;
+                                userAnswer.TextAnswer = null;
+                                _userAnswerRepository.Insert(userAnswer);
+                            }
+                        }
+                    }
+                }
+                else if (question.Type == QuestionType.TextField)
+                {
+                    var userAnswerTextFiled = _userAnswerRepository.GetUserAnswerTextFieldByAttestationId(attestationId, model.AttestationQuestionId); // if has some textAnswer
+                    if (userAnswerTextFiled == null)
+                    {
+                        userAnswerTextFiled = _userAnswerRepository.GetUserAnswerByAttestationId(attestationId, model.AttestationQuestionId);
+                        userAnswer = new UserAnswer
+                        {
+                            IdAttestation = attestationId,
+                            IdUserParticipant = _currentUser.Id,
+                            IdAttestationModule = userAnswerTextFiled.IdAttestationModule,
+                            IdAttestationQuestion = userAnswerTextFiled.IdAttestationQuestion,
+                            IdAttestationAnswer = userAnswerTextFiled.IdAttestationAnswer,
+                            TextAnswer = userAnswerTextFiled.TextAnswer,
+                        };
+                    }
+                    else
+                    {
+
+                        userAnswer = new UserAnswer
+                        {
+                            IdAttestation = attestationId,
+                            IdUserParticipant = userAnswerTextFiled.IdUserParticipant,
+                            IdAttestationModule = userAnswerTextFiled.IdAttestationModule,
+                            IdAttestationQuestion = userAnswerTextFiled.IdAttestationQuestion,
+                            IdAttestationAnswer = userAnswerTextFiled.IdAttestationAnswer,
+                            TextAnswer = userAnswerTextFiled.TextAnswer,
+                        };
+                    }
                     if (userAnswer.TextAnswer == null)
                     {
                         userAnswer.TextAnswer = model.AnswerText;
@@ -257,65 +293,6 @@ namespace EvaluationSystem.Application.Services
                         userAnswer.TextAnswer = model.AnswerText;
                         userAnswer.IdAttestationAnswer = null;
                         _userAnswerRepository.UpdateTextFiledInUserAnswer(attestationId, userAnswer.IdUserParticipant, userAnswer.IdAttestationModule, userAnswer.IdAttestationQuestion, userAnswer.TextAnswer);
-                    }
-                }
-                else if (question.Type == QuestionType.NumericalOptions || question.Type == QuestionType.RadioButtons)
-                {
-                    if (model.AnswerIds.Count != 1)
-                    {
-                        throw new InvalidOperationException("Only one answer");
-                    }
-                    else
-                    {
-                        if (usersAnswers.Count == 0)
-                        {
-                            foreach (var answer in model.AnswerIds)
-                            {
-                                userAnswer.IdAttestationAnswer = answer;
-                                _userAnswerRepository.Insert(userAnswer);
-                            }
-                        }
-                        else
-                        {
-                            _userAnswerRepository.DeleteUserAnswerByAttestationId(attestationId);
-                            foreach (var answer in model.AnswerIds)
-                            {
-                                foreach (var newAnswer in usersAnswers)
-                                {
-                                    newAnswer.IdAttestationAnswer = answer;
-                                    newAnswer.TextAnswer = null;
-                                    _userAnswerRepository.Insert(newAnswer);
-                                }
-                            }
-                        }
-                    }
-                }
-                else if (question.Type == QuestionType.CheckBoxes)
-                {
-                    if (userAnswer == null)
-                    {
-                        foreach (var answer in model.AnswerIds)
-                        {
-                            userAnswer.TextAnswer = null;
-                            userAnswer.IdAttestationAnswer = answer;
-                            _userAnswerRepository.Insert(userAnswer);
-                        }
-                    }
-                    else
-                    {
-                        _userAnswerRepository.DeleteUserAnswerByAttestationId(attestationId);
-                        foreach (var answer in model.AnswerIds)
-                        {
-                            userAnswer = new UserAnswer
-                            {
-                                IdAttestation = attestationId,
-                                IdUserParticipant = userAnswerFromDb.IdUserParticipant,
-                                IdAttestationModule = userAnswerFromDb.IdAttestationModule,
-                                IdAttestationQuestion = userAnswerFromDb.IdAttestationQuestion,
-                                IdAttestationAnswer = answer,
-                            };
-                            _userAnswerRepository.Insert(userAnswer);
-                        }
                     }
                 }
             }

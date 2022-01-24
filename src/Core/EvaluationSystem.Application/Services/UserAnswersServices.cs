@@ -69,53 +69,47 @@ namespace EvaluationSystem.Application.Services
             _userAnswerRepository.ChangeStatusToDone(model.IdAttestation, _currentUser.Id);
         }
 
+
+        // False!!!
         public ICollection<AttestationFormDetailDto> GetAttestationAnswerByUser(int attestationId, string userEmail)
         {
             var attestation = _attestationRepository.GetById(attestationId);
             var form = _attestationFormsServices.GetFormById(attestationId);
             var participant = _userRepository.GetUserByEmail(userEmail);
 
-
             var attestationAnswers = _userAnswerRepository.GetAllAnswersByUser(attestationId, participant.Id);
             var resultForm = _mapper.Map<ICollection<AttestationFormDetailDto>>(form);
-            //if (attestationAnswers.Count == 0)
-            //{
-            //    throw new InvalidOperationException("Attestation has not been decided yet!");
-            //}
-            //else
-            //{
-                foreach (var body in attestationAnswers)
+            foreach (var body in attestationAnswers)
+            {
+                foreach (var currForm in resultForm)
                 {
-                    foreach (var currForm in resultForm)
+                    if (currForm.Id == attestation.IdForm)
                     {
-                        if (currForm.Id == attestation.IdForm)
+                        foreach (var currentModule in currForm.Modules)
                         {
-                            foreach (var currentModule in currForm.Modules)
+                            foreach (var currentQuestion in currentModule.Questions)
                             {
-                                foreach (var currentQuestion in currentModule.Questions)
+                                if (currentQuestion.Type == QuestionType.TextField)
                                 {
-                                    if (currentQuestion.Type == QuestionType.TextField)
+                                    currentQuestion.TextAnswer = body.TextAnswer;
+                                }
+                                else if (currentQuestion.Type == QuestionType.NumericalOptions || currentQuestion.Type == QuestionType.RadioButtons)
+                                {
+                                    foreach (var answer in currentQuestion.Answers)
                                     {
-                                        currentQuestion.TextAnswer = body.TextAnswer;
-                                    }
-                                    else if (currentQuestion.Type == QuestionType.NumericalOptions || currentQuestion.Type == QuestionType.RadioButtons)
-                                    {
-                                        foreach (var answer in currentQuestion.Answers)
+                                        if (answer.IdAnswer == body.IdAttestationAnswer)
                                         {
-                                            if (answer.IdAnswer == body.IdAttestationAnswer)
-                                            {
-                                                answer.IsAnswered = true;
-                                            }
+                                            answer.IsAnswered = true;
                                         }
                                     }
-                                    else if (currentQuestion.Type == QuestionType.CheckBoxes)
+                                }
+                                else if (currentQuestion.Type == QuestionType.CheckBoxes)
+                                {
+                                    foreach (var answer in currentQuestion.Answers)
                                     {
-                                        foreach (var answer in currentQuestion.Answers)
+                                        if (answer.IdAnswer == body.IdAttestationAnswer)
                                         {
-                                            if (answer.IdAnswer == body.IdAttestationAnswer)
-                                            {
-                                                answer.IsAnswered = true;
-                                            }
+                                            answer.IsAnswered = true;
                                         }
                                     }
                                 }
@@ -123,7 +117,8 @@ namespace EvaluationSystem.Application.Services
                         }
                     }
                 }
-            //}
+            }
+
 
             return resultForm;
         }

@@ -22,6 +22,9 @@ namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 
         public DateTime DateOfCreation { get; set; }
 
+        // 24.01.22
+        public string TextAnswer { get; set; }
+
         public virtual ICollection<AnswerDetailDto> Answers { get; set; }
     }
 }
