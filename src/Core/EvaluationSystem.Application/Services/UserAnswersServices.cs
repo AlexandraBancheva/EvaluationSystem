@@ -88,6 +88,8 @@ namespace EvaluationSystem.Application.Services
                     }
                 }
             }
+            // Maybe other checks?!! Checks if all questions are answered!!!
+            CheckIfAllQuestionsAreAnswered(answeredAttestation); // Checks!!!
             _userAnswerRepository.ChangeStatusToDone(model.IdAttestation, _currentUser.Id);
         }
 
@@ -142,6 +144,16 @@ namespace EvaluationSystem.Application.Services
         public void DeleteUserAnswer(int attestationId)
         {
             _userAnswerRepository.DeleteUserAnswerByAttestationId(attestationId);
+        }
+
+        private bool CheckIfAllQuestionsAreAnswered(ICollection<AttestationFormDetailDto> userAnswers)
+        {
+            foreach (var form in userAnswers)
+            {
+
+            }
+
+            return true;
         }
     }
 }
