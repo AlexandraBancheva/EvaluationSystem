@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Models.AttestationForms;
 using EvaluationSystem.Application.Models.UserAnswers;
 using EvaluationSystem.Application.Repositories;
-using EvaluationSystem.Domain.Entities;
 using EvaluationSystem.Domain.Enums;
+using EvaluationSystem.Application.Models.AttestationQuestions;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -36,34 +37,55 @@ namespace EvaluationSystem.Application.Services
 
         public void Create(CreateUserAnswerDto model)
         {
-            foreach (var body in model.Body)
-            {
-                var attestationAnswer = new UserAnswer
-                {
-                    IdAttestation = model.IdAttestation,
-                    IdUserParticipant = _currentUser.Id,
-                    IdAttestationModule = body.AttestationModuleId,
-                    IdAttestationQuestion = body.AttestationQuestionId
-                };
+            var answeredAttestation = GetAttestationAnswerByUser(model.IdAttestation, _currentUser.Email);
 
-                if (body.AnswerIds.Count != 0)
+            foreach (var form in answeredAttestation)
+            {
+                foreach (var module in form.Modules)
                 {
-                    foreach (var answerId in body.AnswerIds)
+                    foreach (var body in model.Body)
                     {
-                        attestationAnswer.IdAttestationAnswer = answerId;
-                        attestationAnswer.TextAnswer = null;
-                        _userAnswerRepository.Insert(attestationAnswer);
+                        var userAnswer = new UserAnswer
+                        {
+                            IdAttestation = model.IdAttestation,
+                            IdUserParticipant = _currentUser.Id,
+                            IdAttestationModule = body.AttestationModuleId,
+                            IdAttestationQuestion = body.AttestationQuestionId,
+                        };
+
+                        if (module.IdModule == body.AttestationModuleId)
+                        {
+                            foreach (var question in module.Questions)
+                            {
+                                if (question.IdQuestion == body.AttestationQuestionId)
+                                {
+                                    var updateUserAnswers = new AttestationQuestionUpdateDto();
+                                    if (question.Type == QuestionType.TextField)
+                                    {
+                                        if (question.TextAnswer != body.AnswerText)
+                                        {
+                                            updateUserAnswers = _mapper.Map<AttestationQuestionUpdateDto>(body);
+                                            _attestationFormsServices.UpdateUserAnswer(userAnswer.IdAttestation, updateUserAnswers);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (var answer in question.Answers)
+                                        {
+                                            foreach (var answerId in body.AnswerIds)
+                                            {
+                                                if (answer.IdAnswer != answerId)
+                                                {
+                                                    updateUserAnswers = _mapper.Map<AttestationQuestionUpdateDto>(body);
+                                                    _attestationFormsServices.UpdateUserAnswer(userAnswer.IdAttestation, updateUserAnswers);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
-                }
-                else
-                {
-                    if (body.AnswerText == null || body.AnswerText == "")
-                    {
-                        throw new Exception("AnswerText is empty!");
-                    }
-                    attestationAnswer.IdAttestationAnswer = 0;
-                    attestationAnswer.TextAnswer = body.AnswerText;
-                    _userAnswerRepository.UpdateTextFiledInUserAnswer(attestationAnswer.IdAttestation, attestationAnswer.IdUserParticipant, attestationAnswer.IdAttestationModule, attestationAnswer.IdAttestationQuestion, attestationAnswer.TextAnswer);
                 }
             }
             _userAnswerRepository.ChangeStatusToDone(model.IdAttestation, _currentUser.Id);
