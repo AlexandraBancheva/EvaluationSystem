@@ -70,7 +70,6 @@ namespace EvaluationSystem.Application.Services
         }
 
 
-        // False!!!
         public ICollection<AttestationFormDetailDto> GetAttestationAnswerByUser(int attestationId, string userEmail)
         {
             var attestation = _attestationRepository.GetById(attestationId);
@@ -79,46 +78,41 @@ namespace EvaluationSystem.Application.Services
 
             var attestationAnswers = _userAnswerRepository.GetAllAnswersByUser(attestationId, participant.Id);
             var resultForm = _mapper.Map<ICollection<AttestationFormDetailDto>>(form);
-            foreach (var body in attestationAnswers)
+
+            foreach (var currForm in resultForm)
             {
-                foreach (var currForm in resultForm)
+                if (currForm.Id == attestation.IdForm)
                 {
-                    if (currForm.Id == attestation.IdForm)
+                    foreach (var currentModule in currForm.Modules)
                     {
-                        foreach (var currentModule in currForm.Modules)
+                        foreach (var currentQuestion in currentModule.Questions)
                         {
-                            foreach (var currentQuestion in currentModule.Questions)
+                            foreach (var body in attestationAnswers)
                             {
-                                if (currentQuestion.Type == QuestionType.TextField)
+                                if (currentQuestion.IdQuestion == body.IdAttestationQuestion)
                                 {
-                                    currentQuestion.TextAnswer = body.TextAnswer;
-                                }
-                                else if (currentQuestion.Type == QuestionType.NumericalOptions || currentQuestion.Type == QuestionType.RadioButtons)
-                                {
-                                    foreach (var answer in currentQuestion.Answers)
+                                    if (body.IdAttestationAnswer != null)
                                     {
-                                        if (answer.IdAnswer == body.IdAttestationAnswer)
+                                        foreach (var answer in currentQuestion.Answers)
                                         {
-                                            answer.IsAnswered = true;
+                                            if (answer.IdAnswer == body.IdAttestationAnswer)
+                                            {
+                                                answer.IsAnswered = true;
+                                            }
                                         }
                                     }
-                                }
-                                else if (currentQuestion.Type == QuestionType.CheckBoxes)
-                                {
-                                    foreach (var answer in currentQuestion.Answers)
+                                    else
                                     {
-                                        if (answer.IdAnswer == body.IdAttestationAnswer)
-                                        {
-                                            answer.IsAnswered = true;
-                                        }
+                                        currentQuestion.TextAnswer = body.TextAnswer;
                                     }
                                 }
+                                            
                             }
+
                         }
                     }
                 }
             }
-
 
             return resultForm;
         }

@@ -14,7 +14,7 @@ namespace EvaluationSystem.API.Controllers
             _moduleQuestionsServices = moduleQuestionsServices;
         }
 
-        [HttpPost]
+        [HttpPost("{questionId}")]
         public IActionResult AddNewQuestionToModule(int moduleId, int questionId, int position)
         {
             _moduleQuestionsServices.AddQuestionToModule(moduleId, questionId, position);
