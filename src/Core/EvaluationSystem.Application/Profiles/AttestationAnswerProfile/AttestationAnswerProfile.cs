@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using EvaluationSystem.Application.Models.Answers.AnswersDtos;
-using EvaluationSystem.Application.Models.AttestationAnswers;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Models.AttestationAnswers;
+using EvaluationSystem.Application.Models.Answers.AnswersDtos;
 
 namespace EvaluationSystem.Application.Profiles.AttestationAnswerProfile
 {

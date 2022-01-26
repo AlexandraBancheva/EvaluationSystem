@@ -1,5 +1,5 @@
-﻿using EvaluationSystem.Application.Models.ModuleQuestions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using EvaluationSystem.Application.Models.ModuleQuestions;
 
 namespace EvaluationSystem.Application.Interfaces
 {

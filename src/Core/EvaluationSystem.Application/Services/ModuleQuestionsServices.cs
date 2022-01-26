@@ -3,18 +3,25 @@ using AutoMapper;
 using EvaluationSystem.Application.Interfaces;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Application.Models.ModuleQuestions;
+using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
 
 namespace EvaluationSystem.Application.Services
 {
     public class ModuleQuestionsServices : IModuleQuestionsServices
     {
         private readonly IModuleQuestionRepository _moduleQuestionRepository;
+        private readonly ICustomQuestionsRepository _customQuestionsRepository;
+        private readonly IQuestionRepository _questionRepository;
         private readonly IMapper _mapper;
 
-        public ModuleQuestionsServices(IModuleQuestionRepository moduleQuestionRepository, 
+        public ModuleQuestionsServices(IModuleQuestionRepository moduleQuestionRepository,
+                                       ICustomQuestionsRepository customQuestionsRepository,
+                                       IQuestionRepository questionRepository,
                                        IMapper mapper)
         {
             _moduleQuestionRepository = moduleQuestionRepository;
+            _customQuestionsRepository = customQuestionsRepository;
+            _questionRepository = questionRepository;
             _mapper = mapper;
         }
 
@@ -25,6 +32,16 @@ namespace EvaluationSystem.Application.Services
 
         public void DeleteQuestionFromModule(int moduleId, int questionId)
         {
+            var question = _customQuestionsRepository.GetCustomById(questionId);
+            var entity = _mapper.Map<CustomQuestionDetailDto>(question);
+            if (entity.IsReusable == true)
+            {
+                _customQuestionsRepository.RemovedQuestion(questionId);
+            }
+            else
+            {
+                _questionRepository.DeleteTemplateQuestion(questionId);
+            }
             _moduleQuestionRepository.DeleteQuestionFromModule(moduleId, questionId);
         }
          

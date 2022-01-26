@@ -25,7 +25,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public void DeleteQuestionFromModule(int moduleId, int questionId)
         {
-            var query = @"DELETE ModuleQuestion
+            var query = @"DELETE FROM ModuleQuestion
                             WHERE IdModule = @ModuleId AND IdQuestion = @QuestionId ";
 
             Connection.Execute(query, new { ModuleId = moduleId, QuestionId = questionId}, transaction: Transaction);

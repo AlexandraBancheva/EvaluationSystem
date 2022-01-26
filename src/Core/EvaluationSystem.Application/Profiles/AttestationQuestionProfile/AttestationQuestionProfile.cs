@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Models.UserAnswers;
 using EvaluationSystem.Application.Questions.QuestionsDtos;
 using EvaluationSystem.Application.Models.AttestationQuestions;
 using EvaluationSystem.Application.Models.Questions.QuestionsDtos;
-using EvaluationSystem.Application.Models.UserAnswers;
 
 namespace EvaluationSystem.Application.Profiles.AttestationQuestionProfile
 {
@@ -24,7 +24,6 @@ namespace EvaluationSystem.Application.Profiles.AttestationQuestionProfile
 
             CreateMap<QuestionDetailDto, AttestationQuestionDetailDto>();
 
-            // 25.01.2022
             CreateMap<UserAnswerBodyDto, AttestationQuestionUpdateDto>()
                 .ForMember(a => a.AttestationQuestionId, opts => opts.MapFrom(p => p.AttestationQuestionId))
                 .ForMember(r => r.AnswerText, opts => opts.MapFrom(t => t.AnswerText))

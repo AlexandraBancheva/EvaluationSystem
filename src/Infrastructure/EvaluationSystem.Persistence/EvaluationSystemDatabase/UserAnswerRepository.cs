@@ -74,7 +74,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             return result;
         }
 
-        public UserAnswer GetUserAnswerByAttestationId(int attestationId, int questionId) // If hasn't any textAnswer
+        public UserAnswer GetUserAnswerByAttestationId(int attestationId, int questionId)
         {
             var query = @"SELECT [at].Id, [am].Id AS IdAttestationModule, aq.Id AS IdAttestationQuestion
                         FROM [Attestation] AS [at]
@@ -91,7 +91,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
             return res;
         }
 
-        public UserAnswer GetUserAnswerTextFieldByAttestationId(int attestationId, int questionId) // If has some textAnswer
+        public UserAnswer GetUserAnswerTextFieldByAttestationId(int attestationId, int questionId)
         {
             var query = @"SELECT [at].Id, [am].Id AS IdAttestationModule, aq.Id AS IdAttestationQuestion, ua.IdUserParticipant, ua.TextAnswer
                               FROM[Attestation] AS[at]

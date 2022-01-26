@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using EvaluationSystem.Application.Models.AttestationForms;
-using EvaluationSystem.Application.Models.Forms;
-using EvaluationSystem.Application.Models.UserAnswers;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Models.Forms;
+using EvaluationSystem.Application.Models.AttestationForms;
 
 namespace EvaluationSystem.Application.Profiles.AttestationFormProfile
 {

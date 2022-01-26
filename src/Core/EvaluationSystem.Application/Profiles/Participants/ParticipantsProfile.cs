@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using EvaluationSystem.Application.Models.Participants;
 using EvaluationSystem.Application.Models.Users;
+using EvaluationSystem.Application.Models.Participants;
 
 namespace EvaluationSystem.Application.Profiles.Participants
 {

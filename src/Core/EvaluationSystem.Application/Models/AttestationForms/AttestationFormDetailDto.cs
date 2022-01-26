@@ -1,5 +1,5 @@
-﻿using EvaluationSystem.Application.Models.AttestationModules;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using EvaluationSystem.Application.Models.AttestationModules;
 
 namespace EvaluationSystem.Application.Models.AttestationForms
 {

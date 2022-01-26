@@ -32,7 +32,7 @@ namespace EvaluationSystem.Application.Services
                 throw new InvalidOperationException($"Question with this id {questionId} do not exist!");
             }
 
-            AnswerTemplate current = new AnswerTemplate();
+            var current = new AnswerTemplate();
             foreach (var answer in model.Answers)
             {
                 current = _mapper.Map<AnswerTemplate>(answer);
@@ -67,7 +67,7 @@ namespace EvaluationSystem.Application.Services
             var isExistFormModule = _answerRepository.CheckFormIdModuleIdQuestionId(formId, moduleId, questionId);
             if (isExistFormModule == null)
             {
-                throw new Exception("Invalid form or module.");
+                throw new InvalidOperationException("Invalid form or module.");
             }
 
             var allAnswerTemplates = CreateAnswer(questionId, model);
@@ -80,7 +80,7 @@ namespace EvaluationSystem.Application.Services
             var isExistFormModuleQuestion = _answerRepository.CheckFormIdModuleIdQuestionIdAnswerId(formId, moduleId, questionId, answerId);
             if (isExistFormModuleQuestion == null)
             {
-                throw new Exception("Invalid form or module or question.");
+                throw new InvalidOperationException("Invalid form or module or question.");
             }
 
             var curEntity = _answerRepository.GetById(answerId);
@@ -92,7 +92,7 @@ namespace EvaluationSystem.Application.Services
             var isExist = _answerRepository.CheckQuestionIdAnswerId(questionId, answerId);
             if (isExist == null)
             {
-                throw new Exception("Invalid questionId or answerId.");
+                throw new InvalidOperationException("Invalid questionId or answerId.");
             }
             var entity = _answerRepository.GetById(answerId);
             _answerRepository.Delete(entity);
@@ -120,7 +120,7 @@ namespace EvaluationSystem.Application.Services
             var isExistFormModule = _answerRepository.CheckFormIdModuleIdQuestionId(formId, moduleId, questionId);
             if (isExistFormModule == null)
             {
-                throw new Exception("Invalid form or module.");
+                throw new InvalidOperationException("Invalid form or module.");
             }
 
             var res = UpdateAnswer(questionId, answerId, model);

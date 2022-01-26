@@ -1,5 +1,5 @@
-﻿using EvaluationSystem.Application.Models.Modules.ModulesDtos;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using EvaluationSystem.Application.Models.Modules.ModulesDtos;
 
 namespace EvaluationSystem.Application.Models.FormModules
 {

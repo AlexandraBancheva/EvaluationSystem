@@ -1,6 +1,4 @@
-﻿using EvaluationSystem.Domain.Enums;
-
-namespace EvaluationSystem.Application.Models.Participants
+﻿namespace EvaluationSystem.Application.Models.Participants
 {
     public class ParticipantDetailDto
     {

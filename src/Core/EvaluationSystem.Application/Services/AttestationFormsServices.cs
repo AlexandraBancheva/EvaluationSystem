@@ -303,20 +303,5 @@ namespace EvaluationSystem.Application.Services
                 }
             }
         }
-
-        public static bool CheckIfFormNameExists(string formName, IAttestationFormRepository attestationFormRepository)
-        {
-            var allNames = attestationFormRepository.GetAllFormNames();
-
-            foreach (var name in allNames)
-            {
-                if (name.Name == formName)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
     }
 }

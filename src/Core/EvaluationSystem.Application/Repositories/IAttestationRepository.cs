@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using EvaluationSystem.Application.Models.Attestations;
 using EvaluationSystem.Domain.Entities;
+using EvaluationSystem.Application.Models.Attestations;
 
 namespace EvaluationSystem.Application.Repositories
 {

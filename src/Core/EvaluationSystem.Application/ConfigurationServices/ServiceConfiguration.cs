@@ -1,7 +1,7 @@
-﻿using EvaluationSystem.Application.Interfaces;
-using EvaluationSystem.Application.Models.Users;
-using EvaluationSystem.Application.Services;
+﻿using EvaluationSystem.Application.Services;
+using EvaluationSystem.Application.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using EvaluationSystem.Application.Models.Users;
 
 namespace EvaluationSystem.Application.ConfigurationServices
 {

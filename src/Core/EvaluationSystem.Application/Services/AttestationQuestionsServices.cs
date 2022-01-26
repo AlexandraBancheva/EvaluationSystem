@@ -39,7 +39,6 @@ namespace EvaluationSystem.Application.Services
             _attestationQuestionRepository.DeleteQuestion(questionId);
         }
 
-        // It is not necessary
         public CustomQuestionDetailDto GetCustomQuestionById(int questionId)
         {
             var currentEntity = _attestationQuestionRepository.GetById(questionId);

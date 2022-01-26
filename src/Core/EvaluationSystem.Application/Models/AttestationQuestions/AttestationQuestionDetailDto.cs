@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using EvaluationSystem.Application.Models.AttestationAnswers;
 using EvaluationSystem.Domain.Enums;
+using EvaluationSystem.Application.Models.AttestationAnswers;
 
 namespace EvaluationSystem.Application.Models.AttestationQuestions
 {

@@ -116,7 +116,6 @@ namespace EvaluationSystem.Application.Services
             }
         }
 
-
         public ICollection<AttestationFormDetailDto> GetAttestationAnswerByUser(int attestationId, string userEmail)
         {
             var attestation = _attestationRepository.GetById(attestationId);

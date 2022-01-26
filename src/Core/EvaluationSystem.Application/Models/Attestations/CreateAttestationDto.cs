@@ -1,5 +1,5 @@
-﻿using EvaluationSystem.Application.Models.Users;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using EvaluationSystem.Application.Models.Users;
 
 namespace EvaluationSystem.Application.Models.Attestations
 {

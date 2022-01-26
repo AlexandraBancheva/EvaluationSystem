@@ -1,6 +1,6 @@
-﻿using EvaluationSystem.Application.Models.Participants;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using EvaluationSystem.Application.Models.Participants;
 
 namespace EvaluationSystem.Application.Models.Attestations
 {

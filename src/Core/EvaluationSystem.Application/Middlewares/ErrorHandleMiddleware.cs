@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Text.Json;
 using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using EvaluationSystem.Application.Exceptions;
 using EvaluationSystem.Application.Models.Errors;
 using EvaluationSystem.Application.Repositories;
-using FluentValidation;
 
 namespace EvaluationSystem.Application.Middlewares
 {

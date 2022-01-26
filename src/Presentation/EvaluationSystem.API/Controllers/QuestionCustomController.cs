@@ -21,5 +21,12 @@ namespace EvaluationSystem.API.Controllers
             var result = _questionsCustomServices.CreateNewQuestion(moduleId, position, model);
             return Ok(result);
         }
+
+        //[HttpDelete("{questionId}")]
+        //public IActionResult DeleteCustomQuestion(int moduleId, int questionId)
+        //{
+        //    _questionsCustomServices.DeleteCustomQuestion(questionId);
+        //    return NoContent();
+        //}
     }
 }

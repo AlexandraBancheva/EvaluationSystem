@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel;
+using System.Collections.Generic;
 using EvaluationSystem.Domain.Enums;
 using EvaluationSystem.Application.Models.Answers.AnswersDtos;
-using System.ComponentModel;
 
 namespace EvaluationSystem.Application.Models.Questions.QuestionsDtos
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using EvaluationSystem.Application.Models.Participants;
 using EvaluationSystem.Domain.Enums;
+using EvaluationSystem.Application.Models.Participants;
 
 namespace EvaluationSystem.Application.Models.Attestations
 {

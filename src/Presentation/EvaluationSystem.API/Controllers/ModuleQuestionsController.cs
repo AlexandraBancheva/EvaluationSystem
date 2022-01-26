@@ -21,7 +21,7 @@ namespace EvaluationSystem.API.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{questionId}")]
         public IActionResult DeleteQuestionFromModule(int moduleId, int questionId)
         {
             _moduleQuestionsServices.DeleteQuestionFromModule(moduleId, questionId);
