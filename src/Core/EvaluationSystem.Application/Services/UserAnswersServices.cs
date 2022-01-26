@@ -38,55 +38,65 @@ namespace EvaluationSystem.Application.Services
 
         public void Create(CreateUserAnswerDto model)
         {
-            var answeredAttestation = GetAttestationAnswerByUser(model.IdAttestation, _currentUser.Email);
-
-            foreach (var form in answeredAttestation)
+            var checkStatus = _userAnswerRepository.CheckParticipantStatusIsDone(model.IdAttestation);
+            if (checkStatus.Status == "Done")
             {
-                foreach (var module in form.Modules)
-                {
-                    foreach (var body in model.Body)
-                    {
-                        var userAnswer = new UserAnswer
-                        {
-                            IdAttestation = model.IdAttestation,
-                            IdUserParticipant = _currentUser.Id,
-                            IdAttestationModule = body.AttestationModuleId,
-                            IdAttestationQuestion = body.AttestationQuestionId,
-                        };
+                throw new InvalidOperationException("Your attestation has been filled in. You cannot change answers!");
+            }
+            else
+            {
+                var answeredAttestation = GetAttestationAnswerByUser(model.IdAttestation, _currentUser.Email);
 
-                        if (module.IdModule == body.AttestationModuleId)
+                foreach (var form in answeredAttestation)
+                {
+                    foreach (var module in form.Modules)
+                    {
+                        foreach (var body in model.Body)
                         {
-                            foreach (var question in module.Questions)
+                            if (module.IdModule == body.AttestationModuleId)
                             {
-                                if (question.IdQuestion == body.AttestationQuestionId)
+                                var userAnswer = new UserAnswer
                                 {
-                                    var updateUserAnswers = new AttestationQuestionUpdateDto();
-                                    if (question.Type == QuestionType.TextField)
+                                    IdAttestation = model.IdAttestation,
+                                    IdUserParticipant = _currentUser.Id,
+                                    IdAttestationModule = body.AttestationModuleId,
+                                    IdAttestationQuestion = body.AttestationQuestionId,
+                                };
+                                if (module.IdModule == body.AttestationModuleId)
+                                {
+                                    foreach (var question in module.Questions)
                                     {
-                                        if (question.TextAnswer != body.AnswerText)
+                                        if (question.IdQuestion == body.AttestationQuestionId)
                                         {
-                                            updateUserAnswers = _mapper.Map<AttestationQuestionUpdateDto>(body);
-                                            _attestationFormsServices.UpdateUserAnswer(userAnswer.IdAttestation, updateUserAnswers);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        var flag = !question.Answers.Any(a => a.IsAnswered == true);
-                                        if (flag)
-                                        {
-                                            updateUserAnswers = _mapper.Map<AttestationQuestionUpdateDto>(body);
-                                            _attestationFormsServices.UpdateUserAnswer(userAnswer.IdAttestation, updateUserAnswers);
-                                        }
-                                        else
-                                        {
-                                            foreach (var answer in question.Answers)
+                                            var updateUserAnswers = new AttestationQuestionUpdateDto();
+                                            if (question.Type == QuestionType.TextField)
                                             {
-                                                foreach (var answerId in body.AnswerIds)
+                                                if (question.TextAnswer != body.AnswerText)
                                                 {
-                                                    if (answer.IdAnswer != answerId)
+                                                    updateUserAnswers = _mapper.Map<AttestationQuestionUpdateDto>(body);
+                                                    _attestationFormsServices.UpdateUserAnswer(userAnswer.IdAttestation, updateUserAnswers);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                var flag = !question.Answers.Any(a => a.IsAnswered == true);
+                                                if (flag)
+                                                {
+                                                    updateUserAnswers = _mapper.Map<AttestationQuestionUpdateDto>(body);
+                                                    _attestationFormsServices.UpdateUserAnswer(userAnswer.IdAttestation, updateUserAnswers);
+                                                }
+                                                else
+                                                {
+                                                    foreach (var answer in question.Answers)
                                                     {
-                                                        updateUserAnswers = _mapper.Map<AttestationQuestionUpdateDto>(body);
-                                                        _attestationFormsServices.UpdateUserAnswer(userAnswer.IdAttestation, updateUserAnswers);
+                                                        foreach (var answerId in body.AnswerIds)
+                                                        {
+                                                            if (answer.IdAnswer != answerId)
+                                                            {
+                                                                updateUserAnswers = _mapper.Map<AttestationQuestionUpdateDto>(body);
+                                                                _attestationFormsServices.UpdateUserAnswer(userAnswer.IdAttestation, updateUserAnswers);
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
@@ -97,13 +107,13 @@ namespace EvaluationSystem.Application.Services
                         }
                     }
                 }
+                var isAnswered = CheckIfAllQuestionsAreAnswered(model.IdAttestation, _currentUser.Email);
+                if (isAnswered == false)
+                {
+                    throw new InvalidOperationException("Some questions are not answered!");
+                }
+                _userAnswerRepository.ChangeStatusToDone(model.IdAttestation, _currentUser.Id);
             }
-            var isAnswered = CheckIfAllQuestionsAreAnswered(model.IdAttestation, _currentUser.Email); 
-            if (isAnswered == false)
-            {
-                throw new InvalidOperationException("Some questions are not answered!");
-            }
-            _userAnswerRepository.ChangeStatusToDone(model.IdAttestation, _currentUser.Id);
         }
 
 

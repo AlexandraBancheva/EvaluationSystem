@@ -19,6 +19,8 @@ namespace EvaluationSystem.Application.Repositories
 
         UserAnswer GetUserAnswerTextFieldByAttestationId(int attestationId, int questionId); // 24.01.2022
 
+        AttestationParticipant CheckParticipantStatusIsDone(int attestionId); // 26.01.2022
+
         ICollection<UserAnswer> GetAllAnswersByUser(int attestationId, int userId);
 
         ICollection<UserAnswer> GetAllUserAnswerWhenCheckBoxes(int attestationId, int questionId); // 24.10.2022

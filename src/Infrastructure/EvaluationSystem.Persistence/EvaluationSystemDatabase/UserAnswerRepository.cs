@@ -116,5 +116,16 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 
             Connection.Execute(query, new { Id = id }, transaction: Transaction);
         }
+
+        public AttestationParticipant CheckParticipantStatusIsDone(int attestionId)
+        {
+            var query = @"SELECT * 
+                        FROM AttestationParticipant
+                        WHERE IdAttestation = @IdAttestation";
+
+            var res = Connection.QueryFirstOrDefault<AttestationParticipant>(query, new { IdAttestation = attestionId }, transaction: Transaction);
+
+            return res;
+        }
     }
 }
