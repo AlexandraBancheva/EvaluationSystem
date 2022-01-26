@@ -160,6 +160,12 @@ namespace EvaluationSystem.Application.Services
 
         public void UpdateUserAnswer(int attestationId, AttestationQuestionUpdateDto model)
         {
+            var checkStatus = _userAnswerRepository.CheckParticipantStatusIsDone(attestationId);
+            if (checkStatus.Status == "Done")
+            {
+                throw new InvalidOperationException("Your attestation has been filled in. You cannot change answers!");
+            }
+
             var question = _attestationQuestionRepository.GetById(model.AttestationQuestionId);
             var usersAnswers = new List<UserAnswer>();
             var userAnswer = new UserAnswer();
