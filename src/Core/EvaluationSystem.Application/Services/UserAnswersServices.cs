@@ -8,6 +8,7 @@ using EvaluationSystem.Application.Models.UserAnswers;
 using EvaluationSystem.Application.Repositories;
 using EvaluationSystem.Domain.Enums;
 using EvaluationSystem.Application.Models.AttestationQuestions;
+using System.Linq;
 
 namespace EvaluationSystem.Application.Services
 {
@@ -70,14 +71,23 @@ namespace EvaluationSystem.Application.Services
                                     }
                                     else
                                     {
-                                        foreach (var answer in question.Answers)
+                                        var flag = !question.Answers.Any(a => a.IsAnswered == true);
+                                        if (flag)
                                         {
-                                            foreach (var answerId in body.AnswerIds)
+                                            updateUserAnswers = _mapper.Map<AttestationQuestionUpdateDto>(body);
+                                            _attestationFormsServices.UpdateUserAnswer(userAnswer.IdAttestation, updateUserAnswers);
+                                        }
+                                        else
+                                        {
+                                            foreach (var answer in question.Answers)
                                             {
-                                                if (answer.IdAnswer != answerId)
+                                                foreach (var answerId in body.AnswerIds)
                                                 {
-                                                    updateUserAnswers = _mapper.Map<AttestationQuestionUpdateDto>(body);
-                                                    _attestationFormsServices.UpdateUserAnswer(userAnswer.IdAttestation, updateUserAnswers);
+                                                    if (answer.IdAnswer != answerId)
+                                                    {
+                                                        updateUserAnswers = _mapper.Map<AttestationQuestionUpdateDto>(body);
+                                                        _attestationFormsServices.UpdateUserAnswer(userAnswer.IdAttestation, updateUserAnswers);
+                                                    }
                                                 }
                                             }
                                         }
@@ -88,8 +98,11 @@ namespace EvaluationSystem.Application.Services
                     }
                 }
             }
-            // Maybe other checks?!! Checks if all questions are answered!!!
-            CheckIfAllQuestionsAreAnswered(answeredAttestation); // Checks!!!
+            var isAnswered = CheckIfAllQuestionsAreAnswered(model.IdAttestation, _currentUser.Email); 
+            if (isAnswered == false)
+            {
+                throw new InvalidOperationException("Some questions are not answered!");
+            }
             _userAnswerRepository.ChangeStatusToDone(model.IdAttestation, _currentUser.Id);
         }
 
@@ -146,13 +159,33 @@ namespace EvaluationSystem.Application.Services
             _userAnswerRepository.DeleteUserAnswerByAttestationId(attestationId);
         }
 
-        private bool CheckIfAllQuestionsAreAnswered(ICollection<AttestationFormDetailDto> userAnswers)
+        private bool CheckIfAllQuestionsAreAnswered(int attestationId, string emailUser)
         {
-            foreach (var form in userAnswers)
+            var getAttestationAnswers = GetAttestationAnswerByUser(attestationId, emailUser);
+            foreach (var form in getAttestationAnswers)
             {
-
+                foreach (var module in form.Modules)
+                {
+                    foreach (var question in module.Questions)
+                    {
+                        if (question.Type == QuestionType.TextField)
+                        {
+                            if (question.TextAnswer == null)
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            var anyAnswers = question.Answers.Any(a => a.IsAnswered == true);
+                            if (anyAnswers == false)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
             }
-
             return true;
         }
     }
