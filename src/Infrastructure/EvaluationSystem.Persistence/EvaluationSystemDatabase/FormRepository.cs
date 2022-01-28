@@ -30,7 +30,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public ICollection<FormWithAllDto> GetAllForms()
         {
-            var query = @"SELECT ft.Id AS Id, ft.[Name], mt.Id AS IdModule, mt.[Name], fm.Position, qt.Id AS IdQuestion, qt.[Name], qt.DateOfCreation, qt.[Type], qt.IsReusable, mq.Position, [at].Id AS IdAnswer, [at].AnswerText, [at].IsDefault, [at].Position
+            var query = @"SELECT DISTINCT ft.Id AS Id, ft.[Name], mt.Id AS IdModule, mt.[Name], fm.Position, qt.Id AS IdQuestion, qt.[Name], qt.DateOfCreation, qt.[Type], qt.IsReusable, mq.Position, [at].Id AS IdAnswer, [at].AnswerText, [at].IsDefault, [at].Position
                             FROM FormTemplate AS ft
                             LEFT JOIN FormModule AS fm ON fm.IdForm = ft.Id
                             LEFT JOIN ModuleTemplate AS mt ON fm.IdModule = mt.Id
@@ -82,7 +82,7 @@ namespace EvaluationSystem.Persistence.QuestionDatabase
 
         public ICollection<FormWithAllDto> GetAllByFormId(int formId)
         {
-            var query = @"SELECT ft.Id AS Id, ft.[Name], mt.Id AS IdModule, mt.[Name], fm.Position, qt.Id AS IdQuestion, qt.[Name], qt.DateOfCreation, qt.[Type], qt.IsReusable, mq.Position, [at].Id AS IdAnswer, [at].AnswerText, [at].IsDefault, [at].Position
+            var query = @"SELECT DISTINCT ft.Id AS Id, ft.[Name], mt.Id AS IdModule, mt.[Name], fm.Position, qt.Id AS IdQuestion, qt.[Name], qt.DateOfCreation, qt.[Type], qt.IsReusable, mq.Position, [at].Id AS IdAnswer, [at].AnswerText, [at].IsDefault, [at].Position
                             FROM FormTemplate AS ft
                             LEFT JOIN FormModule AS fm ON fm.IdForm = ft.Id
                             LEFT JOIN ModuleTemplate AS mt ON fm.IdModule = mt.Id

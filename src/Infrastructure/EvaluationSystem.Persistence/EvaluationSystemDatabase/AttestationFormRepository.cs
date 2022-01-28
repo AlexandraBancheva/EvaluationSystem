@@ -31,7 +31,7 @@ namespace EvaluationSystem.Persistence.EvaluationSystemDatabase
 
         public ICollection<FormWithAllDto> GetAllByFormId(int formId)
         {
-            var query = @"SELECT ft.Id AS Id, ft.[Name], mt.Id AS IdModule, mt.[Name], fm.Position, qt.Id AS IdQuestion, qt.[Name], qt.DateOfCreation, qt.[Type], qt.IsReusable, mq.Position, [at].Id AS IdAnswer, [at].AnswerText, [at].IsDefault, [at].Position
+            var query = @"SELECT DISTINCT ft.Id AS Id, ft.[Name], mt.Id AS IdModule, mt.[Name], fm.Position, qt.Id AS IdQuestion, qt.[Name], qt.DateOfCreation, qt.[Type], qt.IsReusable, mq.Position, [at].Id AS IdAnswer, [at].AnswerText, [at].IsDefault, [at].Position
                             FROM AttestationForm AS ft
                             JOIN AttestationFormModule AS fm ON fm.IdAttestationForm = ft.Id
                             JOIN AttestationModule AS mt ON fm.IdAttestationModule = mt.Id
